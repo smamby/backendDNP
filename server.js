@@ -11,7 +11,7 @@ const URI = 'mongodb://mongo:8FGSxPmqvB72YEVeHNZd@containers-us-west-114.railway
 
 db(URI);
 
-const port = process.env.PORT || 5500
+const port = process.env.PORT || 80
 
 const whiteList = ['http://localhost:3000', 'http://localhost:5500', 'http://127.0.0.1:5500']
 //{origin: whiteList}
