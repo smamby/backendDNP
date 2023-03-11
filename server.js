@@ -7,7 +7,7 @@ const routes = require('./routes/routes');
 routes(app);
 
 const db = require('./db');
-const URI = 'mongodb://0.0.0.0:27017/DNP';
+const URI = 'mongodb://mongo:8FGSxPmqvB72YEVeHNZd@containers-us-west-114.railway.app:7004';
 
 db(URI);
 
