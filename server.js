@@ -6,7 +6,7 @@ const cors = require('cors');
 const routes = require('./routes/routes');
 
 const db = require('./db');
-const URI = 'mongodb://mongo:8FGSxPmqvB72YEVeHNZd@containers-us-west-114.railway.app:7004';
+const URI = 'mongodb://localhost:27017/';
 
 db(URI);
 
