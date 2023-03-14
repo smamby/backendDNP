@@ -6,11 +6,11 @@ const cors = require('cors');
 const routes = require('./routes/routes');
 
 const db = require('./db');
-const URI = 'mongodb://localhost:27017/DNP';
+const URI = 'mongodb://mongo:8FGSxPmqvB72YEVeHNZd@containers-us-west-114.railway.app:7004';
 
 db(URI);
 
-const port = 5500
+const port = process.env.PORT || 5500
 
 const whiteList = ['http://localhost:3000', 'http://localhost:5500', 'http://127.0.0.1:5500']
 //{origin: whiteList}
