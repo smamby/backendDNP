@@ -3,16 +3,16 @@ const Schema = mongoose.Schema;
 
 const reciboSchema = new Schema({
     numeroRecibo: Number,
-    fechaRecibo: Date,
+    fechaRecibo: String,
     propietario: String,
     inquilino: String,
     montoAlquiler: Number,
-    fechaVencimiento: Date,
+    fechaVencimiento: String,
     textoTotal: String,
     detalles: Array,
     observaciones: String,
     tipoHonorarios: String,
-    idContrato:String
+    idContrato: Number
 })
 
 const Model = mongoose.model('Recibo', reciboSchema);

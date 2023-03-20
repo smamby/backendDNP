@@ -49,7 +49,7 @@ async function editRecibo(searchParam,change){
         recibo.tipoHonorarios = change.tipoHonorarios;
     }
     if(change.idContrato){
-        recibo[0].idContrato = change.idContrato;
+        recibo.idContrato = change.idContrato;
     }
     await recibo.save()
     //await reciboEncontrado.save()

@@ -6,7 +6,7 @@ router.get('/:num', (req,res)=>{
     controller.get(req.params.num)
     .then((contratoEncontrado)=>{
       if(contratoEncontrado.length===0){
-        res.send('El contrato no existe')
+        res.send(contratoEncontrado).status(404)
       } else {
         res.send(contratoEncontrado).status(200)
       }
@@ -14,9 +14,10 @@ router.get('/:num', (req,res)=>{
 })
 
 router.post('/', (req,res)=>{
-  controller.add(body)
+  console.log(req.body)
+  controller.add(req.body)
     .then((dataContrato)=>{
-      res.json(body)
+      res.json(dataContrato)
     })
     .catch((error)=>{
       res.send(error)
@@ -24,7 +25,7 @@ router.post('/', (req,res)=>{
 })
 
 router.patch('/:num', (req,res)=>{
-  controller.edit(req.params.num,patchBody)
+  controller.edit(req.params.num,req.body)
     .then((contrato)=>{
       res.json(contrato)
     })

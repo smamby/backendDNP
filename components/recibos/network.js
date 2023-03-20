@@ -48,8 +48,8 @@ router.post('/', (req,res)=>{
 // }
 
 router.patch('/:num', (req,res)=>{
-    console.log('[network]',patchRecibo);
-    controller.editRecibo(req.params.num, patchRecibo)
+    console.log('[network]',req.body);
+    controller.editRecibo(req.params.num, req.body)
         .then((change)=>{
             res.json(change) 
         })
