@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" media="all" href="./styles/style.css">
+    <link rel="stylesheet" media="all" href="./styles/inq.css">
+    <title>dNP</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+</head>
+<body>    
+    <div class="logo" style="display: flex; align-items: center;margin-right: auto; margin-left: auto;">
+        <img style="width: 40px;" src="./assets/logo.png" alt="">
+        <img style="width: 150px; margin-left: 24px;" id="isotipo" src="./assets/isotipo.png" alt="">
+    </div>
+    <!-- <h2>Datos de operacion</h2> -->
+    
+    <div class="inbody-index">
+        <section class="guardar">
+            <p>Cargar datos</p>
+            <div id="themeDiv">
+                <!-- <input type="button" value="Guardar" onclick="guardarInfo()"> -->
+                <input id="cargar" type="button" value="Indice Contratos" onclick="indiceContratos()">
+                <button onclick="styleDark()" id="theme"><img id="img" src="./assets/btnThemeRandom.png" alt=""> </button>
+                <button onclick="randomColor()" id="randomColor"></button>
+            </div>
+            <div id="imprimir">
+
+            </div>
+            <section class="cont-buscar"><p>Buscar contrato</p>
+                <div class="buscar">
+                    <input type="number" id="buscarInput" placeholder="id del contrato">
+                    <input type="button" value="buscar" onclick="buscar()">        
+                </div>    
+                <div class="buscar">
+                    <input type="number" id="buscarRecibo" placeholder="N° recibo">
+                    <input type="button" value="buscar" onclick="buscarRecibo()">
+                </div>
+            
+        </section>
+        <form action="" id="operaciones">
+        <div id="cabecera">
+            <h4>Personas intervinientes</h4>
+            <input id="btnEditar" type="button" value="Editar" class="btnAlert" onclick="editarContrato(contratoLevantado)">
+            <input id="btnBorrar" type="button" value="Borrar" class="btnAlert" onclick="borrarContrato()">
+            <input id="btn" type="button" class="btnAlert" value="Crear" onclick="check()">
+        </div>
+
+        <div id="personas" style="display: flex;">        
+            <div id="propietario">Propietario<br>
+                <input type="text" id="nombreP" class="nombreP" name="nombreP" placeholder="Nombre">
+                <input type="text" id="apellidoP" class="apellidoP" name="apellidoP" placeholder="Apellido">
+                <input type="text" id="dniP" class="dniP" name="dniP" placeholder="DNI">
+                <input type="text" id="cbuP" class="cbuP" name="cbuP" placeholder="CBU">
+                <input type="number" id="celularP" class="celularP" name="celularP" placeholder="Celular">
+                <input type="email" id="emailP" class="emailP" name="emailP" placeholder="Email">
+                <input type="text" name="direccionP" id="direccionP" placeholder="Direccion">            
+            </div>
+            <div id="inquilino">Inquilino<br>
+                <input type="text" id="nombreI" class="nombreI" name="nombreI" placeholder="Nombre">
+                <input type="text" id="apellidoI" class="apellidoI" name="apellidoI" placeholder="Apellido">
+                <input type="text" id="dniI" class="dniI" name="dniI" placeholder="DNI">
+                <input type="text" id="cbuI" class="cbuI" name="cbuI" placeholder="CBU">
+                <input type="number" id="celularI" class="celularI" name="celularI" placeholder="Celular">
+                <input type="email" id="emailI" class="emailI" name="emailI" placeholder="Email">
+                <input type="text" name="garantiaI" id="garantiaI" placeholder="Garantia">            
+            </div>
+        </div>
+        <h2></h2>
+        <div class="title-dep">
+            <h4>Datos del departamento</h4>
+        </div> 
+        <div id="depto">
+            <div class="att-dep">
+                <div class="col-dep">
+                    <input type="number" id="idContrato" class="idContrato" placeholder="id Contrato">
+                    <input type="text" id="direccion" class="direccion" name="direccion" placeholder="direccion">
+                    <input type="text" name="descripcion" id="descripcion" placeholder="descripcion">
+                    <input type="text" name="observaciones" id="observaciones" placeholder="observaciones">
+                    <input type="text" name="obligacionesInq" id="obligacionesInq" placeholder="Obligaciones Inquilino">
+                </div>
+                <div class="col-dep">
+                    <input type="number" id="valor1" class="valor1" name="valor1" placeholder="valor Alquiler">
+                    <input type="number" id="valor2" class="valor2" name="valor2" placeholder="valor 2do año">
+                    <input type="number" id="valor3" class="valor3" name="valor3" placeholder="valor 3er año">
+                    <a id="calc" href="https://cabaprop.com.ar/calculadora.php" target="_blank" rel="noreferrer nopener">Calculadora</a>
+                    <input type="date" id="inicioContrato" class="inicioContrato" name="inicioContrato" placeholder="inicioContrato">            
+                </div> 
+            </div>    
+                    
+            <!-- <div class="subirArchivos">
+                <label for="contrato">Contrato</label>
+                <input type="file" name="contrato" id="contratoFile" value="subir contrato"><br>
+                <label for="imagenes">Imagenes</label>
+                <input type="file" name="imagenes" id="imagenesFile" value="subir imagenes">
+            </div> -->
+            
+        </div>    
+        <!-- <input type="submit" value="Sumit" id="sumitbtn"> -->
+        <!-- <input type="button" value="Enter" > -->
+        
+
+        <!-- <button id="btninq" type="button" onclick="location.href='./inq.html'">Inquil.</a></button>
+        <button id="btnprop" type="button" onclick="location.href='./prop.html'">Prop.</a></button> -->
+        </form>
+
+        <h1></h1>
+        <!-- <h4>Contrato</h4> -->
+        
+        </section>
+    </div>
+    
+    <div class="inbody-inq" id="inbody-inq" name="inbody-inq">
+        <!-- <h1>Recibo Inquilino</h1> -->
+        <header>
+            <p id="firstText">Cobranzas de alquiler por cuenta y orden de terceros</p>
+            <div class="cont cont-head">
+                <div class="cont cont-info">
+                    <div class="cont cont-logo">
+                        <img id="logo" src="./assets/logo.png" alt="">
+                        <img id="isotipo" src="./assets/isotipo.png" alt="">                    
+                    </div>
+                    <p id="ad-al">Administracion de alquileres</p>
+                    <div class="cont cont-data">
+                        <p>de Zita Mónica Sorbilli</p>
+                        <p>Pje.Anibal Troilo 972 PB "B"</p>
+                        <p>Tel.: 4862 -4088</p>
+                        <p>1425 Capital Federal</p>
+                    </div>
+                </div>
+                <div class="cont cont-num">
+                    <div class="cont-n cont-numero" id="numero">N° 0000<p id="num">
+                        <!-- <input type="number" name="numInput" id="numInput"> -->
+                    </p></div>
+                    <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="date">
+                        <!-- <input type="date" name="dateInput" id="dateInput"> -->
+                    </p></div>
+                </div>
+            </div>
+        </header>
+        <div class="bodier">
+            <div class="inquilino">
+                <p>Señor: <span id="senior"></span></p>
+                <p>Domicilio: <span id="domicilio"></span></p>
+            </div>
+            <div class="cuerpo recibi">
+                <p>Recibí la suma de <span id="pesosLetra"></span> pesos en concepto de pago de alquiler del departamento ubicado en el domicilio arriba sitado.</p> 
+                <p>Vence: <input type="date" name="vence" id="vence"><span id="vencePrint"></span></p>      
+            </div>
+            <p class="detalle-title" ><u>Detalle de pago de alquiler:</u></p>
+            <div class="inputs">
+                <input type="text" name="nuevoGasto" id="nuevoGasto">
+                <input type="text" name="nuevoMonto" id="nuevoMonto">
+                <button id="insertar" onclick="insertarDetalles()">Insertar</button>
+                <button id="delDetalle" onclick="deleteDetalle()">Borrar</button>
+            </div>  
+            <div class="cont-detalle-Alq">
+                <div class="cuerpo detalle">
+                    <p>Alquiler correspondiente a <span id="mes-alq"></span> 
+                        <!-- <input type="text" name="mesAlq" id="mesAlq"> -->
+                    </p>               
+                </div>
+                <div class="montos">
+                    <P><span id="monto-alq"></span></P>
+                </div>            
+            </div>
+            <div id="cont-new-det">
+                <div class="cont-detalle" id="cont-detalle">
+
+                </div>
+                <div class="cont-montos" id="cont-montos">
+                    
+                </div> 
+            </div>
+            <!-- <div class="cont-detalle">
+                <div class="cuerpo detalle" id="cuerpo-det">
+                    <p>Expensas extraordinarias: frente, andamios, terraza, despido del portero</p>               
+                </div>
+                <div class="montos">
+                    <p id="monto">$3000</p>
+                </div>            
+            </div>
+            <div class="cont-detalle">
+                <div class="cuerpo detalle">
+                    <p>Expensas extraordinarias</p>               
+                </div>
+                <div class="montos">
+                    <span class="monto">$300</span>
+                </div>            
+            </div> -->
+            <div class="cont-totales">
+                <div class="total-text">
+                    <p id="total-label">TOTAL</p>
+                </div>
+                <div class="cont-total-det">
+                    <span id="total"></span>
+                </div>            
+            </div>
+            <div class="observaciones">
+                <p>Observaciones: <span id="observacionesPrint"></span></p>
+                <textarea name="observaciones" id="observacionesInput" cols="60" rows="2">Recibí los comprobantes de pago de </textarea>
+                <p>Por cuenta del Locador Sr./a: <span id="locadorPrint"></span></p>
+                <!-- <input type="text" name="locador" id="locador"> -->
+            </div>
+            <div class="cont-firma-total">
+                <div class="cont-total">
+                    <p>Total  <span id="total-final"></span></p>
+                </div>
+                <div class="cont-firma">
+                    <p><img id="firma" src="./assets/firma.png" alt="">  </p>
+                    <p>Zita Mónica Sorbilli</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+    
+        </footer>    
+    </div>
+    <div class="impInq">
+        <button id="imp" class="uni" onclick="impInq()">Calcul.</button>
+        <button id="imp" class="uni pdf" onclick="imprimirBoletaPDF()">Imp. PDF</button>
+        <button id="imp" onclick="imprimirBoleta('inbody-inq')">Imp.</button>
+        <button id="nuevo" onclick="nuevo()">Nuevo</button>
+        <button id="mail" role="link" onclick="sendEmail('inbody-inq')">Email</button>
+    </div>
+    
+    <div class="inbody-prop" id="inbody-prop">
+    <!-- <h1>Recibo Inquilino</h1> -->
+    <header>
+        <p id="firstText">Cobranzas de alquiler por cuenta y orden de terceros</p>
+        <div class="cont cont-head">
+            <div class="cont cont-info">
+                <div class="cont cont-logo">
+                    <img id="logo" src="./assets/logo.png" alt="">
+                    <img id="isotipo" src="./assets/isotipo.png" alt="">                    
+                </div>
+                <p id="ad-al">Administracion de alquileres</p>
+                <div class="cont cont-data">
+                    <p>de Zita monica Sorbilli</p>
+                    <p>Pje.Anibal Troilo 972 PB "B"</p>
+                    <p>Tel.: 4862 -4088</p>
+                    <p>1425 Capital Federal</p>
+                </div>
+            </div>
+            <div class="cont cont-num">
+                <div class="cont-n cont-numero" id="numero">N° 0000<span id="numProp"></span>
+                    <!-- <input type="number" name="numInput" id="numInput"> -->
+                </div>
+                <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="dateProp">
+                    <!-- <input type="date" name="dateInput" id="dateInputProp"> -->
+                </p></div>
+            </div>
+        </div>
+    </header>
+    <div class="bodier">
+        <div class="cont-title-liq">
+            <h3 id="title-liq">Liquidacion de alquileres </h3>            
+        </div>
+        <div class="sitoEnProp" id="sitoEnProp">
+            <p>Dpto. sito en: <span id="dirDeptoAlq"></span></p>       
+        </div>
+        <p class="detalle-title" ><u>Detalle de alquiler:</u></p>
+        <!-- <div class="inputs">
+            <input type="text" name="nuevoGasto" id="nuevoGasto">
+            <input type="text" name="nuevoMonto" id="nuevoMonto">
+            <button>Insertar</button>
+        </div>   -->
+        <div class="cont-detalle-prop">
+            <div class="cuerpo detalleProp" id="detalleProp">
+                <p>alquiler correspondiente a <span id="mesAlqProp"></span> </p>               
+            </div>
+            <div class="montos">
+                <P class="" id="montoAlqProp"></P>
+            </div>            
+        </div>
+        <div id="cont-new-det">
+            <div class="cont-detalle" id="cont-detalleProp">
+
+            </div>
+            <div class="cont-montos" id="cont-montosProp">
+                
+            </div> 
+        </div>
+        <!-- <div class="cont-detalle">
+            <div class="cuerpo detalle">
+                <p>Expensas extraordinarias: frente, andamios, terraza</p>               
+            </div>
+            <div class="montos">
+                <p class="monto">$3000</p>
+            </div>            
+        </div>
+        <div class="cont-detalle">
+            <div class="cuerpo detalle">
+                <p>boleta gas</p>               
+            </div>
+            <div class="montos">
+                <p class="monto">$800</p>
+            </div>            
+        </div> -->
+        
+        <p class="detalle-subtitle"><u>Descuentos Del Norte Prop.:</u></p>
+
+        <div class="cont-detalle-comi">
+            <div class="cuerpo detalle">
+                <p>Honorarios Administracion  <span>
+                    <select name="comisionSelect" id="comisionSelect" defaul>
+                        <option value="administracion" selected="selected">Administracion</option>
+                        <option value="firma">Firma Contrato</option>
+                    </select>
+                </span></p>               
+            </div>
+            <div class="montos">
+                <p class="montoComi" id="montoComision"></p>
+            </div>            
+        </div>
+
+        <div class="cont-totales">
+            <div class="total-text">
+                <p>TOTAL</p>
+            </div>
+            <div class="cont-total-det">
+                <P class="total">$ <span id="totalDetProp"></span></P>
+            </div>            
+        </div>
+        <div class="observaciones">
+            <p>Observaciones: <p id="obsProp"></p></p>
+            <!-- <textarea name="observaciones" id="observacionesInputProp" cols="60" rows="2"></textarea> -->
+            
+        </div>
+        <div class="cont-firma-total">
+            <div class="cont-total">
+                <p>$ <span id="total-finalProp"></span></p>
+            </div>
+            <div class="cont-firma">
+                <p>Firma:  <p id="firma-final"></p></p>
+                
+            </div>
+        </div>
+    </div>
+    <footer>
+        
+    </footer>
+    </div>  
+    <div class="impProp">
+        <button id="imp" class="uni" onclick="impInq()">Calcul.</button>
+        <button id="imp" class="uni pdf" onclick="imprimirBoletaPDF()">Imp. PDF</button>
+        <button id="imp" onclick="imprimirBoleta('inbody-prop')">Imp.</button>
+        <button id="nuevo" onclick="nuevo()">Nuevo</button>
+        <button id="mail" role="link" onclick="sendEmail('inbody-prop')">Email</button>
+    </div>
+    
+    <script src="./core.js"></script>
+    <script src="./proto.js"></script>
+    <script src="./auto.js"></script>
+    <script src="./api.js"></script>
+    <script src="./numtotext.js"></script>
+
+    
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
+    <!-- <script src="./controlador.js"></script> -->
+    <!-- <script src="/fsModule.mjs" type="module"></script> -->
+    <!-- <script type="module">import { Deptos } from "./proto.mjs"</script> -->
+</body>
+</html>
