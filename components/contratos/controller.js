@@ -32,6 +32,9 @@ function editContrato(searchParam,change){
         }
         resolve(store.edit(searchParam,change))
     })
+    .then((savedContrato)=>{
+        return savedContrato
+    })
 }
 
 function deleteContrato(searchParam){

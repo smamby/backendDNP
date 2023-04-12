@@ -27,7 +27,7 @@ router.post('/', (req,res)=>{
 router.patch('/:num', (req,res)=>{
   controller.edit(req.params.num,req.body)
     .then((contrato)=>{
-      res.json(contrato)
+      res.send(contrato)
     })
     .catch((error)=>{
       res.send(error)
