@@ -171,10 +171,10 @@ body {
     width: 100%;
     margin: 0px;
 }
-#cont-detalleProp{
+#cont-detalleProp, #cont-detalleOnlyProp{
     width: 80%;
 }
-#cont-montosProp{
+#cont-montosProp, #cont-montosOnlyProp{
     width: 20%;
     text-align: end;
     justify-content: end;
@@ -190,7 +190,7 @@ body {
     margin-right: 32px;
     margin: 0px;
 }
-#cont-new-det{
+#cont-new-det, #cont-new-det-only-prop{
     display: flex;
 }
 #cont-montos, #monto-alq{

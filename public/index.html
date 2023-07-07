@@ -269,8 +269,8 @@
         <p class="detalle-title" ><u>Detalle de alquiler:</u></p>
         <!-- solo propietario -->
         <div class="inputs">
-            <input type="text" name="nuevoGasto" id="nuevoGastoProp" placeholder="detalle solo recibo propietario">
-            <input type="text" name="nuevoMonto" id="nuevoMontoProp" placeholder="monto solo recibo propietario">
+            <input type="text" name="nuevoGasto" id="nuevoGastoOnlyProp" placeholder="detalle solo recibo propietario">
+            <input type="text" name="nuevoMonto" id="nuevoMontoOnlyProp" placeholder="monto solo recibo propietario">
             <button id="insertarProp" onclick="insertarDetallesProp()">Insertar</button>
             <button id="delDetalleProp" onclick="deleteDetalleProp()">Borrar</button>
         </div> 
@@ -283,12 +283,12 @@
             </div>            
         </div>
         <div id="cont-new-det">
-            <div class="cont-detalle" id="cont-detalleProp">
-
-            </div>
-            <div class="cont-montos" id="cont-montosProp">
-                
-            </div> 
+            <div class="cont-detalle" id="cont-detalleProp"></div>
+            <div class="cont-montos" id="cont-montosProp"></div> 
+        </div>
+        <div id="cont-new-det-only-prop">
+            <div class="cont-detalle" id="cont-detalleOnlyProp"></div>
+            <div class="cont-montosOP" id="cont-montosOnlyProp"></div> 
         </div>
         <!-- <div class="cont-detalle">
             <div class="cuerpo detalle">

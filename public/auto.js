@@ -205,6 +205,17 @@ function insertarDetalles(){
     document.getElementById("nuevoGasto").focus();
     impInq();
 }
+var itemsOnlyProp= [];
+function insertDetOnlyProp(){
+    var inputDetOPId= document.getElementById("nuevoGastoOnlyProp").value;
+    var inputMontOPId=document.getElementById("nuevoMontoOnlyProp").value;
+    var contDetOnlyProp=document.getElementById("cont-new-det-only-prop");
+    var contDetOPId = document.getElementById("cont-detalleOnlyProp");
+    var contMontOPId = document.getElementById("cont-montosOnlyProp");
+    contDetOnlyProp.style.display="flex";
+    contDetOPId.style.display="block";    
+    contMontOPId.style.display="flex";
+}
 
 function valorAlquiler(){
     let today = new Date(Date.now());
