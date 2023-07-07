@@ -207,14 +207,24 @@ function insertarDetalles(){
 }
 var itemsOnlyProp= [];
 function insertDetOnlyProp(){
-    var inputDetOPId= document.getElementById("nuevoGastoOnlyProp").value;
-    var inputMontOPId=document.getElementById("nuevoMontoOnlyProp").value;
+    var inputDetOP= document.getElementById("nuevoGastoOnlyProp").value;
+    var inputMontOP=document.getElementById("nuevoMontoOnlyProp").value;
     var contDetOnlyProp=document.getElementById("cont-new-det-only-prop");
-    var contDetOPId = document.getElementById("cont-detalleOnlyProp");
-    var contMontOPId = document.getElementById("cont-montosOnlyProp");
+    var contDetOP = document.getElementById("cont-detalleOnlyProp");
+    var contMontOP = document.getElementById("cont-montosOnlyProp");
     contDetOnlyProp.style.display="flex";
-    contDetOPId.style.display="block";    
-    contMontOPId.style.display="flex";
+    contDetOP.style.display="block";    
+    contMontOP.style.display="flex";
+    var newItemOP = [inputDetOP,inputMontOP]
+    itemsOnlyProp.push(newItemOP)
+    sumarDetalleProp (newItemOP[1]);
+    contDetOP.innerHTML += "- "+newItemOP[0]+"<br>";
+    var newItemImp1OP = new Intl.NumberFormat('de-DE').format(newItemOP[1])
+    contMontOP.innerHTML += "$ "+newItemImp1OP+'.-'+"<br>";
+    document.getElementById("nuevoGastoOnlyProp").value = '';
+    document.getElementById("nuevoMontoOnlyProp").value = '';
+    document.getElementById("nuevoGastoOnlyProp").focus();
+    impInq();
 }
 
 function valorAlquiler(){
