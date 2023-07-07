@@ -267,11 +267,13 @@
             <p>Dpto. sito en: <span id="dirDeptoAlq"></span></p>       
         </div>
         <p class="detalle-title" ><u>Detalle de alquiler:</u></p>
-        <!-- <div class="inputs">
-            <input type="text" name="nuevoGasto" id="nuevoGasto">
-            <input type="text" name="nuevoMonto" id="nuevoMonto">
-            <button>Insertar</button>
-        </div>   -->
+        <!-- solo propietario -->
+        <div class="inputs">
+            <input type="text" name="nuevoGasto" id="nuevoGastoProp" placeholder="detalle solo recibo propietario">
+            <input type="text" name="nuevoMonto" id="nuevoMontoProp" placeholder="monto solo recibo propietario">
+            <button id="insertarProp" onclick="insertarDetallesProp()">Insertar</button>
+            <button id="delDetalleProp" onclick="deleteDetalleProp()">Borrar</button>
+        </div> 
         <div class="cont-detalle-prop">
             <div class="cuerpo detalleProp" id="detalleProp">
                 <p>alquiler correspondiente a <span id="mesAlqProp"></span> </p>               

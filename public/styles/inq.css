@@ -3,6 +3,7 @@
     --primary: whitesmoke;
     --secondary: rgb(39, 38, 38);
     --btnAlert: rgb(47, 165, 219);
+    --btnCompart: rgb(28, 42, 121);
     --btnAlertFont: whitesmoke;
     --span: darkred;
 }
@@ -12,6 +13,7 @@
     --secondary: whitesmoke;
     --btnAlert: gold;
     --btnAlertFont: rgb(32, 32, 32);
+    --btnCompart: rgb(211, 130, 83);
     --span: rgb(223, 97, 97);
 }
 html{
@@ -285,11 +287,11 @@ border-bottom: 1px solid black;
     margin-top: 8px;
 }
 .uni {
-    background-color: rgb(28, 42, 121) !important;
+    background-color: var(--btnCompart) !important;
 }
 #nuevo{
     margin-left: 230px;
-    background-color: rgb(28, 42, 121);
+    background-color: var(--btnCompart);
 }
 #obsProp{
     margin-top: 8px;
