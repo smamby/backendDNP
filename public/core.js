@@ -815,8 +815,8 @@ function imprimirBoletaPDF(){
       localStorage.setItem('recibo', JSON.stringify(re));
       localStorage.setItem('contrato', JSON.stringify(co));
 
-      var wImp = window.open('http://127.0.0.1:5500/popimp.html','popimp');
-      //var wImp = window.open('http://localhost:5500/popimp.html','popimp');
+      //var wImp = window.open('http://127.0.0.1:5500/popimp.html','popimp');
+      var wImp = window.open('http://localhost:5500/popimp.html','popimp');
       //var wImp = window.open('https://smamby.github.io/frontendDNP/popimp.html','popimp');
    //    wImp.document.write(`<html><head><title>Print it!</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    //    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" type="text/css" href="./styles/imp.css"></head><body><div class="bodyInt">${ficha.innerHTML}</div></body></html><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

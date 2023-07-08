@@ -74,9 +74,9 @@ function impInq(){
         //var observacionesInputProp = document.getElementById("observacionesInputProp").value;
         var locadorPrint = document.getElementById("locadorPrint")
         var totalDetProp = document.getElementById("totalDetProp");
-        var totalFinal = document.getElementById("total-final")
-        var totalFinalProp = document. getElementById("total-finalProp")
-        var domicilioAlq = document.getElementById("dirDeptoAlq")
+        var totalFinal = document.getElementById("total-final");
+        var totalFinalProp = document.getElementById("total-finalProp");
+        var domicilioAlq = document.getElementById("dirDeptoAlq");
         //asignaciones
         numeracionPrint.innerHTML = numRecibo? numRecibo: NUMERACION;
         numeracionPrintProp.innerHTML = numRecibo? numRecibo: NUMERACION;
@@ -133,7 +133,7 @@ function impInq(){
         //detalleTotalImp = new Intl.NumberFormat('de-DE').format(detalleTotal)
         //detalleTotalPropImp = new Intl.NumberFormat('de-DE').format(detalleTotalProp)
         sumarParaTotal = parseInt(valAlq) - detalleTotal;
-        sumarParaTotalProp = parseInt(valAlq) - comi - detalleTotalProp;
+        sumarParaTotalProp = parseInt(valAlq) - comi - detalleTotalProp - detalleTotalOnlyProp;
         var sumarParaTotalImp = new Intl.NumberFormat('de-DE').format(sumarParaTotal)
         totalDetalle.innerHTML = "$ "+sumarParaTotalImp+'.-';
         totalFinal.innerHTML = "$ "+sumarParaTotalImp+'.-';
@@ -160,6 +160,7 @@ function impInq(){
 }
 var detalleTotal = 0;
 var detalleTotalProp = 0;
+var detalleTotalOnlyProp = 0;
 var detalleTotalImp = new Intl.NumberFormat('de-DE').format(detalleTotal)
 var detalleTotalPropImp = new Intl.NumberFormat('de-DE').format(detalleTotalProp)
 // sumarParaTotal = parseInt(valAlq) - detalleTotal;
@@ -172,6 +173,10 @@ function sumarDetalleInq(nuevoMonto){
 function sumarDetalleProp(nuevoMonto){
     //nuevoMonto = new Intl.NumberFormat('de-DE').format(nuevoMonto)
     detalleTotalProp -= nuevoMonto;
+}
+function sumarDetalleOnlyProp(nuevoMonto){
+    //nuevoMonto = new Intl.NumberFormat('de-DE').format(nuevoMonto)
+    detalleTotalOnlyProp -= nuevoMonto;
 }
 
 var items = [];
@@ -219,7 +224,7 @@ function insertDetOnlyProp(){
     contMontOP.style.display="flex";
     var newItemOP = [inputDetOP,inputMontOP]
     itemsOnlyProp.push(newItemOP)
-    sumarDetalleProp (newItemOP[1]);
+    sumarDetalleOnlyProp (newItemOP[1]);
     contDetOP.innerHTML += "- "+newItemOP[0]+"<br>";
     var newItemImp1OP = new Intl.NumberFormat('de-DE').format(newItemOP[1])
     contMontOP.innerHTML += "$ "+newItemImp1OP+'.-'+"<br>";
@@ -246,7 +251,7 @@ function deleteDetalleOnlyProp(){
     document.getElementById("cont-detalleOnlyProp").innerHTML = '';
     document.getElementById("cont-montosOnlyProp").innerHTML = '';
     itemsOnlyProp = [];
-    detalleTotalProp = 0;
+    detalleTotalOnlyProp = 0;
     impInq();
 }
 
@@ -276,6 +281,7 @@ function valorAlquiler(){
         valAlq = itemEncontrado.valor1
     }
 }
+
 function valorComision(valor){
     var comSel = document.getElementById("comisionSelect").value;
     let comAdmin = Math.round(parseInt(valor)*0.05);    
@@ -288,7 +294,6 @@ function valorComision(valor){
         alert('ocurrio algun error')
     }
 }
-
 
 function setNum(num){
     NUMERACION=num;
