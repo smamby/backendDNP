@@ -197,10 +197,10 @@ body {
 #cont-new-det{
     display: flex;
 }
-#cont-detalleProp{
+#cont-detalleProp, #cont-detalleOnlyProp{
     width: 80%;
 }
-#cont-montosProp{
+#cont-montosProp, #cont-montosOnlyProp{
     width: 20%;
     text-align: end;
     justify-content: end;

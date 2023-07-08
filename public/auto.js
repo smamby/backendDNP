@@ -18,7 +18,8 @@ function vaciarRecibo() {
     document.getElementById("vence").value = '';
     //document.getElementById("pesos").value = '';
     document.getElementById("observacionesInput").value = 'Recibí los comprobantes de pago de ';
-    deleteDetalle()
+    deleteDetalle();
+    deleteDetalleOnlyProp();
 };
 
 function chkReciboVacio(){
@@ -205,6 +206,7 @@ function insertarDetalles(){
     document.getElementById("nuevoGasto").focus();
     impInq();
 }
+
 var itemsOnlyProp= [];
 function insertDetOnlyProp(){
     var inputDetOP= document.getElementById("nuevoGastoOnlyProp").value;
@@ -224,6 +226,27 @@ function insertDetOnlyProp(){
     document.getElementById("nuevoGastoOnlyProp").value = '';
     document.getElementById("nuevoMontoOnlyProp").value = '';
     document.getElementById("nuevoGastoOnlyProp").focus();
+    impInq();
+}
+
+function deleteDetalle(){
+    document.getElementById("cont-detalle").innerHTML = '';
+    document.getElementById("cont-montos").innerHTML = '';
+    document.getElementById("cont-detalleProp").innerHTML = '';
+    document.getElementById("cont-montosProp").innerHTML = '';
+    items = [];
+    detalleTotal = 0;
+    detalleTotalProp = 0;
+    //document.getElementById("pesos").value = '';
+    document.getElementById("pesosLetra").innerHTML = '';
+    impInq();
+}
+
+function deleteDetalleOnlyProp(){
+    document.getElementById("cont-detalleOnlyProp").innerHTML = '';
+    document.getElementById("cont-montosOnlyProp").innerHTML = '';
+    itemsOnlyProp = [];
+    detalleTotalProp = 0;
     impInq();
 }
 
@@ -266,22 +289,7 @@ function valorComision(valor){
     }
 }
 
-// function observaciones(mes){
-//     var x = mes;
-//     return `Recibí comprobantes de pago de expensas ordinarias(${x}), expensas extraordinarias(${x}), agua(${x}), gas(${x}), luz(${x}), ABL(${x})`
-// }
-function deleteDetalle(){
-    document.getElementById("cont-detalle").innerHTML = '';
-    document.getElementById("cont-montos").innerHTML = '';
-    document.getElementById("cont-detalleProp").innerHTML = '';
-    document.getElementById("cont-montosProp").innerHTML = '';
-    items = [];
-    detalleTotal = 0;
-    detalleTotalProp = 0;
-    //document.getElementById("pesos").value = '';
-    document.getElementById("pesosLetra").innerHTML = '';
-    impInq();
-}
+
 function setNum(num){
     NUMERACION=num;
     guardarInfo();
@@ -326,3 +334,4 @@ function listFunc(){
         'addRecibo(body)' : 'guarda manualmente un recibo en la BD',
     })
 }
+console.log("funciones basicas: listFunc()");

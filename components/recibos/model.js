@@ -10,6 +10,7 @@ const reciboSchema = new Schema({
     fechaVencimiento: String,
     textoTotal: String,
     detalles: Array,
+    detallesOnlyProp: Array,
     observaciones: String,
     tipoHonorarios: String,
     idContrato: Number

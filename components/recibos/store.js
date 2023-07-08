@@ -42,6 +42,9 @@ async function editRecibo(searchParam,change){
     if(change.detalles){
         recibo.detalles = change.detalles;
     }
+    if(change.detallesOnlyProp){
+        recibo.detallesOnlyProp = change.detallesOnlyProp;
+    }
     if(change.observaciones){
         recibo.observaciones = change.observaciones;
     }
