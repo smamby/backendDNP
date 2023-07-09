@@ -410,6 +410,7 @@ async function buscarRecibo(){
    itemsOnlyProp = [];
    detalleTotal = 0;
    detalleTotalProp = 0;
+   detalleTotalOnlyProp = 0;
    var nameBuscar = '';
    nameBuscar = document.getElementById('buscarRecibo').value;
    await getRecibos(nameBuscar);
@@ -430,6 +431,7 @@ async function buscarRecibo(){
 var numRecibo;
 function cargarRecibo(){
    items = [];
+   itemsOnlyProp = [];
    var recibo = reciboLevantado[0];
    numRecibo = recibo["numeroRecibo"];
    //document.getElementById('date').innerHTML = recibo["fechaRecibo"];

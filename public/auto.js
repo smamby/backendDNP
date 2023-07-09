@@ -163,6 +163,7 @@ var detalleTotalProp = 0;
 var detalleTotalOnlyProp = 0;
 var detalleTotalImp = new Intl.NumberFormat('de-DE').format(detalleTotal)
 var detalleTotalPropImp = new Intl.NumberFormat('de-DE').format(detalleTotalProp)
+var detalleTotalOnlyPropImp = new Intl.NumberFormat('de-DE').format(detalleTotalOnlyProp)
 // sumarParaTotal = parseInt(valAlq) - detalleTotal;
 // sumarParaTotalProp = parseInt(valAlq) - comi - detalleTotalProp;
 function sumarDetalleInq(nuevoMonto){
