@@ -2,6 +2,7 @@ const u = 'http://localhost:5500';
 
 const c = '/contratos/'
 const r = '/recibos/'
+const p = 'printPDF/'
 
 
 const header = {
@@ -143,6 +144,34 @@ async function deleteContrato(searchParam){
   }  
 }
 
+
+async function imprimirReciboPDFBack(){
+  var divBody = document.getElementById('bodyInt')
+  const content = "<!doctype html><html><head><meta charset='utf-8'><title>PDF Result Template</title><style> h1 { color: green; } </style></head><body><h1>Título en el PDF creado con el paquete html-pdf</h1><p>Generando un PDF con un HTML sencillo</p></body></html>";
+  var fichaInn = fichaImpI.replace(/(?:\r\n|\r|\n)/g, '');
+  var fichaPDFBACK = `<!doctype html><html><head><title>Print it to PDF</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" type="text/css" href="./styles/impPDF.css">
+</head><body style="width: 628px"><div class="bodyInt" id="bodyInt">${fichaInn}</div><script src="./api.js"></script></body></html>`
+
+  // var fichaImpI = localStorage.getItem('fichaI');
+  //   var fichaImpP = localStorage.getItem('fichaP');
+  //   var re = JSON.parse(localStorage.getItem('recibo'));
+  //   var co = JSON.parse(localStorage.getItem('contrato'));
+  //   var fileNameInq =  `${re.numeroRecibo} ${co.direccion} inq.pdf`;
+  //   //var wImp = window.open('http://localhost:5500/popimpBACK.html','popimpBACK');
+  //   var div = document.getElementById('bodyInt');
+  //   var divHTML = document.createElement('div');
+  //   divHTML.id = 'divHTML';
+  //   divHTML.innerHTML = '';
+  //   divHTML.innerHTML = fichaImpI;
+  //   div.appendChild(divHTML)
+  console.log('back',divBody)
+  const pageRecibo = await fetch(u+r+p,{
+    method: 'post',
+    body: divBody
+  });
+  console.log(pageRecibo);
+}
 
 
 window.onbeforeunload = ()=>{

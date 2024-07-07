@@ -11,9 +11,9 @@
     --html: black;  
     --primary: rgb(32, 32, 32);
     --secondary: whitesmoke;
-    --btnAlert: gold;
+    --btnAlert: rgba(255, 196, 0, 0.904);
     --btnAlertFont: rgb(32, 32, 32);
-    --btnCompart: rgb(211, 130, 83);
+    --btnCompart: rgb(218, 70, 82);
     --span: rgb(223, 97, 97);
 }
 html{
@@ -65,11 +65,11 @@ body {
     justify-content: center;
     width: 280px;
 }
-#logo{
+#logo2,#logo3{
     width: 50px;
     height: 80px;       
 }
-#isotipo{
+#isotipo2,#isotipo3{
     width: 170px;
     height: 44px;
     margin: 20px;
@@ -116,7 +116,7 @@ body {
     width: 70px;
     margin-left: 8px;
 }
-#num{
+#num, #numProp{
     display: flex;
     margin: 0px;
     width: 80px;

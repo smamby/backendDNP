@@ -111,8 +111,18 @@ p{
     margin-top: 24px;
     margin-bottom: 4px;
 }
-span{
+span {
     color: var(--span);
+    font-family: Roboto Mono;
+    font-weight: 500;
+    font-size: medium;
+}
+.cont-montos{
+    color: var(--secondary);
+    font-family: Roboto Mono;
+    font-weight: 500;
+    font-size: medium ;
+    
 }
 
 /* #themeDiv{

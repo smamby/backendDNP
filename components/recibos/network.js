@@ -63,4 +63,15 @@ router.patch('/:num', (req,res)=>{
 
 // })
 
+router.post('/printPDF', (req,res)=>{
+    console.log(req.body)
+    controller.imprimirPDF(req.body)
+        // .then((change)=>{
+        //     res.json(change) 
+        // })
+        // .catch(error => {
+        //     res.send(error)
+        // })
+})
+
 module.exports = router;

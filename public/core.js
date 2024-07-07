@@ -21,9 +21,23 @@ function styleDark(){
    document.body.classList.toggle('dark')
    if(document.body.classList=='dark'){
       document.getElementById("img").src = "./assets/btnTheme dark.png";
+      document.getElementById("logo1").src = "./assets/logo invert.png";
+      document.getElementById("isotipo1").src = "./assets/isotipo invert.png";
+      document.getElementById("logo2").src = "./assets/logo invert.png";
+      document.getElementById("isotipo2").src = "./assets/isotipo invert.png";
+      document.getElementById("logo3").src = "./assets/logo invert.png";
+      document.getElementById("isotipo3").src = "./assets/isotipo invert.png";
+      document.getElementById("firma").src = "./assets/firma invert.png";
       document.documentElement.style.backgroundColor = "rgb(0,10,10)";
    } else {
       document.getElementById("img").src = "./assets/btnThemeRandom.png";
+      document.getElementById("logo1").src = "./assets/logo.png";
+      document.getElementById("isotipo1").src = "./assets/isotipo.png";
+      document.getElementById("logo2").src = "./assets/logo.png";
+      document.getElementById("isotipo2").src = "./assets/isotipo.png";
+      document.getElementById("logo3").src = "./assets/logo.png";
+      document.getElementById("isotipo3").src = "./assets/isotipo.png";
+      document.getElementById("firma").src = "./assets/firma.png";
       document.documentElement.style.backgroundColor = "rgb(231, 231, 230)";      
    }
 };
@@ -877,6 +891,31 @@ function imprimirBoletaPDF(){
    //    }, 500);
       //wImp.document.close();
       //wImp.close();
+        
+   } else {
+      alert('Cargá algun contrato, no cargaste ninguno.');
+      document.getElementById("buscarInput").focus();
+   }   
+}
+function imprimirBoletaPDFBACK(){
+   if (itemEncontrado!=''){
+      impInq();
+      var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`;
+      var fichaI = document.getElementById('inbody-inq');
+      var fichaOuterI = fichaI.outerHTML;
+      localStorage.setItem('fichaI',(fichaOuterI))
+      var fichaP = document.getElementById('inbody-prop');
+      var fichaOuterP = fichaP.outerHTML;
+      localStorage.setItem('fichaP',(fichaOuterP))
+      var re = reciboLevantado[0];
+      var co = contratoLevantado[0];
+      console.log("re",re);
+      console.log("co",co);
+      localStorage.setItem('recibo', JSON.stringify(re));
+      localStorage.setItem('contrato', JSON.stringify(co));
+
+      //var wImp = window.open('http://127.0.0.1:5500/popimp.html','popimp');
+      var wImp = window.open('http://localhost:5500/popimpBACK.html','popimpBACK');
         
    } else {
       alert('Cargá algun contrato, no cargaste ninguno.');

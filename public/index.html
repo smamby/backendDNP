@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" media="all" href="./styles/style.css">
     <link rel="stylesheet" media="all" href="./styles/inq.css">
     <title>dNP</title>
@@ -16,8 +17,8 @@
 </head>
 <body>    
     <div class="logo" style="display: flex; align-items: center;margin-right: auto; margin-left: auto;">
-        <img style="width: 40px;" src="./assets/logo.png" alt="">
-        <img style="width: 150px; margin-left: 24px;" id="isotipo" src="./assets/isotipo.png" alt="">
+        <img style="width: 40px; height: 62px;" id="logo1" src="./assets/logo.png" alt="">
+        <img style="width: 150px; margin-left: 24px;" id="isotipo1" src="./assets/isotipo.png" alt="">
     </div>
     <!-- <h2>Datos de operacion</h2> -->
     
@@ -48,7 +49,7 @@
         <div id="cabecera">
             <h4>Personas intervinientes</h4>
             <input id="btnEditar" type="button" value="Editar" class="btnAlert" onclick="editarContrato(contratoLevantado)">
-            <input id="btnBorrar" type="button" value="Borrar" class="btnAlert" onclick="borrarContrato()">
+            <input id="btnBorrar" type="button" value="Borrar" class="btnAlert" > 
             <input id="btn" type="button" class="btnAlert" value="Crear" onclick="check()">
         </div>
 
@@ -123,8 +124,8 @@
             <div class="cont cont-head">
                 <div class="cont cont-info">
                     <div class="cont cont-logo">
-                        <img id="logo" src="./assets/logo.png" alt="">
-                        <img id="isotipo" src="./assets/isotipo.png" alt="">                    
+                        <img id="logo2" src="./assets/logo.png" alt="">
+                        <img id="isotipo2" src="./assets/isotipo.png" alt="">                    
                     </div>
                     <p id="ad-al">Administracion de alquileres</p>
                     <div class="cont cont-data">
@@ -238,8 +239,8 @@
         <div class="cont cont-head">
             <div class="cont cont-info">
                 <div class="cont cont-logo">
-                    <img id="logo" src="./assets/logo.png" alt="">
-                    <img id="isotipo" src="./assets/isotipo.png" alt="">                    
+                    <img id="logo3" src="./assets/logo.png" alt="">
+                    <img id="isotipo3" src="./assets/isotipo.png" alt="">                    
                 </div>
                 <p id="ad-al">Administracion de alquileres</p>
                 <div class="cont cont-data">
@@ -250,8 +251,8 @@
                 </div>
             </div>
             <div class="cont cont-num">
-                <div class="cont-n cont-numero" id="numero">N° 0000<span id="numProp"></span>
-                    <!-- <input type="number" name="numInput" id="numInput"> -->
+                <div class="cont-n cont-numero" id="numero">N° 0000<p id="numProp">
+                    <!-- <input type="number" name="numInput" id="numInput"> --></p>
                 </div>
                 <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="dateProp">
                     <!-- <input type="date" name="dateInput" id="dateInputProp"> -->
@@ -279,7 +280,7 @@
                 <p>alquiler correspondiente a <span id="mesAlqProp"></span> </p>               
             </div>
             <div class="montos">
-                <P class="" id="montoAlqProp"></P>
+                <span class="" id="montoAlqProp"></span>
             </div>            
         </div>
         <div id="cont-new-det">
@@ -319,7 +320,7 @@
                 </span></p>               
             </div>
             <div class="montos">
-                <p class="montoComi" id="montoComision"></p>
+                <span class="montoComi" id="montoComision"></span>
             </div>            
         </div>
 

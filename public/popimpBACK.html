@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Print it to PDF</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="./styles/impPDF.css">
+    </head>
+
+    <body style="width: 628px">
+        <div class="bodyInt" id="bodyInt">
+            
+
+        </div>
+        <script>
+            var fichaImpI = localStorage.getItem('fichaI');
+            var fichaImpP = localStorage.getItem('fichaP');
+            var re = JSON.parse(localStorage.getItem('recibo'));
+            var co = JSON.parse(localStorage.getItem('contrato'));
+            var div = document.getElementById('bodyInt');
+            var divHTML = document.createElement('div');
+            divHTML.id = 'divHTML';
+            divHTML.innerHTML = fichaImpI;
+            div.appendChild(divHTML)
+        </script>
+        <script src="./api.js"></script>
+
+    </body>
+</html>
