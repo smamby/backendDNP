@@ -302,3 +302,15 @@ body {
 span{
     word-spacing: 7px;
 }
+span {
+    color: var(--secondary);
+    font-family: Roboto Mono;
+    font-weight: 500;
+    font-size: medium;
+}
+.cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
+    color: var(--secondary);
+    font-family: Roboto Mono;
+    font-weight: 500;
+    font-size: medium ;    
+}

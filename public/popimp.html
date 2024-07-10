@@ -4,19 +4,19 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./styles/impPDF.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
     </head>
-
+    
     <body style="width: 628px">
+        <script src="./api.js"></script>
         <div class="bodyInt" id="bodyInt">
             
 
         </div>
-        <script>
-            const { jsPDF } = window.jspdf;
-            //var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`
+        <script>           
+
             var fichaImpI = localStorage.getItem('fichaI');
             var fichaImpP = localStorage.getItem('fichaP');
             var re = JSON.parse(localStorage.getItem('recibo'));
@@ -27,48 +27,21 @@
             divHTML.innerHTML = fichaImpI;
             div.appendChild(divHTML)
             async function impPdfInq(){
-                var docInq = new jsPDF();
-                //var fichaInq = document.getElementById('inbody-inq');
+                var fichaInq = div.outerHTML;
                 var fileNameInq =  `${re.numeroRecibo} ${co.direccion} inq.pdf`;
-                await docInq.html(divHTML,{
-                    callback: async function(docInq) {
-                        await docInq.save(fileNameInq);
-                    },
-                    margin: [10, 10, 10, 10],
-                    autoPaging: 'text',
-                    addFont: 'Roboto',
-                    setFont: 'Roboto',
-                    x: 0,
-                    y: 0,
-                    width: 190,
-                    windowWidth: 620
-                });
+                
+                imprimirReciboPDFBack(fichaInq,fileNameInq)
             };
             async function impPdfProp(){
                 divHTML.innerHTML = '';
                 divHTML.innerHTML = fichaImpP;
                 div.appendChild(divHTML);
-                var docProp = new jsPDF();
-                var fichaProp = document.getElementById('inbody-prop');
+                
+                var fichaProp = div.outerHTML;
+                console.log("[[[POPIMP]]]   "+fichaProp)
                 var fileNameProp =  `${re.numeroRecibo} ${co.direccion} prop.pdf`;
-                //docProp.addFont("Kanit")
-                //docProp.setFont("Kanit");
-                //docProp.setWordSpacing(1)
-                //docProp.setCharSpace(0.7);
-                await docProp.html(divHTML,{
-                    callback: async function(docProp) {
-                        await docProp.save(fileNameProp);
-                    },
-                    margin: [10, 10, 10, 10],
-                    autoPaging: 'text',
-                    addFont: 'Roboto',
-                    setFont: 'Roboto',
-                    x: 0,
-                    y: 0,
-                    width: 190,
-                    windowWidth: 620,
-                    output: 'C:/users/seba/documents/prueba/'
-                });
+               
+                imprimirReciboPDFBack(fichaProp,fileNameProp)
             };
             async function impPDF(){
                 await impPdfInq();

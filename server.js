@@ -17,6 +17,7 @@ const whiteList = ['http://localhost:3000', 'http://localhost:5500', 'http://127
 app.use(cors({origin: ['https://smamby.github.io','http://127.0.0.1:5500', 'http://localhost:5500']}));
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.static('./public'))
 
 routes(app); //router tiene que estar despues de cors!!

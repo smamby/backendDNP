@@ -914,8 +914,8 @@ function imprimirBoletaPDFBACK(){
       localStorage.setItem('recibo', JSON.stringify(re));
       localStorage.setItem('contrato', JSON.stringify(co));
 
-      //var wImp = window.open('http://127.0.0.1:5500/popimp.html','popimp');
-      var wImp = window.open('http://localhost:5500/popimpBACK.html','popimpBACK');
+      var wImp = window.open('http://localhost:5500/popimp.html','popimp');
+      //var wImp = window.open('http://localhost:5500/popimpBACK.html','popimpBACK');
         
    } else {
       alert('Cargá algun contrato, no cargaste ninguno.');
