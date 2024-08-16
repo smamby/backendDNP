@@ -6,7 +6,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./styles/impPDF.css">
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>        
+        <script src="../jsPDF-AutoTable-master/jspdf.plugin.autotable.min.js"></script>
     </head>
     
     <body style="width: 628px">
@@ -15,10 +16,12 @@
             
 
         </div>
+        "></script>
         <script>           
 
             var fichaImpI = localStorage.getItem('fichaI');
             var fichaImpP = localStorage.getItem('fichaP');
+            console.log(`[[POPIM 1]], ${fichaImpI}`);
             var re = JSON.parse(localStorage.getItem('recibo'));
             var co = JSON.parse(localStorage.getItem('contrato'));
             var div = document.getElementById('bodyInt');
@@ -26,29 +29,46 @@
             divHTML.id = 'divHTML';
             divHTML.innerHTML = fichaImpI;
             div.appendChild(divHTML)
-            async function impPdfInq(){
+
+            function impPdfInq(){
                 var fichaInq = div.outerHTML;
                 var fileNameInq =  `${re.numeroRecibo} ${co.direccion} inq.pdf`;
-                
-                imprimirReciboPDFBack(fichaInq,fileNameInq)
+                window.isFetching = false;
+                imprimirReciboPDFBack(fichaInq,fileNameInq)                         
             };
-            async function impPdfProp(){
+            function impPdfProp(){
                 divHTML.innerHTML = '';
                 divHTML.innerHTML = fichaImpP;
                 div.appendChild(divHTML);
                 
                 var fichaProp = div.outerHTML;
-                console.log("[[[POPIMP]]]   "+fichaProp)
+                console.log("[[[POPIMP 2]]]   "+fichaProp)
                 var fileNameProp =  `${re.numeroRecibo} ${co.direccion} prop.pdf`;
-               
+                window.isFetching = false;
                 imprimirReciboPDFBack(fichaProp,fileNameProp)
+                
             };
-            async function impPDF(){
-                await impPdfInq();
-                await impPdfProp();
+
+            async function impPDF() {
+                try {
+                    await impPdfInq();
+                    //await impPdfProp();
+                    setTimeout(() => {window.close()}, 1000);
+                } catch (error) {
+                    console.error('Error in PDF generation process:', error);
+                }
             }
             impPDF();
+           
+            // var res = impPDF();
+            // if (res.ok) {
+            //     windows.close()
+            // }
+            
+
+            // Save the PDF to a file or display it
         </script>
+        
         <!-- <script src="./core.js"></script> -->
     </body>
 </html>

@@ -1,5 +1,5 @@
 :root{
-    --html: rgb(231, 231, 235);  
+    --html: rgb(255, 255, 255);  
     --primary: whitesmoke;
     --secondary: rgb(39, 38, 38);
     --btnAlert: rgb(47, 165, 219);
@@ -16,14 +16,17 @@
 }
 html{
     background-color: var(--html);
+    width: 628px;
+    
 }
 body {
     margin: 12px;    
     display: grid;    
-    background-color: var(--primary);
+    background-color: var(--html);
     color: var(--secondary);
-    font-family: 'Kanit', sans-serif;
-    width: 628px;
+    font-family: 'Kanit';
+    font-size: small;
+    
     margin-left: auto;
     margin-right: auto;
 }
@@ -40,7 +43,7 @@ body {
     padding: 4px 20px;
 }
 #firstText{
-    font-family: sans-serif;
+    font-family: 'Kanit';
     margin: 0px;
     margin-bottom: 0px;
 }
@@ -53,7 +56,7 @@ body {
     justify-content: center;
     width: 280px;
 }
-#logo2,#logo3{
+/* #logo2,#logo3{
     width: 50px;
     height: 80px;       
 }
@@ -62,6 +65,30 @@ body {
     height: 44px;
     margin: 20px;
     margin-top: 24px;
+} */
+#logo2,#logo3{
+    display: inline-block;
+    background-image: url('http://127.0.0.1:5500/public/assets/logo.png') !important;
+    width: 50px !important;
+    height: 80px !important;
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+#isotipo2,#isotipo3{
+    display: inline-block;
+    width: 170px !important;
+    height: 44px !important;
+    background-image: url('http://127.0.0.1:5500/public/assets/isotipo.png')  !important  ;
+    margin: 20px !important;
+    margin-top: 24px !important;
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 .cont-head{
     display: flex;
@@ -141,16 +168,16 @@ body {
 .cont-detalle{
     display: flex;
     justify-content: space-between;  
-    width: 80%; 
+    width: 70%; 
     margin: 0px; 
 }
 .detalleProp p{
-    width: 80%;
+    width: 70%;
     margin-right: 32px;
     margin: 0px;
 }
 .cuerpo .detalleProp p{
-    width: 80%;
+    width: 70%;
     margin: 0px;
 }
 .cont-detalle-Alq{
@@ -160,13 +187,15 @@ body {
     margin-bottom: 4px;
 }
 .detalle,.cuerpo-det{
-    width: 80%;
+    width: 70%;
     margin-right: 32px;
     margin: 0px;
 }
-.monto{
-    width: 20%;    
-    justify-items: right;
+.montos, #montoAlqProp, #cont-montos{
+    
+    width: 30%;    
+    justify-items: flex-end;
+    text-align: end;
 }
 .cont-detalle-prop, .cont-detalle{
     display: flex;
@@ -181,13 +210,13 @@ body {
     margin: 0px;
 } */
 #detalleProp{
-    width: 80%;
+    width: 70%;
 }
 #monto-alq,#cont-montos{
     margin: 0px;
     justify-content: right;
     text-align: end;  
-    width: 20%; 
+    width: 30%; 
 }
 .cont-detalle-Comi{
     width: 100%;
@@ -198,15 +227,15 @@ body {
     display: flex;
 }
 #cont-detalleProp, #cont-detalleOnlyProp{
-    width: 80%;
+    width: 70%;
 }
 #cont-montosProp, #cont-montosOnlyProp{
-    width: 20%;
+    width: 30%;
     text-align: end;
     justify-content: end;
 }
 .montos{
-    width: 20%;
+    width: 30%;
 }
 .montos p{
     display: block;
@@ -217,6 +246,7 @@ body {
     display: flex;
     justify-content: end;
     margin-top: 24px;
+    text-align: end;
 }
 #total-label{
     margin: 0px;
@@ -237,6 +267,16 @@ body {
     display: flex;
     width: 50%;
     align-items: center;    
+}
+.firma {
+    display: block;
+    background-image: url('http://127.0.0.1:5500/public/assets/firma.png') !important;
+    width: 170px !important;
+    height: 74px !important;
+    margin-left: -15px;
+    margin-top: 12px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;    
 }
 .cont-firma{
     width: 50%;
@@ -306,11 +346,18 @@ span {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 500;
-    font-size: medium;
+    font-size: small;
+    text-align: end;
 }
 .cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 500;
-    font-size: medium ;    
+    font-size: small ;
+    text-align: end;
 }
+.monto, #montoAlqProp {
+    display: flexbox;
+    justify-content: end;
+}
+

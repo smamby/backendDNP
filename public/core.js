@@ -443,17 +443,21 @@ async function buscarRecibo(){
    }
 }
 var numRecibo;
+var fechaRecibo;
 function cargarRecibo(){
    items = [];
    itemsOnlyProp = [];
    var recibo = reciboLevantado[0];
    numRecibo = recibo["numeroRecibo"];
+   fechaRecibo = recibo["fechaRecibo"];
    //document.getElementById('date').innerHTML = recibo["fechaRecibo"];
    //document.getElementById('dateProp').innerHTML = recibo["fechaRecibo"];
    document.getElementById("num").innerHTML = '';
    document.getElementById('numProp').innerHTML = '';
    document.getElementById("num").innerHTML = recibo["numeroRecibo"];
    document.getElementById('numProp').innerHTML = recibo["numeroRecibo"];
+   document.getElementById("date").innerHTML = recibo["fechaRecibo"];
+   document.getElementById('dateProp').innerHTML = recibo["fechaRecibo"];
    document.getElementById("vence").value = recibo["fechaVencimiento"];
    //document.getElementById("pesos").value = recibo["textoTotal"];
    document.getElementById("observacionesInput").value = recibo["observaciones"];
@@ -667,6 +671,17 @@ function editCont(contratoLevantado){
       })      
    };   
 };
+
+function existeId() {
+   var chkId = document.getElementById("idContrato").value;
+   var contratoAdquirido = buscar(chkId)
+   if (contratoAdquirido[0].id == chkId) {
+      console.log("este id ya existe eleji otro o modificalo ligerramente")
+      return false
+   } else {
+      return true
+   }
+}
 
 function verificarIDEdited(){
    var chkId = document.getElementById("idContrato").value;
@@ -900,21 +915,25 @@ function imprimirBoletaPDF(){
 function imprimirBoletaPDFBACK(){
    if (itemEncontrado!=''){
       impInq();
-      var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`;
+      // var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`;
       var fichaI = document.getElementById('inbody-inq');
       var fichaOuterI = fichaI.outerHTML;
-      localStorage.setItem('fichaI',(fichaOuterI))
+      console.log(`[[core]], ${fichaOuterI}`);
+      localStorage.setItem('fichaI', fichaOuterI)
       var fichaP = document.getElementById('inbody-prop');
       var fichaOuterP = fichaP.outerHTML;
-      localStorage.setItem('fichaP',(fichaOuterP))
+      localStorage.setItem('fichaP', fichaOuterP)
       var re = reciboLevantado[0];
       var co = contratoLevantado[0];
       console.log("re",re);
       console.log("co",co);
       localStorage.setItem('recibo', JSON.stringify(re));
       localStorage.setItem('contrato', JSON.stringify(co));
+      console.log
 
-      var wImp = window.open('http://localhost:5500/popimp.html','popimp');
+      //var wImp = window.open('http://localhost:5500/popimp.html','popimp');
+      var wImp = window.open('http://127.0.0.1:5500/public/popimp.html','_blank');
+      
       //var wImp = window.open('http://localhost:5500/popimpBACK.html','popimpBACK');
         
    } else {
@@ -935,25 +954,26 @@ function imprimirBoletaPDFBACK(){
    
    //var a = document.getElementById("mail")
    //a.addEventListener('click', sendEmail())
-   function sendEmail(div){
-      const opDate2 = {year:'numeric',month:'short'};
-      var dateVence = document.getElementById("vence").value;
-      // var yearDateVence = new Date(dateVence).getFullYear();
-      // var monthDateVence = parseInt(new Date(dateVence).getMonth())+1;
-      var dateVenceShort = new Date(dateVence).toLocaleString("sp-IN", opDate2)
-      var mTo = ''
-      var a = document.getElementById("mail")
-      if(div === 'inbody-prop'){
-         mTo =  itemEncontrado.emailPropietario
-         a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20liquidacion%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
-      } else if(div === 'inbody-inq') {
-         mTo = itemEncontrado.emailInquilino
-         a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
-      }
-      console.log(mTo);      
-      window.location.href = a.href
-      
+
+function sendEmail(div){
+   const opDate2 = {year:'numeric',month:'short'};
+   var dateVence = document.getElementById("vence").value;
+   // var yearDateVence = new Date(dateVence).getFullYear();
+   // var monthDateVence = parseInt(new Date(dateVence).getMonth())+1;
+   var dateVenceShort = new Date(dateVence).toLocaleString("sp-IN", opDate2)
+   var mTo = ''
+   var a = document.getElementById("mail")
+   if(div === 'inbody-prop'){
+      mTo =  itemEncontrado.emailPropietario
+      a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20liquidacion%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
+   } else if(div === 'inbody-inq') {
+      mTo = itemEncontrado.emailInquilino
+      a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
    }
+   console.log(mTo);      
+   window.location.href = a.href
+   
+}
 
 cargarInfo();
 var numeracionPrint = document.getElementById('num');

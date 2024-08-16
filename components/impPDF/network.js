@@ -2,25 +2,44 @@ const { Router } = require('express');
 const router = Router();
 const fs = require('fs')
 const path = require('path');
-const htmlPdf  = require("html-pdf")
+const htmlPdf  = require('html-pdf')
+const PDFDocument = require('pdfkit');
+const jsPDF = require('jspdf');
+const puppeteer = require('puppeteer')
 
 
-const pathPDFs = 'pdfs'
+const pathPDFs = 'pdfs' //path donde se guarda los PDF
 
 
 router.post('/', (req,res)=>{
+  console.log(`[[router.post]] ${JSON.stringify(req.body)}`);
   const { html, filename } = req.body;
+
+  if (!html || !filename) {
+    return res.status(400).send('HTML content and filename are required.');
+  }
+  
   const options = {
     format: 'A4',
     orientation: 'portrait'
   }
   const filePath = path.join(__dirname, pathPDFs, filename)
-  const cssPath = path.join(__dirname, '../../public/styles', 'impPDF.css');
+  const cssPath = path.join(__dirname, '../../public/styles', 'impPDFincrustado.css');
   console.log(`[[csspath]] ${cssPath}`)
-  const cssContent = fs.readFileSync(cssPath, 'utf8');
+  
+  let cssContent;
+  try {
+    cssContent = fs.readFileSync(cssPath, 'utf8');
+
+  } catch (err) {
+    console.error('Error reading CSS file:', err);
+    return res.status(500).send('Error reading CSS file');
+  }
+
   var fichaInn = html.outerHTML; //.replace(/(?:\r\n|\r|\n)/g, '').outerHTML;
   console.log(`[[router.post]] ${html}`)
-  const fichaPDFBACK = `
+
+   var fichaPDFBACK = `
   <!doctype html>
   <html>
   <head>
@@ -32,20 +51,70 @@ router.post('/', (req,res)=>{
     <style>${cssContent}</style>
   </head>
   <body style="width: 628px">
-    <div class="bodyInt" id="bodyInt">${html}</div>
-    <script src="./api.js"></script>
+    
+    ${html}
+    
   </body>
   </html>`;
 
   console.log(`[[[network fichaPDFback]]]   ${fichaPDFBACK}`)
 
-  htmlPdf.create(fichaPDFBACK, options).toFile(filePath, (err, result) => {
+  //let file = { url: "http://127.0.0.1:5500/public/popimp.html" };
+  htmlPdf.create(fichaPDFBACK, options).toFile(filePath, (err, result) => { //fichaPDFBACK => file
     if (err) {
       console.error('Error generating PDF:', err);
       return res.status(500).send('Error generating PDF');
     }
     res.status(200).send({ message: 'PDF generado y guardado correctamente', filePath: result.filename });
-  });
+  })
+
+  /////////////////////////////////////////////////////////////////
+
+  // const pdf = new jsPDF();
+  // const element = fichaPDFBACK;
+  // pdf.html(element, {
+  //     callback: function (pdf) {
+  //     // Save the PDF to a file or display it
+  //     pdf.save(filePath);
+  //     },
+  // });
+
+  ///////////////////////////////////////////////////////////////
+  // async function convPDF(){
+  //   const browser = await puppeteer.launch();
+  //   const page = await browser.newPage();
+  //   await page.setContent(fichaPDFBACK, {waitUntil: 'domcontentloaded'})
+  //   const pdfBuffer = await page.pdf({
+  //     format: 'A4',
+  //     path: filePath,
+  //     printBackground: true
+  //   })
+  // }  
+  // convPDF();  
+
+  
+/////////////////////////////////////////
+
+
+  ///////////////////////////////////////
+  // function generatePDF(html) {
+  //   const pdfContent = html// ... (generated PDF content as a string or buffer)
+
+  //   const writeStream = fs.createWriteStream(filePath);
+  //   writeStream.write(pdfContent); // Write the PDF content to the file
+
+  //   // Handle potential errors (optional)
+  //   writeStream.on('error', (err) => {
+  //     console.error('Error writing PDF:', err);
+  //   });
+
+  //   writeStream.on('finish', () => {
+  //     console.log('PDF generated successfully!');
+  //   });
+
+  //   writeStream.close(); 
+  // };
+  // generatePDF(fichaPDFBACK, filename) 
 })
 
 module.exports = router;

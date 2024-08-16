@@ -147,74 +147,57 @@ async function deleteContrato(searchParam){
 }
 
 
+
+
 async function imprimirReciboPDFBack(inbody,filename){
   if (typeof inbody !== 'string') {
     throw new Error('inbody must be a string');
   }
-  // const content = "<!doctype html><html><head><meta charset='utf-8'><title>PDF Result Template</title><style> h1 { color: green; } </style></head><body><h1>Título en el PDF creado con el paquete html-pdf</h1><p>Generando un PDF con un HTML sencillo</p></body></html>";
-  // var fichaInn = inbody.outerHTML; //.replace(/(?:\r\n|\r|\n)/g, '').outerHTML;
-  // const cssPath = path.join(__dirname, 'styles', 'impPDF.css');
-  // const fichaPDFBACK = `
-  // <!doctype html>
-  // <html>
-  // <head>
-  //   <title>Print it to PDF</title>
-  //   <link rel="preconnect" href="https://fonts.googleapis.com">
-  //   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  //   <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
-  //   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-  //   <link rel="stylesheet" type="text/css" href="${cssPath}">
-  // </head>
-  // <body style="width: 628px">
-  //   <div class="bodyInt" id="bodyInt">${inbody}</div>
-  //   <script src="./api.js"></script>
-  // </body>
-  // </html>`;
-
   
-  // var fichaImpI = localStorage.getItem('fichaI');
-  //   var fichaImpP = localStorage.getItem('fichaP');
-  //   var re = JSON.parse(localStorage.getItem('recibo'));
-  //   var co = JSON.parse(localStorage.getItem('contrato'));
-  
-  //
   console.log(`[[[API INBODY.outerHTML]]]   ${inbody}`)
   
+  if (window.isFetching) return;
+  window.isFetching = true;
+  try {
+    const response = await fetch(u+p, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ html: inbody, filename }),
+    });
 
-  const pdfImpressed = await fetch('/printPDF', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({html: `${inbody}`,filename})
+    if (!response.ok) {
+      throw new Error(`Error generating PDF: ${await response.text()}`);
+    }
 
-  })
-  
-  //const result = await pdfImpressed.json();
-  //console.log(`[[API impressed]] ${pdfImpressed.json}`);
-  if (!pdfImpressed.ok) {
-    throw new Error('Error generating PDF');
+    const result = await response.json();
+    console.log('PDF generated successfully:', result);
+    return result;
+  } catch (error) {
+    console.error('Error during PDF generation:', error);
+    throw error;
+  } finally {
+    window.isFetching = false;
   }
-  
-  return pdfImpressed
 }
 
 window.imprimirReciboPDFBack = imprimirReciboPDFBack;
 
-
+//window.onbeforeunload = null;
 
 window.onbeforeunload = ()=>{
   return 'ACEPTAR para cerrar la aplicacion. CANCELAR para refrescar la pagina' 
 }
 
 
-window.addEventListener('unload', ()=>{
-  fetch(u+'/close',{
-    method: 'POST',
-    headers: {
-      'Access-Control-Allow-Private-Network': 'true'
-    }
-  })
-})
+// window.addEventListener('unload', ()=>{
+//   fetch(u+'/close',{
+//     method: 'POST',
+//     headers: {
+//       'Access-Control-Allow-Private-Network': 'true'
+//     }
+//   })
+// })
   

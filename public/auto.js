@@ -80,8 +80,9 @@ function impInq(){
         //asignaciones
         numeracionPrint.innerHTML = numRecibo? numRecibo: NUMERACION;
         numeracionPrintProp.innerHTML = numRecibo? numRecibo: NUMERACION;
-        fechaPrint.innerHTML = hoy;
-        fechaPrintProp.innerHTML = hoy;
+
+        fechaPrint.innerHTML = fechaRecibo? fechaRecibo: hoy;
+        fechaPrintProp.innerHTML = fechaRecibo? fechaRecibo: hoy;
         seniorPrint.innerHTML = itemEncontrado.nombreInquilino.toUpperCase()+' '+itemEncontrado.apellidoInquilino.toUpperCase();
         domicilioInqPrint.innerHTML = itemEncontrado.direccion.toUpperCase();
         domicilioAlq.innerHTML = itemEncontrado.direccion.toUpperCase();
