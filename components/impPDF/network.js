@@ -24,6 +24,7 @@ router.post('/', (req,res)=>{
     orientation: 'portrait'
   }
   const filePath = path.join(__dirname, pathPDFs, filename)
+  const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mesEnCurso/',filename)
   const cssPath = path.join(__dirname, '../../public/styles', 'impPDFincrustado.css');
   console.log(`[[csspath]] ${cssPath}`)
   
