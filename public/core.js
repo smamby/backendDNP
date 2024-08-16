@@ -481,6 +481,7 @@ async function guardarRecibo(){
    var recibo = reciboLevantado[0];
    var contrato = contratoLevantado[0];
    var num = numRecibo? numRecibo: NUMERACION;
+   var fechaReci = fechaRecibo? fechaRecibo: hoy
    var numContrato = contratoLevantado[0]["idContrato"]
    var dateVence = document.getElementById("vence").value
    //var textoTotal = document.getElementById("pesos").value
@@ -497,7 +498,7 @@ async function guardarRecibo(){
 
    var bodyRecibo = {
       "numeroRecibo": num,
-      "fechaRecibo": hoy,
+      "fechaRecibo": fechaReci,
       "propietario": propietario,
       "inquilino": inquilino,
       "montoAlquiler": montoAlquiler,
@@ -918,7 +919,7 @@ function imprimirBoletaPDFBACK(){
       // var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`;
       var fichaI = document.getElementById('inbody-inq');
       var fichaOuterI = fichaI.outerHTML;
-      console.log(`[[core]], ${fichaOuterI}`);
+      //console.log(`[[core]], ${fichaOuterI}`);
       localStorage.setItem('fichaI', fichaOuterI)
       var fichaP = document.getElementById('inbody-prop');
       var fichaOuterP = fichaP.outerHTML;
@@ -929,7 +930,7 @@ function imprimirBoletaPDFBACK(){
       console.log("co",co);
       localStorage.setItem('recibo', JSON.stringify(re));
       localStorage.setItem('contrato', JSON.stringify(co));
-      console.log
+      
 
       //var wImp = window.open('http://localhost:5500/popimp.html','popimp');
       var wImp = window.open('http://127.0.0.1:5500/public/popimp.html','_blank');

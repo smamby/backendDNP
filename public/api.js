@@ -154,7 +154,7 @@ async function imprimirReciboPDFBack(inbody,filename){
     throw new Error('inbody must be a string');
   }
   
-  console.log(`[[[API INBODY.outerHTML]]]   ${inbody}`)
+  //console.log(`[[[API INBODY.outerHTML]]]   ${inbody}`)
   
   if (window.isFetching) return;
   window.isFetching = true;

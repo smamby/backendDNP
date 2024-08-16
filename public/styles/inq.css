@@ -272,6 +272,11 @@ body {
     /* border-bottom: solid 1px black; */
     margin-top: 20px;
 }
+cont-firma-total-prop {
+    display: flex;
+    border-top: solid 1px black;
+    height: 68px;
+}
 .firma {
     display: block;
     background-image: url('http://127.0.0.1:5500/public/assets/firma.png') !important;
@@ -297,7 +302,20 @@ body {
 .cont-firma p{
     margin-top: 4px;
 }
+.cont-total-prop {
+    display: inline-block !important;
+    width: 45% !important;
+    font-size: small !important;
+}
+.cont-total-prop > p {
+    font-size: medium !important;
+}
+.cont-firma-prop {
+    width: 40%;
+    display: inline-block;
+}
 .cont-title-liq{
+    display: inline-block !important;
     display: flex;
     justify-content: center;
 }

@@ -68,6 +68,15 @@ router.post('/', (req,res)=>{
     res.status(200).send({ message: 'PDF generado y guardado correctamente', filePath: result.filename });
   })
 
+  fs.writeFileSync('./public/prueba.html', fichaPDFBACK, 'utf8', (err) => {
+    if (err) {
+        console.error('Error al guardar el archivo:', err);
+        return res.status(500).send('Error al guardar el archivo');;
+    }
+    console.log('Archivo guardado exitosamente en la carpeta public como prueba.html');
+    res.status(200).send({ message: 'Archivo guardado exitosamente' });
+  });
+
   /////////////////////////////////////////////////////////////////
 
   // const pdf = new jsPDF();
