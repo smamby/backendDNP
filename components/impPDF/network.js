@@ -3,9 +3,9 @@ const router = Router();
 const fs = require('fs')
 const path = require('path');
 const htmlPdf  = require('html-pdf')
-const PDFDocument = require('pdfkit');
-const jsPDF = require('jspdf');
-const puppeteer = require('puppeteer')
+//const PDFDocument = require('pdfkit');
+//const jsPDF = require('jspdf');
+//const puppeteer = require('puppeteer')
 
 
 const pathPDFs = 'pdfs' //path donde se guarda los PDF
