@@ -15,24 +15,29 @@
     --span: rgb(223, 97, 97);
 }
 html{
-    background-color: var(--html);
+    background-color: white;
 }
 body {
     margin: 12px;    
     display: grid;    
-    background-color: var(--primary);
+    background-color: white;
     color: var(--secondary);
-    font-family: 'Kanit', sans-serif;
+    /* font-family: 'Kanit', sans-serif; */
     width: 590px;
     margin-left: auto;
     margin-right: auto;
 }
 .bodyInt{
     display: flex;
+    width: 548px;
     justify-content: center;
     flex-direction: column;
     border: solid black 2px;
     padding: 4px 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: normal;
+    font-weight: 200;
+    font-size: small;
 }
 
 .inbody-inq, .inbody-prop{
@@ -53,7 +58,7 @@ body {
     justify-content: center;
     width: 280px;
 }
-#logo2,#logo3{
+/* #logo2,#logo3{
     width: 50px;
     height: 80px;       
 }
@@ -62,6 +67,30 @@ body {
     height: 44px;
     margin: 20px;
     margin-top: 24px;
+} */
+#logo2,#logo3{
+    display: inline-block;
+    background-image: url('http://127.0.0.1:5500/public/assets/logo.png') !important;
+    width: 50px !important;
+    height: 80px !important;
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+#isotipo2,#isotipo3{
+    display: inline-block;
+    width: 170px !important;
+    height: 44px !important;
+    background-image: url('http://127.0.0.1:5500/public/assets/isotipo.png')  !important  ;
+    margin: 20px !important;
+    margin-top: 24px !important;
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 .cont-head{
     display: flex;
@@ -141,16 +170,16 @@ body {
 .cont-detalle{
     display: flex;
     justify-content: space-between;  
-    width: 80%; 
+    width: 70%; 
     margin: 0px; 
 }
 .detalleProp p{
-    width: 80%;
+    /* width: 70%; */
     margin-right: 32px;
     margin: 0px;
 }
 .cuerpo .detalleProp p{
-    width: 80%;
+    width: 70%;
     margin: 0px;
 }
 .cont-detalle-Alq{
@@ -160,12 +189,12 @@ body {
     margin-bottom: 4px;
 }
 .detalle,.cuerpo-det{
-    width: 80%;
+    width: 70%;
     margin-right: 32px;
     margin: 0px;
 }
 .monto{
-    width: 20%;    
+    width: 30%;    
     justify-items: right;
 }
 .cont-detalle-prop, .cont-detalle{
@@ -181,13 +210,13 @@ body {
     margin: 0px;
 } */
 #detalleProp{
-    width: 80%;
+    width: 70%;
 }
 #monto-alq,#cont-montos{
     margin: 0px;
     justify-content: right;
     text-align: end;  
-    width: 20%; 
+    width: 30%; 
 }
 .cont-detalle-Comi{
     width: 100%;
@@ -198,15 +227,16 @@ body {
     display: flex;
 }
 #cont-detalleProp, #cont-detalleOnlyProp{
-    width: 80%;
+    width: 70%;
 }
 #cont-montosProp, #cont-montosOnlyProp{
-    width: 20%;
+    width: 30%;
     text-align: end;
     justify-content: end;
 }
 .montos{
-    width: 20%;
+    width: 30%;
+    text-align: end;
 }
 .montos p{
     display: block;
@@ -217,6 +247,9 @@ body {
     display: flex;
     justify-content: end;
     margin-top: 24px;
+}
+.observaciones {
+    margin-top: 40px;
 }
 #total-label{
     margin: 0px;
@@ -240,6 +273,14 @@ body {
 }
 .cont-firma{
     width: 50%;
+}
+.cont-total-prop {
+    display: inline-block !important;
+    width: 40% !important;
+}
+.cont-firma-prop {
+    display: inline-block !important;
+    width: 40% !important;
 }
 .cont-title-liq{
     display: flex;
@@ -298,4 +339,35 @@ body {
 }
 #mail{
     visibility: visible;
+}
+.firma {
+    display: block;
+    background-image: url('http://127.0.0.1:5500/public/assets/firma.png') !important;
+    width: 170px !important;
+    height: 74px !important;
+    margin-left: -15px;
+    margin-top: 12px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;    
+}
+span {
+    color: var(--secondary);
+    font-family: monospace;
+    font-weight: 400;
+    font-size: large;
+    text-align: end;
+    word-spacing: 3px;
+}
+.cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
+    color: var(--secondary);
+    font-family: monospace;
+    font-weight: 400;
+    font-size: large ;
+    text-align: end;
+}
+#totalDetProp {
+    font-size: large ;
+    font-family: monospace;
+    font-weight: 400;
+    text-align: end;
 }

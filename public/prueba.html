@@ -42,7 +42,7 @@ body {
 }
 .bodyInt{
     display: flex;
-    width: 548px;
+    width: 588px;
     justify-content: center;
     flex-direction: column;
     border: solid black 2px;
@@ -235,19 +235,19 @@ body {
     width: 100%;
     justify-content: space-between;
 }
-/* #montoAlqProp, #montoComision{
-    display: block;
-    width: 20%;
+/* #montoAlqProp{
+    display: inline-block;
+    width: 30%;
     text-align: end;
     justify-content: end;
     margin: 0px;
 } */
-#detalleProp{
+.detalleProp{
     width: 65%;
 }
 #monto-alq,#cont-montos,.montos{    
     margin: 0px;
-    justify-content: right;
+    /* justify-content: right; */
     text-align: end;  
     width: 34%; 
 }
@@ -269,7 +269,7 @@ body {
 }
 #detalleProp {
     display: inline-block;
-    width: 65%;
+    /* width: 65%; */
 }
 #cont-montosProp, #cont-montosOnlyProp{
     display: inline-block;
@@ -358,7 +358,7 @@ body {
 .cont-total-prop > p{
     font-size: small !important;
 }
-#total-fianlProp {
+#total-finalProp {
     font-size: medium !important;
 }
 .cont-title-liq{
@@ -423,7 +423,7 @@ span {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 400;
-    font-size: smaller;
+    font-size: small;
     text-align: end;
     word-spacing: 3px;
 }
@@ -431,11 +431,11 @@ span {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 400;
-    font-size: smaller ;
+    font-size: small ;
     text-align: end;
 }
 #totalDetProp {
-    font-size: smaller ;
+    font-size: small ;
     font-family: Roboto Mono;
     font-weight: 400;
     font-size: small ;
@@ -453,108 +453,123 @@ span {
     <div class="bodyInt" id="bodyInt">
             
 
-        <div id="divHTML"><div class="inbody-inq" id="inbody-inq" name="inbody-inq">
-        <!-- <h1>Recibo Inquilino</h1> -->
-        <header>
-            <p id="firstText">Cobranzas de alquiler por cuenta y orden de terceros</p>
-            <div class="cont cont-head">
-                <div class="cont cont-info">
-                    <div class="cont cont-logo">
-                        <!-- <img id="logo2" src="./assets/logo.png" alt="">
-                        <img id="isotipo2" src="./assets/isotipo.png" alt="">              -->
-                        <div id="logo2"></div>
-                        <div id="isotipo2"></div>
-                    </div>
-                    <p id="ad-al">Administracion de alquileres</p>
-                    <div class="cont cont-data">
-                        <p>de Zita Mónica Sorbilli</p>
-                        <p>Pje.Anibal Troilo 972 PB "B"</p>
-                        <p>Tel.: 4862 -4088</p>
-                        <p>1425 Capital Federal</p>
-                    </div>
+        <div id="divHTML"><div class="inbody-prop" id="inbody-prop">
+    <!-- <h1>Recibo Inquilino</h1> -->
+    <header>
+        <p id="firstText">Cobranzas de alquiler por cuenta y orden de terceros</p>
+        <div class="cont cont-head">
+            <div class="cont cont-info">
+                <div class="cont cont-logo">
+                    <!-- <img id="logo3" src="./assets/logo.png" alt="">
+                    <img id="isotipo3" src="./assets/isotipo.png" alt="">                     -->
+                    <div id="logo3"></div>
+                    <div id="isotipo3"></div>
                 </div>
-                <div class="cont cont-num">
-                    <div class="cont-n cont-numero" id="numero">N° 0000<p id="num">4489</p></div>
-                    <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="date">16/8/2024</p></div>
+                <p id="ad-al">Administracion de alquileres</p>
+                <div class="cont cont-data">
+                    <p>de Zita monica Sorbilli</p>
+                    <p>Pje.Anibal Troilo 972 PB "B"</p>
+                    <p>Tel.: 4862 -4088</p>
+                    <p>1425 Capital Federal</p>
                 </div>
             </div>
-        </header>
-        <div class="bodier">
-            <div class="inquilino">
-                <p>Señor: <span id="senior">ROMINA PELUFO</span></p>
-                <p>Domicilio: <span id="domicilio">CORDOBA 4001 9G</span></p>
-            </div>
-            <div class="cuerpo recibi">
-                <p>Recibí la suma de  <span id="pesosLetra">UN MILLON OCHO MIL </span> pesos en concepto de pago de alquiler del departamento ubicado en el domicilio arriba sitado.</p> 
-                <p>Vence: <input type="date" name="vence" id="vence"><span id="vencePrint">31/7/2024</span></p>      
-            </div>
-            <p class="detalle-title"><u>Detalle de pago de alquiler:</u></p>
-            <div class="inputs">
-                <input type="text" name="nuevoGasto" id="nuevoGasto">
-                <input type="text" name="nuevoMonto" id="nuevoMonto">
-                <button id="insertar" onclick="insertarDetalles()">Insertar</button>
-                <button id="delDetalle" onclick="deleteDetalle()">Borrar</button>
-            </div>  
-            <div class="cont-detalle-Alq">
-                <div class="cuerpo detalle">
-                    <p>Alquiler correspondiente a <span id="mes-alq">JUL 2024</span> 
-                        <!-- <input type="text" name="mesAlq" id="mesAlq"> -->
-                    </p>               
+            <div class="cont cont-num">
+                <div class="cont-n cont-numero" id="numero">N° 0000<p id="numProp">4489</p>
                 </div>
-                <div class="montos">
-                    <p><span id="monto-alq">$ 58.000.-</span></p>
-                </div>            
-            </div>
-            <div id="cont-new-det" style="display: flex;">
-                <div class="cont-detalle" id="cont-detalle" style="display: block;">- hjgfhjgfjhgf<br>- fgdgfdgf<br>- gfdj  gfhg gfh<br></div>
-                <div class="cont-montos" id="cont-montos" style="display: flex;">$ 1.111.111.-<br>$ -111.111.-<br>$ -50.000.-<br></div> 
-            </div>
-            <!-- <div class="cont-detalle">
-                <div class="cuerpo detalle" id="cuerpo-det">
-                    <p>Expensas extraordinarias: frente, andamios, terraza, despido del portero</p>               
-                </div>
-                <div class="montos">
-                    <p id="monto">$3000</p>
-                </div>            
-            </div>
-            <div class="cont-detalle">
-                <div class="cuerpo detalle">
-                    <p>Expensas extraordinarias</p>               
-                </div>
-                <div class="montos">
-                    <span class="monto">$300</span>
-                </div>            
-            </div> -->
-            <div class="cont-totales">
-                <div class="total-text">
-                    <p id="total-label">TOTAL</p>
-                </div>
-                <div class="cont-total-det">
-                    <span id="total">$ 1.008.000.-</span>
-                </div>            
-            </div>
-            <div class="observaciones">
-                <p>Observaciones: <span id="observacionesPrint">Recibí los comprobantes de pago de ABL cuota 10-24, AYSA vto. 2/3/24, EDENOR vto. 2/3/24, METROGAS  vto. 2/3/24, EXPENSAS febrero-24</span></p>
-                <textarea name="observaciones" id="observacionesInput" cols="60" rows="2">Recibí los comprobantes de pago de </textarea>
-                <p>Por cuenta del Locador Sr./a: <span id="locadorPrint">MARTINA OLLEROS</span></p>
-                <!-- <input type="text" name="locador" id="locador"> -->
-            </div>
-            <div class="cont-firma-total">
-                <div class="cont-total">
-                    <p>Total  <span id="total-final">$ 1.008.000.-</span></p>
-                </div>
-                <div class="cont-firma">
-                    <div class="firma">
-                        
-                    </div>
-                    <p>Zita Mónica Sorbilli</p>
-                </div>
+                <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="dateProp">16/8/2024</p></div>
             </div>
         </div>
+    </header>
+    <div class="bodier">
+        <div class="cont-title-liq">
+            <h3 id="title-liq">Liquidacion de alquileres </h3>            
+        </div>
+        <div class="sitoEnProp" id="sitoEnProp">
+            <p>Dpto. sito en: <span id="dirDeptoAlq">CORDOBA 4001 9G</span></p>       
+        </div>
+        <p class="detalle-title"><u>Detalle de alquiler:</u></p>
+        <!-- solo propietario -->
+        <div class="inputs">
+            <input type="text" name="nuevoGasto" id="nuevoGastoOnlyProp" placeholder="detalle solo recibo propietario">
+            <input type="text" name="nuevoMonto" id="nuevoMontoOnlyProp" placeholder="monto solo recibo propietario">
+            <button id="insertarProp" onclick="insertDetOnlyProp()">Insertar</button>
+            <button id="delDetalleProp" onclick="deleteDetalleOnlyProp()">Borrar</button>
+        </div> 
+        <div class="cont-detalle-prop">
+            <div class="cuerpo detalleProp" id="detalleProp">
+                <p>alquiler correspondiente a <span id="mesAlqProp">JUL 2024</span> </p>               
+            </div>
+            <div class="montos">
+                <span class="" id="montoAlqProp">$ 58.000.-</span>
+            </div>            
+        </div>
+        <div id="cont-new-det">
+            <div class="cont-detalle" id="cont-detalleProp" style="display: block;">- hjgfhjgfjhgf<br>- fgdgfdgf<br>- gfdj  gfhg gfh<br></div>
+            <div class="cont-montos" id="cont-montosProp" style="display: flex;">$ 1.111.111.-<br>$ -111.111.-<br>$ -50.000.-<br></div> 
+        </div>
+        <div id="cont-new-det-only-prop" style="display: flex;">
+            <div class="cont-detalle" id="cont-detalleOnlyProp" style="display: block;">- ghfhgf<br></div>
+            <div class="cont-montosOP" id="cont-montosOnlyProp" style="display: flex;">$ -100.000.-<br></div> 
+        </div>
+        <!-- <div class="cont-detalle">
+            <div class="cuerpo detalle">
+                <p>Expensas extraordinarias: frente, andamios, terraza</p>               
+            </div>
+            <div class="montos">
+                <p class="monto">$3000</p>
+            </div>            
+        </div>
+        <div class="cont-detalle">
+            <div class="cuerpo detalle">
+                <p>boleta gas</p>               
+            </div>
+            <div class="montos">
+                <p class="monto">$800</p>
+            </div>            
+        </div> -->
         
-        <footer>
-    
-        </footer>    
+        <p class="detalle-subtitle"><u>Descuentos Del Norte Prop.:</u></p>
+
+        <div class="cont-detalle-comi">
+            <div class="cuerpo detalle">
+                <p>Honorarios Administracion  <span>
+                    <select name="comisionSelect" id="comisionSelect" defaul="">
+                        <option value="administracion" selected="selected">Administracion</option>
+                        <option value="firma">Firma Contrato</option>
+                    </select>
+                </span></p>               
+            </div>
+            <div class="montos">
+                <span class="montoComi" id="montoComision">$ -2.900.-</span>
+            </div>            
+        </div>
+
+        <div class="cont-totales">
+            <div class="total-text">
+                <p>TOTAL</p>
+            </div>
+            <div class="cont-total-det">
+                <p class="total">$ <span id="totalDetProp">905.100.-</span></p>
+            </div>            
+        </div>
+        <div class="observaciones">
+            <p>Observaciones: </p><p id="obsProp">Recibí los comprobantes de pago de ABL cuota 10-24, AYSA vto. 2/3/24, EDENOR vto. 2/3/24, METROGAS  vto. 2/3/24, EXPENSAS febrero-24</p><p></p>
+            <!-- <textarea name="observaciones" id="observacionesInputProp" cols="60" rows="2"></textarea> -->
+            
+        </div>
+        <div class="cont-firma-total-prop">
+            <div class="cont-total-prop">
+                <p>Total  $ <span id="total-finalProp">905.100.-</span></p>
+            </div>
+            <div class="cont-firma-prop">
+                <p>Firma:  </p><p id="firma-final"></p><p></p>
+                
+            </div>
+        </div>
+    </div>
+    <footer>
+        
+    </footer>
     </div></div></div>
     
   </body>

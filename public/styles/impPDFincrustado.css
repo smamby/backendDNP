@@ -33,7 +33,7 @@ body {
 }
 .bodyInt{
     display: flex;
-    width: 548px;
+    width: 588px;
     justify-content: center;
     flex-direction: column;
     border: solid black 2px;
@@ -226,19 +226,19 @@ body {
     width: 100%;
     justify-content: space-between;
 }
-/* #montoAlqProp, #montoComision{
-    display: block;
-    width: 20%;
+/* #montoAlqProp{
+    display: inline-block;
+    width: 30%;
     text-align: end;
     justify-content: end;
     margin: 0px;
 } */
-#detalleProp{
+.detalleProp{
     width: 65%;
 }
 #monto-alq,#cont-montos,.montos{    
     margin: 0px;
-    justify-content: right;
+    /* justify-content: right; */
     text-align: end;  
     width: 34%; 
 }
@@ -260,7 +260,7 @@ body {
 }
 #detalleProp {
     display: inline-block;
-    width: 65%;
+    /* width: 65%; */
 }
 #cont-montosProp, #cont-montosOnlyProp{
     display: inline-block;
@@ -349,7 +349,7 @@ body {
 .cont-total-prop > p{
     font-size: small !important;
 }
-#total-fianlProp {
+#total-finalProp {
     font-size: medium !important;
 }
 .cont-title-liq{
@@ -414,7 +414,7 @@ span {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 400;
-    font-size: smaller;
+    font-size: small;
     text-align: end;
     word-spacing: 3px;
 }
@@ -422,11 +422,11 @@ span {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 400;
-    font-size: smaller ;
+    font-size: small ;
     text-align: end;
 }
 #totalDetProp {
-    font-size: smaller ;
+    font-size: small ;
     font-family: Roboto Mono;
     font-weight: 400;
     font-size: small ;
