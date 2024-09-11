@@ -1,0 +1,10 @@
+para hacer despliegue:
+
+npm install     //para instalar modulos de node
+
+ver si hace falta cambiar host de localhost o 127.0.0.1
+
+cambiar variables con url de imagenes logo, isotipo y firma en cada css y en incrustado cambiar directamente sobre los atributos, html-pdf no funciona con variables de css.
+
+cambiar ruta de "run static.bat" segun sea necesario
+cambiar navegador, entre brave o chrome en "run static.bat" ,si fuese nesesario
