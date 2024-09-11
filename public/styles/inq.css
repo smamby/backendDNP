@@ -6,6 +6,9 @@
     --btnCompart: rgb(28, 42, 121);
     --btnAlertFont: whitesmoke;
     --span: darkred;
+    --logo-path: url('http://127.0.0.1:5500/public/assets/logo.png');
+    --isotipo-path: url('http://127.0.0.1:5500/public/assets/isotipo.png');
+    --firma-path: url('http://127.0.0.1:5500/public/assets/firma.png');
 }
 .dark {
     --html: black;  
@@ -78,7 +81,7 @@ body {
 } */
 #logo2,#logo3{
     display: inline-block;
-    background-image: url('http://127.0.0.1:5500/public/assets/logo.png') !important;
+    background-image: var(--logo-path) !important ;
     width: 50px !important;
     height: 80px !important;
     background-size: 100% 100%; 
@@ -91,7 +94,7 @@ body {
     display: inline-block;
     width: 170px !important;
     height: 44px !important;
-    background-image: url('http://127.0.0.1:5500/public/assets/isotipo.png')  !important  ;
+    background-image: var(--isotipo-path)  !important  ;
     margin: 20px !important;
     margin-top: 24px !important;
     background-size: 100% 100%; 
@@ -279,7 +282,7 @@ cont-firma-total-prop {
 }
 .firma {
     display: block;
-    background-image: url('http://127.0.0.1:5500/public/assets/firma.png') !important;
+    background-image: var(--firma-path) !important;
     width: 170px !important;
     height: 74px !important;
     margin-left: -12px;

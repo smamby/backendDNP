@@ -1,2 +1,7 @@
 node_modules
+/public/assets/*.jpg
+/public/assets/*.psd
+/public/assets/*.jpeg
+/public/assets/styles
+/components/impPDF/pdfs
 
