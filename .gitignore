@@ -4,4 +4,5 @@ node_modules
 /public/assets/*.jpeg
 /public/assets/styles
 /components/impPDF/pdfs
+.env
 

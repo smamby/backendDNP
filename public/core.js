@@ -670,7 +670,7 @@ function editCont(contratoLevantado){
          levantarContrato(contratoLevantado[0])
          impInq()
       })      
-   };   
+   };
 };
 
 function existeId() {
@@ -972,8 +972,41 @@ function sendEmail(div){
       a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
    }
    console.log(mTo);      
-   window.location.href = a.href
-   
+   window.location.href = a.href   
+}
+
+function sendEmailBACK(div){
+   if (itemEncontrado!=''){
+      const opDate2 = {year:'numeric',month:'short'};
+      var dateVence = document.getElementById("vence").value;
+      // var yearDateVence = new Date(dateVence).getFullYear();
+      // var monthDateVence = parseInt(new Date(dateVence).getMonth())+1;
+      var dateVenceShort = new Date(dateVence).toLocaleString("sp-IN", opDate2)
+      var mTo = ''
+      //var a = document.getElementById("mail")
+      if(div === 'inbody-inq'){
+         let filenamePDF = `${reciboLevantado[0].numeroRecibo} ${contratoLevantado[0].direccion} inq.pdf`;
+         let mTo =  itemEncontrado.emailInquilino;
+         let subjectMail = `Recibo de alquiler ${dateVenceShort}`;
+         let bodyMail = 'Adjuntamos recibo de alquiler.\n\nAtte.\nDel Norte Propiedades.\n\n\n';
+         console.log(`[[core]] ${filenamePDF}`);
+         sendMailToBackend(filenamePDF,mTo,subjectMail,bodyMail);
+         //a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20liquidacion%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
+      } else if(div === 'inbody-prop') {
+         let filenamePDF = `${reciboLevantado[0].numeroRecibo} ${contratoLevantado[0].direccion} prop.pdf`;
+         let mTo = itemEncontrado.emailPropietario;
+         let subjectMail = `Liquidación de alquiler ${dateVenceShort}`;
+         let bodyMail = 'Adjuntamos liquidación de alquiler.\n\nAtte.\nDel Norte Propiedades.\n\n\n';
+         console.log(`[[core]] ${filenamePDF}`);
+         sendMailToBackend(filenamePDF,mTo,subjectMail, bodyMail);
+         //a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
+      }
+      console.log(mTo);      
+        
+   } else {
+      alert('Cargá algun contrato, no cargaste ninguno.');
+      document.getElementById("buscarInput").focus();
+   }
 }
 
 cargarInfo();

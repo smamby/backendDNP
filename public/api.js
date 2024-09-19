@@ -2,9 +2,10 @@
 
 const u = 'http://localhost:5500';
 
-const c = '/contratos/'
-const r = '/recibos/'
-const p = '/printPDF/'
+const c = '/contratos/';
+const r = '/recibos/';
+const p = '/printPDF/';
+const sm = '/sendMail/';
 
 
 const header = {
@@ -186,6 +187,30 @@ async function imprimirReciboPDFBack(inbody,filename){
 window.imprimirReciboPDFBack = imprimirReciboPDFBack;
 
 //window.onbeforeunload = null;
+
+
+async function sendMailToBackend(filename, destiny, subjectmail, bodymail) {
+  const response = await fetch(u+sm, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      filenamePDF: filename,
+      mailDestiny: destiny,
+      subjectMail: subjectmail,
+      bodyMail: bodymail,
+    })
+  })
+  if (!response.ok){
+    alert(await response.text());
+    throw new Error('Error al intentar mandar el mail '+ await response.text());
+  }
+  const result = await response.text();
+  console.log(result);
+  alert(result);
+}
 
 window.onbeforeunload = ()=>{
   return 'ACEPTAR para cerrar la aplicacion. CANCELAR para refrescar la pagina' 
