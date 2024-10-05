@@ -12,7 +12,7 @@ const pathPDFs = 'pdfs' //path donde se guarda los PDF
 
 
 router.post('/', (req,res)=>{
-  console.log(`[[router.post]] ${JSON.stringify(req.body)}`);
+  //console.log(`[[router.post]] ${JSON.stringify(req.body)}`);
   const { html, filename } = req.body;
 
   if (!html || !filename) {
@@ -26,7 +26,7 @@ router.post('/', (req,res)=>{
   const filePath = path.join(__dirname, pathPDFs, filename)
   const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mesEnCurso/',filename)
   const cssPath = path.join(__dirname, '../../public/styles', 'impPDFincrustado.css');
-  console.log(`[[csspath]] ${cssPath}`)
+  //console.log(`[[csspath]] ${cssPath}`)
   
   let cssContent;
   try {
@@ -38,7 +38,7 @@ router.post('/', (req,res)=>{
   }
 
   var fichaInn = html.outerHTML; //.replace(/(?:\r\n|\r|\n)/g, '').outerHTML;
-  console.log(`[[router.post]] ${html}`)
+  //console.log(`[[router.post]] ${html}`)
 
    var fichaPDFBACK = `
   <!doctype html>
@@ -52,16 +52,15 @@ router.post('/', (req,res)=>{
     <style>${cssContent}</style>
   </head>
   <body style="width: 628px">
-    
     ${html}
     
   </body>
   </html>`;
 
-  console.log(`[[[network fichaPDFback]]]   ${fichaPDFBACK}`)
+  //console.log(`[[[network fichaPDFback]]]   ${fichaPDFBACK}`)
 
   //let file = { url: "http://127.0.0.1:5500/public/popimp.html" };
-  htmlPdf.create(fichaPDFBACK, options).toFile(filePath, (err, result) => { //fichaPDFBACK => file
+  htmlPdf.create(fichaPDFBACK, options).toFile(filePath, (err, result) => {
     if (err) {
       console.error('Error generating PDF:', err);
       return res.status(500).send('Error generating PDF');

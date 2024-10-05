@@ -14,9 +14,12 @@
     --btnAlert: rgb(47, 165, 219);
     --btnAlertFont: whitesmoke;
     --span: darkred;
-    --logo-path: url('http://127.0.0.1:5500/public/assets/logo.png');
+    /* --logo-path: url('http://127.0.0.1:5500/public/assets/logo.png');
     --isotipo-path: url('http://127.0.0.1:5500/public/assets/isotipo.png');
-    --firma-path: url('http://127.0.0.1:5500/public/assets/firma.png');
+    --firma-path: url('http://127.0.0.1:5500/public/assets/firma.png'); */
+    --logo-path: url('http://127.0.0.1:5500/assets/logo.png');
+    --isotipo-path: url('http://127.0.0.1:5500/assets/isotipo.png');
+    --firma-path: url('http://127.0.0.1:5500/assets/firma.png');
 }
 .dark {
     --html: black;  
@@ -84,7 +87,7 @@ body {
 } */
 #logo2,#logo3{
     display: inline-block;
-    background-image: url('http://127.0.0.1:5500/public/assets/logo.png') !important;
+    background-image: url('http://127.0.0.1:5500/assets/logo.png') !important;
     width: 50px !important;
     height: 80px !important;
     background-size: 100% 100%; 
@@ -97,7 +100,7 @@ body {
     display: inline-block;
     width: 170px !important;
     height: 44px !important;
-    background-image: url('http://127.0.0.1:5500/public/assets/isotipo.png')  !important  ;
+    background-image: url('http://127.0.0.1:5500/assets/isotipo.png')  !important ;
     margin: 20px !important;
     margin-top: 24px !important;
     background-size: 100% 100%; 
@@ -335,7 +338,7 @@ body {
 }
 .firma {
     display: block;
-    background-image: url('http://127.0.0.1:5500/public/assets/firma.png') !important;
+    background-image: url('http://127.0.0.1:5500/assets/firma.png') !important;
     width: 170px !important;
     height: 74px !important;
     margin-top: 12px;
@@ -452,7 +455,6 @@ span {
 </style>
   </head>
   <body style="width: 628px">
-    
     <div class="bodyInt" id="bodyInt">
             
 
@@ -477,9 +479,9 @@ span {
                 </div>
             </div>
             <div class="cont cont-num">
-                <div class="cont-n cont-numero" id="numero">N° 0000<p id="numProp">4489</p>
+                <div class="cont-n cont-numero" id="numero">N° 0000<p id="numProp">4491</p>
                 </div>
-                <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="dateProp">16/8/2024</p></div>
+                <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="dateProp">22/8/2024</p></div>
             </div>
         </div>
     </header>
@@ -488,7 +490,7 @@ span {
             <h3 id="title-liq">Liquidacion de alquileres </h3>            
         </div>
         <div class="sitoEnProp" id="sitoEnProp">
-            <p>Dpto. sito en: <span id="dirDeptoAlq">CORDOBA 4001 9G</span></p>       
+            <p>Dpto. sito en: <span id="dirDeptoAlq">LAVALLE 333</span></p>       
         </div>
         <p class="detalle-title"><u>Detalle de alquiler:</u></p>
         <!-- solo propietario -->
@@ -500,19 +502,19 @@ span {
         </div> 
         <div class="cont-detalle-prop">
             <div class="cuerpo detalleProp" id="detalleProp">
-                <p>alquiler correspondiente a <span id="mesAlqProp">JUL 2024</span> </p>               
+                <p>alquiler correspondiente a <span id="mesAlqProp">AGO 2024</span> </p>               
             </div>
             <div class="montos">
-                <span class="" id="montoAlqProp">$ 58.000.-</span>
+                <span class="" id="montoAlqProp">$ 49.000.-</span>
             </div>            
         </div>
         <div id="cont-new-det">
-            <div class="cont-detalle" id="cont-detalleProp" style="display: block;">- hjgfhjgfjhgf<br>- fgdgfdgf<br>- gfdj  gfhg gfh<br></div>
-            <div class="cont-montos" id="cont-montosProp" style="display: flex;">$ 1.111.111.-<br>$ -111.111.-<br>$ -50.000.-<br></div> 
+            <div class="cont-detalle" id="cont-detalleProp"></div>
+            <div class="cont-montos" id="cont-montosProp"></div> 
         </div>
-        <div id="cont-new-det-only-prop" style="display: flex;">
-            <div class="cont-detalle" id="cont-detalleOnlyProp" style="display: block;">- ghfhgf<br></div>
-            <div class="cont-montosOP" id="cont-montosOnlyProp" style="display: flex;">$ -100.000.-<br></div> 
+        <div id="cont-new-det-only-prop">
+            <div class="cont-detalle" id="cont-detalleOnlyProp"></div>
+            <div class="cont-montosOP" id="cont-montosOnlyProp"></div> 
         </div>
         <!-- <div class="cont-detalle">
             <div class="cuerpo detalle">
@@ -543,7 +545,7 @@ span {
                 </span></p>               
             </div>
             <div class="montos">
-                <span class="montoComi" id="montoComision">$ -2.900.-</span>
+                <span class="montoComi" id="montoComision">$ -2.450.-</span>
             </div>            
         </div>
 
@@ -552,17 +554,17 @@ span {
                 <p>TOTAL</p>
             </div>
             <div class="cont-total-det">
-                <p class="total">$ <span id="totalDetProp">905.100.-</span></p>
+                <p class="total">$ <span id="totalDetProp">46.550.-</span></p>
             </div>            
         </div>
         <div class="observaciones">
-            <p>Observaciones: </p><p id="obsProp">Recibí los comprobantes de pago de ABL cuota 10-24, AYSA vto. 2/3/24, EDENOR vto. 2/3/24, METROGAS  vto. 2/3/24, EXPENSAS febrero-24</p><p></p>
+            <p>Observaciones: </p><p id="obsProp">Recibí los comprobantes de pago de </p><p></p>
             <!-- <textarea name="observaciones" id="observacionesInputProp" cols="60" rows="2"></textarea> -->
             
         </div>
         <div class="cont-firma-total-prop">
             <div class="cont-total-prop">
-                <p>Total  $ <span id="total-finalProp">905.100.-</span></p>
+                <p>Total  $ <span id="total-finalProp">46.550.-</span></p>
             </div>
             <div class="cont-firma-prop">
                 <p>Firma:  </p><p id="firma-final"></p><p></p>

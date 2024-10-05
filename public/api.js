@@ -173,8 +173,9 @@ async function imprimirReciboPDFBack(inbody,filename){
       throw new Error(`Error generating PDF: ${await response.text()}`);
     }
 
-    const result = await response.json();
+    const result = await response.text();
     console.log('PDF generated successfully:', result);
+    alert('PDF generated successfully:', result);
     return result;
   } catch (error) {
     console.error('Error during PDF generation:', error);
