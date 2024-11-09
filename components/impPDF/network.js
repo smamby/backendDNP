@@ -53,7 +53,6 @@ router.post('/', (req,res)=>{
     <style>${cssContent}</style>
   </head>
   <body style="width: 628px">
-    
     ${html}
     
   </body>

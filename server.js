@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+
 const app = express();
 
 const bodyParser = require('body-parser')
@@ -19,15 +20,17 @@ app.use(cors({origin: ['https://smamby.github.io','http://127.0.0.1:5500', 'http
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json());
 app.use(express.json());
+
+
 app.use(express.static('./public'))
 
 routes(app); //router tiene que estar despues de cors!!
 
-app.get('/', (req,res)=>{
-    var name = req.query.name
-    console.log(name)
-    res.send('<h1>Atencion '+name+' esto es una prueba de coneccion del servidro en puerto '+port+'</h1>')
-})
+// app.get('/', (req,res)=>{
+//     var name = req.query.name
+//     console.log(name)
+//     res.send('<h1>Atencion '+name+' esto es una prueba de coneccion del servidro en puerto '+port+'</h1>')
+// })
 
 
 app.post('/close', (req,res)=>{
