@@ -7,7 +7,7 @@ const cors = require('cors');
 const routes = require('./routes/routes');
 
 const db = require('./db');
-const URI = 'mongodb://localhost:27017/DNP';
+const URI = 'mongodb://127.0.0.1:27017/delNorteProp';
 
 db(URI);
 

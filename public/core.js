@@ -933,8 +933,8 @@ function imprimirBoletaPDFBACK(){
       
 
       //var wImp = window.open('http://localhost:5500/popimp.html','popimp');
-      var wImp = window.open('http://127.0.0.1:5500/public/popimp.html','_blank');
-      
+      //var wImp = window.open('http://127.0.0.1:5500/public/popimp.html','_blank');
+      var wImp = window.open('http://localhost:5500/popimp.html','_blank');
       //var wImp = window.open('http://localhost:5500/popimpBACK.html','popimpBACK');
         
    } else {

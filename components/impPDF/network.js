@@ -12,7 +12,7 @@ const pathPDFs = 'pdfs' //path donde se guarda los PDF
 
 
 router.post('/', (req,res)=>{
-  console.log(`[[router.post]] ${JSON.stringify(req.body)}`);
+  //console.log(`[[router.post]] ${JSON.stringify(req.body)}`);
   const { html, filename } = req.body;
 
   if (!html || !filename) {
@@ -24,9 +24,10 @@ router.post('/', (req,res)=>{
     orientation: 'portrait'
   }
   const filePath = path.join(__dirname, pathPDFs, filename)
-  const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mesEnCurso/',filename)
+  //const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename)
+  const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
   const cssPath = path.join(__dirname, '../../public/styles', 'impPDFincrustado.css');
-  console.log(`[[csspath]] ${cssPath}`)
+  console.log(`[[filepath]] ${filePathProduccion}`)
   
   let cssContent;
   try {
@@ -38,7 +39,7 @@ router.post('/', (req,res)=>{
   }
 
   var fichaInn = html.outerHTML; //.replace(/(?:\r\n|\r|\n)/g, '').outerHTML;
-  console.log(`[[router.post]] ${html}`)
+  //console.log(`[[router.post]] ${html}`)
 
    var fichaPDFBACK = `
   <!doctype html>
@@ -58,15 +59,15 @@ router.post('/', (req,res)=>{
   </body>
   </html>`;
 
-  console.log(`[[[network fichaPDFback]]]   ${fichaPDFBACK}`)
+  //console.log(`[[[network fichaPDFback]]]   ${fichaPDFBACK}`)
 
   //let file = { url: "http://127.0.0.1:5500/public/popimp.html" };
-  htmlPdf.create(fichaPDFBACK, options).toFile(filePath, (err, result) => { //fichaPDFBACK => file
+  htmlPdf.create(fichaPDFBACK, options).toFile(filePathProduccion, (err, result) => { //fichaPDFBACK => file
     if (err) {
       console.error('Error generating PDF:', err);
       return res.status(500).send('Error generating PDF');
     }
-    res.status(200).send({ message: 'PDF generado y guardado correctamente', filePath: result.filename });
+    res.status(200).send({ message: 'PDF generado y guardado correctamente', filePathProduccion: result.filename });
   })
 
   fs.writeFileSync('./public/prueba.html', fichaPDFBACK, 'utf8', (err) => {
