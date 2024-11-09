@@ -171,21 +171,23 @@ async function imprimirReciboPDFBack(inbody,filename){
 
     if (!response.ok) {
       throw new Error(`Error generating PDF: ${await response.text()}`);
+    } else {
+      if (window.opener) {
+        const result = await response.json();
+        console.log('PDF generated successfully: '+ result.filePathProduccion);
+        window.opener.alert('PDF generated successfully in: '+ result.filePathProduccion);
+      }      
     }
-
-    const result = await response.text();
-    console.log('PDF generated successfully:', result);
-    alert('PDF generated successfully:', result);
-    return result;
   } catch (error) {
     console.error('Error during PDF generation:', error);
     throw error;
   } finally {
     window.isFetching = false;
+    window.close();
   }
 }
 
-window.imprimirReciboPDFBack = imprimirReciboPDFBack;
+//window.imprimirReciboPDFBack = imprimirReciboPDFBack;
 
 //window.onbeforeunload = null;
 
