@@ -48,7 +48,7 @@
             <h4>Personas intervinientes</h4>
             <input id="btnEditar" type="button" value="Editar" class="btnAlert" onclick="editarContrato(contratoLevantado)">
             <input id="btnBorrar" type="button" value="Borrar" class="btnAlert" > 
-            <input id="btn" type="button" class="btnAlert" value="Crear" onclick="check()">
+            <input id="btnSave" type="button" class="btnAlert" value="Crear" onclick="check()">
         </div>
 
         <div id="personas" style="display: flex;">        
@@ -227,9 +227,9 @@
         </footer>    
     </div>
     <div class="impInq">
-        <button id="imp" class="uni" onclick="impInq()">Calcul.</button>
-        <button id="imp" class="uni pdf" onclick="imprimirBoletaPDFBACK()">Imp. PDF</button>  <!--imprimirBoletaPDF-->
-        <button id="imp" onclick="imprimirBoleta('inbody-inq')">Imp.</button>
+        <button id="impScrn" class="uni" onclick="impInq()">Calcul.</button>
+        <button id="impPDF" class="uni pdf" onclick="imprimirBoletaPDFBACK()">Imp. PDF</button>  <!--imprimirBoletaPDF-->
+        <button id="impPaper" onclick="imprimirBoleta('inbody-inq')">Imp.</button>
         <button id="nuevo" onclick="nuevo()">Nuevo</button>
         <button id="mail" role="link" onclick="sendEmailBACK('inbody-inq')">Email</button>
     </div>
@@ -356,9 +356,9 @@
     </footer>
     </div>  
     <div class="impProp">
-        <button id="imp" class="uni" onclick="impInq()">Calcul.</button>
-        <button id="imp" class="uni pdf" onclick="imprimirBoletaPDFBACK()">Imp. PDF</button>
-        <button id="imp" onclick="imprimirBoleta('inbody-prop')">Imp.</button>
+        <button id="impScrn" class="uni" onclick="impInq()">Calcul.</button>
+        <button id="impPDF" class="uni pdf" onclick="imprimirBoletaPDFBACK()">Imp. PDF</button>
+        <button id="impPaper" onclick="imprimirBoleta('inbody-prop')">Imp.</button>
         <button id="nuevo" onclick="nuevo()">Nuevo</button>
         <button id="mail" role="link" onclick="sendEmailBACK('inbody-prop')">Email</button>
     </div>
