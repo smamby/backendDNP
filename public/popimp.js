@@ -28,10 +28,10 @@ function impPdfProp(){
     
 };
 
-async function impPDF() {
+function impPDF() {
     try {
-        await impPdfInq();
-        await impPdfProp();
+        impPdfInq();
+        impPdfProp();
         //setTimeout(() => {window.close()}, 1000);
     } catch (error) {
         console.error('Error in PDF generation process:', error);
