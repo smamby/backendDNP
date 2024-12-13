@@ -2,7 +2,7 @@ node_modules
 /public/assets/*.jpg
 /public/assets/*.psd
 /public/assets/*.jpeg
-/public/assets/styles
+/public/styles/impPDFincrustado-normal-size.css
 /components/impPDF/pdfs
 .env
 

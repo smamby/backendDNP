@@ -5,12 +5,6 @@
     --btnAlert: rgb(47, 165, 219);
     --btnAlertFont: whitesmoke;
     --span: darkred;
-    /* --logo-path: url('http://127.0.0.1:5500/public/assets/logo.png');
-    --isotipo-path: url('http://127.0.0.1:5500/public/assets/isotipo.png');
-    --firma-path: url('http://127.0.0.1:5500/public/assets/firma.png'); */
-    --logo-path: url('http://127.0.0.1:5500/assets/logo.png');
-    --isotipo-path: url('http://127.0.0.1:5500/assets/isotipo.png');
-    --firma-path: url('http://127.0.0.1:5500/assets/firma.png');
 }
 .dark {
     --html: black;  
@@ -21,43 +15,43 @@
     --span: rgb(223, 97, 97);
 }
 html{
-    background-color: var(--html);
-    
+    background-color: var(--html);    
 }
+
 body {
-    margin: 12px;    
+    width: 100% !important;
+    margin: 22px;    
     display: grid;    
     background-color: var(--primary);
     color: var(--secondary);
     font-family: Kanit;
-    font-style: normal;
+    font-style: normal
     font-weight: 400;
-    font-size: small;
-    
+    font-size: larger    
     margin-left: auto;
     margin-right: auto;
 }
 .bodyInt{
     display: flex;
-    width: 588px;
+    width: 998px;
     justify-content: center;
     flex-direction: column;
-    border: solid black 2px;
-    padding: 4px 20px;
+    border: solid black 4px;
+    padding: 8px 40px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-style: normal;
     font-weight: 200;
-    font-size: small;
+    font-size: larger
 }
 
 .inbody-inq, .inbody-prop{
-    border: solid black 2px;
-    padding: 4px 20px;
+    border: solid black 4px;
+    padding: 8px 40px;
 }
 #firstText{
     font-family: monospace !important;
     font-weight: 400;
-    font-size: smaller;
+    font-size: larger
     margin: 0px;
     margin-bottom: 0px;
 }
@@ -69,7 +63,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 280px;
+    width: 560px;
 }
 /* #logo2 img, #logo3 img, #isotipo2 img, #isotipo3 img {
     display: none !important;
@@ -78,9 +72,9 @@ body {
 } */
 #logo2,#logo3{
     display: inline-block;
-    background-image: url('http://127.0.0.1:5500/assets/logo.png') !important;
-    width: 50px !important;
-    height: 80px !important;
+    background-image: url('http://localhost:5500/assets/logo.png') !important;
+    width: 100px !important;
+    height: 160px !important;
     background-size: 100% 100%; 
     background-repeat: no-repeat;
     border: none !important;
@@ -89,11 +83,11 @@ body {
 }
 #isotipo2,#isotipo3{
     display: inline-block;
-    width: 170px !important;
-    height: 44px !important;
-    background-image: url('http://127.0.0.1:5500/assets/isotipo.png')  !important  ;
-    margin: 20px !important;
-    margin-top: 24px !important;
+    width: 340px !important;
+    height: 88px !important;
+    background-image: url('http://localhost:5500/assets/isotipo.png')  !important  ;
+    margin: 40px !important;
+    margin-top: 48px !important;
     background-size: 100% 100%; 
     background-repeat: no-repeat;
     border: none !important;
@@ -102,30 +96,32 @@ body {
 }
 .cont-head{
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 .cont-logo{
     display: flex;
     border: 0px solid rgb(129, 128, 128);
-    padding: 12px;
+    padding: 24px;
 }
 .cont-data{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: smaller !important;
-    width: 270px;
-    margin: 8px;
+    font-size: larger !important;
+    width: 540px;
+    margin: 16px 16px 16px 4px;
 }
 .cont-data p{
     text-align: center;
-    height: 12px;
+    height: 24px;
     font-weight: 100;
     margin: 0;
-    font-size: 12px;
+    font-size: 18px;
 }
 #ad-al{
     text-align: center;
+    width: 540px;
     margin-top: 0px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+    font-size: 28px !important;
 }
 .cont-info {
     display: inline-block;
@@ -133,62 +129,62 @@ body {
 .cont-num{
     display: inline-block;
     /* width: 220px; */
-    margin-left: 20px;
+    margin-left: 40px;
 }
 .cont-numero{
     display: flex;    
-    height: 28px;
+    height: 56px;
     margin: 0px;
-    margin-top: 46px;
-    margin-bottom: 24px;
+    margin-top: 92px;
+    margin-bottom: 48px;
 }
 .cont-numero :nth-child(1) {
     display: inline-block;
 }
+#numero, #num, #numProp {
+    font-size: 24px;
+}
 #numInput{
     margin: 0px;
-    width: 70px;
-    margin-left: 8px;
+    width: 140px;
+    margin-left: 16px;
 }
 #num{
     display: inline-block;
     margin: 0px;
-    width: 80px;
+    width: 160px;
 }
 #fecha{
     display: flex;
     margin: 0px;
-    margin-top: 74px;
+    margin-top: 148px;
+    font-size: 24px;
 }
 .cont-fecha :nth-child(1){
     display: inline-block;
 }
-#date{
+#date, #dateProp{
     display: inline-block;
     margin: 0px;
-    margin-left: 12px;
-}
-#dateProp{
-    display: inline-block;
-    margin: 0px;
-    margin-left: 12px;
+    margin-left: 24px;
+    font-size: 24px;
 }
 .recibi p{
-    margin-top: 12px;
+    margin-top: 24px;
 }
 .detalle p, .monto{
     margin: 0px;
 }
 .inputs{
-    margin-bottom: 12px;
+    margin-bottom: 24px;
 }
 .inquilino{
     border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
 .inquilino p{
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 .cont-detalle{
     display: inline-block !important;
@@ -197,7 +193,7 @@ body {
 }
 .detalleProp p{
     width: 65%;
-    margin-right: 32px;
+    margin-right: 64px;
     margin: 0px;
 }
 .cuerpo .detalleProp p{
@@ -208,11 +204,11 @@ body {
     display: flex;
 }
 .detalle-title{
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 .detalle,.cuerpo-det{
     width: 65%;
-    margin-right: 32px;
+    margin-right: 64px;
     margin: 0px;
 }
 .montos, .detalle {
@@ -232,19 +228,19 @@ body {
     width: 100%;
     justify-content: space-between;
 }
-/* #montoAlqProp{
-    display: inline-block;
-    width: 30%;
+/* #montoAlqProp, #montoComision{
+    display: block;
+    width: 20%;
     text-align: end;
     justify-content: end;
     margin: 0px;
 } */
-.detalleProp{
+#detalleProp{
     width: 65%;
 }
 #monto-alq,#cont-montos,.montos{    
     margin: 0px;
-    /* justify-content: right; */
+    justify-content: right;
     text-align: end;  
     width: 34%; 
 }
@@ -266,7 +262,7 @@ body {
 }
 #detalleProp {
     display: inline-block;
-    /* width: 65%; */
+    width: 65%;
 }
 #cont-montosProp, #cont-montosOnlyProp{
     display: inline-block;
@@ -287,8 +283,8 @@ body {
     display: flex;
     width: 100%;
     justify-content: end;
-    margin-top: 24px;
-    margin-bottom: 32px;
+    margin-top: 48px;
+    margin-bottom: 64px;
     text-align: end;
 }
 .total-text, .cont-total-det {
@@ -296,32 +292,35 @@ body {
 }
 #total-label{
     margin: 0px;
-    margin-right: 16px;
+    margin-right: 32px;
 }
 .total-text p{
     justify-items: end;
     width: 80%;
-    margin-right: 32px;
+    margin-right: 64px;
 }
 
 .cont-firma-total{
     display: flex;
     border-top: solid 1px black;
     /* border-bottom: solid 1px black; */
-    margin-top: 20px;
-    height: 131px;
+    margin-top: 40px;
+    height: 262px;
     position: relative;
 }
 .cont-total{
     display: inline-block;
     width: 40%;    
     position: absolute;
-    margin-top: 45px;
+    margin-top: 90px;
+}
+.cont-total p , #total-final{
+    font-size: 28px;
 }
 .cont-firma {
     display: inline-block;
     width: 40%;
-    margin-left: 260px;
+    margin-left: 560px;
 }
 .cont-firma-prop{
     display: inline-block;
@@ -329,34 +328,35 @@ body {
 }
 .firma {
     display: block;
-    background-image: url('http://127.0.0.1:5500/assets/firma.png') !important;
-    width: 170px !important;
-    height: 74px !important;
-    margin-top: 12px;
+    background-image: url('http://localhost:5500/assets/firma.png') !important;
+    width: 340px !important;
+    height: 148px !important;
+    margin-top: 24px;
+    margin-left: -40px;
     background-size: 100% 100%;
     background-repeat: no-repeat;    
 }
 .cont-firma > p {
-    padding-left: 15px;
+    padding-left: 30px;
 }
 .cont-firma-total-prop {
     display: flex;
-    border-top: solid 1px black;
-    height: 68px;
+    border-top: solid 2px black;
+    height: 136px;
 }
 .cont-total-prop {
     display: inline-block !important;
     width: 40% !important;
-    font-size: small !important;
+    font-size: larger !important;
 }
 .cont-firma-prop {
     width: 40%;
 }
 .cont-total-prop > p{
-    font-size: small !important;
+    font-size: larger !important;
 }
-#total-finalProp {
-    font-size: medium !important;
+#total-fianlProp {
+    font-size: larger !important;
 }
 .cont-title-liq{
     display: flex;
@@ -365,37 +365,37 @@ body {
 #title-liq{
     justify-content: center;
     font-weight: 400;
-    margin-top: 28px;
-    margin-bottom: 18px;
+    margin-top: 56px;
+    margin-bottom: 36px;
 }
 #sitoEnProp{
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
 }
 #sitoEnProp p{
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 #imprimir{
-    border: 1px solid black;
-    margin-bottom: 24px;
-    padding: 12px;
+    border: 2px solid black;
+    margin-bottom: 48px;
+    padding: 24px;
 }
 #btn, #sumitbtn, #btninq, #btnprop, #imp {
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
     background-color: var(--btnAlert);
     color: var(--btnAlertFont);
     border: 0px;
-    border-radius: 4px;
+    border-radius: 8px;
     justify-content: end;
 }
 .buttons{
-    margin-top: 20px;
+    margin-top: 40px;
 }
 #obsProp{
-    margin-top: 8px;
+    margin-top: 16px;
 }
 #firma{
-    width: 140px;
+    width: 280px;
     display: block;
 }
 .logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,#pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,#vence,.buttons,.controls,#observacionesInputProp{
@@ -407,7 +407,7 @@ body {
     border: solid black 0px;
     margin: auto;
     margin-top: 0px;
-    padding: 4px 20px;
+    padding: 8px 40px;
     font-weight:lighter;
 }
 #numProp, #dateProp{
@@ -420,22 +420,22 @@ span {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 400;
-    font-size: small;
+    font-size: larger;
     text-align: end;
-    word-spacing: 3px;
+    word-spacing: 6px;
 }
 .cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 400;
-    font-size: small ;
+    font-size: larger ;
     text-align: end;
 }
 #totalDetProp {
-    font-size: small ;
+    font-size: larger;
     font-family: Roboto Mono;
     font-weight: 400;
-    font-size: small ;
+    font-size: larger;
     text-align: end;
 }
 /* .monto, #montoAlqProp {
