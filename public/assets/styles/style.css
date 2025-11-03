@@ -1,5 +1,5 @@
 :root{
-    --html: rgb(231, 231, 235);
+    --html: rgb(231, 231, 235);  
     --primary: whitesmoke;
     --secondary: rgb(39, 38, 38);
     --btnAlert: rgb(47, 165, 219);
@@ -7,7 +7,7 @@
     --span: darkred;
 }
 .dark {
-    --html: black;
+    --html: black;  
     --primary: rgb(32, 32, 32);
     --secondary: whitesmoke;
     --btnAlert: gold;
@@ -61,14 +61,14 @@ h2{
 }
 .inq iframe{
     position: absolute;
-    left: 0px;
+    left: 0px;    
 }
 #cargar{
     height: 28px;
 }
 #cabecera{
     display: flex;
-    align-items: baseline;
+    align-items: baseline; 
     margin-top: 0px;
     margin-bottom: 20px;
     justify-content: space-between;
@@ -77,26 +77,28 @@ h2{
 #cabecera h4 {
     margin: 0px;
 }
-#btnEditar, #btnBorrar, #btnSave, #calc {
+#btnEditar, #btnBorrar, #saveDB{
     margin-left: 8px;
     height: 24px;
     background-color: var(--btnAlert);
     color: var(--btnAlertFont);
-    border: 2px solid transparent;
+    border: 0px;
     border-radius: 4px;
     padding-left: 8px;
     padding-right: 8px;
-    box-sizing: border-box;
-    transition: border .3s .2s ease, background-color .3s ease;
-}
-#btnEditar:hover, #btnBorrar:hover, #btnSave:hover, #calc:hover {
-    background-color: var(--btnAlertFont);
-    color: var(--btnAlert);
-    border: 2px solid var(--btnAlert);
-    transition: border .3s .2s ease, background-color .3s ease;
 }
 #calc{
     text-decoration: none;
+    color: var(--primary);
+    background-color: var(--btnAlert);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 100;
+    border-radius: 3px;
+    width: 44px;
+    height: 84px;
+    padding: 0px 4px;
+    margin-top: 4px;
+    margin-bottom: 8px;
 }
 #valor3{
     margin-bottom: 4px;
@@ -109,17 +111,8 @@ p{
     margin-top: 24px;
     margin-bottom: 4px;
 }
-span {
+span{
     color: var(--span);
-    font-family: Roboto Mono;
-    font-weight: 500;
-    font-size: medium;
-}
-.cont-montos, .cont-montosOP {
-    color: var(--secondary);
-    font-family: Roboto Mono;
-    font-weight: 500;
-    font-size: medium ;
 }
 
 /* #themeDiv{
@@ -127,11 +120,11 @@ span {
     background-image: url(./assets/btnTheme.png);
     width: 60px;
     height: 25px;
-
+    
 } */
 #themeDiv{
     display: flex;
-    align-items: center;
+    align-items: center;    
 }
 #theme {
     padding: 0;
@@ -142,7 +135,7 @@ span {
     border-radius: 55px;
     position: relative;
 }
-#theme img{
+#theme img{    
     width: 44px;
     height: 24px;
     object-fit: contain;
@@ -217,28 +210,6 @@ span {
     flex-direction: row;
     width: 220px
 }
-.serv_tax_gral_cont {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    margin: 0px;
-    padding: 0px;
-}
-.serv_tax {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-}
-.cont_check_serv_tax {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0px;
-    padding: 0px;
-    justify-content: flex-end;
-}
-
 input :not(input[type="button"]) {
     width: 140px;
     height: 22px;

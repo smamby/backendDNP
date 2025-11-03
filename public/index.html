@@ -11,15 +11,15 @@
     <link rel="stylesheet" media="all" href="./styles/style.css">
     <link rel="stylesheet" media="all" href="./styles/inq.css">
     <title>dNP</title>
-    
+
 </head>
-<body>    
+<body>
     <div class="logo" style="display: flex; align-items: center;margin-right: auto; margin-left: auto;">
         <img style="width: 40px; height: 62px;" id="logo1" src="./assets/logo.png" alt="">
         <img style="width: 150px; margin-left: 24px;" id="isotipo1" src="./assets/isotipo.png" alt="">
     </div>
     <!-- <h2>Datos de operacion</h2> -->
-    
+
     <div class="inbody-index">
         <section class="guardar">
             <p>Cargar datos</p>
@@ -35,23 +35,23 @@
             <section class="cont-buscar"><p>Buscar contrato</p>
                 <div class="buscar">
                     <input type="number" id="buscarInput" placeholder="id del contrato" autofocus="true">
-                    <input type="button" value="buscar" onclick="buscar()">        
-                </div>    
+                    <input type="button" value="buscar" onclick="buscar()">
+                </div>
                 <div class="buscar">
                     <input type="number" id="buscarRecibo" placeholder="N° recibo">
                     <input type="button" value="buscar" onclick="buscarRecibo()">
                 </div>
-            
+
         </section>
         <form action="" id="operaciones">
         <div id="cabecera">
             <h4>Personas intervinientes</h4>
             <input id="btnEditar" type="button" value="Editar" class="btnAlert" onclick="editarContrato(contratoLevantado)">
-            <input id="btnBorrar" type="button" value="Borrar" class="btnAlert" > 
+            <input id="btnBorrar" type="button" value="Borrar" class="btnAlert" >
             <input id="btnSave" type="button" class="btnAlert" value="Crear" onclick="check()">
         </div>
 
-        <div id="personas" style="display: flex;">        
+        <div id="personas" style="display: flex;">
             <div id="propietario">Propietario<br>
                 <input type="text" id="nombreP" class="nombreP" name="nombreP" placeholder="Nombre">
                 <input type="text" id="apellidoP" class="apellidoP" name="apellidoP" placeholder="Apellido">
@@ -59,7 +59,7 @@
                 <input type="text" id="cbuP" class="cbuP" name="cbuP" placeholder="CBU">
                 <input type="number" id="celularP" class="celularP" name="celularP" placeholder="Celular">
                 <input type="email" id="emailP" class="emailP" name="emailP" placeholder="Email">
-                <input type="text" name="direccionP" id="direccionP" placeholder="Direccion">            
+                <input type="text" name="direccionP" id="direccionP" placeholder="Direccion">
             </div>
             <div id="inquilino">Inquilino<br>
                 <input type="text" id="nombreI" class="nombreI" name="nombreI" placeholder="Nombre">
@@ -68,13 +68,13 @@
                 <input type="text" id="cbuI" class="cbuI" name="cbuI" placeholder="CBU">
                 <input type="number" id="celularI" class="celularI" name="celularI" placeholder="Celular">
                 <input type="email" id="emailI" class="emailI" name="emailI" placeholder="Email">
-                <input type="text" name="garantiaI" id="garantiaI" placeholder="Garantia">            
+                <input type="text" name="garantiaI" id="garantiaI" placeholder="Garantia">
             </div>
         </div>
         <h2></h2>
         <div class="title-dep">
             <h4>Datos del departamento</h4>
-        </div> 
+        </div>
         <div id="depto">
             <div class="att-dep">
                 <div class="col-dep">
@@ -89,21 +89,58 @@
                     <input type="number" id="valor2" class="valor2" name="valor2" placeholder="valor 2do año">
                     <input type="number" id="valor3" class="valor3" name="valor3" placeholder="valor 3er año">
                     <a id="calc" href="https://cabaprop.com.ar/calculadora.php" target="_blank" rel="noreferrer nopener">Calculadora</a>
-                    <input type="date" id="inicioContrato" class="inicioContrato" name="inicioContrato" placeholder="inicioContrato">            
-                </div> 
-            </div>    
-                    
+                    <input type="date" id="inicioContrato" class="inicioContrato" name="inicioContrato" placeholder="inicioContrato">
+                </div>
+            </div>
+
             <!-- <div class="subirArchivos">
                 <label for="contrato">Contrato</label>
                 <input type="file" name="contrato" id="contratoFile" value="subir contrato"><br>
                 <label for="imagenes">Imagenes</label>
                 <input type="file" name="imagenes" id="imagenesFile" value="subir imagenes">
             </div> -->
-            
-        </div>    
+
+        </div>
+        <div class="serv_tax_gral_cont">
+            <h4>Servicios e impuestos acordados</h4>
+            <div class="serv_tax">
+                <div class="cont_check_serv_tax">
+                    <label for="luz">luz</label>
+                    <input type="checkbox" id="luz">
+                </div>
+                <div class="cont_check_serv_tax">
+                    <label for="agua">agua</label>
+                    <input type="checkbox" id="agua">
+                </div>
+                <div class="cont_check_serv_tax">
+                    <label for="luz">Luz</label>
+                    <input type="checkbox" id="luz">
+                </div>
+                <div class="cont_check_serv_tax">
+                    <label for="luz">Luz</label>
+                    <input type="checkbox" id="luz">
+                </div>
+                <div class="cont_check_serv_tax">
+                    <label for="luz">Luz</label>
+                    <input type="checkbox" id="luz">
+                </div>
+                <div class="cont_check_serv_tax">
+                    <label for="luz">Luz</label>
+                    <input type="checkbox" id="luz">
+                </div>
+                <div class="cont_check_serv_tax">
+                    <label for="luz">Luz</label>
+                    <input type="checkbox" id="luz">
+                </div>
+                <div class="cont_check_serv_tax">
+                    <label for="luz">Luz</label>
+                    <input type="checkbox" id="luz">
+                </div>
+            </div>
+        </div>
         <!-- <input type="submit" value="Sumit" id="sumitbtn"> -->
         <!-- <input type="button" value="Enter" > -->
-        
+
 
         <!-- <button id="btninq" type="button" onclick="location.href='./inq.html'">Inquil.</a></button>
         <button id="btnprop" type="button" onclick="location.href='./prop.html'">Prop.</a></button> -->
@@ -111,10 +148,10 @@
 
         <h1></h1>
         <!-- <h4>Contrato</h4> -->
-        
+
         </section>
     </div>
-    
+
     <div class="inbody-inq" id="inbody-inq" name="inbody-inq">
         <!-- <h1>Recibo Inquilino</h1> -->
         <header>
@@ -151,8 +188,8 @@
                 <p>Domicilio: <span id="domicilio"></span></p>
             </div>
             <div class="cuerpo recibi">
-                <p>Recibí la suma de  <span id="pesosLetra"></span> pesos en concepto de pago de alquiler del departamento ubicado en el domicilio arriba sitado.</p> 
-                <p>Vence: <input type="date" name="vence" id="vence"><span id="vencePrint"></span></p>      
+                <p>Recibí la suma de  <span id="pesosLetra"></span> pesos en concepto de pago de alquiler del departamento ubicado en el domicilio arriba sitado.</p>
+                <p>Vence: <input type="date" name="vence" id="vence"><span id="vencePrint"></span></p>
             </div>
             <p class="detalle-title" ><u>Detalle de pago de alquiler:</u></p>
             <div class="inputs">
@@ -160,40 +197,40 @@
                 <input type="text" name="nuevoMonto" id="nuevoMonto">
                 <button id="insertar" onclick="insertarDetalles()">Insertar</button>
                 <button id="delDetalle" onclick="deleteDetalle()">Borrar</button>
-            </div>  
+            </div>
             <div class="cont-detalle-Alq">
                 <div class="cuerpo detalle">
-                    <p>Alquiler correspondiente a <span id="mes-alq"></span> 
+                    <p>Alquiler correspondiente a <span id="mes-alq"></span>
                         <!-- <input type="text" name="mesAlq" id="mesAlq"> -->
-                    </p>               
+                    </p>
                 </div>
                 <div class="montos">
                     <P><span id="monto-alq"></span></P>
-                </div>            
+                </div>
             </div>
             <div id="cont-new-det">
                 <div class="cont-detalle" id="cont-detalle">
 
                 </div>
                 <div class="cont-montos" id="cont-montos">
-                    
-                </div> 
+
+                </div>
             </div>
             <!-- <div class="cont-detalle">
                 <div class="cuerpo detalle" id="cuerpo-det">
-                    <p>Expensas extraordinarias: frente, andamios, terraza, despido del portero</p>               
+                    <p>Expensas extraordinarias: frente, andamios, terraza, despido del portero</p>
                 </div>
                 <div class="montos">
                     <p id="monto">$3000</p>
-                </div>            
+                </div>
             </div>
             <div class="cont-detalle">
                 <div class="cuerpo detalle">
-                    <p>Expensas extraordinarias</p>               
+                    <p>Expensas extraordinarias</p>
                 </div>
                 <div class="montos">
                     <span class="monto">$300</span>
-                </div>            
+                </div>
             </div> -->
             <div class="cont-totales">
                 <div class="total-text">
@@ -201,7 +238,7 @@
                 </div>
                 <div class="cont-total-det">
                     <span id="total"></span>
-                </div>            
+                </div>
             </div>
             <div class="observaciones">
                 <p>Observaciones: <span id="observacionesPrint"></span></p>
@@ -215,16 +252,16 @@
                 </div>
                 <div class="cont-firma">
                     <div class="firma">
-                        
+
                     </div>
                     <p>Zita Mónica Sorbilli</p>
                 </div>
             </div>
         </div>
-        
+
         <footer>
-    
-        </footer>    
+
+        </footer>
     </div>
     <div class="impInq">
         <button id="impScrn" class="uni" onclick="impInq()">Calcul.</button>
@@ -233,7 +270,7 @@
         <button id="nuevo" onclick="nuevo()">Nuevo</button>
         <button id="mail" role="link" onclick="sendEmailBACK('inbody-inq')">Email</button>
     </div>
-    
+
     <div class="inbody-prop" id="inbody-prop">
     <!-- <h1>Recibo Inquilino</h1> -->
     <header>
@@ -266,10 +303,10 @@
     </header>
     <div class="bodier">
         <div class="cont-title-liq">
-            <h3 id="title-liq">Liquidacion de alquileres </h3>            
+            <h3 id="title-liq">Liquidacion de alquileres </h3>
         </div>
         <div class="sitoEnProp" id="sitoEnProp">
-            <p>Dpto. sito en: <span id="dirDeptoAlq"></span></p>       
+            <p>Dpto. sito en: <span id="dirDeptoAlq"></span></p>
         </div>
         <p class="detalle-title" ><u>Detalle de alquiler:</u></p>
         <!-- solo propietario -->
@@ -278,40 +315,40 @@
             <input type="text" name="nuevoMonto" id="nuevoMontoOnlyProp" placeholder="monto solo recibo propietario">
             <button id="insertarProp" onclick="insertDetOnlyProp()">Insertar</button>
             <button id="delDetalleProp" onclick="deleteDetalleOnlyProp()">Borrar</button>
-        </div> 
+        </div>
         <div class="cont-detalle-prop">
             <div class="cuerpo detalleProp" id="detalleProp">
-                <p>alquiler correspondiente a <span id="mesAlqProp"></span> </p>               
+                <p>alquiler correspondiente a <span id="mesAlqProp"></span> </p>
             </div>
             <div class="montos">
                 <span class="" id="montoAlqProp"></span>
-            </div>            
+            </div>
         </div>
         <div id="cont-new-det">
             <div class="cont-detalle" id="cont-detalleProp"></div>
-            <div class="cont-montos" id="cont-montosProp"></div> 
+            <div class="cont-montos" id="cont-montosProp"></div>
         </div>
         <div id="cont-new-det-only-prop">
             <div class="cont-detalle" id="cont-detalleOnlyProp"></div>
-            <div class="cont-montosOP" id="cont-montosOnlyProp"></div> 
+            <div class="cont-montosOP" id="cont-montosOnlyProp"></div>
         </div>
         <!-- <div class="cont-detalle">
             <div class="cuerpo detalle">
-                <p>Expensas extraordinarias: frente, andamios, terraza</p>               
+                <p>Expensas extraordinarias: frente, andamios, terraza</p>
             </div>
             <div class="montos">
                 <p class="monto">$3000</p>
-            </div>            
+            </div>
         </div>
         <div class="cont-detalle">
             <div class="cuerpo detalle">
-                <p>boleta gas</p>               
+                <p>boleta gas</p>
             </div>
             <div class="montos">
                 <p class="monto">$800</p>
-            </div>            
+            </div>
         </div> -->
-        
+
         <p class="detalle-subtitle"><u>Descuentos Del Norte Prop.:</u></p>
 
         <div class="cont-detalle-comi">
@@ -321,11 +358,11 @@
                         <option value="administracion" selected="selected">Administracion</option>
                         <option value="firma">Firma Contrato</option>
                     </select>
-                </span></p>               
+                </span></p>
             </div>
             <div class="montos">
                 <span class="montoComi" id="montoComision"></span>
-            </div>            
+            </div>
         </div>
 
         <div class="cont-totales">
@@ -334,12 +371,12 @@
             </div>
             <div class="cont-total-det">
                 <P class="total">$ <span id="totalDetProp"></span></P>
-            </div>            
+            </div>
         </div>
         <div class="observaciones">
             <p>Observaciones: <p id="obsProp"></p></p>
             <!-- <textarea name="observaciones" id="observacionesInputProp" cols="60" rows="2"></textarea> -->
-            
+
         </div>
         <div class="cont-firma-total-prop">
             <div class="cont-total-prop">
@@ -347,14 +384,14 @@
             </div>
             <div class="cont-firma-prop">
                 <p>Firma:  <p id="firma-final"></p></p>
-                
+
             </div>
         </div>
     </div>
     <footer>
-        
+
     </footer>
-    </div>  
+    </div>
     <div class="impProp">
         <button id="impScrn" class="uni" onclick="impInq()">Calcul.</button>
         <button id="impPDF" class="uni pdf" onclick="imprimirBoletaPDFBACK()">Imp. PDF</button>
@@ -362,14 +399,14 @@
         <button id="nuevo" onclick="nuevo()">Nuevo</button>
         <button id="mail" role="link" onclick="sendEmailBACK('inbody-prop')">Email</button>
     </div>
-    
+
     <script src="./core.js"></script>
     <script src="./proto.js"></script>
     <script src="./auto.js"></script>
     <script src="./api.js"></script>
     <script src="./numtotext.js"></script>
 
-    
+
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
     <!-- <script src="./controlador.js"></script> -->
     <!-- <script src="/fsModule.mjs" type="module"></script> -->

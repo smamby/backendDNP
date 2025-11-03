@@ -1,5 +1,5 @@
 :root{
-    --html: rgb(231, 231, 235);  
+    --html: rgb(231, 231, 235);
     --primary: whitesmoke;
     --secondary: rgb(39, 38, 38);
     --btnAlert: rgb(47, 165, 219);
@@ -7,7 +7,7 @@
     --span: darkred;
 }
 .dark {
-    --html: black;  
+    --html: black;
     --primary: rgb(32, 32, 32);
     --secondary: whitesmoke;
     --btnAlert: gold;
@@ -15,19 +15,19 @@
     --span: rgb(223, 97, 97);
 }
 html{
-    background-color: var(--html);    
+    background-color: var(--html);
 }
 
 body {
     width: 100% !important;
-    margin: 22px;    
-    display: grid;    
+    margin: 22px;
+    display: grid;
     background-color: var(--primary);
     color: var(--secondary);
     font-family: Kanit;
-    font-style: normal
+    font-style: normal;
     font-weight: 400;
-    font-size: larger    
+    font-size: larger;
     margin-left: auto;
     margin-right: auto;
 }
@@ -41,7 +41,7 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-style: normal;
     font-weight: 200;
-    font-size: larger
+    font-size: larger;
 }
 
 .inbody-inq, .inbody-prop{
@@ -51,7 +51,7 @@ body {
 #firstText{
     font-family: monospace !important;
     font-weight: 400;
-    font-size: larger
+    font-size: larger;
     margin: 0px;
     margin-bottom: 0px;
 }
@@ -75,7 +75,7 @@ body {
     background-image: url('http://localhost:5500/assets/logo.png') !important;
     width: 100px !important;
     height: 160px !important;
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     border: none !important;
     outline: none !important;
@@ -88,7 +88,7 @@ body {
     background-image: url('http://localhost:5500/assets/isotipo.png')  !important  ;
     margin: 40px !important;
     margin-top: 48px !important;
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     border: none !important;
     outline: none !important;
@@ -132,7 +132,7 @@ body {
     margin-left: 40px;
 }
 .cont-numero{
-    display: flex;    
+    display: flex;
     height: 56px;
     margin: 0px;
     margin-top: 92px;
@@ -188,8 +188,8 @@ body {
 }
 .cont-detalle{
     display: inline-block !important;
-    width: 65%; 
-    margin: 0px; 
+    width: 65%;
+    margin: 0px;
 }
 .detalleProp p{
     width: 65%;
@@ -217,9 +217,9 @@ body {
 .detalle {
     width: 65%;
 }
-#cont-montos{    
+#cont-montos{
     display: inline-block !important;
-    width: 34%;    
+    width: 34%;
     justify-items: flex-end;
     text-align: end;
 }
@@ -238,11 +238,11 @@ body {
 #detalleProp{
     width: 65%;
 }
-#monto-alq,#cont-montos,.montos{    
+#monto-alq,#cont-montos,.montos{
     margin: 0px;
     justify-content: right;
-    text-align: end;  
-    width: 34%; 
+    text-align: end;
+    width: 34%;
 }
 .cont-montos {
     display: inline-block;
@@ -275,7 +275,7 @@ body {
     width: 34%;
 }
 .montos p{
-    
+
     text-align: end;
     margin-top: 0px;
 }
@@ -310,7 +310,7 @@ body {
 }
 .cont-total{
     display: inline-block;
-    width: 40%;    
+    width: 40%;
     position: absolute;
     margin-top: 90px;
 }
@@ -334,7 +334,7 @@ body {
     margin-top: 24px;
     margin-left: -40px;
     background-size: 100% 100%;
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;
 }
 .cont-firma > p {
     padding-left: 30px;
@@ -442,4 +442,3 @@ span {
     display: flexbox;
     justify-content: end;
 } */
-
