@@ -498,6 +498,7 @@ function cargarRecibo(){
       document.getElementById("nuevoMontoOnlyProp").value = detalle[1];
       insertDetOnlyProp();
    }
+   desplegarServiciosYImpuestos();
 }
 
 async function guardarRecibo(){
@@ -544,6 +545,42 @@ async function guardarRecibo(){
       getRecibos(num)
     }
 }
+
+let servicesAndTaxes = (contratoLevantado) => {
+   return {
+      "luz": contratoLevantado[0].luz,
+      "agua": contratoLevantado[0].agua,
+      "gas": contratoLevantado[0].gas,
+      "abl": contratoLevantado[0].abl,
+      "expensas": contratoLevantado[0].expensas,
+      "seguro": contratoLevantado[0].seguro,
+      "aux1": contratoLevantado[0].aux1,
+      "aux2": contratoLevantado[0].aux2
+   }
+}
+
+function desplegarServiciosYImpuestos() {
+   let contServTaxex =document.getElementById("cont-input-serv");
+   let serviciosImpuestos = servicesAndTaxes(contratoLevantado);
+   console.log(serviciosImpuestos)
+   for (let service in serviciosImpuestos){
+      if (serviciosImpuestos[service] === true) {
+         // console.log(`
+         //    <label for="${service}">${service}</label>
+         //    <input type="date" name="vencimiento-${service}" id="vto-${service}">
+         //    <input type="checkbox" name="pagado-${service}" id="vto-${service}">
+         // `)
+         contServTaxex.innerHTML += `
+            <div class="service-tax-item">
+               <label for="${service}">${service}</label>
+               <input type="date" name="vencimiento-${service}" id="vto-${service}">
+               <input type="checkbox" name="pagado-${service}" id="pagado-${service}">
+            </div>
+         `;
+      }
+   }
+}
+
 // DEPRECATE
 // function imprimirContrato(contrato){
 //    var div = document.getElementById("imprimir");
@@ -599,12 +636,14 @@ function levantarContrato(itemEncontrado){
    document.getElementById("seguro").checked = itemEncontrado.seguro;
    document.getElementById("aux1").checked = itemEncontrado.aux1;
    document.getElementById("aux2").checked = itemEncontrado.aux2;
+   document.getElementById("cont-input-serv").innerHTML = '';
+   desplegarServiciosYImpuestos();
 }
 var AJUSTARINDICE = false
 function editarContrato(){
    if(verificarIDEdited()){
       editCont(contratoLevantado)
-   }
+   }vaciar
 }
 function editCont(contratoLevantado){
    //verificarIDEdited()

@@ -18,8 +18,11 @@ function vaciarRecibo() {
     document.getElementById("vence").value = '';
     //document.getElementById("pesos").value = '';
     document.getElementById("observacionesInput").value = 'Recibí los comprobantes de pago de ';
+    document.getElementById("cont-input-serv").innerHTML = '';
     deleteDetalle();
     deleteDetalleOnlyProp();
+    document.getElementById("cont-input-serv").innerHTML = ''; //Borra solo los inputs de servicios e impuestos, no los datos
+    desplegarServiciosYImpuestos(); //solo despliega los inputs, no carga los datos guardados
 };
 
 function chkReciboVacio(){
@@ -36,7 +39,7 @@ function chkReciboVacio(){
 var dateShort;
 function impInq(){
     if (itemEncontrado==''){
-        alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');        
+        alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
         document.getElementById("buscarInput").focus();
     } else {
         //var numeracionInput = document.getElementById('numInput');
@@ -100,7 +103,7 @@ function impInq(){
         vencePrint.innerHTML = dateInv;
         mesAlquilerPrint.innerHTML = dateShort.toUpperCase();
         mesAlquilerPropPrint.innerHTML = dateShort.toUpperCase();
-        
+
         valorAlquiler()
         var valAlqImp = new Intl.NumberFormat('de-DE').format(valAlq)
         var comiImp = new Intl.NumberFormat('de-DE').format(comi)
@@ -128,7 +131,7 @@ function impInq(){
         //             observacionesPrint.innerHTML =  observacionesInput;
         //             observacionesPrintProp.innerHTML = observacionesInput;
         //         }
-        //     } 
+        //     }
         // sumarDetalleInq()
         // sumarDetalleProp()
         //detalleTotalImp = new Intl.NumberFormat('de-DE').format(detalleTotal)
@@ -143,14 +146,14 @@ function impInq(){
         totalFinalProp.innerHTML = sumarParaTotalPropImp+'.-';
         console.log('totales',sumarParaTotalImp,sumarParaTotalPropImp)
         console.log(valAlqImp,comiImp)
-        
+
         // aca insertar numToText
-        
+
         //total
         var numToText = init(sumarParaTotal)
         //pesosLetrasInput.value = numToText;
         pesosLetraPrint.innerHTML = numToText.toUpperCase();
-    
+
         if(chkReciboVacio()){
             console.log('no se guarda el recibo');
             return false
@@ -207,7 +210,7 @@ function insertarDetalles(){
     var newItemImp1 = new Intl.NumberFormat('de-DE').format(newItem[1])
     contNewMonto.innerHTML += "$ "+newItemImp1+'.-'+"<br>";
     contNewDetProp.innerHTML += "- "+newItem[0]+"<br>";
-    contNewMontoProp.innerHTML += "$ "+newItemImp1+'.-'+"<br>";    
+    contNewMontoProp.innerHTML += "$ "+newItemImp1+'.-'+"<br>";
     document.getElementById("nuevoGasto").value = '';
     document.getElementById("nuevoMonto").value = '';
     document.getElementById("nuevoGasto").focus();
@@ -222,7 +225,7 @@ function insertDetOnlyProp(){
     var contDetOP = document.getElementById("cont-detalleOnlyProp");
     var contMontOP = document.getElementById("cont-montosOnlyProp");
     contDetOnlyProp.style.display="flex";
-    contDetOP.style.display="block";    
+    contDetOP.style.display="block";
     contMontOP.style.display="flex";
     var newItemOP = [inputDetOP,inputMontOP]
     itemsOnlyProp.push(newItemOP)
@@ -272,12 +275,12 @@ function valorAlquiler(){
         comi = valorComision(itemEncontrado.valor3)
         console.log('3er año',comi);
         valAlq = itemEncontrado.valor3
-        
+
     } else if (today > dateTemp2) {
         comi = valorComision(itemEncontrado.valor2)
         console.log('2do año',comi)
         valAlq = itemEncontrado.valor2
-        
+
     } else if (today < dateTemp2) {
         comi = valorComision(itemEncontrado.valor1)
         valAlq = itemEncontrado.valor1
@@ -286,7 +289,7 @@ function valorAlquiler(){
 
 function valorComision(valor){
     var comSel = document.getElementById("comisionSelect").value;
-    let comAdmin = Math.round(parseInt(valor)*0.05);    
+    let comAdmin = Math.round(parseInt(valor)*0.05);
     let comRenov = Math.round(parseInt(itemEncontrado.valor1)*36*0.0415);
     if(comSel === 'administracion'){
         return comAdmin;

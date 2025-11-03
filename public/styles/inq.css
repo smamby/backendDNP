@@ -1,5 +1,5 @@
 :root{
-    --html: rgb(231, 231, 235);  
+    --html: rgb(231, 231, 235);
     --primary: whitesmoke;
     --secondary: rgb(39, 38, 38);
     --btnAlert: rgb(47, 165, 219);
@@ -14,7 +14,7 @@
     --firma-path: url('http://127.0.0.1:5500/assets/firma.png');
 }
 .dark {
-    --html: black;  
+    --html: black;
     --primary: rgb(32, 32, 32);
     --secondary: whitesmoke;
     --btnAlert: rgba(255, 196, 0, 0.904);
@@ -24,11 +24,11 @@
 }
 html{
     background-color: var(--html);
-    
+
 }
 body {
-    margin: 12px;    
-    display: grid;    
+    margin: 12px;
+    display: grid;
     background-color: var(--primary);
     color: var(--secondary);
     font-family: 'Kanit', sans-serif;
@@ -74,7 +74,7 @@ body {
 }
 /* #logo2,#logo3{
     width: 50px;
-    height: 80px;       
+    height: 80px;
 }
 #isotipo2,#isotipo3{
     width: 170px;
@@ -87,7 +87,7 @@ body {
     background-image: var(--logo-path) !important ;
     width: 50px !important;
     height: 80px !important;
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     border: none !important;
     outline: none !important;
@@ -100,7 +100,7 @@ body {
     background-image: var(--isotipo-path)  !important  ;
     margin: 20px !important;
     margin-top: 24px !important;
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     border: none !important;
     outline: none !important;
@@ -135,7 +135,7 @@ body {
     margin-left: 20px;
 }
 .cont-numero{
-    display: flex;    
+    display: flex;
     height: 28px;
     margin: 0px;
     margin-top: 46px;
@@ -169,7 +169,7 @@ body {
 }
 .detalle p, .monto, .cuerpo-det p, .montos p{
     margin: 0px;
-    
+
 }
 .inputs{
     margin-bottom: 12px;
@@ -224,8 +224,8 @@ body {
     display: flex;
 }
 #cont-montos, #monto-alq{
-    width: 30%;  
-    margin: 0px;  
+    width: 30%;
+    margin: 0px;
     text-align: end;
     justify-items: right;
 }
@@ -241,18 +241,18 @@ body {
 #monto-alq,#cont-montos{
     margin: 0px;
     justify-content: end;
-    text-align: end;  
+    text-align: end;
     width: 30%;
 }
 .montos{
     width: 30%;
-    justify-content: end; 
+    justify-content: end;
     text-align: end;
 }
 #detalleProp p{
     margin: 0px;
 }
-.montos{    
+.montos{
     text-align: end;
     width: 30%;
 }
@@ -271,6 +271,19 @@ body {
     justify-items: end;
     width: 70%;
     margin-right: 32px;
+}
+.cont-input-serv {
+    display: flex;
+    flex-direction: column;
+}
+.service-tax-item {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 1rem;
+}
+.service-tax-item label {
+    width: 150px;
 }
 .cont-firma-total{
     display: flex;
@@ -291,12 +304,12 @@ cont-firma-total-prop {
     margin-left: -12px;
     margin-top: 0px;
     background-size: 100% 100%;
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;
 }
 .cont-total{
     display: flex;
     width: 50%;
-    align-items: center;    
+    align-items: center;
 }
 .cont-total p {
     margin: 0px;
