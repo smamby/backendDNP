@@ -38,7 +38,7 @@ function styleDark(){
       document.getElementById("logo3").src = "./assets/logo.png";
       document.getElementById("isotipo3").src = "./assets/isotipo.png";
       document.getElementById("firma").src = "./assets/firma.png";
-      document.documentElement.style.backgroundColor = "rgb(231, 231, 230)";      
+      document.documentElement.style.backgroundColor = "rgb(231, 231, 230)";
    }
 };
 function randomColor(){
@@ -55,14 +55,14 @@ divImp.style.display="none"
 //       dniPInput = document.getElementById("dniP").value;
 //       cbuPInput = document.getElementById("cbuP").value;
 //       celularPInput = document.getElementById("celularP").value;
-//       emailPInput = document.getElementById("emailP").value;   
+//       emailPInput = document.getElementById("emailP").value;
 //       direccionPInput = document.getElementById("direccionP").value;
 //       nombreIInput = document.getElementById("nombreI").value;
 //       apellidoIInput = document.getElementById("apellidoI").value;
 //       dniIInput = document.getElementById("dniI").value;
 //       cbuIInput = document.getElementById("cbuI").value;
 //       celularIInput = document.getElementById("celularI").value;
-//       emailIInput = document.getElementById("emailI").value;   
+//       emailIInput = document.getElementById("emailI").value;
 //       garantiaIInput = document.getElementById("garantiaI").value;
 //       idInput = document.getElementById("id").value;
 //       direccionInput = document.getElementById("direccion").value   ;
@@ -75,16 +75,16 @@ divImp.style.display="none"
 //       descripcionInput = document.getElementById("descripcion").value;
 //       imagenesInput = document.getElementById("imagenesFile").files;;
 //       contratoInput = document.getElementById("contratoFile").files;;
-//       e.preventDefault(); 
+//       e.preventDefault();
 //       console.log("emailIInput",emailIInput)
 //       console.log("garantiaIInput",garantiaIInput)
 //       console.log("idInput",idInput)
 //       console.log("direccionInput",direccionInput)
 //       console.log("inicioContratoInput",inicioContratoInput)
-      
+
 //       crear();
-      
-      
+
+
 // })
 
 //Levantar inputs
@@ -123,6 +123,14 @@ var imagenesInput = [];
 var contratoInput = [];
 var observacionesInput = "";
 var obligacionesInqInput = '';
+var luz = false;
+var agua = false;
+var gas = false;
+var abl = false;
+var expensas = false;
+var seguro = false;
+var aux1 = false;
+var aux2 = false;
 
 var bodyContrato = {};
 //document.querySelector('#btn').addEventListener('click',ejecutar);
@@ -148,12 +156,12 @@ function calculoValor2(date){
    return calculoFecha(date,1)
 }
 function calculoValor3(date){
-   return calculoFecha(date,2)        
+   return calculoFecha(date,2)
 }
 
 
 function ejecutar(){
-   //propietario  
+   //propietario
    var nombrePropietario = document.getElementById("nombreP").value;
    var apellidoPropietario = document.getElementById("apellidoP").value;
    var dniPropietario = document.getElementById("dniP").value;
@@ -177,8 +185,8 @@ function ejecutar(){
    var inicioContrato = document.getElementById("inicioContrato").value;
 
    var fechaEspaniolInput = calculoFecha(inicioContrato,0);
-   var inicioP2input = calculoValor2(inicioContrato);      
-   var inicioP3input = calculoValor3(inicioContrato);      
+   var inicioP2input = calculoValor2(inicioContrato);
+   var inicioP3input = calculoValor3(inicioContrato);
    var renovacioninput = calculoRenovacion(inicioContrato);
    var inicioContratoHISP =  fechaEspaniolInput;
    var valor1 = parseInt(document.getElementById("valor1").value);
@@ -191,9 +199,17 @@ function ejecutar(){
    var observaciones = document.getElementById("observaciones").value;
    var descripcion = document.getElementById("descripcion").value;
    var imagenes =  [];
+   var luz = document.getElementById("luz").checked;
+   var agua = document.getElementById("agua").checked;
+   var gas = document.getElementById("gas").checked;
+   var abl = document.getElementById("abl").checked;
+   var expensas = document.getElementById("expensas").checked;
+   var seguro = document.getElementById("seguro").checked;
+   var aux1 = document.getElementById("aux1").checked;
+   var aux2 = document.getElementById("aux2").checked;
    //"imagenes":document.getElementById("imagenesFile").value,
    // contrato:document.getElementById("contratoFile").value,
-   bodyContrato = { 
+   bodyContrato = {
       "nombrePropietario":nombrePropietario,
       "apellidoPropietario":apellidoPropietario,
       "dniPropietario":dniPropietario,
@@ -201,7 +217,7 @@ function ejecutar(){
       "celularPropietario":celularPropietario,
       "emailPropietario":emailPropietario,
       "direccionPropietario":direccionPropietario,
-      
+
       "nombreInquilino":nombreInquilino,
       "apellidoInquilino":apellidoInquilino,
       "dniInquilino":dniInquilino,
@@ -209,7 +225,7 @@ function ejecutar(){
       "celularInquilino":celularInquilino,
       "emailInquilino":emailInquilino,
       "garantiaInquilino":garantiaInquilino,
-      
+
       "idContrato":idContrato,
       "direccion":direccion,
       "propietario":propietario,
@@ -225,8 +241,16 @@ function ejecutar(){
       "obligacionesInq":obligacionesInq,
       "observaciones":observaciones,
       "descripcion":descripcion,
-      "imagenes":imagenes
-   };   
+      "imagenes":imagenes,
+      "luz":luz,
+      "agua":agua,
+      "gas":gas,
+      "abl":abl,
+      "expensas":expensas,
+      "seguro":seguro,
+      "aux1":aux1,
+      "aux2":aux2
+   };
 }
 
 var propietarioOb = {};
@@ -243,7 +267,7 @@ function check(){
    idInput = document.getElementById("idContrato").value;
    direccionInput = document.getElementById("direccion").value;
    if(inicioContratoInput==''){
-      alert('Colocá la fecha de inicio de contrato')      
+      alert('Colocá la fecha de inicio de contrato')
       return false
    } else if (valor1Input == '' && valor2Input == '' && valor3Input == '') {
       alert('No colocaste ningun valor de alquiler')
@@ -252,14 +276,14 @@ function check(){
       alert('No colocaste nombre o apellido del inquilino, es un dato necesario para el recibo, completalo')
       return false
    } else if (idInput == '' || direccionInput == '') {
-      alert('No colocaste la direccion del departamento ni el ID')      
+      alert('No colocaste la direccion del departamento ni el ID')
       return false
    } else {
       ejecutar();
       console.log(bodyContrato["idContrato"],' - ', bodyContrato["direccion"]);
       crearIndices();
       addContrato(bodyContrato);
-      return true 
+      return true
 }}
 
 function crearIndices(){
@@ -268,7 +292,7 @@ function crearIndices(){
    guardarInfo()
 }
 
-// function crear(){   
+// function crear(){
 //    propietarioOb = new Propietario({
 //       nombre: nombrePInput,
 //       apellido:apellidoPInput,
@@ -322,16 +346,16 @@ function crearIndices(){
 //    contratos.push(nuevoContrato);
 //    console.log('contratos',contratos);
 //    console.log('nuevoContrato',nuevoContrato);
-   
-   
+
+
 //    var empujar = [contratos[contratos.length-1].id,contratos[contratos.length-1].departamento._direccion]
-   
+
 //    console.log('indice',empujar)
 //    indices.push(empujar)
 //    console.log('indices',indices)
-   
+
 //    console.log('contratos',contratos);
-   
+
 //    guardarInfo();
 //    //imprimirContrato(nuevoContrato)
 //    alert(`Creaste un nuevo contrato en calle ${nuevoContrato.departamento._direccion} con el ID: ${nuevoContrato.id}`)
@@ -350,7 +374,7 @@ function guardarInfo(){
    guardar(indices,"indices");
    //guardar(contratos,"contratos");
    guardar(NUMERACION,"NUMERACION");
-   console.log('Datos guardados');   
+   console.log('Datos guardados');
 };
 function cargarInfo(){
    // if (indicesGuardados==null || contratosGuardados ==null){
@@ -372,10 +396,10 @@ function cargarInfo(){
 
 function indiceContratos(){
    var div = document.getElementById("imprimir");
-   div.innerHTML = '';   
-   for(var item of indices){      
-      div.innerHTML += `Id: [<strong>${item[0]}</strong>] | direccion: <span>${item[1]}</span><br>`;      
-   }   
+   div.innerHTML = '';
+   for(var item of indices){
+      div.innerHTML += `Id: [<strong>${item[0]}</strong>] | direccion: <span>${item[1]}</span><br>`;
+   }
    div.style.display="block"
 }
 //imprimir booletas
@@ -397,7 +421,7 @@ async function buscar(id){
    //indiceItemEncontrado = contratos.findIndex(el=> el.id === idBuscar);
    if(contratoLevantado.length == 0){
       alert('contrato inexistente');
-      document.getElementById('buscarInput').value = '';   
+      document.getElementById('buscarInput').value = '';
    } else {
       var dataImprimir = contratoLevantado[0];
       console.log('buscarId: ',dataImprimir);
@@ -406,7 +430,7 @@ async function buscar(id){
       document.getElementById('buscarInput').value = '';
       itemEncontrado = dataImprimir;
    }
-   indiceItemEncontrado = indices.findIndex(el=> el[0] == idBuscar); 
+   indiceItemEncontrado = indices.findIndex(el=> el[0] == idBuscar);
    //console.log('contrato inexistente');
    vaciarRecibo();
    impInq() //YA ES DENTRO DE VACIARRECIBO.DELETEDETALLE
@@ -429,10 +453,10 @@ async function buscarRecibo(){
    nameBuscar = document.getElementById('buscarRecibo').value;
    await getRecibos(nameBuscar);
    if(reciboLevantado.length == 0){
-      alert('Recibo inexistente');   
+      alert('Recibo inexistente');
       document.getElementById('buscarRecibo').value = '';
       return false;
-   } else {   
+   } else {
       //imprimirContrato(dataImprimir);
       await getContrato(reciboLevantado[0]["idContrato"])
       levantarContrato(contratoLevantado[0]);
@@ -535,7 +559,7 @@ async function guardarRecibo(){
 //       for (var el of item){
 //          div.innerHTML += `<strong>${el[0]}:</strong>  <span>${el[1]}</span><br>`
 //       }
-//    }   
+//    }
 // }
 
 //Editar Contrato
@@ -547,7 +571,7 @@ function levantarContrato(itemEncontrado){
    document.getElementById("celularP").value = itemEncontrado.celularPropietario;
    document.getElementById("emailP").value = itemEncontrado.emailPropietario;
    document.getElementById("direccionP").value = itemEncontrado.direccionPropietario;
-    
+
    document.getElementById("nombreI").value = itemEncontrado.nombreInquilino;
    document.getElementById("apellidoI").value = itemEncontrado.apellidoInquilino;
    document.getElementById("dniI").value = itemEncontrado.dniInquilino;
@@ -555,8 +579,8 @@ function levantarContrato(itemEncontrado){
    document.getElementById("celularI").value = itemEncontrado.celularInquilino;
    document.getElementById("emailI").value = itemEncontrado.emailInquilino;
    document.getElementById("garantiaI").value = itemEncontrado.garantiaInquilino;
-   
-   document.getElementById("idContrato").value = itemEncontrado.idContrato;   
+
+   document.getElementById("idContrato").value = itemEncontrado.idContrato;
    document.getElementById("direccion").value = itemEncontrado.direccion;
    document.getElementById("inicioContrato").value = itemEncontrado.inicioContrato;
    document.getElementById("valor1").value = itemEncontrado.valor1;
@@ -567,6 +591,14 @@ function levantarContrato(itemEncontrado){
    document.getElementById("descripcion").value = itemEncontrado.descripcion;
    // document.getElementById("imagenesFile").value = itemEncontrado.imagenes;
    // document.getElementById("contratoFile").value = itemEncontrado.contrato;
+   document.getElementById("luz").checked = itemEncontrado.luz;
+   document.getElementById("agua").checked = itemEncontrado.agua;
+   document.getElementById("gas").checked = itemEncontrado.gas;
+   document.getElementById("abl").checked = itemEncontrado.abl;
+   document.getElementById("expensas").checked = itemEncontrado.expensas;
+   document.getElementById("seguro").checked = itemEncontrado.seguro;
+   document.getElementById("aux1").checked = itemEncontrado.aux1;
+   document.getElementById("aux2").checked = itemEncontrado.aux2;
 }
 var AJUSTARINDICE = false
 function editarContrato(){
@@ -577,9 +609,9 @@ function editarContrato(){
 function editCont(contratoLevantado){
    //verificarIDEdited()
    if(confirm("Vas a sobre escribir todos los datos de este contrato estas segura, chequeaste todos los campos?")){
-      console.log(contratoLevantado)
+      console.log("contratoLevantado (editCont): ", contratoLevantado[0])
       let inicio = contratoLevantado[0].inicioContrato;
-      console.log(inicio)
+      console.log("inicio", inicio)
       function calculoRenovacion(date){
          return calculoFecha(date,3)
       }
@@ -587,7 +619,7 @@ function editCont(contratoLevantado){
          return calculoFecha(date,1)
       }
       function calculoValor3(date){
-         return calculoFecha(date,2)        
+         return calculoFecha(date,2)
       }
       //contrato.idContrato = document.getElementById("idContrato").value;
       var nombrePropietario = document.getElementById("nombreP").value;
@@ -605,7 +637,7 @@ function editCont(contratoLevantado){
       var cbuInquilino = document.getElementById("cbuI").value;
       var garantiaInquilino = document.getElementById("garantiaI").value;
       var idContrato = document.getElementById("idContrato").value;
-      var direccion = document.getElementById("direccion").value 
+      var direccion = document.getElementById("direccion").value
       var inicioContrato = document.getElementById("inicioContrato").value;
       var valor1 = document.getElementById("valor1").value;
       var propietario = `${nombrePropietario} ${apellidoPropietario}`;
@@ -616,13 +648,23 @@ function editCont(contratoLevantado){
       var valor2 = document.getElementById('valor2').value;
       var valor3 = document.getElementById('valor3').value;
       var inicioContratoHISP = calculoFecha(inicioContrato,0);
-      var inicioP2 = calculoValor2(inicioContrato);      
-      var inicioP3 = calculoValor3(inicioContrato);      
+      var inicioP2 = calculoValor2(inicioContrato);
+      var inicioP3 = calculoValor3(inicioContrato);
       var renovacion = calculoRenovacion(inicioContrato);
       // contrato.departamento.imagenes = document.getElementById('imagenesFile').value;
       // contrato.departamento.contrato = document.getElementById('contratoFile').value;
-      
-      bodyContrato = { 
+      var luz = document.getElementById('luz').checked;
+      var agua = document.getElementById('agua').checked;
+      var gas = document.getElementById('gas').checked;
+      var abl = document.getElementById('abl').checked;
+      var expensas = document.getElementById('expensas').checked;
+      var seguro = document.getElementById('seguro').checked;
+      var aux1 = document.getElementById('aux1').checked;
+      var aux2 = document.getElementById('aux2').checked;
+      console.log('luz',luz);
+      console.log('agua',agua);
+      console.log('gas',gas);
+      bodyContrato = {
          "nombrePropietario":nombrePropietario,
          "apellidoPropietario":apellidoPropietario,
          "dniPropietario":dniPropietario,
@@ -630,7 +672,7 @@ function editCont(contratoLevantado){
          "celularPropietario":celularPropietario,
          "emailPropietario":emailPropietario,
          "direccionPropietario":direccionPropietario,
-         
+
          "nombreInquilino":nombreInquilino,
          "apellidoInquilino":apellidoInquilino,
          "dniInquilino":dniInquilino,
@@ -638,7 +680,7 @@ function editCont(contratoLevantado){
          "celularInquilino":celularInquilino,
          "emailInquilino":emailInquilino,
          "garantiaInquilino":garantiaInquilino,
-         
+
          "idContrato":idContrato,
          "direccion":direccion,
          "propietario":propietario,
@@ -654,22 +696,30 @@ function editCont(contratoLevantado){
          "obligacionesInq":obligacionesInq,
          "observaciones":observaciones,
          "descripcion":descripcion,
-         "imagenes":[]
-      };   
+         "imagenes":[],
+         "luz":luz,
+         "agua":agua,
+         "gas":gas,
+         "abl":abl,
+         "expensas":expensas,
+         "seguro":seguro,
+         "aux1":aux1,
+         "aux2":aux2
+      };
       console.log(idContrato)
       if(AJUSTARINDICE) {ajustarIndices()}
 
       new Promise((resolve,reject)=>{
          resolve( editContrato(bodyContrato) )
       })
-      .then(()=>{          
+      .then(()=>{
          let chkId = document.getElementById("idContrato").value
-         buscar( chkId || itemEncontrado.idContrato ) 
+         buscar( chkId || itemEncontrado.idContrato )
       })
-      .then(()=>{ 
+      .then(()=>{
          levantarContrato(contratoLevantado[0])
          impInq()
-      })      
+      })
    };
 };
 
@@ -703,7 +753,7 @@ function verificarIDEdited(){
          console.log('cambio la direccion o el id');
          AJUSTARINDICE = true;
       }
-      return true    
+      return true
    };
 }
 function ajustarIndices(){
@@ -720,7 +770,7 @@ function ajustarIndices(){
 }
 
 //Borrar Contrato
-function borrarContrato(){   
+function borrarContrato(){
    deleteContrato(contratoLevantado[0]["idContrato"])
    indices.splice(indiceItemEncontrado,1);
    guardarInfo();
@@ -749,6 +799,14 @@ function borrarContrato(){
    document.getElementById("obligacionesInq").value = '';
    document.getElementById("observaciones").value = '';
    document.getElementById("descripcion").value = '';
+   document.getElementById("luz").checked = false;
+   document.getElementById("agua").checked = false;
+   document.getElementById("gas").checked = false;
+   document.getElementById("abl").checked = false;
+   document.getElementById("expensas").checked = false;
+   document.getElementById("seguro").checked = false;
+   document.getElementById("aux1").checked = false;
+   document.getElementById("aux2").checked = false;
    indiceContratos();
 }
 
@@ -815,19 +873,19 @@ function imprimirBoleta(div){
       var wImp = window.open('','popimp');
       wImp.document.write(`<html><head><title>Print it!</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" type="text/css" href="./styles/imp.css"></head><body><div class="bodyInt">${ficha.innerHTML}</div></body></html>`);
-         
+
      //document.appendChild(divEmail);
-      
+
      setTimeout(async() => {
-         wImp.print()         
+         wImp.print()
       }, 500);
       //wImp.document.close();
       //wImp.close();
-        
+
    } else {
       alert('Cargá algun contrato, no cargaste ninguno.');
       document.getElementById("buscarInput").focus();
-   }   
+   }
 }
 
 function imprimirBoletaPDF(){
@@ -866,10 +924,10 @@ function imprimirBoletaPDF(){
    //      width: 190,
    //      windowWidth: 675
    //    });
-    
+
    //  </script>
    //  `)
-      
+
 
       // var docInq = new jsPDF();
       // var fichaInq = document.getElementById('inbody-inq');
@@ -885,7 +943,7 @@ function imprimirBoletaPDF(){
       //   width: 190,
       //   windowWidth: 675
       // });
-      
+
 
       // var docProp = new jsPDF();
       // var fichaProp = document.getElementById('inbody-prop');
@@ -903,15 +961,15 @@ function imprimirBoletaPDF(){
       // });
 
    //   setTimeout(async() => {
-   //       wImp.print()         
+   //       wImp.print()
    //    }, 500);
       //wImp.document.close();
       //wImp.close();
-        
+
    } else {
       alert('Cargá algun contrato, no cargaste ninguno.');
       document.getElementById("buscarInput").focus();
-   }   
+   }
 }
 function imprimirBoletaPDFBACK(){
    if (itemEncontrado!=''){
@@ -930,17 +988,17 @@ function imprimirBoletaPDFBACK(){
       console.log("co",co);
       localStorage.setItem('recibo', JSON.stringify(re));
       localStorage.setItem('contrato', JSON.stringify(co));
-      
+
 
       //var wImp = window.open('http://localhost:5500/popimp.html','popimp');
       //var wImp = window.open('http://127.0.0.1:5500/public/popimp.html','_blank');
       var wImp = window.open('http://localhost:5500/popimp.html','_blank');
       //var wImp = window.open('http://localhost:5500/popimpBACK.html','popimpBACK');
-        
+
    } else {
       alert('Cargá algun contrato, no cargaste ninguno.');
       document.getElementById("buscarInput").focus();
-   }   
+   }
 }
 
 
@@ -952,7 +1010,7 @@ function imprimirBoletaPDFBACK(){
    //     ?subject=Recibo%20alquiler
    //     &body=Adjuntamos%20recibo%20de%20alquiler
    //     &attachment=c:/${reciboName}`;
-   
+
    //var a = document.getElementById("mail")
    //a.addEventListener('click', sendEmail())
 
@@ -971,8 +1029,8 @@ function sendEmail(div){
       mTo = itemEncontrado.emailInquilino
       a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
    }
-   console.log(mTo);      
-   window.location.href = a.href   
+   console.log(mTo);
+   window.location.href = a.href
 }
 
 function sendEmailBACK(div){
@@ -1001,8 +1059,8 @@ function sendEmailBACK(div){
          sendMailToBackend(filenamePDF,mTo,subjectMail, bodyMail);
          //a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
       }
-      console.log(mTo);      
-        
+      console.log(mTo);
+
    } else {
       alert('Cargá algun contrato, no cargaste ninguno.');
       document.getElementById("buscarInput").focus();

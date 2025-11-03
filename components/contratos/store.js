@@ -19,21 +19,21 @@ function addContrato(nuevoContrato){
 }
 
 async function editContrato(searchParam,change){
-    console.log(change)
+    console.log("change: ", change)
     let filter = {idContrato: searchParam};
     const contratoEncontrado = await Model.find(filter)
     var id = contratoEncontrado[0]._id
     const contrato = await Model.findOne({_id:id})
-    console.log('cont1',contrato)
-    
-    
+    //console.log('cont1',contrato)
+
+
     // for(var elem in change){
     //     if(contrato.hasOwnProperty(elem)){
     //         contrato[elem] = change[elem]
     //         console.log(`${elem}: ${contrato[elem]}`)
     //     }
     // }
-    
+
     if(change.idContrato){
         contrato.idContrato = change.idContrato
     }
@@ -121,10 +121,34 @@ async function editContrato(searchParam,change){
     if(change.observaciones){
         contrato.observaciones = change.observaciones
     }
+    if(change.hasOwnProperty('luz')){
+        contrato.luz = change.luz;
+    }
+    if(change.hasOwnProperty('agua')){
+        contrato.agua = change.agua;
+    }
+    if(change.hasOwnProperty('gas')){
+        contrato.gas = change.gas;
+    }
+    if(change.hasOwnProperty('abl')){
+        contrato.abl = change.abl;
+    }
+    if(change.hasOwnProperty('expensas')){
+        contrato.expensas = change.expensas;
+    }
+    if(change.hasOwnProperty('seguro')){
+        contrato.seguro = change.seguro;
+    }
+    if(change.hasOwnProperty('aux1')){
+        contrato.aux1 = change.aux1;
+    }
+    if(change.hasOwnProperty('aux2')){
+        contrato.aux2 = change.aux2
+    }
 
     console.log('cont2',contrato);
     const savedContrato = await contrato.save()
-    return savedContrato;        
+    return savedContrato;
 }
 
 async function deleteContrato(searchParam){

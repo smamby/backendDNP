@@ -228,7 +228,6 @@ span {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
 }
 .cont_check_serv_tax {
     display: flex;
@@ -237,6 +236,12 @@ span {
     margin: 0px;
     padding: 0px;
     justify-content: flex-end;
+}
+.cont_check_serv_tax label {
+    font-weight: 100;
+    font-size: small;
+    margin: 0px;
+    padding: 0px;
 }
 
 input :not(input[type="button"]) {

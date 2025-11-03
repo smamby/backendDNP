@@ -31,6 +31,14 @@ const contratoSchema = new Schema({
     descripcion:String,
     imagenes: Array,
     observaciones:String,
+    luz: Boolean,
+    agua: Boolean,
+    gas: Boolean,
+    abl: Boolean,
+    expensas: Boolean,
+    seguro: Boolean,
+    aux1: Boolean,
+    aux2: Boolean
 })
 
 const Model = mongoose.model('Contrato', contratoSchema);
