@@ -221,7 +221,7 @@ span {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    margin: 0px;
+    margin: 8px 0 0 0;
     padding: 0px;
 }
 .serv_tax {

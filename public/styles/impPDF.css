@@ -1,5 +1,5 @@
 :root{
-    --html: rgb(255, 255, 255);  
+    --html: rgb(255, 255, 255);
     --primary: whitesmoke;
     --secondary: rgb(39, 38, 38);
     --btnAlert: rgb(47, 165, 219);
@@ -10,7 +10,7 @@
     --firma-path: url('http://127.0.0.1:5500/assets/firma.png');
 }
 .dark {
-    --html: black;  
+    --html: black;
     --primary: rgb(32, 32, 32);
     --secondary: whitesmoke;
     --btnAlert: gold;
@@ -20,16 +20,16 @@
 html{
     background-color: var(--html);
     width: 628px;
-    
+
 }
 body {
-    margin: 12px;    
-    display: grid;    
+    margin: 12px;
+    display: grid;
     background-color: var(--html);
     color: var(--secondary);
     font-family: 'Kanit';
     font-size: small;
-    
+
     margin-left: auto;
     margin-right: auto;
 }
@@ -61,7 +61,7 @@ body {
 }
 /* #logo2,#logo3{
     width: 50px;
-    height: 80px;       
+    height: 80px;
 }
 #isotipo2,#isotipo3{
     width: 170px;
@@ -74,7 +74,7 @@ body {
     background-image: var(--logo-path) !important;
     width: 50px !important;
     height: 80px !important;
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     border: none !important;
     outline: none !important;
@@ -87,7 +87,7 @@ body {
     background-image: var(--isotipo-path)  !important  ;
     margin: 20px !important;
     margin-top: 24px !important;
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     border: none !important;
     outline: none !important;
@@ -122,7 +122,7 @@ body {
     margin-left: 20px;
 }
 .cont-numero{
-    display: flex;    
+    display: flex;
     height: 28px;
     margin: 0px;
     margin-top: 46px;
@@ -170,9 +170,9 @@ body {
 }
 .cont-detalle{
     display: flex;
-    justify-content: space-between;  
-    width: 70%; 
-    margin: 0px; 
+    justify-content: space-between;
+    width: 70%;
+    margin: 0px;
 }
 .detalleProp p{
     width: 70%;
@@ -195,8 +195,8 @@ body {
     margin: 0px;
 }
 .montos, #montoAlqProp, #cont-montos{
-    
-    width: 30%;    
+
+    width: 30%;
     justify-items: flex-end;
     text-align: end;
 }
@@ -218,8 +218,8 @@ body {
 #monto-alq,#cont-montos{
     margin: 0px;
     justify-content: right;
-    text-align: end;  
-    width: 30%; 
+    text-align: end;
+    width: 30%;
 }
 .cont-detalle-Comi{
     width: 100%;
@@ -273,7 +273,7 @@ body {
 .cont-total{
     display: flex;
     width: 50%;
-    align-items: center;    
+    align-items: center;
 }
 .firma {
     display: block;
@@ -283,7 +283,7 @@ body {
     margin-left: -15px;
     margin-top: 12px;
     background-size: 100% 100%;
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;
 }
 .cont-total-prop {
     display: inline-block !important;
@@ -336,7 +336,9 @@ body {
     width: 140px;
     display: block;
 }
-.logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,#pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,#vence,.buttons,.controls,#observacionesInputProp{
+.logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,
+#pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,
+#vence,.buttons,.controls,#observacionesInputProp, #cont-input-serv{
     display: none;
 }
 .bodyInt{
@@ -375,4 +377,3 @@ span {
     display: flexbox;
     justify-content: end;
 }
-

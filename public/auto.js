@@ -21,7 +21,6 @@ function vaciarRecibo() {
     document.getElementById("cont-input-serv").innerHTML = '';
     deleteDetalle();
     deleteDetalleOnlyProp();
-    document.getElementById("cont-input-serv").innerHTML = ''; //Borra solo los inputs de servicios e impuestos, no los datos
     desplegarServiciosYImpuestos(); //solo despliega los inputs, no carga los datos guardados
 };
 

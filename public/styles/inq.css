@@ -272,15 +272,17 @@ body {
     width: 70%;
     margin-right: 32px;
 }
-.cont-input-serv {
-    display: flex;
-    flex-direction: column;
+#cont-input-serv {
+    margin: 24px 0;
+    padding: 8px 0 0 0;
+    border-top: solid 1px black;
 }
 .service-tax-item {
     display: flex;
     flex-direction: row;
     align-items: start;
     gap: 1rem;
+    margin: 8px;
 }
 .service-tax-item label {
     width: 150px;

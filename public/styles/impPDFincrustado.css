@@ -398,7 +398,9 @@ body {
     width: 280px;
     display: block;
 }
-.logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,#pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,#vence,.buttons,.controls,#observacionesInputProp{
+.logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,
+#pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,
+#vence,.buttons,.controls,#observacionesInputProp, #cont-input-serv {
     display: none;
 }
 .bodyInt{

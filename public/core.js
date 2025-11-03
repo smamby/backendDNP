@@ -562,7 +562,7 @@ let servicesAndTaxes = (contratoLevantado) => {
 function desplegarServiciosYImpuestos() {
    let contServTaxex =document.getElementById("cont-input-serv");
    let serviciosImpuestos = servicesAndTaxes(contratoLevantado);
-   console.log(serviciosImpuestos)
+   document.getElementById("cont-input-serv").innerHTML = '';
    for (let service in serviciosImpuestos){
       if (serviciosImpuestos[service] === true) {
          // console.log(`
@@ -636,7 +636,6 @@ function levantarContrato(itemEncontrado){
    document.getElementById("seguro").checked = itemEncontrado.seguro;
    document.getElementById("aux1").checked = itemEncontrado.aux1;
    document.getElementById("aux2").checked = itemEncontrado.aux2;
-   document.getElementById("cont-input-serv").innerHTML = '';
    desplegarServiciosYImpuestos();
 }
 var AJUSTARINDICE = false
