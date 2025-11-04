@@ -208,6 +208,7 @@ body {
     width: 30%;
     text-align: end;
     justify-content: end;
+    font-size: 17.7px;
 }
 .cont-detalle-Alq{
     display: flex;
@@ -243,6 +244,7 @@ body {
     justify-content: end;
     text-align: end;
     width: 30%;
+    font-size: 17.7px;
 }
 .montos{
     width: 30%;

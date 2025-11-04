@@ -156,6 +156,7 @@ body {
 }
 .detalle p, .monto{
     margin: 0px;
+    font-size: 17.7px;
 }
 .inputs{
     margin-bottom: 12px;
@@ -194,8 +195,7 @@ body {
     margin-right: 32px;
     margin: 0px;
 }
-.montos, #montoAlqProp, #cont-montos{
-
+.montos, #montoAlqProp, #cont-montos {
     width: 30%;
     justify-items: flex-end;
     text-align: end;
@@ -220,6 +220,7 @@ body {
     justify-content: right;
     text-align: end;
     width: 30%;
+    font-size: 17.7px;
 }
 .cont-detalle-Comi{
     width: 100%;
@@ -231,11 +232,13 @@ body {
 }
 #cont-detalleProp, #cont-detalleOnlyProp{
     width: 70%;
+    font-size: 15px;
 }
 #cont-montosProp, #cont-montosOnlyProp{
     width: 30%;
     text-align: end;
     justify-content: end;
+    font-size: 17px;
 }
 .montos{
     width: 30%;
@@ -258,8 +261,9 @@ body {
 }
 .total-text p{
     justify-items: end;
-    width: 80%;
+    /* width: 80%; */
     margin-right: 32px;
+    font-size: 17.7px;
 }
 .cont-firma-total-prop {
     display: flex;
@@ -363,14 +367,14 @@ span {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 500;
-    font-size: small;
+    font-size: 17.7px;
     text-align: end;
 }
 .cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 500;
-    font-size: small ;
+    font-size: 17.7px;
     text-align: end;
 }
 .monto, #montoAlqProp {

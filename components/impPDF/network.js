@@ -18,17 +18,17 @@ router.post('/', (req,res)=>{
   if (!html || !filename) {
     return res.status(400).send('HTML content and filename are required.');
   }
-  
+
   const options = {
     format: 'A4',
     orientation: 'portrait'
   }
   const filePath = path.join(__dirname, pathPDFs, filename)
-  //const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename)
-  const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
+  const filePathProduccion = path.join('../../pruebaPDF/',filename)
+  //const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
   const cssPath = path.join(__dirname, '../../public/styles', 'impPDFincrustado.css');
   console.log(`[[filepath]] ${filePathProduccion}`)
-  
+
   let cssContent;
   try {
     cssContent = fs.readFileSync(cssPath, 'utf8');
@@ -54,7 +54,7 @@ router.post('/', (req,res)=>{
   </head>
   <body style="width: 628px">
     ${html}
-    
+
   </body>
   </html>`;
 
@@ -99,10 +99,10 @@ router.post('/', (req,res)=>{
   //     path: filePath,
   //     printBackground: true
   //   })
-  // }  
-  // convPDF();  
+  // }
+  // convPDF();
 
-  
+
 /////////////////////////////////////////
 
 
@@ -122,9 +122,9 @@ router.post('/', (req,res)=>{
   //     console.log('PDF generated successfully!');
   //   });
 
-  //   writeStream.close(); 
+  //   writeStream.close();
   // };
-  // generatePDF(fichaPDFBACK, filename) 
+  // generatePDF(fichaPDFBACK, filename)
 })
 
 module.exports = router;

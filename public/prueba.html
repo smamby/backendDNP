@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <style>:root{
-    --html: rgb(231, 231, 235);  
+    --html: rgb(231, 231, 235);
     --primary: whitesmoke;
     --secondary: rgb(39, 38, 38);
     --btnAlert: rgb(47, 165, 219);
@@ -16,7 +16,7 @@
     --span: darkred;
 }
 .dark {
-    --html: black;  
+    --html: black;
     --primary: rgb(32, 32, 32);
     --secondary: whitesmoke;
     --btnAlert: gold;
@@ -24,19 +24,19 @@
     --span: rgb(223, 97, 97);
 }
 html{
-    background-color: var(--html);    
+    background-color: var(--html);
 }
 
 body {
     width: 100% !important;
-    margin: 22px;    
-    display: grid;    
+    margin: 22px;
+    display: grid;
     background-color: var(--primary);
     color: var(--secondary);
     font-family: Kanit;
-    font-style: normal
+    font-style: normal;
     font-weight: 400;
-    font-size: larger    
+    font-size: larger;
     margin-left: auto;
     margin-right: auto;
 }
@@ -50,7 +50,7 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-style: normal;
     font-weight: 200;
-    font-size: larger
+    font-size: larger;
 }
 
 .inbody-inq, .inbody-prop{
@@ -60,7 +60,7 @@ body {
 #firstText{
     font-family: monospace !important;
     font-weight: 400;
-    font-size: larger
+    font-size: larger;
     margin: 0px;
     margin-bottom: 0px;
 }
@@ -84,7 +84,7 @@ body {
     background-image: url('http://localhost:5500/assets/logo.png') !important;
     width: 100px !important;
     height: 160px !important;
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     border: none !important;
     outline: none !important;
@@ -97,7 +97,7 @@ body {
     background-image: url('http://localhost:5500/assets/isotipo.png')  !important  ;
     margin: 40px !important;
     margin-top: 48px !important;
-    background-size: 100% 100%; 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     border: none !important;
     outline: none !important;
@@ -141,7 +141,7 @@ body {
     margin-left: 40px;
 }
 .cont-numero{
-    display: flex;    
+    display: flex;
     height: 56px;
     margin: 0px;
     margin-top: 92px;
@@ -197,8 +197,8 @@ body {
 }
 .cont-detalle{
     display: inline-block !important;
-    width: 65%; 
-    margin: 0px; 
+    width: 65%;
+    margin: 0px;
 }
 .detalleProp p{
     width: 65%;
@@ -226,9 +226,9 @@ body {
 .detalle {
     width: 65%;
 }
-#cont-montos{    
+#cont-montos{
     display: inline-block !important;
-    width: 34%;    
+    width: 34%;
     justify-items: flex-end;
     text-align: end;
 }
@@ -247,11 +247,11 @@ body {
 #detalleProp{
     width: 65%;
 }
-#monto-alq,#cont-montos,.montos{    
+#monto-alq,#cont-montos,.montos{
     margin: 0px;
     justify-content: right;
-    text-align: end;  
-    width: 34%; 
+    text-align: end;
+    width: 34%;
 }
 .cont-montos {
     display: inline-block;
@@ -284,7 +284,7 @@ body {
     width: 34%;
 }
 .montos p{
-    
+
     text-align: end;
     margin-top: 0px;
 }
@@ -319,7 +319,7 @@ body {
 }
 .cont-total{
     display: inline-block;
-    width: 40%;    
+    width: 40%;
     position: absolute;
     margin-top: 90px;
 }
@@ -343,7 +343,7 @@ body {
     margin-top: 24px;
     margin-left: -40px;
     background-size: 100% 100%;
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;
 }
 .cont-firma > p {
     padding-left: 30px;
@@ -407,7 +407,9 @@ body {
     width: 280px;
     display: block;
 }
-.logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,#pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,#vence,.buttons,.controls,#observacionesInputProp{
+.logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,
+#pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,
+#vence,.buttons,.controls,#observacionesInputProp, #cont-input-serv {
     display: none;
 }
 .bodyInt{
@@ -451,7 +453,6 @@ span {
     display: flexbox;
     justify-content: end;
 } */
-
 </style>
   </head>
   <body style="width: 628px">
@@ -478,18 +479,18 @@ span {
                 </div>
             </div>
             <div class="cont cont-num">
-                <div class="cont-n cont-numero" id="numero">N° 0000<p id="numProp">5999</p>
+                <div class="cont-n cont-numero" id="numero">N° 0000<p id="numProp">4489</p>
                 </div>
-                <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="dateProp">13/12/2024</p></div>
+                <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="dateProp">16/8/2024</p></div>
             </div>
         </div>
     </header>
     <div class="bodier">
         <div class="cont-title-liq">
-            <h3 id="title-liq">Liquidacion de alquileres </h3>            
+            <h3 id="title-liq">Liquidacion de alquileres </h3>
         </div>
         <div class="sitoEnProp" id="sitoEnProp">
-            <p>Dpto. sito en: <span id="dirDeptoAlq">RIVADAVIA 1321 -9° 36</span></p>       
+            <p>Dpto. sito en: <span id="dirDeptoAlq">CORDOBA 4001 9G</span></p>
         </div>
         <p class="detalle-title"><u>Detalle de alquiler:</u></p>
         <!-- solo propietario -->
@@ -498,40 +499,40 @@ span {
             <input type="text" name="nuevoMonto" id="nuevoMontoOnlyProp" placeholder="monto solo recibo propietario">
             <button id="insertarProp" onclick="insertDetOnlyProp()">Insertar</button>
             <button id="delDetalleProp" onclick="deleteDetalleOnlyProp()">Borrar</button>
-        </div> 
+        </div>
         <div class="cont-detalle-prop">
             <div class="cuerpo detalleProp" id="detalleProp">
-                <p>alquiler correspondiente a <span id="mesAlqProp">DIC 2024</span> </p>               
+                <p>alquiler correspondiente a <span id="mesAlqProp">JUL 2024</span> </p>
             </div>
             <div class="montos">
-                <span class="" id="montoAlqProp">$ 358.000.-</span>
-            </div>            
+                <span class="" id="montoAlqProp">$ 61.300.-</span>
+            </div>
         </div>
         <div id="cont-new-det">
-            <div class="cont-detalle" id="cont-detalleProp" style="display: block;">- EXPENSAS EXTRAORDINARIAS  mal descontadas<br></div>
-            <div class="cont-montos" id="cont-montosProp" style="display: flex;">$ 49.205.-<br></div> 
+            <div class="cont-detalle" id="cont-detalleProp" style="display: block;">- hjgfhjgfjhgf<br>- fgdgfdgf<br>- gfdj  gfhg gfh<br></div>
+            <div class="cont-montos" id="cont-montosProp" style="display: flex;">$ 1.111.111.-<br>$ -111.111.-<br>$ -50.000.-<br></div>
         </div>
-        <div id="cont-new-det-only-prop">
-            <div class="cont-detalle" id="cont-detalleOnlyProp"></div>
-            <div class="cont-montosOP" id="cont-montosOnlyProp"></div> 
+        <div id="cont-new-det-only-prop" style="display: flex;">
+            <div class="cont-detalle" id="cont-detalleOnlyProp" style="display: block;">- ghfhgf<br>- asdfdfsdf<br>- asdfsdfsdf<br>- asdfsdaf<br>- asdfsdfd<br></div>
+            <div class="cont-montosOP" id="cont-montosOnlyProp" style="display: flex;">$ -100.000.-<br>$ 234.234.-<br>$ 234.234.-<br>$ 23.434.-<br>$ 234.343.-<br></div>
         </div>
         <!-- <div class="cont-detalle">
             <div class="cuerpo detalle">
-                <p>Expensas extraordinarias: frente, andamios, terraza</p>               
+                <p>Expensas extraordinarias: frente, andamios, terraza</p>
             </div>
             <div class="montos">
                 <p class="monto">$3000</p>
-            </div>            
+            </div>
         </div>
         <div class="cont-detalle">
             <div class="cuerpo detalle">
-                <p>boleta gas</p>               
+                <p>boleta gas</p>
             </div>
             <div class="montos">
                 <p class="monto">$800</p>
-            </div>            
+            </div>
         </div> -->
-        
+
         <p class="detalle-subtitle"><u>Descuentos Del Norte Prop.:</u></p>
 
         <div class="cont-detalle-comi">
@@ -541,11 +542,11 @@ span {
                         <option value="administracion" selected="selected">Administracion</option>
                         <option value="firma">Firma Contrato</option>
                     </select>
-                </span></p>               
+                </span></p>
             </div>
             <div class="montos">
-                <span class="montoComi" id="montoComision">$ -17.900.-</span>
-            </div>            
+                <span class="montoComi" id="montoComision">$ -3.065.-</span>
+            </div>
         </div>
 
         <div class="cont-totales">
@@ -553,28 +554,28 @@ span {
                 <p>TOTAL</p>
             </div>
             <div class="cont-total-det">
-                <p class="total">$ <span id="totalDetProp">389.305.-</span></p>
-            </div>            
+                <p class="total">$ <span id="totalDetProp">1.634.480.-</span></p>
+            </div>
         </div>
         <div class="observaciones">
-            <p>Observaciones: </p><p id="obsProp">Recibí los comprobantes de pago de METROGAS vto. 21/11/24, ABL cuota 12/24, AYSA vto. 3/12/24, EXPENSAS nov/24.</p><p></p>
+            <p>Observaciones: </p><p id="obsProp">Recibí los comprobantes de pago de ABL cuota 10-24, AYSA vto. 2/3/24, EDENOR vto. 2/3/24, METROGAS  vto. 2/3/24, EXPENSAS febrero-24</p><p></p>
             <!-- <textarea name="observaciones" id="observacionesInputProp" cols="60" rows="2"></textarea> -->
-            
+
         </div>
         <div class="cont-firma-total-prop">
             <div class="cont-total-prop">
-                <p>Total  $ <span id="total-finalProp">389.305.-</span></p>
+                <p>Total  $ <span id="total-finalProp">1.634.480.-</span></p>
             </div>
             <div class="cont-firma-prop">
                 <p>Firma:  </p><p id="firma-final"></p><p></p>
-                
+
             </div>
         </div>
     </div>
     <footer>
-        
+
     </footer>
     </div></div></div>
-    
+
   </body>
   </html>

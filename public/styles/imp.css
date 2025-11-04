@@ -219,7 +219,8 @@ body {
     margin: 0px;
     justify-content: right;
     text-align: end;
-    width: 30%;
+    width: 35%;
+    font-size: 17.7px;
 }
 .cont-detalle-Comi{
     width: 100%;
@@ -236,6 +237,7 @@ body {
     width: 30%;
     text-align: end;
     justify-content: end;
+    font-size: 17px;
 }
 .montos{
     width: 30%;
