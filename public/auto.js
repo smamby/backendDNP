@@ -299,38 +299,34 @@ function valorComision(valor){
     }
 }
 
-function cargarServicios () {
+async function cargarServicios () {
     if (reciboLevantado.length !== 0) {
         const numReciboLevantado = reciboLevantado[0].numeroRecibo;
-        return getServices(numReciboLevantado)
-            .then( res => {
-                console.log('Response status:', res.status);
-                console.log('Response headers:', Array.from(res.headers.entries()));
-                if (!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then( data => {
-                for (let service in data) {
-                    const vtoElement = document.getElementById(`vto-${data[service].nombreServicio}`);
-                    const pagadoElement = document.getElementById(`pagado-${data[service].nombreServicio}`);
+        try {
+            const res = await getServices(numReciboLevantado);
+            console.log('Response status:', res.status);
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            const data = await res.json();
+            for (let service in data) {
+                const vtoElement = document.getElementById(`vto-${data[service].nombreServicio}`);
+                const pagadoElement = document.getElementById(`pagado-${data[service].nombreServicio}`);
 
-                    if (vtoElement && pagadoElement) {
-                        vtoElement.value = data[service].vencimiento === null
-                                            ? ''
-                                            : new Date(data[service].vencimiento).toISOString().split('T')[0];
-                        pagadoElement.checked = data[service].pagado;
-                        console.log('servicio cargado: ', service);
-                    }
+                if (vtoElement && pagadoElement) {
+                    vtoElement.value = data[service].vencimiento === null
+                        ? ''
+                        : new Date(data[service].vencimiento).toISOString().split('T')[0];
+                    pagadoElement.checked = data[service].pagado;
+                    console.log('servicio cargado: ', service);
                 }
-                console.log('data cargada', data);
-                return data;
-            })
-            .catch( err => {
-                console.error('Error cargando servicios:', err);
-                throw err;
-            });
+            }
+            console.log('data cargada', data);
+            return data;
+        } catch (err) {
+            console.error('Error cargando servicios:', err);
+            throw err;
+        }
     }
     return Promise.resolve();
 }
@@ -339,7 +335,6 @@ async function guardarServiciosNuevos() {
         const services = servicesAndTaxes(contratoLevantado);
         console.log('Servicios a guardar:', services);
         for (let service in services) {
-            //if (services[service] === true) {
             await addService({
                 numeroContrato: contratoLevantado[0].idContrato,
                 numeroRecibo: NUMERACION,
@@ -347,16 +342,14 @@ async function guardarServiciosNuevos() {
                 vencimiento: document.getElementById(`vto-${service}`).value,
                 pagado: document.getElementById(`pagado-${service}`).checked
             });
-
-            //}
         }
     }
     if (reciboLevantado.length !== 0 && contratoLevantado.length !== 0) {
-        const services = servicesAndTaxes(contratoLevantado);
-        const serviciosExistentes = await cargarServicios ();
+        const services = servicesAndTaxes(reciboLevantado);
+        const serviciosExistentes = await cargarServicios();
 
-        console.log('Servicios del contrato:', services);
-        console.log('Servicios existentes:', serviciosExistentes);
+        console.log('Servicios del contrato o del recibo si existe:', services);
+        console.log('Servicios existentes en DB:', serviciosExistentes);
 
         if (serviciosExistentes.length === 0) {
             for (let service in services) {

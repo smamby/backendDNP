@@ -26,8 +26,25 @@ async function editService(searchParam, changes) {
     };
     console.log('[store] Updating with filter:', filter, 'changes:', changes);
 
-    const result = await Model.updateOne(filter, { $set: changes });
-    console.log('[store] Update result:', result);
+    const update = {};
+    for (const key in changes){
+      let val = changes[key];
+      if (val === '') {
+        val = null;
+      }
+      if (key === 'numeroRecibo' || key === 'numeroContrato') {
+        val = val != null ? Number(val) : val;
+      }
+      if (key === 'vencimiento' && val) {
+        const d = new Date(val);
+        val = isNaN(d.getTime()) ? null : d;
+      }
+      update[key] = val;
+    }
+
+
+    const result = await Model.findOneAndUpdate(filter, { $set: update }, { new: true });
+    console.log('[store] Update doc:', result);
 
     if (result.matchedCount === 0) {
       throw new Error('Service not found');

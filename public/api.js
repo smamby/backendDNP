@@ -172,7 +172,7 @@ async function editService(searchParams, changes) {
     },
     body: JSON.stringify(changes)
   })
-  console.log('Service edited: ', serviceEdited);
+  console.log('Service edited: ', await serviceEdited.json());
   return serviceEdited;
 }
 
