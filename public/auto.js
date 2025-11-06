@@ -303,12 +303,11 @@ async function cargarServicios () {
     if (reciboLevantado.length !== 0) {
         const numReciboLevantado = reciboLevantado[0].numeroRecibo;
         try {
-            const res = await getServices(numReciboLevantado);
-            console.log('Response status:', res.status);
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
+            const data = await getServices(numReciboLevantado);
+            if (!data || !Array.isArray(data) || data.length === 0) {
+                console.log('No services for recibo', numReciboLevantado);
+                return data;
             }
-            const data = await res.json();
             for (let service in data) {
                 const vtoElement = document.getElementById(`vto-${data[service].nombreServicio}`);
                 const pagadoElement = document.getElementById(`pagado-${data[service].nombreServicio}`);
@@ -331,6 +330,7 @@ async function cargarServicios () {
     return Promise.resolve();
 }
 async function guardarServiciosNuevos() {
+    //debugger
     if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
         const services = servicesAndTaxes(contratoLevantado);
         console.log('Servicios a guardar:', services);
@@ -345,16 +345,16 @@ async function guardarServiciosNuevos() {
         }
     }
     if (reciboLevantado.length !== 0 && contratoLevantado.length !== 0) {
-        const services = servicesAndTaxes(reciboLevantado);
-        const serviciosExistentes = await cargarServicios();
+        const services = servicesAndTaxes(contratoLevantado);
+        const serviciosExistentes = await getServices(reciboLevantado[0].numeroRecibo);
 
-        console.log('Servicios del contrato o del recibo si existe:', services);
-        console.log('Servicios existentes en DB:', serviciosExistentes);
+        console.log('Servicios del contrato actuales:', services);
+        console.log('Servicios existentes en DB del recibo:', serviciosExistentes);
 
         if (serviciosExistentes.length === 0) {
             for (let service in services) {
 
-                console.log('add with bill: ',{numeroRecibo: reciboLevantado[0].numeroRecibo, nombreServicio: service})
+                console.log('add from bill: ',{numeroRecibo: reciboLevantado[0].numeroRecibo, nombreServicio: service})
                 await addService({
                     numeroContrato: contratoLevantado[0].idContrato,
                     numeroRecibo: reciboLevantado[0].numeroRecibo,
@@ -367,32 +367,32 @@ async function guardarServiciosNuevos() {
             return;
         }
         if (serviciosExistentes.length > 0) {
-            for (let service in services) {
-                const servicioExistente = serviciosExistentes.find(
-                    s => s.nombreServicio === service
-                );
-                if (servicioExistente) {
-                    console.log(`Servicio ${service} ya existe - actualizando...`);
+            for (let service in serviciosExistentes) {
+                // const servicioExistente = serviciosExistentes.find(
+                //     s => s.nombreServicio === service
+                // );
+                // if (servicioExistente) {
+                    console.log(`Servicio ${serviciosExistentes[service].nombreServicio} ya existe - actualizando...`);
                     await editService({
                         numeroRecibo: reciboLevantado[0].numeroRecibo,
-                        nombreServicio: service
+                        nombreServicio: serviciosExistentes[service].nombreServicio
                     },{
                         numeroContrato: contratoLevantado[0].idContrato,
                         numeroRecibo: reciboLevantado[0].numeroRecibo,
-                        nombreServicio: service,
-                        vencimiento: document.getElementById(`vto-${service}`).value,
-                        pagado: document.getElementById(`pagado-${service}`).checked
+                        nombreServicio: serviciosExistentes[service].nombreServicio,
+                        vencimiento: document.getElementById(`vto-${serviciosExistentes[service].nombreServicio}`).value,
+                        pagado: document.getElementById(`pagado-${serviciosExistentes[service].nombreServicio}`).checked
                     });
-                } else {
-                    console.log(`Servicio ${service} es nuevo - agregando...`);
-                    await addService({
-                        numeroContrato: contratoLevantado[0].idContrato,
-                        numeroRecibo: reciboLevantado[0].numeroRecibo,
-                        nombreServicio: service,
-                        vencimiento: document.getElementById(`vto-${service}`).value,
-                        pagado: document.getElementById(`pagado-${service}`).checked
-                    });
-                }
+                // } else {
+                //     console.log(`Servicio ${service} es nuevo - agregando...`);
+                //     await addService({
+                //         numeroContrato: contratoLevantado[0].idContrato,
+                //         numeroRecibo: reciboLevantado[0].numeroRecibo,
+                //         nombreServicio: service,
+                //         vencimiento: document.getElementById(`vto-${service}`).value,
+                //         pagado: document.getElementById(`pagado-${service}`).checked
+                //     });
+                // }
             }
         }
     }

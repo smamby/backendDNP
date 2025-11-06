@@ -229,6 +229,12 @@ span {
     flex-direction: row;
     justify-content: space-between;
 }
+.serv_tax input[type='checkbox'] {
+    accent-color: #058adc;
+}
+.service-tax-item input[type='checkbox'] {
+    accent-color: #db2f2f;
+}
 .cont_check_serv_tax {
     display: flex;
     flex-direction: column;

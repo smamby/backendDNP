@@ -42,12 +42,27 @@ async function getRecibos(searchParam){
 //getRecibos(13)
 async function getServices(searchParam) {
   console.log('Requesting services URL:', `${u}${serv}?numeroRecibo=${searchParam}`);
-  const result = await fetch(`${u}${serv}?numeroRecibo=${searchParam}`, {
-    method: 'GET',
-    mode: 'cors'
-  })
-  //const services = await result.json();
-  return result;
+   try {
+    const response = await fetch(`${u}${serv}?numeroRecibo=${searchParam}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const services = await response.json();
+    console.log('Services received:', services);
+    return services;
+
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    throw error;
+  }
 }
 
 const r17 = {

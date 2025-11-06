@@ -430,7 +430,7 @@ function cargarRecibo(){
       insertDetOnlyProp();
    }
    getServices(numRecibo)
-      .then( res => res.json())
+      //.then( res => res.json())
       .then( data => {
          console.log('data', data)
          let serviceObjectForElements = {};
@@ -479,6 +479,7 @@ async function guardarRecibo(){
       "tipoHonorarios": tipoHonorario,
       "idContrato": parseInt(numContrato)
     }
+
     guardarServiciosNuevos();
     await getRecibos(num)
     if(reciboLevantado.length == 0){
