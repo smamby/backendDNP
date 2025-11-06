@@ -6,6 +6,7 @@ const c = '/contratos/';
 const r = '/recibos/';
 const p = '/printPDF/';
 const sm = '/sendMail/';
+const serv = '/services';
 
 
 const header = {
@@ -39,6 +40,15 @@ async function getRecibos(searchParam){
 }
 //getContrato(435)
 //getRecibos(13)
+async function getServices(searchParam) {
+  console.log('Requesting services URL:', `${u}${serv}?numeroRecibo=${searchParam}`);
+  const result = await fetch(`${u}${serv}?numeroRecibo=${searchParam}`, {
+    method: 'GET',
+    mode: 'cors'
+  })
+  //const services = await result.json();
+  return result;
+}
 
 const r17 = {
   "numeroRecibo": 17,
@@ -83,9 +93,9 @@ async function addRecibo(recibo){
   } else {
     editRecibo(recibo)
     //console.log('Ya existe un recibo con ese numero, corregi la info')
-  }    
+  }
 }
-  
+
 async function addContrato(contrato){
   // var numContrato = parseInt(contrato["idContrato"])
   // console.log(numContrato)
@@ -106,6 +116,19 @@ async function addContrato(contrato){
   // } else {
   //   console.log('el idContrato ya exite, verificá la informacion')
   // }
+}
+async function addService(service) {
+  const newService = await fetch(u+serv, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(service)
+  })
+  const text = await newService.text();
+  console.log('res status: ', newService.status, newService.ok, text);
+  return newService;
 }
 
 async function editRecibo(dataNueva){
@@ -138,13 +161,28 @@ async function editContrato(dataNueva){
   return contrato
 }
 
+async function editService(searchParams, changes) {
+  const numeroRecibo = searchParams.numeroRecibo;
+  const nombreServicio = searchParams.nombreServicio;
+  console.log(`${u}${serv}?numeroRecibo=${numeroRecibo}&nombreServicio=${nombreServicio}`)
+  const serviceEdited = await fetch(`${u}${serv}?numeroRecibo=${numeroRecibo}&nombreServicio=${nombreServicio}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(changes)
+  })
+  console.log('Service edited: ', serviceEdited);
+  return serviceEdited;
+}
+
 async function deleteContrato(searchParam){
   if(confirm('Vas a eliminar definitivamente el contrato N° '+contratoLevantado[0]["idContrato"])){
     const deleted = await fetch(u+c+searchParam, {
       method: 'DELETE'
     })
     console.log('Contrato n°'+contratoLevantado["idContrato"]+' eliminado')
-  }  
+  }
 }
 
 
@@ -154,9 +192,9 @@ async function imprimirReciboPDFBack(inbody,filename){
   if (typeof inbody !== 'string') {
     throw new Error('inbody must be a string');
   }
-  
+
   //console.log(`[[[API INBODY.outerHTML]]]   ${inbody}`)
-  
+
   if (window.isFetching) return;
   window.isFetching = true;
   try {
@@ -176,7 +214,7 @@ async function imprimirReciboPDFBack(inbody,filename){
         const result = await response.json();
         console.log('PDF generated successfully: '+ result.filePathProduccion);
         window.opener.alert('PDF generated successfully in: '+ result.filePathProduccion);
-      }      
+      }
     }
   } catch (error) {
     console.error('Error during PDF generation:', error);
@@ -216,7 +254,7 @@ async function sendMailToBackend(filename, destiny, subjectmail, bodymail) {
 }
 
 window.onbeforeunload = ()=>{
-  return 'ACEPTAR para cerrar la aplicacion. CANCELAR para refrescar la pagina' 
+  return 'ACEPTAR para cerrar la aplicacion. CANCELAR para refrescar la pagina'
 }
 
 
@@ -228,4 +266,3 @@ window.onbeforeunload = ()=>{
 //     }
 //   })
 // })
-  

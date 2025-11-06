@@ -292,75 +292,6 @@ function crearIndices(){
    guardarInfo()
 }
 
-// function crear(){
-//    propietarioOb = new Propietario({
-//       nombre: nombrePInput,
-//       apellido:apellidoPInput,
-//       celular:celularPInput,
-//       email:emailPInput,
-//       dni:dniPInput,
-//       cbu: cbuPInput,
-//       direccionP:direccionPInput,
-//    });
-//    inquilinoOb = new Inquilino({
-//       nombre:nombreIInput,
-//       apellido:apellidoIInput,
-//       celular:celularIInput,
-//       email:emailIInput,
-//       dni:dniIInput,
-//       cbu: cbuIInput,
-//       garantia:garantiaIInput,
-//    });
-//    depto = new Deptos({
-//       id:idInput,
-//       direccion:direccionInput,
-//       inicioContrato: inicioContratoInput,
-//       valor1: parseInt(valor1Input),
-//       valor2: parseInt(valor2Input),
-//       valor3: parseInt(valor3Input),
-//       obligacionesInq: obligacionesInqInput,
-//       observaciones: observacionesInput,
-//       descripcion: descripcionInput,
-//       imagenes: imagenesInput,
-//       contrato: contratoInput,
-//    });
-//    console.log('depto',depto)
-//    console.log('propietarioOb',propietarioOb)
-//    console.log('inquilinoOb',inquilinoOb)
-//    var nuevoContrato = {
-//       id: depto._id,
-//       propietario: propietarioOb,
-//       inquilino: inquilinoOb,
-//       departamento: depto,
-//    };
-//    Object.seal(nuevoContrato);
-//    for (var item in nuevoContrato){
-//       Object.seal(nuevoContrato[item]);
-//    };
-//    console.log(Object.getOwnPropertyDescriptors(nuevoContrato))
-//    cargarInfo();
-//    for(var item of contratos){
-//       Object.seal(item)
-//    };
-//    console.log('contratos',contratos);
-//    contratos.push(nuevoContrato);
-//    console.log('contratos',contratos);
-//    console.log('nuevoContrato',nuevoContrato);
-
-
-//    var empujar = [contratos[contratos.length-1].id,contratos[contratos.length-1].departamento._direccion]
-
-//    console.log('indice',empujar)
-//    indices.push(empujar)
-//    console.log('indices',indices)
-
-//    console.log('contratos',contratos);
-
-//    guardarInfo();
-//    //imprimirContrato(nuevoContrato)
-//    alert(`Creaste un nuevo contrato en calle ${nuevoContrato.departamento._direccion} con el ID: ${nuevoContrato.id}`)
-// }
-
 
 //Guardar y cargar datos
 var indicesGuardados = [];
@@ -498,7 +429,20 @@ function cargarRecibo(){
       document.getElementById("nuevoMontoOnlyProp").value = detalle[1];
       insertDetOnlyProp();
    }
-   desplegarServiciosYImpuestos();
+   getServices(numRecibo)
+      .then( res => res.json())
+      .then( data => {
+         console.log('data', data)
+         let serviceObjectForElements = {};
+         let servicesArrayFotElements = []
+         for (let d of data) {
+            serviceObjectForElements[d.nombreServicio] = true;
+         }
+         servicesArrayFotElements.push(serviceObjectForElements);
+         desplegarServiciosYImpuestos(servicesArrayFotElements)
+      })
+
+   cargarServicios();
 }
 
 async function guardarRecibo(){
@@ -535,6 +479,7 @@ async function guardarRecibo(){
       "tipoHonorarios": tipoHonorario,
       "idContrato": parseInt(numContrato)
     }
+    guardarServiciosNuevos();
     await getRecibos(num)
     if(reciboLevantado.length == 0){
       console.log('addRecibo')
@@ -546,30 +491,37 @@ async function guardarRecibo(){
     }
 }
 
-let servicesAndTaxes = (contratoLevantado) => {
-   return {
-      "luz": contratoLevantado[0].luz,
-      "agua": contratoLevantado[0].agua,
-      "gas": contratoLevantado[0].gas,
-      "abl": contratoLevantado[0].abl,
-      "expensas": contratoLevantado[0].expensas,
-      "seguro": contratoLevantado[0].seguro,
-      "aux1": contratoLevantado[0].aux1,
-      "aux2": contratoLevantado[0].aux2
-   }
-}
+// let servicesAndTaxes = (contratoLevantado) => {
+//    let serviceTruly = {};
+//    let services = {
+//       "luz": contratoLevantado[0].luz,
+//       "agua": contratoLevantado[0].agua,
+//       "gas": contratoLevantado[0].gas,
+//       "abl": contratoLevantado[0].abl,
+//       "expensas": contratoLevantado[0].expensas,
+//       "seguro": contratoLevantado[0].seguro,
+//       "aux1": contratoLevantado[0].aux1,
+//       "aux2": contratoLevantado[0].aux2
+//    }
+//    for (let service in services) {
+//       if (services[service] === true) {
+//          serviceTruly[service] = true;
+//       }
+//    }
+//    return serviceTruly;
+// }
+let servicesAndTaxes = (contratoOReciboLevantado) => Object.fromEntries(
+  Object.entries(contratoOReciboLevantado[0])
+    .filter(([key, value]) => value === true)
+    .map(([key, value]) => [key, true])
+);
 
-function desplegarServiciosYImpuestos() {
+function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
    let contServTaxex =document.getElementById("cont-input-serv");
-   let serviciosImpuestos = servicesAndTaxes(contratoLevantado);
+   let serviciosImpuestos = servicesAndTaxes(contratoOReciboLevantado);
    document.getElementById("cont-input-serv").innerHTML = '';
    for (let service in serviciosImpuestos){
       if (serviciosImpuestos[service] === true) {
-         // console.log(`
-         //    <label for="${service}">${service}</label>
-         //    <input type="date" name="vencimiento-${service}" id="vto-${service}">
-         //    <input type="checkbox" name="pagado-${service}" id="vto-${service}">
-         // `)
          contServTaxex.innerHTML += `
             <div class="service-tax-item">
                <label for="${service}">${service}</label>
@@ -581,23 +533,6 @@ function desplegarServiciosYImpuestos() {
    }
 }
 
-// DEPRECATE
-// function imprimirContrato(contrato){
-//    var div = document.getElementById("imprimir");
-//    div.innerHTML = '';
-//    var deptoObject = Object.entries(contrato.departamento);
-//    var propietarioObject = Object.entries(contrato.propietario);
-//    var inquilinoObject = Object.entries(contrato.inquilino);
-//    var array = []
-//    array.push(deptoObject)
-//    array.push(propietarioObject)
-//    array.push(inquilinoObject)
-//    for(var item of array){
-//       for (var el of item){
-//          div.innerHTML += `<strong>${el[0]}:</strong>  <span>${el[1]}</span><br>`
-//       }
-//    }
-// }
 
 //Editar Contrato
 function levantarContrato(itemEncontrado){
@@ -636,7 +571,7 @@ function levantarContrato(itemEncontrado){
    document.getElementById("seguro").checked = itemEncontrado.seguro;
    document.getElementById("aux1").checked = itemEncontrado.aux1;
    document.getElementById("aux2").checked = itemEncontrado.aux2;
-   desplegarServiciosYImpuestos();
+   desplegarServiciosYImpuestos(contratoLevantado);
 }
 var AJUSTARINDICE = false
 function editarContrato(){

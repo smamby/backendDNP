@@ -21,7 +21,7 @@ function vaciarRecibo() {
     document.getElementById("cont-input-serv").innerHTML = '';
     deleteDetalle();
     deleteDetalleOnlyProp();
-    desplegarServiciosYImpuestos(); //solo despliega los inputs, no carga los datos guardados
+    desplegarServiciosYImpuestos(contratoLevantado); //solo despliega los inputs, no carga los datos guardados
 };
 
 function chkReciboVacio(){
@@ -298,6 +298,113 @@ function valorComision(valor){
         alert('ocurrio algun error')
     }
 }
+
+function cargarServicios () {
+    if (reciboLevantado.length !== 0) {
+        const numReciboLevantado = reciboLevantado[0].numeroRecibo;
+        return getServices(numReciboLevantado)
+            .then( res => {
+                console.log('Response status:', res.status);
+                console.log('Response headers:', Array.from(res.headers.entries()));
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then( data => {
+                for (let service in data) {
+                    const vtoElement = document.getElementById(`vto-${data[service].nombreServicio}`);
+                    const pagadoElement = document.getElementById(`pagado-${data[service].nombreServicio}`);
+
+                    if (vtoElement && pagadoElement) {
+                        vtoElement.value = data[service].vencimiento === null
+                                            ? ''
+                                            : new Date(data[service].vencimiento).toISOString().split('T')[0];
+                        pagadoElement.checked = data[service].pagado;
+                        console.log('servicio cargado: ', service);
+                    }
+                }
+                console.log('data cargada', data);
+                return data;
+            })
+            .catch( err => {
+                console.error('Error cargando servicios:', err);
+                throw err;
+            });
+    }
+    return Promise.resolve();
+}
+async function guardarServiciosNuevos() {
+    if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
+        const services = servicesAndTaxes(contratoLevantado);
+        console.log('Servicios a guardar:', services);
+        for (let service in services) {
+            //if (services[service] === true) {
+            await addService({
+                numeroContrato: contratoLevantado[0].idContrato,
+                numeroRecibo: NUMERACION,
+                nombreServicio: service,
+                vencimiento: document.getElementById(`vto-${service}`).value,
+                pagado: document.getElementById(`pagado-${service}`).checked
+            });
+
+            //}
+        }
+    }
+    if (reciboLevantado.length !== 0 && contratoLevantado.length !== 0) {
+        const services = servicesAndTaxes(contratoLevantado);
+        const serviciosExistentes = await cargarServicios ();
+
+        console.log('Servicios del contrato:', services);
+        console.log('Servicios existentes:', serviciosExistentes);
+
+        if (serviciosExistentes.length === 0) {
+            for (let service in services) {
+
+                console.log('add with bill: ',{numeroRecibo: reciboLevantado[0].numeroRecibo, nombreServicio: service})
+                await addService({
+                    numeroContrato: contratoLevantado[0].idContrato,
+                    numeroRecibo: reciboLevantado[0].numeroRecibo,
+                    nombreServicio: service,
+                    vencimiento: document.getElementById(`vto-${service}`).value,
+                    pagado: document.getElementById(`pagado-${service}`).checked
+                });
+
+            }
+            return;
+        }
+        if (serviciosExistentes.length > 0) {
+            for (let service in services) {
+                const servicioExistente = serviciosExistentes.find(
+                    s => s.nombreServicio === service
+                );
+                if (servicioExistente) {
+                    console.log(`Servicio ${service} ya existe - actualizando...`);
+                    await editService({
+                        numeroRecibo: reciboLevantado[0].numeroRecibo,
+                        nombreServicio: service
+                    },{
+                        numeroContrato: contratoLevantado[0].idContrato,
+                        numeroRecibo: reciboLevantado[0].numeroRecibo,
+                        nombreServicio: service,
+                        vencimiento: document.getElementById(`vto-${service}`).value,
+                        pagado: document.getElementById(`pagado-${service}`).checked
+                    });
+                } else {
+                    console.log(`Servicio ${service} es nuevo - agregando...`);
+                    await addService({
+                        numeroContrato: contratoLevantado[0].idContrato,
+                        numeroRecibo: reciboLevantado[0].numeroRecibo,
+                        nombreServicio: service,
+                        vencimiento: document.getElementById(`vto-${service}`).value,
+                        pagado: document.getElementById(`pagado-${service}`).checked
+                    });
+                }
+            }
+        }
+    }
+}
+
 
 function setNum(num){
     NUMERACION=num;

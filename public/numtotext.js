@@ -79,13 +79,13 @@ const centenas = { //if length es 3 > 100
     9: "novecientos"
 }
 
-function lenArr(numLength){    
+function lenArr(numLength){
     var estArr = {
     1: [ arr[arr.length-1] ],
     2: [ arr[arr.length-2], arr[arr.length-1] ],
-    3: [ [ arr[arr.length-3] ], 
+    3: [ [ arr[arr.length-3] ],
          [ arr[arr.length-2], arr[arr.length-1] ] ],
-    4: [ [ arr[arr.length-4] ], 
+    4: [ [ arr[arr.length-4] ],
          [ arr[arr.length-3], arr[arr.length-2], arr[arr.length-1] ] ],
     5: [ [ arr[arr.length-5], arr[arr.length-4] ],
          [ arr[arr.length-3], arr[arr.length-2], arr[arr.length-1] ] ],
@@ -137,7 +137,7 @@ function dec(a){
 }
 
 function cen(x){
-    //console.log('xCen',x) 
+    //console.log('xCen',x)
     if(x[0][0]=='1' && x[1][0]=='0' && x[1][1]=='0'){
         return "cien";
     }
@@ -198,7 +198,7 @@ function fracNum(){
     adpArr = lenArr(numLength)
     cenYdes = lenArr(3)
     secCenYdes = [ [arr[arr.length-6]], [arr[arr.length-5], arr[arr.length-4]] ];
-    terCenYdes = [ [arr[arr.length-9]], [arr[arr.length-8], arr[arr.length-7]] ];    
+    terCenYdes = [ [arr[arr.length-9]], [arr[arr.length-8], arr[arr.length-7]] ];
 }
 
 function select(numLength){
@@ -215,19 +215,27 @@ function select(numLength){
         return `${mil()} ${cen(cenYdes)}${dec(cenYdes[1])}`
     }
     if(numLength==5){
-        if(arr[arr.length-4]==1){
+        if(arr[arr.length-4]==1 && arr[arr.length-5]!=1){
             var resu = (dec(adpArr[0])).slice(0,-1)
             return `${resu} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
-        } 
+        }
+        if(arr[arr.length-4]==1 && arr[arr.length-5]==1){
+            var resu = (dec(adpArr[0]))
+            return `${resu} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
+        }
         if (arr[arr.length-4]!=1){
             return `${dec(adpArr[0])} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
         }
     }
     if(numLength==6){
-        if(arr[arr.length-4]==1){
+        if(arr[arr.length-4]==1 && arr[arr.length-5]!=1){
             var resu = (dec(secCenYdes[1])).slice(0,-1)
             return `${cen(secCenYdes)}${resu} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
-        } 
+        }
+        if(arr[arr.length-4]==1 && arr[arr.length-5]==1){
+            var resu = (dec(secCenYdes[1]))
+            return `${cen(secCenYdes)}${resu} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
+        }
         if (arr[arr.length-4]!=1){
             return `${cen(secCenYdes)}${dec(secCenYdes[1])} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
         }
@@ -240,11 +248,15 @@ function select(numLength){
         if(arr[1]!=0 && arr[2]==0 && arr[3]==0){
             return `${millo(adpArr)}${cen(adpArr[1])}${dec(adpArr[1][1])}mil ${cen(cenYdes)}${dec(cenYdes[1])}`
         }
-        if(arr[arr.length-4]==1){
+        if(arr[arr.length-4]==1 && arr[arr.length-5]!=1){
             var resu = (dec(secCenYdes[1])).slice(0,-1)
             return `${millo(adpArr)}${cen(adpArr[1])}${resu} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
         }
-        
+        if(arr[arr.length-4]==1 && arr[arr.length-5]==1){
+            var resu = (dec(secCenYdes[1]))
+            return `${millo(adpArr)}${cen(adpArr[1])}${resu} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
+        }
+
         return `${millo(adpArr)}${cen(adpArr[1])}${dec(adpArr[1][1])} mil ${cen(cenYdes)}${dec(cenYdes[1])}`
     }
     if(numLength==8){
@@ -308,7 +320,7 @@ function init(into){
 //TEST
 const lista = [1,11,111,101,117,120,121,130,135,999,1000,1001,1100,1101,1011,1111,1020,1099,1999,9999,10000,10010,100100,109101,600198,300000,310000,200134,21000,121000,130000,131000,41000,431000,551145,245000,431431,34000,345001,661311,224121,100000000,121000120,350234345,23456344,131100100,111111111,1789786]
 const lista2 = [600198,300000,310000,200134,21000,121000,130000,131000,41000,431000,551145,245000,431431,34000,345001,661311,224121]
-const lista3 = [100000000,121000120,350234345,23456344,131100100,111111111,1789786]
+const lista3 = [100000000,121000120,350234345,23411344,111100100,111111111,1711786]
 function test(list){
     var resu = []
     for(var a of list){
