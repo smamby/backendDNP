@@ -47,49 +47,7 @@ function randomColor(){
 
 var divImp = document.getElementById("imprimir");
 divImp.style.display="none"
-// //capturar eventos
-// document.getElementById("operaciones")
-//    .addEventListener('submit',e =>{
-//       nombrePInput = document.getElementById("nombreP").value;
-//       apellidoPInput = document.getElementById("apellidoP").value;
-//       dniPInput = document.getElementById("dniP").value;
-//       cbuPInput = document.getElementById("cbuP").value;
-//       celularPInput = document.getElementById("celularP").value;
-//       emailPInput = document.getElementById("emailP").value;
-//       direccionPInput = document.getElementById("direccionP").value;
-//       nombreIInput = document.getElementById("nombreI").value;
-//       apellidoIInput = document.getElementById("apellidoI").value;
-//       dniIInput = document.getElementById("dniI").value;
-//       cbuIInput = document.getElementById("cbuI").value;
-//       celularIInput = document.getElementById("celularI").value;
-//       emailIInput = document.getElementById("emailI").value;
-//       garantiaIInput = document.getElementById("garantiaI").value;
-//       idInput = document.getElementById("id").value;
-//       direccionInput = document.getElementById("direccion").value   ;
-//       inicioContratoInput = document.getElementById("inicioContrato").value;
-//       valor1Input = document.getElementById("valor1").value;
-//       valor2Input = document.getElementById("valor2").value;
-//       valor3Input = document.getElementById("valor3").value;
-//       obligacionesInqInput = document.getElementById("obligacionesInq").value;
-//       observacionesInput = document.getElementById("observaciones").value;
-//       descripcionInput = document.getElementById("descripcion").value;
-//       imagenesInput = document.getElementById("imagenesFile").files;;
-//       contratoInput = document.getElementById("contratoFile").files;;
-//       e.preventDefault();
-//       console.log("emailIInput",emailIInput)
-//       console.log("garantiaIInput",garantiaIInput)
-//       console.log("idInput",idInput)
-//       console.log("direccionInput",direccionInput)
-//       console.log("inicioContratoInput",inicioContratoInput)
 
-//       crear();
-
-
-// })
-
-//Levantar inputs
-//var contratos = []
-//var indices = []
 cargarInfo();
 console.log('indices',indices);
 console.log('NUMERACION: ', NUMERACION);
@@ -123,9 +81,9 @@ var imagenesInput = [];
 var contratoInput = [];
 var observacionesInput = "";
 var obligacionesInqInput = '';
-var luz = false;
-var agua = false;
-var gas = false;
+var edesur = false;
+var aysa = false;
+var metrogas = false;
 var abl = false;
 var expensas = false;
 var seguro = false;
@@ -199,9 +157,9 @@ function ejecutar(){
    var observaciones = document.getElementById("observaciones").value;
    var descripcion = document.getElementById("descripcion").value;
    var imagenes =  [];
-   var luz = document.getElementById("luz").checked;
-   var agua = document.getElementById("agua").checked;
-   var gas = document.getElementById("gas").checked;
+   var edesur = document.getElementById("edesur").checked;
+   var aysa = document.getElementById("aysa").checked;
+   var metrogas = document.getElementById("gas").checked;
    var abl = document.getElementById("abl").checked;
    var expensas = document.getElementById("expensas").checked;
    var seguro = document.getElementById("seguro").checked;
@@ -242,9 +200,9 @@ function ejecutar(){
       "observaciones":observaciones,
       "descripcion":descripcion,
       "imagenes":imagenes,
-      "luz":luz,
-      "agua":agua,
-      "gas":gas,
+      "edesur":edesur,
+      "aysa":aysa,
+      "metrogas":metrogas,
       "abl":abl,
       "expensas":expensas,
       "seguro":seguro,
@@ -480,7 +438,7 @@ async function guardarRecibo(){
       "idContrato": parseInt(numContrato)
     }
 
-    guardarServiciosNuevos();
+    //guardarServiciosNuevos();  // probar descomentar esto
     await getRecibos(num)
     if(reciboLevantado.length == 0){
       console.log('addRecibo')
@@ -495,9 +453,9 @@ async function guardarRecibo(){
 // let servicesAndTaxes = (contratoLevantado) => {
 //    let serviceTruly = {};
 //    let services = {
-//       "luz": contratoLevantado[0].luz,
-//       "agua": contratoLevantado[0].agua,
-//       "gas": contratoLevantado[0].gas,
+//       "edesur": contratoLevantado[0].edesur,
+//       "aysa": contratoLevantado[0].aysa,
+//       "metrogas": contratoLevantado[0].metrogas,
 //       "abl": contratoLevantado[0].abl,
 //       "expensas": contratoLevantado[0].expensas,
 //       "seguro": contratoLevantado[0].seguro,
@@ -564,9 +522,9 @@ function levantarContrato(itemEncontrado){
    document.getElementById("descripcion").value = itemEncontrado.descripcion;
    // document.getElementById("imagenesFile").value = itemEncontrado.imagenes;
    // document.getElementById("contratoFile").value = itemEncontrado.contrato;
-   document.getElementById("luz").checked = itemEncontrado.luz;
-   document.getElementById("agua").checked = itemEncontrado.agua;
-   document.getElementById("gas").checked = itemEncontrado.gas;
+   document.getElementById("edesur").checked = itemEncontrado.edesur;
+   document.getElementById("aysa").checked = itemEncontrado.aysa;
+   document.getElementById("metrogas").checked = itemEncontrado.metrogas;
    document.getElementById("abl").checked = itemEncontrado.abl;
    document.getElementById("expensas").checked = itemEncontrado.expensas;
    document.getElementById("seguro").checked = itemEncontrado.seguro;
@@ -578,8 +536,10 @@ var AJUSTARINDICE = false
 function editarContrato(){
    if(verificarIDEdited()){
       editCont(contratoLevantado)
-   }vaciar
+   }
+   console.log('Error al editar el contrato')
 }
+
 function editCont(contratoLevantado){
    //verificarIDEdited()
    if(confirm("Vas a sobre escribir todos los datos de este contrato estas segura, chequeaste todos los campos?")){
@@ -627,17 +587,15 @@ function editCont(contratoLevantado){
       var renovacion = calculoRenovacion(inicioContrato);
       // contrato.departamento.imagenes = document.getElementById('imagenesFile').value;
       // contrato.departamento.contrato = document.getElementById('contratoFile').value;
-      var luz = document.getElementById('luz').checked;
-      var agua = document.getElementById('agua').checked;
-      var gas = document.getElementById('gas').checked;
+      var edesur = document.getElementById('edesur').checked;
+      var aysa = document.getElementById('aysa').checked;
+      var metrogas = document.getElementById('metrogas').checked;
       var abl = document.getElementById('abl').checked;
       var expensas = document.getElementById('expensas').checked;
       var seguro = document.getElementById('seguro').checked;
       var aux1 = document.getElementById('aux1').checked;
       var aux2 = document.getElementById('aux2').checked;
-      console.log('luz',luz);
-      console.log('agua',agua);
-      console.log('gas',gas);
+
       bodyContrato = {
          "nombrePropietario":nombrePropietario,
          "apellidoPropietario":apellidoPropietario,
@@ -671,9 +629,9 @@ function editCont(contratoLevantado){
          "observaciones":observaciones,
          "descripcion":descripcion,
          "imagenes":[],
-         "luz":luz,
-         "agua":agua,
-         "gas":gas,
+         "edesur":edesur,
+         "aysa":aysa,
+         "metrogas":metrogas,
          "abl":abl,
          "expensas":expensas,
          "seguro":seguro,
@@ -773,9 +731,9 @@ function borrarContrato(){
    document.getElementById("obligacionesInq").value = '';
    document.getElementById("observaciones").value = '';
    document.getElementById("descripcion").value = '';
-   document.getElementById("luz").checked = false;
-   document.getElementById("agua").checked = false;
-   document.getElementById("gas").checked = false;
+   document.getElementById("edesur").checked = false;
+   document.getElementById("aysa").checked = false;
+   document.getElementById("metrogas").checked = false;
    document.getElementById("abl").checked = false;
    document.getElementById("expensas").checked = false;
    document.getElementById("seguro").checked = false;

@@ -17,7 +17,7 @@ function vaciarRecibo() {
     document.getElementById('numProp').value = NUMERACION;
     document.getElementById("vence").value = '';
     //document.getElementById("pesos").value = '';
-    document.getElementById("observacionesInput").value = 'Recibí los comprobantes de pago de ';
+    document.getElementById("observacionesInput").value = '';
     document.getElementById("cont-input-serv").innerHTML = '';
     deleteDetalle();
     deleteDetalleOnlyProp();
@@ -36,7 +36,7 @@ function chkReciboVacio(){
 
 //RECIBO inputs and prints
 var dateShort;
-function impInq(){
+async function impInq(){
     if (itemEncontrado==''){
         alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
         document.getElementById("buscarInput").focus();
@@ -72,6 +72,16 @@ function impInq(){
         var totalDetalle = document.getElementById("total");
         var observacionesPrint = document.getElementById("observacionesPrint");
         var observacionesPrintProp = document.getElementById("obsProp");
+
+        await guardarServiciosNuevos();
+        const servicesLevantados = await cargarServicios();
+        console.log('servicesLevantados', servicesLevantados);
+        let serviciosParseados = parcerServices(servicesLevantados === 'undefined' ? servicesAndTaxes(contratoLevantado) : servicesLevantados);
+        console.log('base de services:', serviciosParseados);
+        let definedObservationsInput = document.getElementById("observacionesInput").value === ''
+            ? serviciosParseados
+            : document.getElementById("observacionesInput").value;
+
         var observacionesInput = document.getElementById("observacionesInput").value;
         //var observacionesInputProp = document.getElementById("observacionesInputProp").value;
         var locadorPrint = document.getElementById("locadorPrint")
@@ -117,24 +127,7 @@ function impInq(){
         //const obsSugeridas = observaciones(dateShort)
         observacionesPrint.innerHTML = observacionesInput;
         observacionesPrintProp.innerHTML = observacionesInput;
-        //console.log(obsSugeridas);
-        //observacionesinputProp
-        // createObs();
-        // console.log(observacionesInput)
-        // //observacionesPrint.innerHTML = createObs();
-        // function createObs() {
-        //     if (observacionesInput==""){
-        //             observacionesPrint.innerHTML = obsSugeridas;
-        //             observacionesPrintProp.innerHTML = obsSugeridas;
-        //         } else {
-        //             observacionesPrint.innerHTML =  observacionesInput;
-        //             observacionesPrintProp.innerHTML = observacionesInput;
-        //         }
-        //     }
-        // sumarDetalleInq()
-        // sumarDetalleProp()
-        //detalleTotalImp = new Intl.NumberFormat('de-DE').format(detalleTotal)
-        //detalleTotalPropImp = new Intl.NumberFormat('de-DE').format(detalleTotalProp)
+
         sumarParaTotal = parseInt(valAlq) - detalleTotal;
         sumarParaTotalProp = parseInt(valAlq) - comi - detalleTotalProp - detalleTotalOnlyProp;
         var sumarParaTotalImp = new Intl.NumberFormat('de-DE').format(sumarParaTotal)
@@ -299,6 +292,57 @@ function valorComision(valor){
     }
 }
 
+// function parcerServices (servicios) {
+//     let textObservaciones = 'Recibí los comprobantes de pago de ';
+//     const optDate = {day:'numeric', month:'numeric', year:'numeric'};
+
+//     for (let service in servicios) {
+//         if (servicios[service].pagado === true) {
+//             let datePlusOne = new Date(servicios[service].vencimiento.getTime() + 86400000)
+//             let dateFormated = datePlusOne.toLocaleDateString("sp-IN", optDate)
+
+//             let text =  `${servicios[service].nombreServicio.toUpperCase()} vto. ${dateFormated}, `
+//             textObservaciones += text;
+//         }
+//     }
+//     if (textObservaciones.endsWith(', ')) {
+//         textObservaciones = textObservaciones.slice(0, -2);
+//         textObservaciones += '.';
+//     }
+//     return textObservaciones;
+// }
+
+function formatUTCDateToDDMMYYYY(value) {
+  if (!value) return '';
+  const d = value instanceof Date ? value : new Date(value);
+  if (isNaN(d.getTime())) return '';
+  const dd = String(d.getUTCDate()).padStart(2, '0');
+  const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+  const yyyy = d.getUTCFullYear();
+  return `${dd}/${mm}/${yyyy}`;
+}
+
+function parcerServices (servicios) {
+    let textObservaciones = 'Recibí los comprobantes de pago de ';
+    const optDate = {day:'numeric', month:'numeric', year:'numeric'};
+
+    if (!Array.isArray(servicios) || servicios.length === 0) return textObservaciones;
+
+    for (const svc of servicios) {
+        if (!svc) continue;
+        if (svc.pagado === true) {
+            const dateFormated = formatUTCDateToDDMMYYYY(svc.vencimiento);
+            const nombre = (svc.nombreServicio || '').toString().toUpperCase();
+            textObservaciones += `${nombre} vto. ${dateFormated}, `;
+        }
+    }
+    if (textObservaciones.endsWith(', ')) {
+        textObservaciones = textObservaciones.slice(0, -2) + '.';
+    }
+    return textObservaciones;
+}
+
+
 async function cargarServicios () {
     if (reciboLevantado.length !== 0) {
         const numReciboLevantado = reciboLevantado[0].numeroRecibo;
@@ -321,6 +365,15 @@ async function cargarServicios () {
                 }
             }
             console.log('data cargada', data);
+            const spanObservaciones = document.getElementById('observacionesPrint');
+            const textareaObservaciones = document.getElementById('observacionesInput');
+            const observacionesText = parcerServices(data);
+            console.log('observaciones: ', observacionesText);
+            if (textareaObservaciones.value === '' ||
+                textareaObservaciones.value === 'Recibí los comprobantes de pago de ') {
+                textareaObservaciones.value = observacionesText;
+            }
+            //spanObservaciones.textContent = observacionesText;
             return data;
         } catch (err) {
             console.error('Error cargando servicios:', err);
@@ -333,14 +386,15 @@ async function guardarServiciosNuevos() {
     //debugger
     if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
         const services = servicesAndTaxes(contratoLevantado);
-        console.log('Servicios a guardar:', services);
+        console.log('Servicios:', services);
         for (let service in services) {
+            console.log('Servicio a guardar:', service);
             await addService({
                 numeroContrato: contratoLevantado[0].idContrato,
                 numeroRecibo: NUMERACION,
                 nombreServicio: service,
-                vencimiento: document.getElementById(`vto-${service}`).value,
-                pagado: document.getElementById(`pagado-${service}`).checked
+                vencimiento: null, //document.getElementById(`vto-${service}`).value,
+                pagado: false //document.getElementById(`pagado-${service}`).checked
             });
         }
     }
@@ -352,15 +406,17 @@ async function guardarServiciosNuevos() {
         console.log('Servicios existentes en DB del recibo:', serviciosExistentes);
 
         if (serviciosExistentes.length === 0) {
+            let numImpressedInBill = document.getElementById('num').textContent
+            let numeroRecibo = numImpressedInBill === NUMERACION.toString() ? NUMERACION : reciboLevantado[0].numeroRecibo;
             for (let service in services) {
 
-                console.log('add from bill: ',{numeroRecibo: reciboLevantado[0].numeroRecibo, nombreServicio: service})
+                console.log('add from bill: ',{numeroRecibo: numeroRecibo, nombreServicio: service})
                 await addService({
                     numeroContrato: contratoLevantado[0].idContrato,
-                    numeroRecibo: reciboLevantado[0].numeroRecibo,
+                    numeroRecibo: numeroRecibo,
                     nombreServicio: service,
-                    vencimiento: document.getElementById(`vto-${service}`).value,
-                    pagado: document.getElementById(`pagado-${service}`).checked
+                    vencimiento: null, //document.getElementById(`vto-${service}`).value,
+                    pagado: false //document.getElementById(`pagado-${service}`).checked
                 });
 
             }

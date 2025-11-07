@@ -31,15 +31,17 @@ const contratoSchema = new Schema({
     descripcion:String,
     imagenes: Array,
     observaciones:String,
-    luz: Boolean,
-    agua: Boolean,
-    gas: Boolean,
+    edesur: Boolean,
+    aysa: Boolean,
+    metrogas: Boolean,
     abl: Boolean,
     expensas: Boolean,
     seguro: Boolean,
     aux1: Boolean,
     aux2: Boolean
 })
+
+contratoSchema.index({ idContrato: 1 }, { unique: true });
 
 const Model = mongoose.model('Contrato', contratoSchema);
 

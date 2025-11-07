@@ -16,6 +16,8 @@ const reciboSchema = new Schema({
     idContrato: Number
 })
 
+reciboSchema.index({ numeroRecibo: 1, idContrato: 1 }, { unique: true });
+
 const Model = mongoose.model('Recibo', reciboSchema);
 
 module.exports = Model;

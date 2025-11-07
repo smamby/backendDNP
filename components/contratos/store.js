@@ -121,14 +121,14 @@ async function editContrato(searchParam,change){
     if(change.observaciones){
         contrato.observaciones = change.observaciones
     }
-    if(change.hasOwnProperty('luz')){
-        contrato.luz = change.luz;
+    if(change.hasOwnProperty('edesur')){
+        contrato.edesur = change.edesur;
     }
-    if(change.hasOwnProperty('agua')){
-        contrato.agua = change.agua;
+    if(change.hasOwnProperty('aysa')){
+        contrato.aysa = change.aysa;
     }
-    if(change.hasOwnProperty('gas')){
-        contrato.gas = change.gas;
+    if(change.hasOwnProperty('metrogas')){
+        contrato.metrogas = change.metrogas;
     }
     if(change.hasOwnProperty('abl')){
         contrato.abl = change.abl;

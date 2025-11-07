@@ -10,7 +10,7 @@
   "fechaVencimiento": "2023-04-30",
   "textoTotal": "",
   "detalles": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 333,
   "__v": 5,
@@ -32,7 +32,7 @@
       "-500"
     ]
   ],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 4001,
   "__v": 8,
@@ -71,7 +71,7 @@
   "montoAlquiler": 55500,
   "fechaVencimiento": "2023-04-30",
   "detalles": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 4001,
   "__v": 1,
@@ -88,7 +88,7 @@
   "montoAlquiler": 48000,
   "fechaVencimiento": "2023-04-30",
   "detalles": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 123,
   "__v": 3,
@@ -133,7 +133,7 @@
   "fechaVencimiento": "2024-07-31",
   "detalles": [],
   "detallesOnlyProp": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 123,
   "__v": 36
@@ -167,7 +167,7 @@
   "fechaVencimiento": "2024-07-31",
   "detalles": [],
   "detallesOnlyProp": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 123,
   "__v": 0
@@ -189,7 +189,7 @@
     ]
   ],
   "detallesOnlyProp": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 333,
   "__v": 1
@@ -223,7 +223,7 @@
       "9888000000"
     ]
   ],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 123,
   "__v": 17
@@ -258,7 +258,7 @@
       "232"
     ]
   ],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 333,
   "__v": 12
@@ -275,7 +275,7 @@
   "fechaVencimiento": "2024-07-31",
   "detalles": [],
   "detallesOnlyProp": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 333,
   "__v": 0
@@ -353,7 +353,7 @@
   "fechaVencimiento": "2024-07-30",
   "detalles": [],
   "detallesOnlyProp": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 333,
   "__v": 0
@@ -370,7 +370,7 @@
   "fechaVencimiento": "2024-08-31",
   "detalles": [],
   "detallesOnlyProp": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 333,
   "__v": 0
@@ -387,7 +387,7 @@
   "fechaVencimiento": "2024-09-30",
   "detalles": [],
   "detallesOnlyProp": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 333,
   "__v": 0
@@ -409,7 +409,7 @@
     ]
   ],
   "detallesOnlyProp": [],
-  "observaciones": "Recibí los comprobantes de pago de ",
+  "observaciones": "",
   "tipoHonorarios": "administracion",
   "idContrato": 11,
   "__v": 1

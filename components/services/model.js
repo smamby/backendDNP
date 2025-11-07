@@ -9,6 +9,8 @@ const serviceSchema = new Schema({
     pagado: Boolean
 })
 
+serviceSchema.index({ numeroRecibo: 1, nombreServicio: 1 }, { unique: true });
+
 const Model = mongoose.model('Service', serviceSchema);
 
 module.exports = Model;
