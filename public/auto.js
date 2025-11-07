@@ -37,6 +37,7 @@ function chkReciboVacio(){
 //RECIBO inputs and prints
 var dateShort;
 async function impInq(){
+    //debugger;
     if (itemEncontrado==''){
         alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
         document.getElementById("buscarInput").focus();
@@ -73,16 +74,27 @@ async function impInq(){
         var observacionesPrint = document.getElementById("observacionesPrint");
         var observacionesPrintProp = document.getElementById("obsProp");
 
-        await guardarServiciosNuevos();
-        const servicesLevantados = await cargarServicios();
+        // await guardarServiciosNuevos();
+        debugger
+        let num = reciboLevantado.length > 0
+            ? reciboLevantado[0].numeroRecibo
+            : NUMERACION;
+        const servicesLevantados = await getServices(num);
+        if (servicesLevantados.length === 0) {
+            await guardarServiciosNuevos();
+        }
         console.log('servicesLevantados', servicesLevantados);
-        let serviciosParseados = parcerServices(servicesLevantados === 'undefined' ? servicesAndTaxes(contratoLevantado) : servicesLevantados);
+        let serviciosParseados = servicesLevantados.length === 0
+            ? '' //servicesAndTaxes(contratoLevantado)
+            : parcerServices(servicesLevantados);
         console.log('base de services:', serviciosParseados);
         let definedObservationsInput = document.getElementById("observacionesInput").value === ''
             ? serviciosParseados
             : document.getElementById("observacionesInput").value;
-
-        var observacionesInput = document.getElementById("observacionesInput").value;
+        observacionesInput = definedObservationsInput
+        document.getElementById("observacionesInput").value = observacionesInput;
+        desplegarServiciosYImpuestos(contratoLevantado);
+        //var observacionesInput = document.getElementById("observacionesInput").value;
         //var observacionesInputProp = document.getElementById("observacionesInputProp").value;
         var locadorPrint = document.getElementById("locadorPrint")
         var totalDetProp = document.getElementById("totalDetProp");
@@ -151,7 +163,8 @@ async function impInq(){
             return false
         }
         console.log('Recibo guardados')
-        guardarRecibo();
+        await cargarServicios();
+        await guardarRecibo();
     }
 }
 var detalleTotal = 0;
@@ -323,6 +336,7 @@ function formatUTCDateToDDMMYYYY(value) {
 }
 
 function parcerServices (servicios) {
+    debugger
     let textObservaciones = 'Recibí los comprobantes de pago de ';
     const optDate = {day:'numeric', month:'numeric', year:'numeric'};
 
@@ -335,6 +349,9 @@ function parcerServices (servicios) {
             const nombre = (svc.nombreServicio || '').toString().toUpperCase();
             textObservaciones += `${nombre} vto. ${dateFormated}, `;
         }
+        if (textObservaciones === 'Recibí los comprobantes de pago de ') {
+            textObservaciones = '';
+        }
     }
     if (textObservaciones.endsWith(', ')) {
         textObservaciones = textObservaciones.slice(0, -2) + '.';
@@ -344,8 +361,8 @@ function parcerServices (servicios) {
 
 
 async function cargarServicios () {
-    if (reciboLevantado.length !== 0) {
-        const numReciboLevantado = reciboLevantado[0].numeroRecibo;
+    if (reciboLevantado.length !== 0 || NUMERACION) {
+        const numReciboLevantado = reciboLevantado[0] ? reciboLevantado[0].numeroRecibo : NUMERACION;
         try {
             const data = await getServices(numReciboLevantado);
             if (!data || !Array.isArray(data) || data.length === 0) {
@@ -369,9 +386,9 @@ async function cargarServicios () {
             const textareaObservaciones = document.getElementById('observacionesInput');
             const observacionesText = parcerServices(data);
             console.log('observaciones: ', observacionesText);
-            if (textareaObservaciones.value === '' ||
-                textareaObservaciones.value === 'Recibí los comprobantes de pago de ') {
-                textareaObservaciones.value = observacionesText;
+            if (textareaObservaciones.textContent === '' ||
+                textareaObservaciones.textContent === 'Recibí los comprobantes de pago de ') {
+                textareaObservaciones.textContent = observacionesText;
             }
             //spanObservaciones.textContent = observacionesText;
             return data;
@@ -383,19 +400,43 @@ async function cargarServicios () {
     return Promise.resolve();
 }
 async function guardarServiciosNuevos() {
-    //debugger
+    debugger
     if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
-        const services = servicesAndTaxes(contratoLevantado);
-        console.log('Servicios:', services);
-        for (let service in services) {
-            console.log('Servicio a guardar:', service);
-            await addService({
-                numeroContrato: contratoLevantado[0].idContrato,
-                numeroRecibo: NUMERACION,
-                nombreServicio: service,
-                vencimiento: null, //document.getElementById(`vto-${service}`).value,
-                pagado: false //document.getElementById(`pagado-${service}`).checked
-            });
+        const serviciosInDB = await getServices(NUMERACION);
+        let services = [];
+        if (serviciosInDB.length > 0) {
+
+            for (let service in serviciosInDB) {
+                console.log(`Servicio ${serviciosInDB[service].nombreServicio} ya existe - actualizando...`);
+                await editService({
+                    numeroRecibo: NUMERACION,
+                    nombreServicio: serviciosInDB[service].nombreServicio
+                },{
+                    numeroContrato: contratoLevantado[0].idContrato,
+                    numeroRecibo: NUMERACION,
+                    nombreServicio: serviciosInDB[service].nombreServicio,
+                    vencimiento: document.getElementById(`vto-${serviciosInDB[service].nombreServicio}`).value,
+                    pagado: document.getElementById(`pagado-${serviciosInDB[service].nombreServicio}`).checked
+                });
+            }
+        } else {
+            services = servicesAndTaxes(contratoLevantado);
+            console.log('Servicios:', services);
+            for (let service in services) {
+                console.log('Servicio a guardar:', service);
+                // let elVto = document.getElementById(`vto-${service}`);
+                // let elPagado = document.getElementById(`pagado-${service}`);
+
+                // let vencimiento = !elVto.value ? null : elVto.value
+                // let pagado = !elPagado.checked ? false : elPagado.checked
+                await addService({
+                    numeroContrato: contratoLevantado[0].idContrato,
+                    numeroRecibo: NUMERACION,
+                    nombreServicio: service,
+                    vencimiento: null,
+                    pagado: false
+                });
+            }
         }
     }
     if (reciboLevantado.length !== 0 && contratoLevantado.length !== 0) {
