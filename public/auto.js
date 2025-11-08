@@ -75,7 +75,7 @@ async function impInq(){
         var observacionesPrintProp = document.getElementById("obsProp");
 
         // await guardarServiciosNuevos();
-        debugger
+        //debugger
         let num = reciboLevantado.length > 0
             ? reciboLevantado[0].numeroRecibo
             : NUMERACION;
@@ -336,7 +336,7 @@ function formatUTCDateToDDMMYYYY(value) {
 }
 
 function parcerServices (servicios) {
-    debugger
+    //debugger
     let textObservaciones = 'Recibí los comprobantes de pago de ';
     const optDate = {day:'numeric', month:'numeric', year:'numeric'};
 
@@ -399,8 +399,9 @@ async function cargarServicios () {
     }
     return Promise.resolve();
 }
+
 async function guardarServiciosNuevos() {
-    debugger
+    //debugger
     if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
         const serviciosInDB = await getServices(NUMERACION);
         let services = [];
@@ -495,6 +496,40 @@ async function guardarServiciosNuevos() {
     }
 }
 
+async function buscarDeudaServicios (idContrato)  {
+    const data = await getContratoServices(idContrato);
+    //debugger
+    if (!data || !Array.isArray(data) || data.length === 0) {
+        console.log('No services for contrato', idContrato);
+        return data;
+    }
+    const serviciosConDeuda = data.filter( service => {
+        return service.pagado === false
+    })
+    if (serviciosConDeuda.length > 0) {
+        console.log('servicios con deuda', serviciosConDeuda);
+        ejecutarProtocoloDeuda(serviciosConDeuda)
+    }
+    return data;
+}
+function actualizarDeuda () {
+    const idContrato = contratoLevantado[0].idContrato;
+    buscarDeudaServicios(idContrato);
+}
+function cerrarModal () {
+    const modal = document.getElementById('modal-background');
+    modal.classList.remove('is-visible');
+}
+
+function ejecutarProtocoloDeuda (serviciosConDeuda) {
+    debugger
+    const modalSection = document.getElementById('modal-background');
+    const modal = document.getElementById('modal');
+    const btnClose = document.getElementById('cerrar-modal')
+    modalSection.classList.add('is-visible');
+    btnClose.focus();
+    //alert('Existen servicios sin pagar');
+}
 
 function setNum(num){
     NUMERACION=num;

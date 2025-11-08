@@ -5,6 +5,11 @@ async function getServices(searchParam) {
   const servicios = await Model.find(filter);
   return servicios;
 }
+async function getContratoServices(searchParam) {
+  const filter = { numeroContrato: searchParam };
+  const servicios = await Model.find(filter);
+  return servicios;
+}
 
 async function addService(service) {
   try {
@@ -61,6 +66,7 @@ async function editService(searchParam, changes) {
 
 module.exports = {
   getServices,
+  getContratoServices,
   addService,
   editService
 }

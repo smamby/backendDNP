@@ -8,6 +8,15 @@ async function getServices(searchParam) {
   const servicios = await store.getServices(searchParam);
   return servicios;
 }
+async function getContratoServices(searchParam) {
+  if (!searchParam) {
+    console.error('[controller] invalid search Parameter');
+    return false;
+  }
+  console.log('[controller] nmumeroContrato', searchParam);
+  const servicios = await store.getContratoServices(searchParam);
+  return servicios;
+}
 
 async function addService(dataService) {
   console.log('[controller] dataService', dataService);
@@ -39,6 +48,7 @@ async function editService(searchParam, changes) {
 
 module.exports = {
   getServices,
+  getContratoServices,
   addService,
   editService
 }

@@ -65,6 +65,30 @@ async function getServices(searchParam) {
   }
 }
 
+async function getContratoServices (searchParam) {
+  console.log('Requesting services URL:', `${u}${serv}/contrato?numeroContrato=${searchParam}`);
+  try {
+    const response = await fetch(`${u}${serv}/contrato?numeroContrato=${searchParam}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const services = await response.json();
+    return services
+
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    throw error;
+  }
+}
+
 const r17 = {
   "numeroRecibo": 17,
   "fechaRecibo": "2021-10-04T03:00:00.000Z",

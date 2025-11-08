@@ -14,6 +14,18 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).send(err))
 })
 
+router.get('/contrato', (req, res) => {
+  const numeroContrato = req.query.numeroContrato;
+  console.log('[network] numeroContrato', numeroContrato);
+
+  controller.getContratoServices(numeroContrato)
+    .then(servicios => {
+      if (!servicios) return res.json([]);
+      return res.json(servicios)
+    })
+    .catch(err => res.status(500).send(err))
+})
+
 router.post('/', (req,res) => {
   console.log('[network] req.body', req.body);
   controller.addService(req.body)

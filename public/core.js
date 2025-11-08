@@ -300,6 +300,7 @@ var indiceItemEncontrado;
 var idBuscar;
 
 async function buscar(id){
+   //debugger
    idBuscar = document.getElementById('buscarInput').value;
    await getContrato(idBuscar || id)
    if(idBuscar == ''){
@@ -323,6 +324,7 @@ async function buscar(id){
    //console.log('contrato inexistente');
    vaciarRecibo();
    impInq() //YA ES DENTRO DE VACIARRECIBO.DELETEDETALLE
+   await buscarDeudaServicios(itemEncontrado.idContrato)
 }
 
 
@@ -476,7 +478,7 @@ let servicesAndTaxes = (contratoOReciboLevantado) => Object.fromEntries(
 );
 
 function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
-   debugger
+   //debugger
    let contServTaxex =document.getElementById("cont-input-serv");
    let serviciosImpuestos = servicesAndTaxes(contratoOReciboLevantado);
    document.getElementById("cont-input-serv").innerHTML = '';
