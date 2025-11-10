@@ -518,14 +518,16 @@ async function buscarDeudaServicios (idContrato)  {
     }
     return data;
 }
-function actualizarDeuda () {
-    const idContrato = contratoLevantado[0].idContrato;
-    buscarDeudaServicios(idContrato);
-}
+// function actualizarDeuda () {
+//     const idContrato = contratoLevantado[0].idContrato;
+//     buscarDeudaServicios(idContrato);
+// }
 function cerrarModal () {
     const modal = document.getElementById('modal-background');
     modal.classList.remove('is-visible');
 }
+
+let datosServiciosDeuda = [];
 
 function ejecutarProtocoloDeuda (serviciosConDeuda) {
     const modalSection = document.getElementById('modal-background');
@@ -536,12 +538,30 @@ function ejecutarProtocoloDeuda (serviciosConDeuda) {
 
     document.getElementById('content-services').innerHTML = '';
     for (let servicio in serviciosConDeuda) {
+        let data = {};
+        data.numeroRecibo = serviciosConDeuda[servicio].numeroRecibo;
+        data.numeroContrato = serviciosConDeuda[servicio].numeroContrato;
+        data.vencimiento = serviciosConDeuda[servicio].vencimiento;
+        data.pagado = serviciosConDeuda[servicio].pagado;
+        data.nombreServicio = serviciosConDeuda[servicio].nombreServicio;
+        data.modificado = false;
+        datosServiciosDeuda.push(data);
         crearInputsServicioInModal(serviciosConDeuda[servicio], 'content-services')
     }
 }
 
+function marcarModificacionServicios (idInput) {
+    debugger
+    let textId = idInput.split('-');
+    let nombreServicioT = textId[1];
+    let numeroReciboT = textId[2];
+    console.log('datosServiciosDeuda', datosServiciosDeuda);
+    console.log(datosServiciosDeuda.find(s => s.numeroRecibo == numeroReciboT && s.nombreServicio == nombreServicioT))
+    datosServiciosDeuda.find(s => s.numeroRecibo == numeroReciboT && s.nombreServicio == nombreServicioT).modificado = true;
+}
+
 function crearInputsServicioInModal(service, idContenedor) {
-    //debugger
+    debugger
     const contServTaxex = document.getElementById(idContenedor); // ID de tu contenedor
 
     // 1. Crear el contenedor principal
@@ -566,7 +586,7 @@ function crearInputsServicioInModal(service, idContenedor) {
     }
 
     // 4. VINCULAR el evento correctamente usando addEventListener
-    //inputDate.addEventListener('change', actualizarServicios);
+    inputDate.addEventListener('change', marcarModificacionServicios(inputDate.id));
 
     // 5. Crear el Input Checkbox (Pagado)
     const inputCheckbox = document.createElement('input');
@@ -575,7 +595,7 @@ function crearInputsServicioInModal(service, idContenedor) {
     inputCheckbox.id = `pagado-${service.nombreServicio}-${service.numeroRecibo}`;
 
     // 6. VINCULAR el evento correctamente
-    //inputCheckbox.addEventListener('change', actualizarServicios);
+    inputCheckbox.addEventListener('change', marcarModificacionServicios(inputCheckbox.id));
 
     // 7. Ensamblar la estructura
     divItem.appendChild(label);
@@ -586,8 +606,39 @@ function crearInputsServicioInModal(service, idContenedor) {
     contServTaxex.appendChild(divItem);
 }
 
-function actualizarDeudaInModal() {
+async function actualizarDeudaInModal() {
+    let precheck = () => {
+        for (let servicio in datosServiciosDeuda) {
+            if (datosServiciosDeuda[servicio].modificado) {
+                let vencimiento = document.getElementById(`vto-${datosServiciosDeuda[servicio].nombreServicio}-${datosServiciosDeuda[servicio].numeroRecibo}`).value;
+                let pagado = document.getElementById(`pagado-${datosServiciosDeuda[servicio].nombreServicio}-${datosServiciosDeuda[servicio].numeroRecibo}`).checked;
+                if ((vencimiento === '' || vencimiento === null) && pagado === true) {
+                    alert('Marcaste como pagado un servicio sin fecha de vencimiento, completa los campos y vuelve a intentarlo.');
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
+    if (precheck()) {
+        for (let servicio in datosServiciosDeuda) {
+            if (datosServiciosDeuda[servicio].modificado) {
+                await editService({
+                    numeroRecibo:datosServiciosDeuda[servicio].numeroRecibo,
+                    nombreServicio:datosServiciosDeuda[servicio].nombreServicio
+                },
+                {
+                    numeroContrato: datosServiciosDeuda[servicio].numeroContrato,
+                    numeroRecibo: datosServiciosDeuda[servicio].numeroRecibo,
+                    nombreServicio: datosServiciosDeuda[servicio].nombreServicio,
+                    vencimiento: document.getElementById(`vto-${datosServiciosDeuda[servicio].nombreServicio}-${datosServiciosDeuda[servicio].numeroRecibo}`).value,
+                    pagado: document.getElementById(`pagado-${datosServiciosDeuda[servicio].nombreServicio}-${datosServiciosDeuda[servicio].numeroRecibo}`).checked
+                });
+            }
+        }
+        buscar(contratoLevantado[0].idContrato);
+    }
 }
 
 function setNum(num){
