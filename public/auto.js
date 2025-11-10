@@ -402,6 +402,7 @@ async function cargarServicios () {
 
 async function guardarServiciosNuevos() {
     //debugger
+    if (document.getElementById('vence').value === '') return;
     if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
         const serviciosInDB = await getServices(NUMERACION);
         let services = [];
@@ -497,14 +498,19 @@ async function guardarServiciosNuevos() {
 }
 
 async function buscarDeudaServicios (idContrato)  {
-    const data = await getContratoServices(idContrato);
+    let data = [];
+    data = await getContratoServices(idContrato);
     //debugger
     if (!data || !Array.isArray(data) || data.length === 0) {
         console.log('No services for contrato', idContrato);
         return data;
     }
     const serviciosConDeuda = data.filter( service => {
-        return service.pagado === false
+        let hoy = new Date();
+        let limitDate = new Date(hoy.getFullYear(), hoy.getMonth() - 1, 30);
+        return (new Date(service.vencimiento) < limitDate
+                    || new Date(service.vencimiento) === null)
+                && service.pagado === false
     })
     if (serviciosConDeuda.length > 0) {
         console.log('servicios con deuda', serviciosConDeuda);
@@ -522,13 +528,66 @@ function cerrarModal () {
 }
 
 function ejecutarProtocoloDeuda (serviciosConDeuda) {
-    debugger
     const modalSection = document.getElementById('modal-background');
     const modal = document.getElementById('modal');
     const btnClose = document.getElementById('cerrar-modal')
     modalSection.classList.add('is-visible');
     btnClose.focus();
-    //alert('Existen servicios sin pagar');
+
+    document.getElementById('content-services').innerHTML = '';
+    for (let servicio in serviciosConDeuda) {
+        crearInputsServicioInModal(serviciosConDeuda[servicio], 'content-services')
+    }
+}
+
+function crearInputsServicioInModal(service, idContenedor) {
+    //debugger
+    const contServTaxex = document.getElementById(idContenedor); // ID de tu contenedor
+
+    // 1. Crear el contenedor principal
+    const divItem = document.createElement('div');
+    divItem.className = 'service-tax-item';
+
+    // 2. Crear la etiqueta (Label)
+    const opDate2 = {year:'numeric',month:'short'};
+    var sv = Date.parse(service.vencimiento)+86400000
+    dateShort = new Date(sv).toLocaleDateString("sp-IN", opDate2)
+    const label = document.createElement('label');
+    label.htmlFor = `${service.nombreServicio}-${service.numeroRecibo}`;
+    label.textContent = `${service.nombreServicio}-${service.numeroRecibo}`;
+
+    // 3. Crear el Input de Fecha (Vencimiento)
+    const inputDate = document.createElement('input');
+    inputDate.type = 'date';
+    inputDate.name = `vencimiento-${service.nombreServicio}-${service.numeroRecibo}`;
+    inputDate.id = `vto-${service.nombreServicio}-${service.numeroRecibo}`;
+    if (service.vencimiento) {
+        inputDate.value = (service.vencimiento).slice(0, 10);
+    }
+
+    // 4. VINCULAR el evento correctamente usando addEventListener
+    //inputDate.addEventListener('change', actualizarServicios);
+
+    // 5. Crear el Input Checkbox (Pagado)
+    const inputCheckbox = document.createElement('input');
+    inputCheckbox.type = 'checkbox';
+    inputCheckbox.name = `pagado-${service.nombreServicio}-${service.numeroRecibo}`;
+    inputCheckbox.id = `pagado-${service.nombreServicio}-${service.numeroRecibo}`;
+
+    // 6. VINCULAR el evento correctamente
+    //inputCheckbox.addEventListener('change', actualizarServicios);
+
+    // 7. Ensamblar la estructura
+    divItem.appendChild(label);
+    divItem.appendChild(inputDate);
+    divItem.appendChild(inputCheckbox);
+
+    // 8. Añadir al contenedor padre
+    contServTaxex.appendChild(divItem);
+}
+
+function actualizarDeudaInModal() {
+
 }
 
 function setNum(num){

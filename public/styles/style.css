@@ -77,7 +77,7 @@ h2{
 #cabecera h4 {
     margin: 0px;
 }
-#btnEditar, #btnBorrar, #btnSave, #calc {
+#btnEditar, #btnBorrar, #btnSave, #calc, .cont-btn button {
     margin-left: 8px;
     height: 24px;
     background-color: var(--btnAlert);
@@ -89,7 +89,7 @@ h2{
     box-sizing: border-box;
     transition: border .3s .2s ease, background-color .3s ease;
 }
-#btnEditar:hover, #btnBorrar:hover, #btnSave:hover, #calc:hover {
+#btnEditar:hover, #btnBorrar:hover, #btnSave:hover, #calc:hover, .cont-btn button:hover {
     background-color: var(--btnAlertFont);
     color: var(--btnAlert);
     border: 2px solid var(--btnAlert);
@@ -229,11 +229,11 @@ span {
     flex-direction: row;
     justify-content: space-between;
 }
-.serv_tax input[type='checkbox'] {
-    accent-color: #058adc;
-}
 .service-tax-item input[type='checkbox'] {
     accent-color: #db2f2f;
+}
+.serv_tax input[type='checkbox'], .content-services input[type='checkbox'] {
+    accent-color: #058adc;
 }
 .cont_check_serv_tax {
     display: flex;
@@ -278,12 +278,13 @@ input :not(input[type="button"]) {
 .modal {
     background: #fff;
     opacity: 1;
-    width: 600px;
-    height: 60%;
+    width: 480px;
+    height: auto;
+    max-height: 700px;
     border-radius: 8px;
     box-shadow: 2px 2px 20px 1px;
-    max-width: 600px;
     margin: 120px auto auto;
+    overflow: scroll;
     position: relative;
     z-index: 9999;
     display: flex;
@@ -296,8 +297,10 @@ input :not(input[type="button"]) {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    margin: 16px 0;
     justify-content: center;
     align-items: center;
+    width: 400px;
 }
 .cont-btn {
     display: flex;
@@ -305,4 +308,5 @@ input :not(input[type="button"]) {
     justify-content: center;
     align-items: center;
     gap: 16px;
+    height: 64px;
 }

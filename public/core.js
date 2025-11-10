@@ -481,6 +481,7 @@ function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
    //debugger
    let contServTaxex =document.getElementById("cont-input-serv");
    let serviciosImpuestos = servicesAndTaxes(contratoOReciboLevantado);
+   console.log('desplegado de serviciosImpuestos', serviciosImpuestos);
    document.getElementById("cont-input-serv").innerHTML = '';
    for (let service in serviciosImpuestos){
       // if (serviciosImpuestos[service] === true) {
@@ -493,48 +494,52 @@ function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
       //    `;
       // }
       if (serviciosImpuestos[service] === true) {
-         crearInputsServicio(service);
+         crearInputsServicio(service, 'cont-input-serv');
       }
    }
 }
 
-function crearInputsServicio(service) {
-    const contServTaxex = document.getElementById('cont-input-serv'); // Reemplaza con el ID de tu contenedor
+function crearInputsServicio(service, idContenedor) {
+   //debugger
+   const contServTaxex = document.getElementById(idContenedor); // Reemplaza con el ID de tu contenedor
 
-    // 1. Crear el contenedor principal
-    const divItem = document.createElement('div');
-    divItem.className = 'service-tax-item';
+   // 1. Crear el contenedor principal
+   const divItem = document.createElement('div');
+   divItem.className = 'service-tax-item';
 
-    // 2. Crear la etiqueta (Label)
-    const label = document.createElement('label');
-    label.htmlFor = service;
-    label.textContent = service;
+   // 2. Crear la etiqueta (Label)
+   const opDate2 = {year:'numeric',month:'short'};
+   var v = Date.parse(service.vencimiento)+86400000
+   dateShort = new Date(v).toLocaleDateString("sp-IN", opDate2)
+   const label = document.createElement('label');
+   label.htmlFor = service;
+   label.textContent = service;
 
-    // 3. Crear el Input de Fecha (Vencimiento)
-    const inputDate = document.createElement('input');
-    inputDate.type = 'date';
-    inputDate.name = `vencimiento-${service}`;
-    inputDate.id = `vto-${service}`;
+   // 3. Crear el Input de Fecha (Vencimiento)
+   const inputDate = document.createElement('input');
+   inputDate.type = 'date';
+   inputDate.name = `vencimiento-${service}`;
+   inputDate.id = `vto-${service}`;
 
-    // 4. VINCULAR el evento correctamente usando addEventListener
-    inputDate.addEventListener('change', actualizarServicios);
+   // 4. VINCULAR el evento correctamente usando addEventListener
+   inputDate.addEventListener('change', actualizarServicios);
 
-    // 5. Crear el Input Checkbox (Pagado)
-    const inputCheckbox = document.createElement('input');
-    inputCheckbox.type = 'checkbox';
-    inputCheckbox.name = `pagado-${service}`;
-    inputCheckbox.id = `pagado-${service}`;
+   // 5. Crear el Input Checkbox (Pagado)
+   const inputCheckbox = document.createElement('input');
+   inputCheckbox.type = 'checkbox';
+   inputCheckbox.name = `pagado-${service}`;
+   inputCheckbox.id = `pagado-${service}`;
 
-    // 6. VINCULAR el evento correctamente
-    inputCheckbox.addEventListener('change', actualizarServicios);
+   // 6. VINCULAR el evento correctamente
+   inputCheckbox.addEventListener('change', actualizarServicios);
 
-    // 7. Ensamblar la estructura
-    divItem.appendChild(label);
-    divItem.appendChild(inputDate);
-    divItem.appendChild(inputCheckbox);
+   // 7. Ensamblar la estructura
+   divItem.appendChild(label);
+   divItem.appendChild(inputDate);
+   divItem.appendChild(inputCheckbox);
 
-    // 8. Añadir al contenedor padre
-    contServTaxex.appendChild(divItem);
+   // 8. Añadir al contenedor padre
+   contServTaxex.appendChild(divItem);
 }
 
 async function actualizarServicios () {
