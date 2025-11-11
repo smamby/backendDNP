@@ -381,7 +381,7 @@ span {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 500;
-    font-size: 17.7px;
+    font-size: 16px;
     text-align: end;
 }
 .cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
