@@ -1,5 +1,5 @@
 :root{
-    --html: rgb(231, 231, 235);  
+    --html: rgb(231, 231, 235);
     --primary: whitesmoke;
     --secondary: rgb(39, 38, 38);
     --btnAlert: rgb(47, 165, 219);
@@ -7,7 +7,7 @@
     --span: darkred;
 }
 .dark {
-    --html: black;  
+    --html: black;
     --primary: rgb(32, 32, 32);
     --secondary: whitesmoke;
     --btnAlert: gold;
@@ -18,8 +18,8 @@ html{
     background-color: var(--html);
 }
 body {
-    margin: 12px;    
-    display: grid;    
+    margin: 12px;
+    display: grid;
     background-color: var(--primary);
     color: var(--secondary);
     font-family: 'Kanit', sans-serif;
@@ -65,7 +65,7 @@ body {
 }
 #logo{
     width: 50px;
-    height: 80px;       
+    height: 80px;
 }
 #isotipo{
     width: 170px;
@@ -103,7 +103,7 @@ body {
     margin-left: 20px;
 }
 .cont-numero{
-    display: flex;    
+    display: flex;
     height: 28px;
     margin: 0px;
     margin-top: 46px;
@@ -137,7 +137,7 @@ body {
 }
 .detalle p, .monto, .cuerpo-det p, .montos p{
     margin: 0px;
-    
+
 }
 .inputs{
     margin-bottom: 12px;
@@ -156,7 +156,7 @@ body {
 .cont-detalle{
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 70%;
 }
 .cont-detalle-comi{
     display: flex;
@@ -170,10 +170,10 @@ body {
     margin: 0px;
 }
 #cont-detalleProp{
-    width: 80%;
+    width: 70%;
 }
 #cont-montosProp{
-    width: 20%;
+    width: 30%;
     text-align: end;
     justify-content: end;
 }
@@ -184,7 +184,7 @@ body {
     margin-bottom: 4px;
 }
 .detalle,.cuerpo-det,.detalleProp{
-    width: 80%;
+    width: 70%;
     margin-right: 32px;
     margin: 0px;
 }
@@ -192,32 +192,28 @@ body {
     display: flex;
 }
 #cont-montos, #monto-alq{
-    width: 20%;  
-    margin: 0px;  
+    width: 30%;
+    margin: 0px;
     text-align: end;
     justify-items: right;
 }
 #cont-montos {
-    width: 20%;
+    width: 30%;
     /* text-align: end;
     margin: 0px;
     width: 20%; */
 }
 .detalle{
-    width: 80%;
-}
-#monto-alq,#cont-montos{
-    margin: 0px;
-    justify-content: right;    
+    width: 70%;
 }
 .montos{
-    width: 20%;
-    justify-content: right; 
+    width: 30%;
+    justify-content: right;
 }
 #detalleProp p{
     margin: 0px;
 }
-.montos{    
+.montos{
     text-align: end;
 }
 .cont-totales{
@@ -243,7 +239,7 @@ body {
 .cont-total{
     display: flex;
     width: 50%;
-    align-items: center;    
+    align-items: center;
 }
 .cont-total p {
     margin: 0px;
