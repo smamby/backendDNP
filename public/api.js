@@ -36,8 +36,18 @@ async function getRecibos(searchParam){
     console.log('url: ',u+r+searchParam)
     console.log('recibo', data)
     reciboLevantado = data;
-    //await getContrato(parseInt(reciboLevantado[0]["idContrato"]))
 }
+async function getRecibosContrato(searchParam){
+    const res = await fetch(u+r+'contrato/'+searchParam, {
+      method: 'GET',
+      mode: 'cors'
+    })
+    const data = await res.json()
+    console.log('url: ',u+r+'contrato/'+searchParam)
+    console.log('recibo', data)
+    reciboLevantado = data;
+}
+
 //getContrato(435)
 //getRecibos(13)
 async function getServices(searchParam) {

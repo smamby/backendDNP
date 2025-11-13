@@ -13,6 +13,16 @@ function getRecibo(searchParam){
     })
 }
 
+function getRecibosContrato (searchParam) {
+    return new Promise((resolve,reject)=>{
+        if(!searchParam){
+            reject('invalid search Parameter');
+            return false
+        }
+        resolve(store.getRecibosContrato(searchParam));
+    })
+}
+
 function addRecibo(dataRecibo){
     return new Promise((resolve,reject)=>{
         if(!dataRecibo){
@@ -83,6 +93,7 @@ function editRecibo(searchParam,change){
 
 module.exports = {
     getRecibo,
+    getRecibosContrato,
     addRecibo,
     editRecibo,
     //imprimirPDF,

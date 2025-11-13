@@ -27,7 +27,7 @@ html{
 
 }
 body {
-    margin: 12px;
+    /* margin: 12px; */
     display: grid;
     background-color: var(--primary);
     color: var(--secondary);

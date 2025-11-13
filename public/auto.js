@@ -336,7 +336,6 @@ function formatUTCDateToDDMMYYYY(value) {
 }
 
 function parcerServices (servicios) {
-    //debugger
     let textObservaciones = 'Recibí los comprobantes de pago de ';
     const optDate = {day:'numeric', month:'numeric', year:'numeric'};
 
@@ -401,7 +400,6 @@ async function cargarServicios () {
 }
 
 async function guardarServiciosNuevos() {
-    //debugger
     if (document.getElementById('vence').value === '') return;
     if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
         const serviciosInDB = await getServices(NUMERACION);
@@ -497,6 +495,19 @@ async function guardarServiciosNuevos() {
     }
 }
 
+function buscarServiciosDeudaConId () {
+    let idContrato = contratoLevantado.length > 0
+        ? contratoLevantado[0].idContrato
+        : ''
+
+    if (idContrato === '' || idContrato === null) {
+        idContrato = prompt('Falta un id de contrato, puedes ingresar uno aca')
+        if (idContrato === null) return
+    }
+
+    buscarDeudaServicios(idContrato);
+}
+
 async function buscarDeudaServicios (idContrato)  {
     let data = [];
     data = await getContratoServices(idContrato);
@@ -514,14 +525,11 @@ async function buscarDeudaServicios (idContrato)  {
     })
     if (serviciosConDeuda.length > 0) {
         console.log('servicios con deuda', serviciosConDeuda);
-        ejecutarProtocoloDeuda(serviciosConDeuda)
+        ejecutarProtocoloDeuda(serviciosConDeuda, idContrato)
     }
     return data;
 }
-// function actualizarDeuda () {
-//     const idContrato = contratoLevantado[0].idContrato;
-//     buscarDeudaServicios(idContrato);
-// }
+
 function cerrarModal () {
     const modal = document.getElementById('modal-background');
     modal.classList.remove('is-visible');
@@ -529,14 +537,27 @@ function cerrarModal () {
 
 let datosServiciosDeuda = [];
 
-function ejecutarProtocoloDeuda (serviciosConDeuda) {
+async function ejecutarProtocoloDeuda (serviciosConDeuda, idContrato) {
     const modalSection = document.getElementById('modal-background');
     const modal = document.getElementById('modal');
     const btnClose = document.getElementById('cerrar-modal')
     modalSection.classList.add('is-visible');
     btnClose.focus();
+    let contrato = {};
+    if (contratoLevantado.length === 0) {
+        console.log(idContrato)
+        await getContrato(idContrato);
+        contrato = contratoLevantado[0];
+    } else {
+        contrato = contratoLevantado[0];
+    }
 
+    document.getElementById('title-modal-h3').innerHTML = '';
+    document.getElementById('title-modal-h3').innerHTML = 'Servicios impagos';
+    const addressTitle = document.getElementById('serv-impagos-direccion');
+    addressTitle.innerHTML = `${contrato.direccion}`
     document.getElementById('content-services').innerHTML = '';
+    datosServiciosDeuda = [];
     for (let servicio in serviciosConDeuda) {
         let data = {};
         data.numeroRecibo = serviciosConDeuda[servicio].numeroRecibo;
@@ -551,7 +572,6 @@ function ejecutarProtocoloDeuda (serviciosConDeuda) {
 }
 
 function marcarModificacionServicios (idInput) {
-    debugger
     let textId = idInput.split('-');
     let nombreServicioT = textId[1];
     let numeroReciboT = textId[2];
@@ -561,7 +581,6 @@ function marcarModificacionServicios (idInput) {
 }
 
 function crearInputsServicioInModal(service, idContenedor) {
-    debugger
     const contServTaxex = document.getElementById(idContenedor); // ID de tu contenedor
 
     // 1. Crear el contenedor principal

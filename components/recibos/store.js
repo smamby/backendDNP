@@ -8,6 +8,14 @@ function getRecibo(searchParam){
     })
 }
 
+function getRecibosContrato(searchParam) {
+    return new Promise((resolve,reject)=>{
+        let filter = {idContrato: searchParam};
+        const recibos = Model.find(filter);
+        resolve(recibos);
+    })
+}
+
 function addRecibo(nuevoRecibo){
     const recibo = new Model(nuevoRecibo);
     recibo.save();
@@ -62,7 +70,8 @@ async function editRecibo(searchParam,change){
 }
 
 module.exports = {
-    add: addRecibo,
-    get: getRecibo,
-    update: editRecibo,
+    addRecibo,
+    getRecibo,
+    getRecibosContrato,
+    editRecibo
 }

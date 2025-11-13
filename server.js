@@ -43,4 +43,5 @@ app.post('/close', (req,res)=>{
 
 const server = app.listen(port, ()=>{
     console.log(`Servidor escuchando por puerto ${port}`)
+    console.log('http://localhost:'+port)
 })

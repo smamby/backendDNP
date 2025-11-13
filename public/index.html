@@ -36,12 +36,13 @@
                 <div class="buscar">
                     <input type="number" id="buscarInput" placeholder="id del contrato" autofocus="true">
                     <input type="button" value="buscar" onclick="buscar()">
+                    <input type="button" id="buscar-Data-Recibos-btn" value="buscar todos los recibos" onclick="buscarTodosRecibosContrato()">
                 </div>
                 <div class="buscar">
                     <input type="number" id="buscarRecibo" placeholder="N° recibo">
                     <input type="button" value="buscar" onclick="buscarRecibo()">
                 </div>
-
+            </section>
         </section>
         <form action="" id="operaciones">
         <div id="cabecera">
@@ -70,6 +71,11 @@
                 <input type="email" id="emailI" class="emailI" name="emailI" placeholder="Email">
                 <input type="text" name="garantiaI" id="garantiaI" placeholder="Garantia">
             </div>
+        </div>
+        <div class="cont-datos_bancarios">
+            <button type="button" id="desplegar_datos_bancarios" onClick="desplegarDatosBancarios()">
+                Datos bancarios
+            </button>
         </div>
         <h2></h2>
         <div class="title-dep">
@@ -136,6 +142,13 @@
                     <label for="aux2">aux2</label>
                     <input type="checkbox" id="aux2">
                 </div>
+            </div>
+            <div class="cont-search-serv">
+                <button class="search-deuda" id="buscar-deuda-btn"
+                        type="button"
+                        onClick="buscarServiciosDeudaConId()">
+                    Buscar servicios impagos
+                </button>
             </div>
         </div>
         <!-- <input type="submit" value="Sumit" id="sumitbtn"> -->
@@ -390,7 +403,14 @@
 
     <section class="modal-background" id="modal-background">
         <div class="modal" id="modal">
-            <h4>Servicios impagos</h4>
+            <div class="logo-serv">
+                <img style="width: 20px; height: 31px;" id="logo1" src="./assets/logo.png" alt="">
+                <img style="width: 75px; margin-left: 12px;" id="isotipo1" src="./assets/isotipo.png" alt="">
+            </div>
+            <h3 id="title-modal-h3">Servicios impagos</h3>
+            <div id="cont-direction-serv-impagos">
+                <p id="serv-impagos-direccion-title">Direccion: </p><p id="serv-impagos-direccion"></p>
+            </div>
             <div class="content-services" id="content-services">
 
             </div>

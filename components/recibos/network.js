@@ -5,7 +5,17 @@ const controller = require('./controller');
 router.get('/:num', (req,res)=>{
     controller.getRecibo(req.params.num)
         .then((reciboEncontrado)=>{
-           res.send(reciboEncontrado) 
+           res.send(reciboEncontrado)
+        })
+        .catch(error => {
+            res.send(error)
+        })
+})
+
+router.get('/contrato/:num', (req,res)=>{
+    controller.getRecibosContrato(req.params.num)
+        .then((recibosEncontrados)=>{
+           res.send(recibosEncontrados)
         })
         .catch(error => {
             res.send(error)
@@ -51,7 +61,7 @@ router.patch('/:num', (req,res)=>{
     console.log('[network]',req.body);
     controller.editRecibo(req.params.num, req.body)
         .then((change)=>{
-            res.json(change) 
+            res.json(change)
         })
         .catch(error => {
             res.send(error)
@@ -67,7 +77,7 @@ router.post('/printPDF', (req,res)=>{
     console.log(req.body)
     controller.imprimirPDF(req.body)
         // .then((change)=>{
-        //     res.json(change) 
+        //     res.json(change)
         // })
         // .catch(error => {
         //     res.send(error)

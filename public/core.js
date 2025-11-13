@@ -357,6 +357,57 @@ async function buscarRecibo(){
       impInq();
    }
 }
+async function buscarTodosRecibosContrato() {
+   let idContrato = document.getElementById('buscarInput').value;
+   if (idContrato === '' || idContrato === null) {
+        idContrato = prompt('Falta un id de contrato, puedes ingresar uno aca')
+        if (idContrato === null) return
+    }
+   await getRecibosContrato(idContrato);
+   if(reciboLevantado.length == 0){
+      alert('No hay recibos para este contrato');
+      document.getElementById('buscarInput').value = '';
+      document.getElementById('buscarInput').focus();
+      return false;
+   } else [
+      console.log('recivosLevantados: ', reciboLevantado)
+   ]
+   if (contratoLevantado.length == 0) {
+      await getContrato(idContrato);
+   }
+      desplegarDataRecibosContrato();
+}
+
+function desplegarDataRecibosContrato() {
+   const modalSection = document.getElementById('modal-background');
+   const modal = document.getElementById('modal');
+   const btnClose = document.getElementById('cerrar-modal')
+   modalSection.classList.add('is-visible');
+   btnClose.focus();
+
+   document.getElementById('title-modal-h3').innerHTML = '';
+   document.getElementById('title-modal-h3').innerHTML = 'Datos de recibos';
+   const addressTitle = document.getElementById('serv-impagos-direccion');
+   addressTitle.innerHTML = `${contratoLevantado[0].direccion}`
+   document.getElementById('content-services').innerHTML = '';
+
+   for (recibo of reciboLevantado) {
+      imprimirDataRecibo(recibo);
+   }
+}
+
+function imprimirDataRecibo(recibo) {
+   let fechaFormateada = formatUTCDateToDDMMYYYY(recibo.fechaVencimiento)
+   document.getElementById('content-services').innerHTML += `
+      <div class="card-data-recibo">
+         <div class="card-content-data-recibo" style="display: flex;">
+            <p class="card-title">Recibo N° <span>${recibo.numeroRecibo}</span></p>
+            <p class="card-title">Vto. <span>${fechaFormateada}</span></p>
+         </div>
+      </div>
+   `
+}
+
 var numRecibo;
 var fechaRecibo;
 function cargarRecibo(){
