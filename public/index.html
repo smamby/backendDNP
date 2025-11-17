@@ -421,10 +421,123 @@
         </div>
     </section>
 
+    <section class="modal2-background" id="modal2-background">
+        <div class="modal2" id="modal2">
+            <div class="logo-serv">
+                <img style="width: 20px; height: 31px;" id="logo1" src="./assets/logo.png" alt="">
+                <img style="width: 75px; margin-left: 12px;" id="isotipo1" src="./assets/isotipo.png" alt="">
+            </div>
+            <h3 id="title-modal2-h3">Datos bancarias</h3>
+            <div id="cont-direction-serv-impagos">
+                <p id="data-bancaria-direccion-title">Direccion: </p> <p id="data-bancaria-direccion"></p>
+            </div>
+
+            <form id="bancoForm" class="banco-form">
+            <!-- ID Contrato -->
+                <div class="cont-data-form">
+                    <div class="form-group-Id">
+                        <p>ID Contrato: <span id="db-idContrato-span"></span></p>
+                    </div>
+
+                    <!-- Banco -->
+                    <div class="form-group">
+                        <label for="db-banco">Nombre del Banco: </label>
+                        <span class="db-value" id="db-banco-value"></span>
+                        <input
+                            type="text"
+                            id="db-banco"
+                            name="db-banco"
+                            placeholder="Ej: Banco Santander, Banco Galicia"
+                        >
+                    </div>
+
+                    <!-- CBU -->
+                    <div class="form-group">
+                        <label for="db-cbu">CBU: </label>
+                        <span class="db-value" id="db-cbu-value"></span>
+                        <input
+                            type="text"
+                            id="db-cbu"
+                            name="db-cbu"
+                            maxlength="22"
+                            placeholder="Ej: 0070119920000001234567"
+                        >
+                    </div>
+
+                    <!-- Alias -->
+                    <div class="form-group">
+                        <label for="db-alias">Alias:</label>
+                        <span class="db-value" id="db-alias-value"></span>
+                        <input
+                            type="text"
+                            id="db-alias"
+                            name="db-alias"
+                            placeholder="Ej: miempresa.alias"
+                        >
+                    </div>
+
+                    <!-- Tipo de Cuenta -->
+                    <div class="form-group">
+                        <label for="db-tipoCta">Tipo de Cuenta</label>
+                        <span class="db-value" id="db-tipoCta-value"></span>
+                        <select id="db-tipoCta" name="db-tipoCta" required>
+                            <option value="Caja_Ahorro" selected>Caja de Ahorro</option>
+                            <option value="Cta_Corriente">Cuenta Corriente</option>
+                        </select>
+                    </div>
+
+                    <!-- Número de Cuenta -->
+                    <div class="form-group">
+                        <label for="db-numeroCta">Numero de Cuenta</label>
+                        <span class="db-value" id="db-numeroCta-value"></span>
+                        <input
+                            type="text"
+                            id="db-numeroCta"
+                            name="db-numeroCta"
+                            placeholder="Ej: 123-456789/0"
+                        >
+                    </div>
+
+                    <!-- Titular -->
+                    <div class="form-group">
+                        <label for="db-titular">Titular de la Cuenta</label>
+                        <span class="db-value" id="db-titular-value"></span>
+                        <input
+                            type="text"
+                            id="db-titular"
+                            name="db-titular"
+                            placeholder="Ej: Juan Pérez"
+                        >
+                    </div>
+
+                    <!-- DNI -->
+                    <div class="form-group">
+                        <label for="db-dni">DNI del Titular</label>
+                        <span class="db-value" id="db-dni-value"></span>
+                        <input
+                            type="text"
+                            id="db-dni"
+                            name="db-dni"
+                            placeholder="Ej: 30123456"
+                        >
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="cont-btn">
+                    <button type="button" id="refresh-modal2" onclick="actualizarDatosBancarios()">Actualizar</button>
+                    <button type="submit" id="update-modal2" onclick="updateDatosBancarios(event)">Guardar</button>
+                    <button type="button" id="limpiar-form" onclick="limpiarFormDatosBancarios()">Limpiar</button>
+                    <button type="button" id="cerrar-modal2" onclick="cerrarModal2()">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
     <script src="./core.js"></script>
     <script src="./proto.js"></script>
     <script src="./auto.js"></script>
-    <script src="./api.js"></script>
+    <script src="./api/api.js"></script>
     <script src="./numtotext.js"></script>
 
 

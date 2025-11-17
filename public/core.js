@@ -159,7 +159,7 @@ function ejecutar(){
    var imagenes =  [];
    var edesur = document.getElementById("edesur").checked;
    var aysa = document.getElementById("aysa").checked;
-   var metrogas = document.getElementById("gas").checked;
+   var metrogas = document.getElementById("metrogas").checked;
    var abl = document.getElementById("abl").checked;
    var expensas = document.getElementById("expensas").checked;
    var seguro = document.getElementById("seguro").checked;

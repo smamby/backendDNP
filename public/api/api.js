@@ -7,11 +7,13 @@ const r = '/recibos/';
 const p = '/printPDF/';
 const sm = '/sendMail/';
 const serv = '/services';
+const daBa = '/databancaria';
 
 
-const header = {
+const headers = {
     headers: {
-        'Access-Control-Allow-Origin': 'http://127.0.0.1:5500'
+        'Access-Control-Allow-Origin': 'http://127.0.0.1:5500',
+        'Accept': 'application/json'
     }
 }
 var reciboLevantado = [];
@@ -56,9 +58,7 @@ async function getServices(searchParam) {
     const response = await fetch(`${u}${serv}?numeroRecibo=${searchParam}`, {
       method: 'GET',
       mode: 'cors',
-      headers: {
-        'Accept': 'application/json'
-      }
+      headers
     });
 
     if (!response.ok) {
@@ -93,6 +93,54 @@ async function getContratoServices (searchParam) {
     const services = await response.json();
     return services
 
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    throw error;
+  }
+}
+
+async function getAllDataBancaria () {
+  try {
+    const response = await fetch(`${u}${daBa}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const datasBancarias = await response.json();
+    return datasBancarias
+
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    throw error;
+  }
+}
+
+async function getOneDataBancaria (idContrato) {
+  try {
+    if (!idContrato || isNaN(Number(idContrato)) || idContrato < 1 || idContrato === '') {
+      const error = new Error('El ID de Contrato es inválido o falta.');
+      error.statusCode = 400;
+      throw error;
+    }
+    const response = await fetch(`${u}${daBa}/${idContrato}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const dataBancaria = await response.json();
+    console.log(`Data bancaria para ${contratoLevantado[0].direccion}:`, dataBancaria);
+    return dataBancaria
   } catch (error) {
     console.error('Error fetching services:', error);
     throw error;
@@ -146,12 +194,12 @@ async function addRecibo(recibo){
 }
 
 async function addContrato(contrato){
-  // var numContrato = parseInt(contrato["idContrato"])
+  var numContrato = Number(contrato["idContrato"])
   // console.log(numContrato)
-  // var chkContrato = await getContrato(numContrato);
+  var chkContrato = await getContrato(numContrato);
   // console.log(contratoLevantado)
   // //console.log(chkContrato.length)
-  // if (contratoLevantado.length == 0) {
+  if (contratoLevantado.length == 0) {
     const nuevoContrato = await fetch(u+c, {
       method: 'POST',
       mode: 'cors',
@@ -162,9 +210,9 @@ async function addContrato(contrato){
     })
     console.log(nuevoContrato);
     alert(`Creaste un nuevo contrato en calle ${contrato.direccion} con el ID: ${contrato.idContrato}`)
-  // } else {
-  //   console.log('el idContrato ya exite, verificá la informacion')
-  // }
+  } else {
+     console.log('el id seleccionado para el Contrato ya exite, verificá la informacion')
+  }
 }
 async function addService(service) {
   const newService = await fetch(u+serv, {
@@ -178,6 +226,34 @@ async function addService(service) {
   const text = await newService.text();
   console.log('res status: ', newService.status, newService.ok, text);
   return newService;
+}
+
+async function addDataBancaria(dataBancaria) {
+  const newDataBancaria = await fetch(u+daBa, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dataBancaria)
+  })
+  const text = await newDataBancaria.text();
+  console.log('res status: ', newDataBancaria.status, newDataBancaria.ok, text);
+  return newDataBancaria;
+}
+
+async function editDataBancaria(idContrato, dataBancaria) {
+  const filter = {idContrato: idContrato};
+  const edited = await fetch(`${u}${daBa}/${idContrato}`, {
+    method: 'PATCH',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dataBancaria)
+  })
+  console.log('[store] Edited data bancaria:', edited);
+  return edited;
 }
 
 async function editRecibo(dataNueva){

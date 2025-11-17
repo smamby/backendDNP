@@ -13,8 +13,8 @@ async function getContratoServices(searchParam) {
 
 async function addService(service) {
   try {
-    const model = new Model(service);
-    const saved = await model.save();
+    const serviceModel = new Model(service);
+    const saved = await serviceModel.save();
     console.log('[store] saved service:', saved);
     return saved;
   } catch (err) {

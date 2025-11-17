@@ -285,7 +285,7 @@ input :not(input[type="button"]) {
     height: 18px;
 }
 
-.modal-background {
+.modal-background, .modal2-background {
     background: #020a14d1;
     visibility: hidden;
     opacity: 0;
@@ -298,13 +298,14 @@ input :not(input[type="button"]) {
     display: block;
     transition: opacity 0.4s ease, visibility 0.4s ease;
 }
-.modal-background.is-visible {
+.modal-background.is-visible,
+.modal2-background.is-visible {
     opacity: 1;
     visibility: visible;
     display: block;
     transition: opacity 0.4s ease;
 }
-.modal {
+.modal, .modal2 {
     background: #fff;
     opacity: 1;
     width: 480px;
@@ -323,7 +324,8 @@ input :not(input[type="button"]) {
     top: -800px;
     transition: top 0.4s ease;
 }
-.modal-background.is-visible .modal {
+.modal-background.is-visible .modal,
+.modal2-background.is-visible .modal2 {
     top: 0px;
     transition: top 0.4s ease;
 }
@@ -335,7 +337,7 @@ input :not(input[type="button"]) {
     height: auto;
     margin: 20px 0;
 }
-.modal h3 {
+#title-modal-h3, #title-modal2-h3 {
     margin: 12px 0;
 }
 #cont-direction-serv-impagos {
@@ -349,11 +351,11 @@ input :not(input[type="button"]) {
 #cont-direction-serv-impagos p {
     margin-top: 12px;
 }
-#serv-impagos-direccion-title {
+#serv-impagos-direccion-title, #data-bancaria-direccion-title {
     font-family: sans-serif;
     font-weight: 100;
 }
-#serv-impagos-direccion {
+#serv-impagos-direccion, #data-bancaria-direccion {
     font-weight: normal;
 }
 .content-services {
@@ -366,17 +368,20 @@ input :not(input[type="button"]) {
     align-items: center;
     width: 400px;
 }
-.content-services::-webkit-scrollbar {
+.content-services::-webkit-scrollbar,
+.cont-data-form::-webkit-scrollbar {
     width: 4px;
-
 }
-.content-services::-webkit-scrollbar-track {
+.content-services::-webkit-scrollbar-track,
+.cont-data-form::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
-.content-services::-webkit-scrollbar-thumb {
+.content-services::-webkit-scrollbar-thumb,
+.cont-data-form::-webkit-scrollbar-thumb {
     background: #aaa;
 }
-.content-services::-webkit-scrollbar-thumb:hover {
+.content-services::-webkit-scrollbar-thumb:hover,
+.cont-data-form::-webkit-scrollbar-thumb:hover {
     background: rgb(114, 189, 224);
 }
 
@@ -407,4 +412,79 @@ input :not(input[type="button"]) {
 }
 .card-content-data-recibo p {
     margin: 0;
+}
+/* modal2 */
+#bancoForm {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 20px 0 0;
+    margin: 16px 0 0;
+    align-items: center;
+    gap: 1rem;
+}
+.cont-data-form {
+    overflow-y: scroll;
+    width: auto;
+    height: 240px;
+    width: auto;
+    min-width: 340px;
+}
+.form-group-id {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 1rem;
+    height: 32px;
+}
+.form-group-id p, .form-group-id span {
+    margin: 0;
+    text-align: center;
+    width: 100px;
+}
+.form-group {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 1rem;
+    height: 32px;
+}
+.form-group input {
+    width: 200px;
+}
+.form-group select {
+    width: 209px;
+}
+.form-group input, .form-group select, #limpiar-form, #update-modal2 {
+    display: none;
+    visibility: hidden;
+}
+.banco-form.actualizar .form-group input,
+.banco-form.actualizar .form-group select,
+.banco-form.actualizar #limpiar-form,
+.banco-form.actualizar #update-modal2 {
+    display: block;
+    visibility: visible;
+}
+.banco-form.actualizar #refresh-modal2 {
+    display: none;
+    visibility: hidden;
+}
+.banco-form.actualizar .form-group {
+    justify-content: space-between;
+    padding-right: 20px;
+}
+.db-value {
+    display: flex;
+    margin: 0;
+    visibility: visible;
+    /* position: absolute;
+    right: 60px; */
+    margin-right: 30px;
+}
+.banco-form.actualizar .db-value {
+    display: none;
+    visibility: hidden;
 }

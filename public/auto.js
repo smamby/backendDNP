@@ -506,14 +506,24 @@ function buscarServiciosDeudaConId () {
     }
 
     buscarDeudaServicios(idContrato);
-}
+};
+
+let llamadaBtnServiciosImpagos = false;
+let btnBuscarDeuda = document.getElementById('buscar-deuda-btn');
+btnBuscarDeuda.addEventListener('click', () => {
+    llamadaBtnServiciosImpagos = true;
+});
 
 async function buscarDeudaServicios (idContrato)  {
     let data = [];
     data = await getContratoServices(idContrato);
     //debugger
     if (!data || !Array.isArray(data) || data.length === 0) {
-        console.log('No services for contrato', idContrato);
+        console.log('No hay servicios impagos para este contrato', idContrato);
+        if (llamadaBtnServiciosImpagos === true) {
+            alert('No hay servicios impagos para este contrato');
+            llamadaBtnServiciosImpagos = false;
+        }
         return data;
     }
     const serviciosConDeuda = data.filter( service => {
@@ -528,7 +538,7 @@ async function buscarDeudaServicios (idContrato)  {
         ejecutarProtocoloDeuda(serviciosConDeuda, idContrato)
     }
     return data;
-}
+};
 
 function cerrarModal () {
     const modal = document.getElementById('modal-background');
@@ -659,6 +669,116 @@ async function actualizarDeudaInModal() {
         buscar(contratoLevantado[0].idContrato);
     }
 }
+
+function cerrarModal2 () {
+    const modal2 = document.getElementById('modal2-background');
+    modal2.classList.remove('is-visible');
+    bancoForm.classList.remove('actualizar');
+}
+function limpiarFormDatosBancarios() {
+    document.getElementById('bancoForm').reset();
+    // Restablecer valor por defecto de tipoCta
+    document.getElementById('tipoCta').value = 'Caja_Ahorro';
+}
+
+let datosBancariosLevantados = {};
+
+async function desplegarDatosBancarios () {
+
+    if (contratoLevantado.length === 0) {
+        alert('No hay ningun contrato seleccionado');
+        return false;
+    }
+    const modal2 = document.getElementById('modal2-background');
+    modal2.classList.add('is-visible');
+    const datosBancarios = await getOneDataBancaria(contratoLevantado[0].idContrato);
+    let existe = false;
+    if (datosBancarios === null ) {
+        console.log('no hay datos bancarios cargados');
+        alert('No hay datos bancarios cargados');
+        let bancoForm = document.getElementById('bancoForm');
+        bancoForm.classList.add('actualizar');
+        document.getElementById('db-banco').value = '';
+        document.getElementById('db-cbu').value = '';
+        document.getElementById('db-alias').value = '';
+        document.getElementById('db-tipoCta').value = '';
+        document.getElementById('db-numeroCta').value = '';
+        document.getElementById('db-titular').value = '';
+        document.getElementById('db-dni').value = '';
+    } else {
+        if (Object.keys(datosBancarios).length !== 0) {
+            datosBancariosLevantados = datosBancarios;
+            existe = true;
+        }
+    }
+
+    document.getElementById('data-bancaria-direccion').textContent = '';
+    document.getElementById('db-idContrato-span').textContent = '';
+    document.getElementById('data-bancaria-direccion').textContent = contratoLevantado[0].direccion;
+    document.getElementById('db-idContrato-span').textContent = contratoLevantado[0].idContrato;
+    document.getElementById('db-banco-value').textContent = existe ? datosBancarios.banco : '';
+    document.getElementById('db-cbu-value').textContent = existe ? datosBancarios.cbu : '';
+    document.getElementById('db-alias-value').textContent = existe ? datosBancarios.alias : '';
+    document.getElementById('db-tipoCta-value').textContent = existe ? datosBancarios.tipoCta : '';
+    document.getElementById('db-numeroCta-value').textContent = existe ? datosBancarios.numeroCta : '';
+    document.getElementById('db-titular-value').textContent = existe ? datosBancarios.titular : ''
+    document.getElementById('db-dni-value').textContent = existe ? datosBancarios.dni : '';
+
+
+}
+function actualizarDatosBancarios() {
+    let bancoForm = document.getElementById('bancoForm');
+    bancoForm.classList.add('actualizar');
+    if (Object.keys(datosBancariosLevantados).length !== 0) {
+        document.getElementById('db-banco').value = datosBancariosLevantados.banco;
+        document.getElementById('db-cbu').value = datosBancariosLevantados.cbu;
+        document.getElementById('db-alias').value = datosBancariosLevantados.alias;
+        document.getElementById('db-tipoCta').value = datosBancariosLevantados.tipoCta;
+        document.getElementById('db-numeroCta').value = datosBancariosLevantados.numeroCta;
+        document.getElementById('db-titular').value = datosBancariosLevantados.titular;
+        document.getElementById('db-dni').value = datosBancariosLevantados.dni;
+    }
+}
+
+async function updateDatosBancarios(e) {
+    if (e) {
+        e.preventDefault();
+    }
+    try {
+        let dataParaGuardar = {};
+        dataParaGuardar.idContrato = Number(contratoLevantado[0].idContrato)
+        dataParaGuardar.banco = document.getElementById('db-banco').value
+        dataParaGuardar.cbu = document.getElementById('db-cbu').value
+        dataParaGuardar.alias = document.getElementById('db-alias').value
+        dataParaGuardar.tipoCta = document.getElementById('db-tipoCta').value
+        dataParaGuardar.numeroCta = document.getElementById('db-numeroCta').value
+        dataParaGuardar.titular = document.getElementById('db-titular').value
+        dataParaGuardar.dni = document.getElementById('db-dni').value
+        let dataGuardada = await getOneDataBancaria(contratoLevantado[0].idContrato);
+        console.log('data guardada', dataGuardada);
+        if (dataGuardada !== null && Object.keys(dataGuardada).length !== 0) {
+            let dataEditada = await editDataBancaria(contratoLevantado[0].idContrato, dataParaGuardar)
+            console.log('data editada', dataEditada);
+            return dataEditada;
+        }
+        if (dataParaGuardar.idContrato !== null
+            && dataParaGuardar.idContrato !== ''
+            && dataParaGuardar.idContrato !== undefined
+            && dataParaGuardar.idContrato > 0) {
+            console.log('idContrato', dataParaGuardar.idContrato);
+            console.log('dataParaGuardar', dataParaGuardar);
+
+            let nuevaData = await addDataBancaria(dataParaGuardar);
+            console.log('nuevaData', nuevaData);
+            return nuevaData;
+        }
+
+    } catch (error) {
+        console.error('Error al guardar los datos', error);
+        alert(`Fallo en la operación. Motivo: ${error.message || 'Error desconocido'}`);
+    }
+}
+
 
 function setNum(num){
     NUMERACION=num;
