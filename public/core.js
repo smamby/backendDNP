@@ -384,13 +384,14 @@ async function buscarTodosRecibosContrato() {
    } else [
       console.log('recivosLevantados: ', reciboLevantado)
    ]
-   if (contratoLevantado.length == 0) {
-      await getContrato(idContrato);
+   if (contratoLevantado.length == 0
+      || contratoLevantado[0].idContrato != idContrato) {
+      contratoLevantado = await getContrato(idContrato);
    }
-      desplegarDataRecibosContrato();
+      desplegarDataRecibosContrato(contratoLevantado[0].direccion);
 }
 
-function desplegarDataRecibosContrato() {
+function desplegarDataRecibosContrato(direccion) {
    const modalSection = document.getElementById('modal-background');
    const modal = document.getElementById('modal');
    const btnClose = document.getElementById('cerrar-modal')
@@ -400,7 +401,8 @@ function desplegarDataRecibosContrato() {
    document.getElementById('title-modal-h3').innerHTML = '';
    document.getElementById('title-modal-h3').innerHTML = 'Datos de recibos';
    const addressTitle = document.getElementById('serv-impagos-direccion');
-   addressTitle.innerHTML = `${contratoLevantado[0].direccion}`
+   addressTitle.innerHTML = '';
+   addressTitle.innerHTML = `${direccion}`
    document.getElementById('content-services').innerHTML = '';
 
    for (recibo of reciboLevantado) {
