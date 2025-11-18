@@ -2,19 +2,20 @@ const express = require('express');
 const router = express.Router();
 const controller = require('./controller');
 
-router.get('/:num', (req,res)=>{
-    controller.getRecibo(req.params.num)
-        .then((reciboEncontrado)=>{
-           res.send(reciboEncontrado)
-        })
-        .catch(error => {
-            res.send(error)
-        })
-})
+router.get('/:num', async (req, res) => {
+    try {
+        const recibo = await controller.getRecibo(req.params.num);
+        console.log('[network] params', req.params.num)
+        res.send(recibo);
+    } catch (err) {
+        res.status(400).send({ error: err , param: req.params.num});
+    }
+});
 
 router.get('/contrato/:num', (req,res)=>{
     controller.getRecibosContrato(req.params.num)
         .then((recibosEncontrados)=>{
+            console.log(recibosEncontrados)
            res.send(recibosEncontrados)
         })
         .catch(error => {

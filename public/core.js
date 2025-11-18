@@ -340,16 +340,28 @@ async function buscarRecibo(){
    detalleTotal = 0;
    detalleTotalProp = 0;
    detalleTotalOnlyProp = 0;
-   var nameBuscar = '';
-   nameBuscar = document.getElementById('buscarRecibo').value;
-   await getRecibos(nameBuscar);
-   if(reciboLevantado.length == 0){
+   var numRecibo = '';
+   numRecibo = document.getElementById('buscarRecibo').value;
+   const rec = await getRecibos(numRecibo);
+   console.log('core',numRecibo, rec)
+   //////////////////
+   if (rec && rec.error) {
+       alert('Error al buscar recibo o recibo inexistente. Detalle: ' + (rec.error.message || 'Error desconocido.'));
+       document.getElementById('buscarRecibo').value = '';
+       return false;
+    }
+    if(Object.keys(reciboLevantado).length == 0 || reciboLevantado == {}){
+      alert('Recibo inexistente, devuelve { } en vez de un array');
+      document.getElementById('buscarRecibo').value = '';
+      return false;
+    }
+   ////////////////////
+   if(reciboLevantado.length === 0){
       alert('Recibo inexistente');
       document.getElementById('buscarRecibo').value = '';
       return false;
    } else {
-      //imprimirContrato(dataImprimir);
-      await getContrato(reciboLevantado[0]["idContrato"])
+      await getContrato(reciboLevantado[0].idContrato)
       levantarContrato(contratoLevantado[0]);
       document.getElementById('buscarRecibo').value = '';
       itemEncontrado = contratoLevantado[0];

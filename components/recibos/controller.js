@@ -3,14 +3,21 @@ const store = require('./store');
 //const { jsPDF } = require('jspdf');
 const fs = require('fs');
 
-function getRecibo(searchParam){
-    return new Promise((resolve,reject)=>{
-        if(!searchParam){
-            reject('invalid search Parameter');
-            return false
-        }
-        resolve(store.get(searchParam));
-    })
+// function getRecibo(searchParam){
+//     return new Promise((resolve,reject)=>{
+//         if(!searchParam){
+//             reject('invalid search Parameter');
+//             console.log('invalid search Parameter', searchParam);
+//             return false
+//         }
+//         resolve(store.get(searchParam));
+//     })
+// }
+async function getRecibo(searchParam){
+    if(!searchParam){
+        throw new Error('invalid search Parameter'); // Lanza un error estándar si falta el parámetro
+    }
+    return await store.get(searchParam);
 }
 
 function getRecibosContrato (searchParam) {
@@ -95,6 +102,6 @@ module.exports = {
     getRecibo,
     getRecibosContrato,
     addRecibo,
-    editRecibo,
+    editRecibo
     //imprimirPDF,
 }

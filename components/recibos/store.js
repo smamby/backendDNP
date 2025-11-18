@@ -1,11 +1,15 @@
 const Model = require('./model');
 
-function getRecibo(searchParam){
-    return new Promise((resolve,reject)=>{
-        let filter = {numeroRecibo: searchParam};
-        const recibo = Model.find(filter);
-        resolve(recibo);
-    })
+async function getRecibo(searchParam) {
+    if (!searchParam) throw "Invalid search parameter";
+
+    console.log("[store] searchParam:", searchParam);
+    const filter = { numeroRecibo: Number(searchParam) };
+
+    const recibo = await Model.find(filter);
+    console.log("[store] result:", recibo);
+
+    return recibo;
 }
 
 function getRecibosContrato(searchParam) {
@@ -70,8 +74,8 @@ async function editRecibo(searchParam,change){
 }
 
 module.exports = {
-    addRecibo,
-    getRecibo,
-    getRecibosContrato,
-    editRecibo
+    add: addRecibo,
+    get: getRecibo,
+    getRecibosContrato: getRecibosContrato,
+    update: editRecibo
 }

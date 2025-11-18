@@ -28,6 +28,7 @@ async function getContrato(searchParam){
     console.log('url: ',u+c+searchParam)
     console.log('contrato[api]',data)
     contratoLevantado = data;
+    return data
 }
 async function getRecibos(searchParam){
     const res = await fetch(u+r+searchParam, {
@@ -38,6 +39,7 @@ async function getRecibos(searchParam){
     console.log('url: ',u+r+searchParam)
     console.log('recibo', data)
     reciboLevantado = data;
+    return data
 }
 async function getRecibosContrato(searchParam){
     const res = await fetch(u+r+'contrato/'+searchParam, {
