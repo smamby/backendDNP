@@ -13,19 +13,19 @@ function impPdfInq(){
     var fichaInq = div.outerHTML;
     var fileNameInq =  `${re.numeroRecibo} ${co.direccion} inq.pdf`;
     window.isFetching = false;
-    imprimirReciboPDFBack(fichaInq,fileNameInq)                         
+    imprimirReciboPDFBack(fichaInq,fileNameInq)
 };
 function impPdfProp(){
     divHTML.innerHTML = '';
     divHTML.innerHTML = fichaImpP;
     div.appendChild(divHTML);
-    
+
     var fichaProp = div.outerHTML;
     //console.log("[[[POPIMP 2]]]   "+fichaProp)
     var fileNameProp =  `${re.numeroRecibo} ${co.direccion} prop.pdf`;
     window.isFetching = false;
     imprimirReciboPDFBack(fichaProp,fileNameProp)
-    
+
 };
 
 function impPDF() {
@@ -43,4 +43,3 @@ impPDF();
 // if (res.ok) {
 //     windows.close()
 // }
-            
