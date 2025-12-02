@@ -118,7 +118,7 @@ span {
     color: var(--span);
     font-family: Roboto Mono;
     font-weight: 500;
-    font-size: medium;
+    font-size: 17px;
 }
 .cont-montos, .cont-montosOP {
     color: var(--secondary);

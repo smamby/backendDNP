@@ -62,11 +62,24 @@ async function editService(searchParam, changes) {
   }
 }
 
+async function deleteServicesByNumRecibo(searchParam) {
+  try {
+    const filter = { numeroRecibo: searchParam.numeroRecibo }
+    const result = await Model.deleteMany(filter);
+    console.log('[store] Deleted services count:', result.deletedCount);
+    return result;
+  } catch (err) {
+    console.error('[store] Delete error:', err);
+    throw err;
+  }
+}
+
 
 
 module.exports = {
   getServices,
   getContratoServices,
   addService,
-  editService
+  editService,
+  deleteServicesByNumRecibo
 }

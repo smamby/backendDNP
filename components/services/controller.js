@@ -46,9 +46,19 @@ async function editService(searchParam, changes) {
   return result;
 }
 
+async function deleteServicesByNumRecibo(searchParam) {
+  if (!searchParam.numeroRecibo) {
+    throw new Error('Missing required search parameters for deletion');
+  }
+  console.log('[controller] Deleting service:', searchParam);
+  const result = await store.deleteServicesByNumRecibo(searchParam);
+  return result;
+}
+
 module.exports = {
   getServices,
   getContratoServices,
   addService,
-  editService
+  editService,
+  deleteServicesByNumRecibo
 }

@@ -361,7 +361,7 @@ span {
     color: var(--secondary);
     font-family: monospace;
     font-weight: 400;
-    font-size: large;
+    font-size: 17px;
     text-align: end;
     word-spacing: 3px;
 }
@@ -369,11 +369,11 @@ span {
     color: var(--secondary);
     font-family: monospace;
     font-weight: 400;
-    font-size: large ;
+    font-size: 17px;
     text-align: end;
 }
 #totalDetProp {
-    font-size: large ;
+    font-size: 17px;
     font-family: monospace;
     font-weight: 400;
     text-align: end;

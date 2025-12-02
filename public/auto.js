@@ -38,7 +38,7 @@ function chkReciboVacio(){
 var dateShort;
 async function impInq(){
     //debugger;
-    if (itemEncontrado==''){
+    if (itemEncontrado === ''){
         alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
         document.getElementById("buscarInput").focus();
     } else {
@@ -87,12 +87,15 @@ async function impInq(){
         let serviciosParseados = servicesLevantados.length === 0
             ? '' //servicesAndTaxes(contratoLevantado)
             : parcerServices(servicesLevantados);
+        if (reciboLevantado.length === 0) {
+            serviciosParseados = '';
+        }
         console.log('base de services:', serviciosParseados);
         let definedObservationsInput = document.getElementById("observacionesInput").value === ''
             ? serviciosParseados
             : document.getElementById("observacionesInput").value;
         observacionesInput = definedObservationsInput
-        document.getElementById("observacionesInput").value = observacionesInput;
+        document.getElementById("observacionesInput").value = definedObservationsInput;
         desplegarServiciosYImpuestos(contratoLevantado);
         //var observacionesInput = document.getElementById("observacionesInput").value;
         //var observacionesInputProp = document.getElementById("observacionesInputProp").value;
@@ -337,7 +340,6 @@ function formatUTCDateToDDMMYYYY(value) {
 
 function parcerServices (servicios) {
     let textObservaciones = 'Recibí los comprobantes de pago de ';
-    const optDate = {day:'numeric', month:'numeric', year:'numeric'};
 
     if (!Array.isArray(servicios) || servicios.length === 0) return textObservaciones;
 
@@ -381,15 +383,20 @@ async function cargarServicios () {
                 }
             }
             console.log('data cargada', data);
-            const spanObservaciones = document.getElementById('observacionesPrint');
             const textareaObservaciones = document.getElementById('observacionesInput');
+            const spanObservaciones = document.getElementById('observacionesPrint');
+            const spanObsProp = document.getElementById('obsProp');
             const observacionesText = parcerServices(data);
             console.log('observaciones: ', observacionesText);
             if (textareaObservaciones.textContent === '' ||
                 textareaObservaciones.textContent === 'Recibí los comprobantes de pago de ') {
                 textareaObservaciones.textContent = observacionesText;
+                textareaObservaciones.value = observacionesText;
+                spanObservaciones.textContent = observacionesText;
+                spanObsProp.textContent = observacionesText;
             }
-            //spanObservaciones.textContent = observacionesText;
+
+
             return data;
         } catch (err) {
             console.error('Error cargando servicios:', err);
@@ -398,9 +405,30 @@ async function cargarServicios () {
     }
     return Promise.resolve();
 }
-
+///////////////////////////////////////////////////
+async function desatascarServicesUltimoRecibo () {
+    alert('recibo ultimo atascado')
+    const serviciosBorradosPorConflicto = await deleteServicesByNumRecibo(NUMERACION);
+    console.log('Servicios borrados por conflicto:', serviciosBorradosPorConflicto);
+    impInq();
+}
+///////////////////////////////////////////////////////
 async function guardarServiciosNuevos() {
+    debugger;
     if (document.getElementById('vence').value === '') return;
+    if (reciboLevantado.length === 0 ||
+         reciboLevantado[0].numeroRecibo === NUMERACION) {
+        const serviciosUltimoRecibo = await getServices(NUMERACION);
+        if (serviciosUltimoRecibo.length > 0) {
+            if (serviciosUltimoRecibo.find( s => s.numeroContrato !== contratoLevantado[0].idContrato)) {
+                const ServiciosBorrados = await desatascarServicesUltimoRecibo ();
+                console.log('Servicios borrados por conflicto:', ServiciosBorrados);
+                return;
+            }
+        }
+    }
+
+
     if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
         const serviciosInDB = await getServices(NUMERACION);
         let services = [];

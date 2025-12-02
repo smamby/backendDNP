@@ -58,4 +58,23 @@ router.patch('/', (req, res) => {
     });
 })
 
+router.delete('/', (req, res) => {
+  const numeroRecibo = Number(req.query.numeroRecibo);
+  console.log('[network] deleteService req.query', numeroRecibo);
+  controller.deleteServicesByNumRecibo({ numeroRecibo })
+    .then(result => {
+      res.json({
+        message: 'Servicios eliminados',
+        result
+      });
+    })
+    .catch(err => {
+      console.error('[network] Delete error:', err);
+      res.status(500).json({
+        error: err.message || 'Error deleting services',
+        details: err
+      });
+    });
+})
+
 module.exports = router;

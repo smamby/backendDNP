@@ -619,9 +619,10 @@ async function actualizarServicios () {
       ? servicesAndTaxes(contratoLevantado)
       : servicesLevantados);
    console.log('base de services:', serviciosParseados);
-   let definedObservationsInput = document.getElementById("observacionesInput").value === ''
-      ? serviciosParseados
-      : document.getElementById("observacionesInput").value;
+   // let definedObservationsInput = document.getElementById("observacionesInput").value === ''
+   //    ? serviciosParseados
+   //    : document.getElementById("observacionesInput").value;
+   let definedObservationsInput = serviciosParseados;
    observacionesInput = definedObservationsInput
    var observacionesPrint = document.getElementById("observacionesPrint");
    var observacionesPrintProp = document.getElementById("obsProp");

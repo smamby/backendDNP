@@ -312,6 +312,14 @@ async function deleteContrato(searchParam){
   }
 }
 
+async function deleteServicesByNumRecibo(searchParam) {
+  console.log('Deleting services for numeroRecibo:', searchParam);
+  const deleted = await fetch(`${u}${serv}?numeroRecibo=${searchParam}`, {
+    method: 'DELETE'
+  });
+  return deleted;
+}
+
 
 
 
