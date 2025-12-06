@@ -310,10 +310,10 @@ input :not(input[type="button"]) {
     opacity: 1;
     width: 480px;
     height: auto;
-    max-height: 500px;
+    max-height: 400px;
     border-radius: 8px;
     box-shadow: 2px 2px 20px 1px;
-    margin: 120px auto auto;
+    margin: 50px auto auto;
     position: relative;
     z-index: 9999;
     display: flex;
@@ -426,7 +426,7 @@ input :not(input[type="button"]) {
 .cont-data-form {
     overflow-y: scroll;
     width: auto;
-    height: 240px;
+    height: 180px;
     width: auto;
     min-width: 340px;
 }

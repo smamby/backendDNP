@@ -574,6 +574,7 @@ async function buscarDeudaServicios (idContrato)  {
 function cerrarModal () {
     const modal = document.getElementById('modal-background');
     modal.classList.remove('is-visible');
+    reciboLevantado = [];
 }
 
 let datosServiciosDeuda = [];
