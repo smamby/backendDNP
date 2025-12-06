@@ -23,9 +23,10 @@ router.post('/', async (req,res)=> {
     format: 'A4',
     orientation: 'portrait'
   }
-  const filePath = path.join(__dirname, pathPDFs, filename)
-  const filePathProduccion = path.join('../../pruebaPDF/',filename)
-  //const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
+  //const filePath = path.join(__dirname, pathPDFs, filename)
+  //const filePathProduccion = path.join('../../pruebaPDF/',filename)
+  //const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename)
+  const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
   const cssPath = path.join(__dirname, '../../public/styles', 'impPDF.css'); //'impPDFincrustado.css');
   console.log(`[[filepath]] ${filePathProduccion}`)
 
@@ -70,16 +71,16 @@ router.post('/', async (req,res)=> {
   //   res.status(200).send({ message: 'PDF generado y guardado correctamente', filePathProduccion: result.filename });
   // })
 
-  let numRandom = Math.random() * 10;
-  fs.writeFileSync('./public/prueba'+numRandom+'.html', fichaPDFBACK, 'utf8', (err) => {
-    if (err) {
-        console.error('Error al guardar el archivo:', err);
-        return res.status(500).send('Error al guardar el archivo');;
-    }
-    console.log('Archivo guardado exitosamente en la carpeta public como prueba.html');
-    res.status(200).send({ message: 'Archivo guardado exitosamente' });
-    window.open('http://127.0.0.1:5500/prueba'+numRandom+'.html');
-  });
+  // let numRandom = Math.random() * 10;
+  // fs.writeFileSync('./public/prueba'+numRandom+'.html', fichaPDFBACK, 'utf8', (err) => {
+  //   if (err) {
+  //       console.error('Error al guardar el archivo:', err);
+  //       return res.status(500).send('Error al guardar el archivo');;
+  //   }
+  //   console.log('Archivo guardado exitosamente en la carpeta public como prueba.html');
+  //   res.status(200).send({ message: 'Archivo guardado exitosamente' });
+  //   window.open('http://127.0.0.1:5500/prueba'+numRandom+'.html');
+  // });
 
   /////////////////////////////////////////////////////////////////
 
@@ -102,7 +103,7 @@ router.post('/', async (req,res)=> {
   })
     await page.pdf({
       format: 'A4',
-      path: filePath,
+      path: filePathProduccion,
       printBackground: true,
       margin: {
         top: '0',

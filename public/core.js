@@ -300,7 +300,7 @@ var indiceItemEncontrado;
 var idBuscar;
 
 async function buscar(id){
-   //debugger
+   // 
    idBuscar = document.getElementById('buscarInput').value;
    await getContrato(idBuscar || id)
    if(idBuscar == ''){
@@ -543,7 +543,7 @@ let servicesAndTaxes = (contratoOReciboLevantado) => Object.fromEntries(
 );
 
 function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
-   //debugger
+   // 
    let contServTaxex =document.getElementById("cont-input-serv");
    let serviciosImpuestos = servicesAndTaxes(contratoOReciboLevantado);
    console.log('desplegado de serviciosImpuestos', serviciosImpuestos);
@@ -565,7 +565,7 @@ function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
 }
 
 function crearInputsServicio(service, idContenedor) {
-   //debugger
+   // 
    const contServTaxex = document.getElementById(idContenedor); // Reemplaza con el ID de tu contenedor
 
    // 1. Crear el contenedor principal
@@ -612,7 +612,7 @@ async function actualizarServicios () {
       ? reciboLevantado[0].numeroRecibo
       : NUMERACION;
    await guardarServiciosNuevos();
-   debugger
+    
    const servicesLevantados = await getServices(NUMERACION);
    console.log('servicesLevantados', servicesLevantados);
    let serviciosParseados = parcerServices(servicesLevantados === 'undefined'

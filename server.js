@@ -42,6 +42,6 @@ app.post('/close', (req,res)=>{
 })
 
 const server = app.listen(port, ()=>{
-    console.log(`Servidor escuchando por puerto ${port}`)
+    console.log(`Version 6.01 - 2025-12`)
     console.log('http://localhost:'+port)
 })

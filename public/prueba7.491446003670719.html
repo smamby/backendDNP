@@ -1,0 +1,509 @@
+
+  <!doctype html>
+  <html>
+  <head>
+    <title>Print it to PDF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" media="all" href="./styles/impPDF.css">
+    <style>:root{
+    --html: rgb(255, 255, 255);
+    --primary: whitesmoke;
+    --secondary: rgb(39, 38, 38);
+    --btnAlert: rgb(47, 165, 219);
+    --btnAlertFont: whitesmoke;
+    --span: darkred;
+    --logo-path: url('http://127.0.0.1:5500/assets/logo.png');
+    --isotipo-path: url('http://127.0.0.1:5500/assets/isotipo.png');
+    --firma-path: url('http://127.0.0.1:5500/assets/firma.png');
+}
+.dark {
+    --html: black;
+    --primary: rgb(32, 32, 32);
+    --secondary: whitesmoke;
+    --btnAlert: gold;
+    --btnAlertFont: rgb(32, 32, 32);
+    --span: rgb(223, 97, 97);
+}
+html{
+    background-color: var(--html);
+    width: 628px;
+
+}
+body {
+    margin: 12px;
+    display: grid;
+    background-color: var(--html);
+    color: var(--secondary);
+    font-family: 'Kanit';
+    font-size: small;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+.bodyInt{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: solid black 2px;
+    padding: 4px 20px;
+}
+
+.inbody-inq, .inbody-prop{
+    border: solid black 2px;
+    padding: 4px 20px;
+}
+#firstText{
+    font-family: 'Kanit';
+    margin: 0px;
+    margin-bottom: 0px;
+}
+.cont-info{
+    width: 300;
+}
+.cont-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+}
+/* #logo2,#logo3{
+    width: 50px;
+    height: 80px;
+}
+#isotipo2,#isotipo3{
+    width: 170px;
+    height: 44px;
+    margin: 20px;
+    margin-top: 24px;
+} */
+#logo2,#logo3{
+    display: inline-block;
+    background-image: var(--logo-path) !important;
+    width: 50px !important;
+    height: 80px !important;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+#isotipo2,#isotipo3{
+    display: inline-block;
+    width: 170px !important;
+    height: 44px !important;
+    background-image: var(--isotipo-path)  !important  ;
+    margin: 20px !important;
+    margin-top: 24px !important;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.cont-head{
+    display: flex;
+}
+.cont-logo{
+    border: 0px solid rgb(129, 128, 128);
+    padding: 12px;
+}
+.cont-data{
+    width: 270px;
+    margin: 8px;
+}
+.cont-data p{
+    text-align: center;
+    height: 12px;
+    font-weight: 100;
+    margin: 0;
+    font-size: 12px;
+}
+#ad-al{
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 4px;
+}
+.cont-num{
+    /* border: solid 1px rgb(145, 143, 143); */
+    width: 220px;
+    margin-left: 20px;
+}
+.cont-numero{
+    display: flex;
+    height: 28px;
+    margin: 0px;
+    margin-top: 46px;
+    margin-bottom: 24px;
+}
+#numInput{
+    margin: 0px;
+    width: 70px;
+    margin-left: 8px;
+}
+#num{
+    display: flex;
+    margin: 0px;
+    width: 80px;
+}
+#fecha{
+    display: flex;
+    margin: 0px;
+    margin-top: 74px;
+}
+#date{
+    margin: 0px;
+    margin-left: 12px;
+}
+#dateProp{
+    margin: 0px;
+    margin-left: 12px;
+}
+.recibi p{
+    margin-top: 12px;
+}
+.detalle p, .monto{
+    margin: 0px;
+    font-size: 17.7px;
+}
+.inputs{
+    margin-bottom: 12px;
+}
+.inquilino{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.inquilino p{
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.cont-detalle{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0px;
+}
+.detalleProp p{
+    width: 70%;
+    margin-right: 32px;
+    margin: 0px;
+}
+.cuerpo .detalleProp p{
+    width: 70%;
+    margin: 0px;
+}
+.cont-detalle-Alq{
+    display: flex;
+}
+.detalle-title{
+    margin-bottom: 4px;
+}
+.detalle,.cuerpo-det{
+    width: 70%;
+    margin-right: 32px;
+    margin: 0px;
+}
+.montos, #montoAlqProp, #cont-montos {
+    width: 30%;
+    justify-items: flex-end;
+    text-align: end;
+}
+.cont-detalle {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+}
+.cont-detalle-prop  {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+/* #montoAlqProp, #montoComision{
+    display: block;
+    width: 20%;
+    text-align: end;
+    justify-content: end;
+    margin: 0px;
+} */
+.detalle-subtitle {
+    margin-top: 32px;
+}
+#detalleProp{
+    width: 70%;
+}
+#monto-alq,#cont-montos{
+    margin: 0px;
+    justify-content: right;
+    text-align: end;
+    width: 30%;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.cont-detalle-Comi{
+    width: 100%;
+    display: flex !important;
+    justify-content: space-between;
+}
+.cont-detalle-comi {
+    display: flex!important;
+}
+#cont-new-det{
+    display: flex;
+}
+#cont-detalleProp, #cont-detalleOnlyProp{
+    width: 70%;
+    font-size: 16px;
+    line-height: 1.5;
+}
+#cont-montosProp, #cont-montosOnlyProp{
+    width: 30%;
+    text-align: end;
+    justify-content: end;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.montos{
+    width: 30%;
+    text-align: end;
+}
+.montos p{
+    display: block;
+    text-align: end;
+    margin-top: 0px;
+}
+.cont-totales{
+    display: flex;
+    justify-content: end;
+    margin-top: 24px;
+    text-align: end;
+}
+#total-label{
+    margin: 0px;
+    margin-right: 16px;
+}
+.total-text p{
+    justify-items: end;
+    /* width: 80%; */
+    margin-right: 32px;
+    font-size: 17.7px;
+}
+.cont-firma-total-prop {
+    display: flex;
+}
+.cont-firma-total{
+    display: flex;
+    border-top: solid 1px black;
+    /* border-bottom: solid 1px black; */
+    margin-top: 20px;
+}
+.cont-total{
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+.firma {
+    display: block;
+    background-image: var(--firma-path) !important;
+    width: 170px !important;
+    height: 74px !important;
+    margin-left: -15px;
+    margin-top: 12px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.cont-total-prop {
+    display: inline-block !important;
+    width: 40% !important;
+}
+.cont-firma-prop {
+    display: inline-block !important;
+    width: 40% !important;
+}
+.cont-firma{
+    width: 50%;
+}
+.cont-title-liq{
+    display: flex;
+    justify-content: center;
+}
+#title-liq{
+    justify-content: center;
+    font-weight: 400;
+    margin-top: 28px;
+    margin-bottom: 18px;
+}
+#sitoEnProp{
+    border-bottom: 1px solid black;
+}
+#sitoEnProp p{
+    margin-bottom: 4px;
+}
+#imprimir{
+    border: 1px solid black;
+    margin-bottom: 24px;
+    padding: 12px;
+}
+#btn, #sumitbtn, #btninq, #btnprop, #imp {
+    height: 50px;
+    width: 50px;
+    background-color: var(--btnAlert);
+    color: var(--btnAlertFont);
+    border: 0px;
+    border-radius: 4px;
+    justify-content: end;
+}
+.buttons{
+    margin-top: 20px;
+}
+#obsProp{
+    margin-top: 8px;
+}
+#firma{
+    width: 140px;
+    display: block;
+}
+.logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,
+#pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,
+#vence,.buttons,.controls,#observacionesInputProp, #cont-input-serv{
+    display: none;
+}
+.bodyInt{
+    display: flex;
+    flex-direction: column;
+    border: solid black 0px;
+    margin: auto;
+    margin-top: 0px;
+    padding: 4px 20px;
+    font-weight:lighter;
+}
+#numProp, #dateProp{
+    margin: 0px;
+}
+#mail{
+    visibility: visible;
+}
+span{
+    word-spacing: 7px;
+}
+span {
+    color: var(--secondary);
+    font-family: Roboto Mono;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: end;
+}
+.cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
+    color: var(--secondary);
+    font-family: Roboto Mono;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: end;
+}
+.cont-detalle, .cont-montos {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+}
+.monto, #montoAlqProp {
+    display: flexbox;
+    justify-content: end;
+}
+</style>
+  </head>
+  <body style="width: 628px">
+    <div class="bodyInt" id="bodyInt">
+
+        <div id="divHTML"><div class="inbody-inq" id="inbody-inq" name="inbody-inq">
+        <!-- <h1>Recibo Inquilino</h1> -->
+        <header>
+            <p id="firstText">Cobranzas de alquiler por cuenta y orden de terceros</p>
+            <div class="cont cont-head">
+                <div class="cont cont-info">
+                    <div class="cont cont-logo">
+                        <!-- <img id="logo2" src="./assets/logo.png" alt="">
+                        <img id="isotipo2" src="./assets/isotipo.png" alt="">              -->
+                        <div id="logo2"></div>
+                        <div id="isotipo2"></div>
+                    </div>
+                    <p id="ad-al">Administracion de alquileres</p>
+                    <div class="cont cont-data">
+                        <p>de Zita Mónica Sorbilli</p>
+                        <p>Pje.Anibal Troilo 972 PB "B"</p>
+                        <p>Tel.: 11-2310-4300</p>
+                        <p>1425 Capital Federal</p>
+                    </div>
+                </div>
+                <div class="cont cont-num">
+                    <div class="cont-n cont-numero" id="numero">N° 0000<p id="num">6192</p></div>
+                    <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="date">29/11/2025</p></div>
+                </div>
+            </div>
+        </header>
+        <div class="bodier">
+            <div class="inquilino">
+                <p>Señor: <span id="senior">PAOLA SOTAQUIRA</span></p>
+                <p>Domicilio: <span id="domicilio">AV. SAN MARTÍN 5238 - DEPTO.F</span></p>
+            </div>
+            <div class="cuerpo recibi">
+                <p>Recibí la suma de  <span id="pesosLetra">SEISCIENTOS NOVENTA Y TRES MIL </span> pesos en concepto de pago de alquiler del departamento ubicado en el domicilio arriba sitado.</p>
+                <p>Vence: <input type="date" name="vence" id="vence"><span id="vencePrint">31/12/2025</span></p>
+            </div>
+            <p class="detalle-title"><u>Detalle de pago de alquiler:</u></p>
+            <div class="inputs">
+                <input type="text" name="nuevoGasto" id="nuevoGasto">
+                <input type="text" name="nuevoMonto" id="nuevoMonto">
+                <button id="insertar" onclick="insertarDetalles()">Insertar</button>
+                <button id="delDetalle" onclick="deleteDetalle()">Borrar</button>
+            </div>
+            <div class="cont-detalle-Alq">
+                <div class="cuerpo detalle">
+                    <p>Alquiler correspondiente a <span id="mes-alq">DIC 2025</span>
+                        <!-- <input type="text" name="mesAlq" id="mesAlq"> -->
+                    </p>
+                </div>
+                <div class="montos">
+                    <p><span id="monto-alq">$ 655.000.-</span></p>
+                </div>
+            </div>
+            <div id="cont-new-det" style="display: flex;">
+                <div class="cont-detalle" id="cont-detalle" style="display: block;">- ABL y AySA proporcional<br></div>
+                <div class="cont-montos" id="cont-montos" style="display: flex;">$ 38.000.-<br></div>
+            </div>
+
+            <div class="cont-totales">
+                <div class="total-text">
+                    <p id="total-label">TOTAL</p>
+                </div>
+                <div class="cont-total-det">
+                    <span id="total">$ 693.000.-</span>
+                </div>
+            </div>
+            <div class="observaciones">
+                <div calss="cont-input-serv" id="cont-input-serv"><div class="service-tax-item"><label for="edesur">edesur</label><input type="date" name="vencimiento-edesur" id="vto-edesur"><input type="checkbox" name="pagado-edesur" id="pagado-edesur"></div></div>
+                <p>Observaciones: <span id="observacionesPrint">Recibí los comprobantes de pago de EDESUR vto. 28/11/2025.</span></p>
+                <textarea name="observaciones" id="observacionesInput" cols="60" rows="2">Recibí los comprobantes de pago de EDESUR vto. 28/11/2025.</textarea>
+                <p>Por cuenta del Locador Sr./a: <span id="locadorPrint">MIRTA SUSANA GOY</span></p>
+                <!-- <input type="text" name="locador" id="locador"> -->
+            </div>
+            <div class="cont-firma-total">
+                <div class="cont-total">
+                    <p>Total  <span id="total-final">$ 693.000.-</span></p>
+                </div>
+                <div class="cont-firma">
+                    <div class="firma">
+
+                    </div>
+                    <p>Zita Mónica Sorbilli</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+
+        </footer>
+    </div></div></div>
+
+  </body>
+  </html>

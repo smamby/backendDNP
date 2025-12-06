@@ -37,7 +37,7 @@ function chkReciboVacio(){
 //RECIBO inputs and prints
 var dateShort;
 async function impInq(){
-    //debugger;
+    // ;
     if (itemEncontrado === ''){
         alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
         document.getElementById("buscarInput").focus();
@@ -75,7 +75,7 @@ async function impInq(){
         var observacionesPrintProp = document.getElementById("obsProp");
 
         // await guardarServiciosNuevos();
-        //debugger
+        // 
         let num = reciboLevantado.length > 0
             ? reciboLevantado[0].numeroRecibo
             : NUMERACION;
@@ -362,6 +362,7 @@ function parcerServices (servicios) {
 
 
 async function cargarServicios () {
+    
     if (reciboLevantado.length !== 0 || NUMERACION) {
         const numReciboLevantado = reciboLevantado[0] ? reciboLevantado[0].numeroRecibo : NUMERACION;
         try {
@@ -385,10 +386,12 @@ async function cargarServicios () {
             console.log('data cargada', data);
             const textareaObservaciones = document.getElementById('observacionesInput');
             const spanObservaciones = document.getElementById('observacionesPrint');
-            const spanObsProp = document.getElementById('obsProp');
+            const spanObsProp = document.getElementById('obsProp');            
             const observacionesText = parcerServices(data);
+            debugger
             console.log('observaciones: ', observacionesText);
-            if (textareaObservaciones.textContent === '' ||
+            if (textareaObservaciones.value === '' ||
+                //textareaObservaciones.textContent === '' ||
                 textareaObservaciones.textContent === 'Recibí los comprobantes de pago de ') {
                 textareaObservaciones.textContent = observacionesText;
                 textareaObservaciones.value = observacionesText;
@@ -414,8 +417,8 @@ async function desatascarServicesUltimoRecibo () {
 }
 ///////////////////////////////////////////////////////
 async function guardarServiciosNuevos() {
-    debugger;
     if (document.getElementById('vence').value === '') return;
+    if (reciboLevantado.length > 0 && reciboLevantado[0].numeroRecibo < 6192) return; // filtro retro compatibilidad
     if (reciboLevantado.length === 0 ||
          reciboLevantado[0].numeroRecibo === NUMERACION) {
         const serviciosUltimoRecibo = await getServices(NUMERACION);
@@ -545,7 +548,7 @@ btnBuscarDeuda.addEventListener('click', () => {
 async function buscarDeudaServicios (idContrato)  {
     let data = [];
     data = await getContratoServices(idContrato);
-    //debugger
+    // 
     if (!data || !Array.isArray(data) || data.length === 0) {
         console.log('No hay servicios impagos para este contrato', idContrato);
         if (llamadaBtnServiciosImpagos === true) {
