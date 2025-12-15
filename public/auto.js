@@ -127,11 +127,14 @@ async function impInq(){
         vencePrint.innerHTML = dateInv;
         mesAlquilerPrint.innerHTML = dateShort.toUpperCase();
         mesAlquilerPropPrint.innerHTML = dateShort.toUpperCase();
-
-        valorAlquiler()
+        //debugger
+        let valActual = valorAlquiler()
+        valAlq = reciboLevantado.length > 0 ? reciboLevantado[0].montoAlquiler : valActual;
+        comi = valorComision(valAlq);
+        console.log('val alq para imp', valAlq)
         var valAlqImp = new Intl.NumberFormat('de-DE').format(valAlq)
         var comiImp = new Intl.NumberFormat('de-DE').format(comi)
-        console.log(valAlq,comi)
+        console.log('valAlq,comi', valAlq,comi);
         montoAlquilerPrint.innerHTML = "$ "+valAlqImp+'.-';
         montoAlquilerPrintProp.innerHTML = "$ "+valAlqImp+'.-';
         montoComision.innerHTML = "$ -"+comiImp+'.-';
@@ -280,18 +283,18 @@ function valorAlquiler(){
     console.log(dateTemp2);
     console.log(dateTemp3);
     if (today > dateTemp3){
-        comi = valorComision(itemEncontrado.valor3)
+        //comi = valorComision(itemEncontrado.valor3)
         console.log('3er año',comi);
-        valAlq = itemEncontrado.valor3
+        return itemEncontrado.valor3
 
     } else if (today > dateTemp2) {
-        comi = valorComision(itemEncontrado.valor2)
+        //comi = valorComision(itemEncontrado.valor2)
         console.log('2do año',comi)
-        valAlq = itemEncontrado.valor2
+        return itemEncontrado.valor2
 
     } else if (today < dateTemp2) {
-        comi = valorComision(itemEncontrado.valor1)
-        valAlq = itemEncontrado.valor1
+        //comi = valorComision(itemEncontrado.valor1)
+        return itemEncontrado.valor1
     }
 }
 
@@ -388,7 +391,7 @@ async function cargarServicios () {
             const spanObservaciones = document.getElementById('observacionesPrint');
             const spanObsProp = document.getElementById('obsProp');            
             const observacionesText = parcerServices(data);
-            debugger
+            
             console.log('observaciones: ', observacionesText);
             if (textareaObservaciones.value === '' ||
                 //textareaObservaciones.textContent === '' ||
