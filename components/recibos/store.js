@@ -25,52 +25,21 @@ function addRecibo(nuevoRecibo){
     recibo.save();
 }
 
-async function editRecibo(searchParam,change){
+async function editRecibo(searchParam, change){
     let filter = {numeroRecibo:searchParam}
-    var reciboEncontrado = await Model.find(filter)
-    var id = reciboEncontrado[0]._id
-    console.log(id)
-    var recibo = await Model.findOne({_id:id})
-    console.log(recibo)
+    
+    const reciboActualizado = await Model.findOneAndUpdate(
+        filter,
+        { $set: change },
+        { new: true }
+    );
 
-    if(change.fechaRecibo){
-        recibo.fechaRecibo = change.fechaRecibo;
+    if (!reciboActualizado) {
+        throw new Error("No se encontró el recibo para actualizar");
     }
-    if(change.propietario){
-        recibo.propietario = change.propietario;
-    }
-    if(change.inquilino){
-        recibo.inquilino = change.inquilino;
-    }
-    if(change.montoAlquiler){
-        recibo.montoAlquiler = change.montoAlquiler;
-    }
-    if(change.fechaVencimiento){
-        recibo.fechaVencimiento = change.fechaVencimiento;
-    }
-    if(change.textoTotal){
-        recibo.textoTotal = change.textoTotal;
-    }
-    if(change.detalles){
-        recibo.detalles = change.detalles;
-    }
-    if(change.detallesOnlyProp){
-        recibo.detallesOnlyProp = change.detallesOnlyProp;
-    }
-    if(change.observaciones){
-        recibo.observaciones = change.observaciones;
-    }
-    if(change.tipoHonorarios){
-        recibo.tipoHonorarios = change.tipoHonorarios;
-    }
-    if(change.idContrato){
-        recibo.idContrato = change.idContrato;
-    }
-    await recibo.save()
-    //await reciboEncontrado.save()
-    return recibo;
-    // reciboEncontrado.save()
-    // return reciboEncontrado
+
+    console.log("Recibo actualizado con éxito:", reciboActualizado._id);
+    return reciboActualizado;
 }
 
 module.exports = {

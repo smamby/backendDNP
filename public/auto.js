@@ -37,7 +37,7 @@ function chkReciboVacio(){
 //RECIBO inputs and prints
 var dateShort;
 async function impInq(){
-    // ;
+
     if (itemEncontrado === ''){
         alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
         document.getElementById("buscarInput").focus();
@@ -75,7 +75,7 @@ async function impInq(){
         var observacionesPrintProp = document.getElementById("obsProp");
 
         // await guardarServiciosNuevos();
-        // 
+        //
         let num = reciboLevantado.length > 0
             ? reciboLevantado[0].numeroRecibo
             : NUMERACION;
@@ -197,34 +197,101 @@ function sumarDetalleOnlyProp(nuevoMonto){
 
 var items = [];
 function insertarDetalles(){
+    //debugger
+    // inputs
     var nuevoGastoInput = document.getElementById("nuevoGasto").value;
     var nuevoMontoInput = document.getElementById("nuevoMonto").value;
-    var contNewDet = document.getElementById("cont-new-det")
-    contNewDet.style.display="flex";
-    var contNewDet = document.getElementById("cont-detalle");
-    contNewDet.style.display="block";
-    var contNewMonto = document.getElementById("cont-montos");
-    contNewMonto.style.display="flex";
-    var contNewDetProp = document.getElementById("cont-detalleProp");
-    contNewDetProp.style.display="block";
-    var contNewMontoProp = document.getElementById("cont-montosProp");
-    contNewMontoProp.style.display="flex";
+    // contenedores y visualizacion
+    var contDet = document.getElementById("cont-det")
+    var contDetProp = document.getElementById("cont-det-prop")
+    contDet.style.display="flex";
+    contDetProp.style.display="flex";
+    // var contNewDet = document.getElementById("cont-detalle");
+    // contNewDet.style.display="block";
+    // var contNewMonto = document.getElementById("cont-montos");
+    // contNewMonto.style.display="flex";
+    let contNewLine = document.createElement("div");
+    contNewLine.classList.add("line-detalle");
+    contNewLine.id = `${items.length-1}`;
+    let contNewLineProp = document.createElement("div");
+    contNewLineProp.classList.add("line-detalle-prop");
+
+    let contNewDet = document.createElement("div");
+    contNewDet.classList.add("cont-detalle");
+    let contNewMonto = document.createElement("div");
+    contNewMonto.classList.add("cont-montos");
+
+    let contNewDetProp = document.createElement("div");
+    contNewDetProp.classList.add("cont-detalle-prop");
+    let contNewMontoProp = document.createElement("div");
+    contNewMontoProp.classList.add("cont-montos-prop");
+
+    // refactorizar parte de prop
+    // var contNewDetProp = document.getElementById("cont-detalleProp");
+    // contNewDetProp.style.display="block";
+    // var contNewMontoProp = document.getElementById("cont-montosProp");
+    // contNewMontoProp.style.display="flex";
     //var nuevoMontoInputImp = new Intl.NumberFormat('de-DE').format(nuevoMontoInput)
 
+    // Estructura de datos
     var newItem = [nuevoGastoInput,nuevoMontoInput]
     sumarDetalleInq (newItem[1]);
     sumarDetalleProp (newItem[1]);
     items.push(newItem);
-    document.getElementById("cont-detalle").value = '';
-    document.getElementById("cont-montos").value = '';
-    contNewDet.innerHTML += "- "+newItem[0]+"<br>";
-    var newItemImp1 = new Intl.NumberFormat('de-DE').format(newItem[1])
-    contNewMonto.innerHTML += "$ "+newItemImp1+'.-'+"<br>";
-    contNewDetProp.innerHTML += "- "+newItem[0]+"<br>";
-    contNewMontoProp.innerHTML += "$ "+newItemImp1+'.-'+"<br>";
+
+    // Formato de detalle nuevo
+    let delBtn = document.createElement("button");
+    delBtn.type = "button";
+    delBtn.classList.add("del-det");
+    delBtn.dataset.index = items.length-1;
+    delBtn.innerHTML = "🗑";
+    delBtn.onclick = async function() {
+        const indiceABorrar = parseInt(delBtn.dataset.index);
+        items.splice(indiceABorrar, 1);
+        contDet.textContent = '';
+        contDetProp.textContent = '';
+        document.getElementById("cont-new-det-only-prop").textContent = '';
+        reciboLevantado[0].detalles = items;
+        detalleTotal = 0;
+        detalleTotalProp = 0;
+        detalleTotalOnlyProp = 0;
+        await impInq();
+        await cargarRecibo();
+        document.getElementById("nuevoGasto").focus();
+    }
+    contNewDet.textContent = '';
+    contNewMonto.textContent = '';
+    contNewDetProp.textContent = '';
+    contNewMontoProp.textContent = '';
+    // document.getElementById("cont-detalle").value = '';
+    // document.getElementById("cont-montos").value = '';
+    // contNewDet.innerHTML += "- "+newItem[0]+delBtn+"<br>";
+    // var newItemImp1 = new Intl.NumberFormat('de-DE').format(newItem[1])
+    // contNewMonto.innerHTML += "$ "+newItemImp1+'.-'+"<br>";
+    contNewDet.textContent = "- "+newItem[0]+" ";
+    contNewDet.appendChild(delBtn);
+    let newItemImp1 = new Intl.NumberFormat('de-DE').format(newItem[1])
+    contNewMonto.textContent = "$ "+newItemImp1+'.-';
+    contNewLine.appendChild(contNewDet);
+    contNewLine.appendChild(contNewMonto);
+    contDet.appendChild(contNewLine);
+
+    contNewDetProp.textContent = "- "+newItem[0]+" ";
+    contNewMontoProp.textContent = "$ "+newItemImp1+'.-';
+    contNewLineProp.appendChild(contNewDetProp);
+    contNewLineProp.appendChild(contNewMontoProp);
+    contDetProp.appendChild(contNewLineProp);
+
+
+    // contNewDetProp.innerHTML += "- "+newItem[0]+"<br>";
+    // contNewMontoProp.innerHTML += "$ "+newItemImp1+'.-'+"<br>";
+
+    // limpieza y focus en imputs
     document.getElementById("nuevoGasto").value = '';
     document.getElementById("nuevoMonto").value = '';
     document.getElementById("nuevoGasto").focus();
+
+    // Imprimir datos
     impInq();
 }
 
@@ -233,17 +300,55 @@ function insertDetOnlyProp(){
     var inputDetOP= document.getElementById("nuevoGastoOnlyProp").value;
     var inputMontOP=document.getElementById("nuevoMontoOnlyProp").value;
     var contDetOnlyProp=document.getElementById("cont-new-det-only-prop");
-    var contDetOP = document.getElementById("cont-detalleOnlyProp");
-    var contMontOP = document.getElementById("cont-montosOnlyProp");
+    // var contDetOP = document.getElementById("cont-detalleOnlyProp");
+    // var contMontOP = document.getElementById("cont-montosOnlyProp");
     contDetOnlyProp.style.display="flex";
-    contDetOP.style.display="block";
-    contMontOP.style.display="flex";
+    // contDetOP.style.display="block";
+    // contMontOP.style.display="flex";
+    let contNewLineProp = document.createElement("div");
+    contNewLineProp.classList.add("line-detalle-prop-only");
+    contNewLineProp.id = `${itemsOnlyProp.length-1}`;
+
+    let contDetOP = document.createElement("div");
+    contDetOP.classList.add("cont-detalleOP");
+    let contMontOP = document.createElement("div");
+    contMontOP.classList.add("cont-montosOP");
+
     var newItemOP = [inputDetOP,inputMontOP]
-    itemsOnlyProp.push(newItemOP)
     sumarDetalleOnlyProp (newItemOP[1]);
-    contDetOP.innerHTML += "- "+newItemOP[0]+"<br>";
+    itemsOnlyProp.push(newItemOP)
+
+    // Formato de detalle nuevo
+    let delBtnOP = document.createElement("button");
+    delBtnOP.type = "button";
+    delBtnOP.classList.add("del-detOP");
+    delBtnOP.dataset.index = itemsOnlyProp.length - 1;
+    delBtnOP.innerHTML = "🗑";
+    delBtnOP.onclick = async function() {
+        //event.preventDefault();
+        const indiceABorrar = parseInt(delBtnOP.dataset.index);
+        itemsOnlyProp.splice(indiceABorrar, 1);
+        contDetOnlyProp.textContent = '';
+
+        reciboLevantado[0].detallesOnlyProp = itemsOnlyProp;
+        detalleTotal = 0;
+        detalleTotalProp = 0;
+        detalleTotalOnlyProp = 0;
+        await impInq();
+        await cargarRecibo();
+        document.getElementById("nuevoGastoOnlyProp").focus();
+    }
+    contDetOP.textContent = '';
+    contMontOP.textContent = '';
+
+    contDetOP.textContent = "- "+newItemOP[0]+" ";
+    contDetOP.appendChild(delBtnOP);
     var newItemImp1OP = new Intl.NumberFormat('de-DE').format(newItemOP[1])
-    contMontOP.innerHTML += "$ "+newItemImp1OP+'.-'+"<br>";
+    contMontOP.textContent = "$ "+newItemImp1OP+'.-';
+    contNewLineProp.appendChild(contDetOP);
+    contNewLineProp.appendChild(contMontOP);
+    contDetOnlyProp.appendChild(contNewLineProp);
+
     document.getElementById("nuevoGastoOnlyProp").value = '';
     document.getElementById("nuevoMontoOnlyProp").value = '';
     document.getElementById("nuevoGastoOnlyProp").focus();
@@ -251,10 +356,12 @@ function insertDetOnlyProp(){
 }
 
 function deleteDetalle(){
-    document.getElementById("cont-detalle").innerHTML = '';
-    document.getElementById("cont-montos").innerHTML = '';
-    document.getElementById("cont-detalleProp").innerHTML = '';
-    document.getElementById("cont-montosProp").innerHTML = '';
+    // document.getElementById("cont-detalle").innerHTML = '';
+    // document.getElementById("cont-montos").innerHTML = '';
+    // document.getElementById("cont-detalleProp").innerHTML = '';
+    // document.getElementById("cont-montosProp").innerHTML = '';
+    document.getElementById("cont-det").innerHTML = '';
+    document.getElementById("cont-det-prop").innerHTML = '';
     items = [];
     detalleTotal = 0;
     detalleTotalProp = 0;
@@ -264,8 +371,7 @@ function deleteDetalle(){
 }
 
 function deleteDetalleOnlyProp(){
-    document.getElementById("cont-detalleOnlyProp").innerHTML = '';
-    document.getElementById("cont-montosOnlyProp").innerHTML = '';
+    document.getElementById("cont-new-det-only-prop").innerHTML = '';
     itemsOnlyProp = [];
     detalleTotalOnlyProp = 0;
     impInq();
@@ -365,7 +471,7 @@ function parcerServices (servicios) {
 
 
 async function cargarServicios () {
-    
+
     if (reciboLevantado.length !== 0 || NUMERACION) {
         const numReciboLevantado = reciboLevantado[0] ? reciboLevantado[0].numeroRecibo : NUMERACION;
         try {
@@ -389,9 +495,9 @@ async function cargarServicios () {
             console.log('data cargada', data);
             const textareaObservaciones = document.getElementById('observacionesInput');
             const spanObservaciones = document.getElementById('observacionesPrint');
-            const spanObsProp = document.getElementById('obsProp');            
+            const spanObsProp = document.getElementById('obsProp');
             const observacionesText = parcerServices(data);
-            
+
             console.log('observaciones: ', observacionesText);
             if (textareaObservaciones.value === '' ||
                 //textareaObservaciones.textContent === '' ||
@@ -551,7 +657,7 @@ btnBuscarDeuda.addEventListener('click', () => {
 async function buscarDeudaServicios (idContrato)  {
     let data = [];
     data = await getContratoServices(idContrato);
-    // 
+    //
     if (!data || !Array.isArray(data) || data.length === 0) {
         console.log('No hay servicios impagos para este contrato', idContrato);
         if (llamadaBtnServiciosImpagos === true) {
@@ -576,6 +682,8 @@ async function buscarDeudaServicios (idContrato)  {
 
 function cerrarModal () {
     const modal = document.getElementById('modal-background');
+    const btnRefresh = document.getElementById('refresh-modal');
+    btnRefresh.style.display = 'block';
     modal.classList.remove('is-visible');
     reciboLevantado = [];
 }

@@ -209,7 +209,7 @@
                 <input type="text" name="nuevoGasto" id="nuevoGasto">
                 <input type="text" name="nuevoMonto" id="nuevoMonto">
                 <button id="insertar" onclick="insertarDetalles()">Insertar</button>
-                <button id="delDetalle" onclick="deleteDetalle()">Borrar</button>
+                <button id="delDetalle" onclick="deleteDetalle()">Borrar todo</button>
             </div>
             <div class="cont-detalle-Alq">
                 <div class="cuerpo detalle">
@@ -221,13 +221,13 @@
                     <P><span id="monto-alq"></span></P>
                 </div>
             </div>
-            <div id="cont-new-det">
-                <div class="cont-detalle" id="cont-detalle">
+            <div id="cont-det">
+                <!-- <div class="cont-detalle" id="cont-detalle">
 
                 </div>
                 <div class="cont-montos" id="cont-montos">
 
-                </div>
+                </div> -->
             </div>
 
             <div class="cont-totales">
@@ -315,9 +315,9 @@
             <input type="text" name="nuevoGasto" id="nuevoGastoOnlyProp" placeholder="detalle solo recibo propietario">
             <input type="text" name="nuevoMonto" id="nuevoMontoOnlyProp" placeholder="monto solo recibo propietario">
             <button id="insertarProp" onclick="insertDetOnlyProp()">Insertar</button>
-            <button id="delDetalleProp" onclick="deleteDetalleOnlyProp()">Borrar</button>
+            <button id="delDetalleProp" onclick="deleteDetalleOnlyProp()">Borrar todo</button>
         </div>
-        <div class="cont-detalle-prop">
+        <div class="line-detalle-prop">
             <div class="cuerpo detalleProp" id="detalleProp">
                 <p>alquiler correspondiente a <span id="mesAlqProp"></span> </p>
             </div>
@@ -325,13 +325,13 @@
                 <span class="" id="montoAlqProp"></span>
             </div>
         </div>
-        <div id="cont-new-det">
-            <div class="cont-detalle" id="cont-detalleProp"></div>
-            <div class="cont-montos" id="cont-montosProp"></div>
+        <div id="cont-det-prop">
+            <!-- <div class="cont-detalle" id="cont-detalleProp"></div>
+            <div class="cont-montos" id="cont-montosProp"></div> -->
         </div>
         <div id="cont-new-det-only-prop">
-            <div class="cont-detalle" id="cont-detalleOnlyProp"></div>
-            <div class="cont-montosOP" id="cont-montosOnlyProp"></div>
+            <!-- <div class="cont-detalle" id="cont-detalleOnlyProp"></div>
+            <div class="cont-montosOP" id="cont-montosOnlyProp"></div> -->
         </div>
         <!-- <div class="cont-detalle">
             <div class="cuerpo detalle">

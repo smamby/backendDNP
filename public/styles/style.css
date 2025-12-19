@@ -118,13 +118,13 @@ span {
     color: var(--span);
     font-family: Roboto Mono;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 17.7px;
 }
-.cont-montos, .cont-montosOP {
+.cont-montos, .cont-montos-prop, .cont-montosOP {
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 500;
-    font-size: medium ;
+    font-size: 17.7px;
 }
 
 /* #themeDiv{
@@ -398,7 +398,7 @@ input :not(input[type="button"]) {
     background: #f8f6f4;
     border-radius: 8px;
     padding: 8px 16px;
-    width: 280px;
+    width: 300px;
     margin-bottom: 8px;
     display: flex;
     flex-direction: row;

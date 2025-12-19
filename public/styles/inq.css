@@ -185,17 +185,37 @@ body {
 #pesos{
     width: 250px;
 }
-.cont-detalle{
+.line-detalle, .line-detalle-prop, .line-detalle-prop-only {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+}
+.cont-detalle, .cont-detalle-prop, .cont-detalleOP {
+    display: flex;
+    justify-content: start;
     width: 70%;
+}
+#cont-det, #cont-det-prop{
+    display: flex;
+    flex-direction: column;
+    max-width: 545px;
+    justify-content: space-between;
+}
+.del-det, .del-detOP {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.del-det:hover, .del-detOP:hover {
+    color: red;
+    cursor: pointer;
 }
 .cont-detalle-comi{
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
-.cont-detalle-prop{
+.line-detalle-prop{
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -223,6 +243,10 @@ body {
 }
 #cont-new-det, #cont-new-det-only-prop{
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
 }
 #cont-montos, #monto-alq{
     width: 30%;

@@ -300,7 +300,7 @@ var indiceItemEncontrado;
 var idBuscar;
 
 async function buscar(id){
-   // 
+   //
    idBuscar = document.getElementById('buscarInput').value;
    await getContrato(idBuscar || id)
    if(idBuscar == ''){
@@ -329,12 +329,12 @@ async function buscar(id){
 
 
 async function buscarRecibo(){
-   document.getElementById("cont-detalle").innerHTML = '';
-   document.getElementById("cont-montos").innerHTML = '';
-   document.getElementById("cont-detalleProp").innerHTML = '';
-   document.getElementById("cont-montosProp").innerHTML = '';
-   document.getElementById("cont-detalleOnlyProp").innerHTML = '';
-   document.getElementById("cont-montosOnlyProp").innerHTML = '';
+   // document.getElementById("cont-detalle").innerHTML = '';
+   // document.getElementById("cont-montos").innerHTML = '';
+   // document.getElementById("cont-detalleProp").innerHTML = '';
+   // document.getElementById("cont-montosProp").innerHTML = '';
+   // document.getElementById("cont-detalleOnlyProp").innerHTML = '';
+   // document.getElementById("cont-montosOnlyProp").innerHTML = '';
    items = [];
    itemsOnlyProp = [];
    detalleTotal = 0;
@@ -397,6 +397,8 @@ function desplegarDataRecibosContrato(direccion) {
    const btnClose = document.getElementById('cerrar-modal')
    modalSection.classList.add('is-visible');
    btnClose.focus();
+   const btnRefresh = document.getElementById('refresh-modal');
+   btnRefresh.style.display = 'none';
 
    document.getElementById('title-modal-h3').innerHTML = '';
    document.getElementById('title-modal-h3').innerHTML = 'Datos de recibos';
@@ -424,7 +426,7 @@ function imprimirDataRecibo(recibo) {
 
 var numRecibo;
 var fechaRecibo;
-function cargarRecibo(){
+async function cargarRecibo(){
    items = [];
    itemsOnlyProp = [];
    var recibo = reciboLevantado[0];
@@ -443,6 +445,12 @@ function cargarRecibo(){
    document.getElementById("observacionesInput").value = recibo["observaciones"];
    document.getElementById("comisionSelect").value = recibo["tipoHonorarios"]
    var detallesRecibo = recibo.detalles;
+   var contDet = document.getElementById("cont-det")
+   var contDetProp = document.getElementById("cont-det-prop")
+   var contNewDetOnlyProp = document.getElementById("cont-new-det-only-prop")
+   contDet.textContent = '';
+   contDetProp.textContent = '';
+   //contNewDetOnlyProp.textContent = '';
    for (var detalle of detallesRecibo){
       document.getElementById("nuevoGasto").value = detalle[0];
       document.getElementById("nuevoMonto").value = detalle[1];
@@ -454,7 +462,7 @@ function cargarRecibo(){
       document.getElementById("nuevoMontoOnlyProp").value = detalle[1];
       insertDetOnlyProp();
    }
-   getServices(numRecibo)
+   await getServices(numRecibo)
       //.then( res => res.json())
       .then( data => {
          console.log('data', data)
@@ -474,7 +482,7 @@ async function guardarRecibo(){
    valorAlquiler();
    var recibo = reciboLevantado[0];
    var contrato = contratoLevantado[0];
-   var num = numRecibo? numRecibo: NUMERACION;
+   var num = numRecibo ? numRecibo : NUMERACION;
    var fechaReci = fechaRecibo? fechaRecibo: hoy
    var numContrato = contratoLevantado[0]["idContrato"]
    var dateVence = document.getElementById("vence").value
@@ -484,7 +492,7 @@ async function guardarRecibo(){
    var inquilino = `${contrato.nombreInquilino} ${contrato.apellidoInquilino}`;
    var montoAlquiler = valAlq;
    var tipoHonorario = document.getElementById("comisionSelect").value;
-   var detallesRecibo = reciboLevantado.length!=0? items: [];
+   var detallesRecibo = reciboLevantado.length != 0 ? items : [];
    var detallesReciboOnlyProp = reciboLevantado.length!=0? itemsOnlyProp: [];
 
    console.log('detalles: ', detallesRecibo);
@@ -497,7 +505,6 @@ async function guardarRecibo(){
       "inquilino": inquilino,
       "montoAlquiler": montoAlquiler,
       "fechaVencimiento": dateVence,
-      //"textoTotal": textoTotal,
       "detalles": detallesRecibo,
       "detallesOnlyProp": detallesReciboOnlyProp,
       "observaciones": observaciones,
@@ -512,8 +519,8 @@ async function guardarRecibo(){
       addRecibo(bodyRecibo)
     } else {
       console.log('editRecibo')
-      editRecibo(bodyRecibo)
-      getRecibos(num)
+      await editRecibo(bodyRecibo)
+      await getRecibos(num)
     }
 }
 
@@ -543,7 +550,7 @@ let servicesAndTaxes = (contratoOReciboLevantado) => Object.fromEntries(
 );
 
 function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
-   // 
+   //
    let contServTaxex =document.getElementById("cont-input-serv");
    let serviciosImpuestos = servicesAndTaxes(contratoOReciboLevantado);
    console.log('desplegado de serviciosImpuestos', serviciosImpuestos);
@@ -565,7 +572,7 @@ function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
 }
 
 function crearInputsServicio(service, idContenedor) {
-   // 
+   //
    const contServTaxex = document.getElementById(idContenedor); // Reemplaza con el ID de tu contenedor
 
    // 1. Crear el contenedor principal
@@ -612,7 +619,7 @@ async function actualizarServicios () {
       ? reciboLevantado[0].numeroRecibo
       : NUMERACION;
    await guardarServiciosNuevos();
-    
+
    const servicesLevantados = await getServices(NUMERACION);
    console.log('servicesLevantados', servicesLevantados);
    let serviciosParseados = parcerServices(servicesLevantados === 'undefined'
