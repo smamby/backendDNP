@@ -223,6 +223,25 @@ body {
 #detalleProp{
     width: 70%;
 }
+.line-detalle, .line-detalle-prop, .line-detalle-prop-only {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.cont-detalle, .cont-detalle-prop, .cont-detalleOP {
+    display: flex;
+    justify-content: start;
+    width: 70%;
+}
+#cont-det, #cont-det-prop{
+    display: flex;
+    flex-direction: column;
+    max-width: 548px;
+    justify-content: space-between;
+}
+.del-det, .del-detOP {
+    display: none;
+}
 #monto-alq,#cont-montos{
     margin: 0px;
     justify-content: right;
@@ -239,8 +258,12 @@ body {
 .cont-detalle-comi {
     display: flex!important;
 }
-#cont-new-det{
+#cont-new-det, #cont-new-det-only-prop{
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
 }
 #cont-detalleProp, #cont-detalleOnlyProp{
     width: 70%;
@@ -384,7 +407,7 @@ span {
     font-size: 16px;
     text-align: end;
 }
-.cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
+.cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total, .cont-montos-prop{
     color: var(--secondary);
     font-family: Roboto Mono;
     font-weight: 500;

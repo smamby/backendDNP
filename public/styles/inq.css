@@ -236,7 +236,7 @@ body {
 .detalle-title{
     margin-bottom: 4px;
 }
-.detalle,.cuerpo-det,.detalleProp{
+.detalle, .cuerpo-det, .detalleProp{
     width: 70%;
     margin-right: 32px;
     margin: 0px;

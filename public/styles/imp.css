@@ -191,7 +191,7 @@ body {
 .detalle-title{
     margin-bottom: 4px;
 }
-.detalle,.cuerpo-det{
+.detalle, .cuerpo-det{
     width: 70%;
     margin-right: 32px;
     margin: 0px;
@@ -227,8 +227,31 @@ body {
     display: flex;
     justify-content: space-between;
 }
-#cont-new-det{
+.line-detalle, .line-detalle-prop, .line-detalle-prop-only {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.cont-detalle, .cont-detalle-prop, .cont-detalleOP {
+    display: flex;
+    justify-content: start;
+    width: 70%;
+}
+#cont-det, #cont-det-prop{
+    display: flex;
+    flex-direction: column;
+    max-width: 548px;
+    justify-content: space-between;
+}
+.del-det, .del-detOP {
+    display: none;
+}
+#cont-new-det, #cont-new-det-only-prop{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
 }
 #cont-detalleProp, #cont-detalleOnlyProp{
     width: 70%;
@@ -365,11 +388,11 @@ span {
     text-align: end;
     word-spacing: 3px;
 }
-.cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total {
+.cont-montos, #montoAlqProp, .cont-montosOP, .montoComi, .total, .cont-montos-prop {
     color: var(--secondary);
     font-family: monospace;
     font-weight: 400;
-    font-size: 17px;
+    font-size: 17.7px;
     text-align: end;
 }
 #totalDetProp {
