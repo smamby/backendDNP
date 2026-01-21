@@ -478,6 +478,35 @@ async function cargarRecibo(){
    cargarServicios();
 }
 
+const inputDateVence = document.getElementById("vence");
+const btnCrearRecibo = document.getElementById("crearRecibo");
+inputDateVence.addEventListener('change', () => crearReciboFocus());
+
+function crearReciboFocus () {
+    btnCrearRecibo.focus();
+
+    // Guardar estilo original
+    const originalBg = btnCrearRecibo.style.backgroundColor;
+    const originalBorder = btnCrearRecibo.style.border;
+
+    guinio ()
+    guinio ()
+    guinio ()
+    guinio ()
+
+}
+
+function guinio() {
+    // Añadir clase de animación
+    btnCrearRecibo.classList.add('parpadeando');
+
+    // Quitar clase después de la animación
+    setTimeout(() => {
+        btnCrearRecibo.classList.remove('parpadeando');
+    }, 3000); // Duración total de la animación
+}
+
+
 async function guardarRecibo(){
    valorAlquiler();
    var recibo = reciboLevantado[0];
@@ -615,21 +644,23 @@ function crearInputsServicio(service, idContenedor) {
 }
 
 async function actualizarServicios () {
+   debugger;
    let num = reciboLevantado.length > 0
       ? reciboLevantado[0].numeroRecibo
       : NUMERACION;
+
    await guardarServiciosNuevos();
 
-   const servicesLevantados = await getServices(NUMERACION);
+   const servicesLevantados = await getServices(num);  //(NUMERACION);
    console.log('servicesLevantados', servicesLevantados);
-   let serviciosParseados = parcerServices(servicesLevantados === 'undefined'
+   let serviciosStrinficados = stringifyServices(servicesLevantados === 'undefined'
       ? servicesAndTaxes(contratoLevantado)
       : servicesLevantados);
-   console.log('base de services:', serviciosParseados);
-   // let definedObservationsInput = document.getElementById("observacionesInput").value === ''
-   //    ? serviciosParseados
+      console.log('base de services:', serviciosStrinficados);
+      // let definedObservationsInput = document.getElementById("observacionesInput").value === ''
+   //    ? serviciosStrinficados
    //    : document.getElementById("observacionesInput").value;
-   let definedObservationsInput = serviciosParseados;
+   let definedObservationsInput = serviciosStrinficados;
    observacionesInput = definedObservationsInput
    var observacionesPrint = document.getElementById("observacionesPrint");
    var observacionesPrintProp = document.getElementById("obsProp");
@@ -637,6 +668,7 @@ async function actualizarServicios () {
    observacionesPrintProp.innerHTML = observacionesInput;
    document.getElementById("observacionesInput").value = observacionesInput;
    await guardarRecibo();
+   impInq();
 }
 
 
@@ -957,7 +989,7 @@ function imprimirBoleta(div){
 
      setTimeout(async() => {
          wImp.print()
-      }, 500);
+      }, 1500);
       //wImp.document.close();
       //wImp.close();
 

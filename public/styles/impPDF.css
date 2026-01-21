@@ -379,7 +379,7 @@ body {
 }
 .logo,.inbody-index,.inputs,#comisionSelect,#imp,#mesAlq,#dateInput,#numInput,
 #pesos,#observacionesInput,#observacionesInput,#locador, #observaciones,
-#vence,.buttons,.controls,#observacionesInputProp, #cont-input-serv{
+#vence,.buttons,.controls,#crearRecibo,#observacionesInputProp, #cont-input-serv{
     display: none;
 }
 .bodyInt{

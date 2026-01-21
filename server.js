@@ -16,7 +16,7 @@ const port = process.env.PORT || 5500
 
 const whiteList = ['http://localhost:3000', 'http://localhost:5500', 'http://127.0.0.1:5500']
 //{origin: whiteList}
-app.use(cors({origin: ['https://smamby.github.io','http://127.0.0.1:5500', 'http://localhost:5500']}));
+app.use(cors({origin: ['http://127.0.0.1:5500', 'http://localhost:5500']}));
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json());
 app.use(express.json());
@@ -42,6 +42,6 @@ app.post('/close', (req,res)=>{
 })
 
 const server = app.listen(port, ()=>{
-    console.log(`Version 6.01 - 2025-12`)
+    console.log(`Version 6.02 - 2026-01`)
     console.log('http://localhost:'+port)
 })

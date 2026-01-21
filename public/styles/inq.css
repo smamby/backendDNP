@@ -381,7 +381,7 @@ border-bottom: 1px solid black;
     margin-bottom: 24px;
     padding: 12px;
 }
-#btn, #sumitbtn, #btninq, #impPDF, #impScrn, #impPaper, #btnprop, #imp, #nuevo, #conEmail, #mail {
+#btn, #sumitbtn, #btninq, #impPDF, #impScrn, #impPaper, #btnprop, #imp, #nuevo, #conEmail, #mail, #crearRecibo {
     height: 50px;
     width: 50px;
     background-color: var(--btnAlert);
@@ -391,8 +391,13 @@ border-bottom: 1px solid black;
     justify-content: end;
     margin-top: 8px;
 }
-.uni, #impPDF, #impScrn {
+.uni, #impPDF, #impScrn, #crearRecibo {
     background-color: var(--btnCompart);
+}
+#crearRecibo {
+    margin: 0 12px;
+    width: 108px;
+    height: 22px;
 }
  #impPaper:hover, #mail:hover {
     background-color: var(--btnAlertFont);
@@ -403,13 +408,13 @@ border-bottom: 1px solid black;
     margin-left: 230px;
     background-color: var(--btnCompart);
 }
-#impScrn:hover, #impPDF:hover, #nuevo:hover {
+#impScrn:hover, #impPDF:hover, #nuevo:hover, #crearRecibo:hover {
     background-color: var(--btnAlertFont);
     color: var(--btnCompart);
     border: 2px solid var(--btnCompart);
 }
-#impScrn:active, #impPDF:active, #nuevo:active, #impPaper:active, #mail:active {
-    box-shadow: 0px 0px 40px 10px var(--btnAlert);
+#impScrn:active, #impPDF:active, #nuevo:active, #impPaper:active, #mail:active, #crearRecibo:active {
+    box-shadow: 0px 0px 40px 10px rgb(47 116 219);
 }
 #obsProp{
     margin-top: 8px;
@@ -422,4 +427,27 @@ border-bottom: 1px solid black;
     .logo,.inbody-index,.inputs,#imp,#dateInput,#numInput, #locador, #observaciones,#vence,.buttons,.controls{
         display: none;
     }
+}
+
+/* En tu CSS */
+@keyframes parpadeo {
+    0%, 100% {
+        background-color: rgb(28, 42, 121);
+        border-color: rgb(28, 42, 121);
+        color: whitesmoke;
+        font-weight: normal;
+    }
+    50% {
+        background-color: white;
+        border: 2px solid rgb(28, 42, 121);
+        color: rgb(28, 42, 121);
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(18, 193, 247, 0.5);
+        transform: scale(1.03);
+    }
+}
+
+.parpadeando {
+    animation: parpadeo 0.6s ease-in-out 3; /* 3 repeticiones */
+    animation-fill-mode: both;
 }
