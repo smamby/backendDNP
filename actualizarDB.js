@@ -1,5 +1,5 @@
 // Conectar a la base de datos (si no estás conectado)
-use tu_base_de_datos
+//use tu_base_de_datos
 
 // Ver estadísticas antes
 print("=== ANTES DE LA MIGRACIÓN ===");
