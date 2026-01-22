@@ -5,6 +5,7 @@ const serviceSchema = new Schema({
     nombreServicio: String,
     numeroRecibo: Number,
     numeroContrato: Number,
+    mesAlquiler: { type: Date, default: null },
     vencimiento: Date,
     pagado: Boolean
 })

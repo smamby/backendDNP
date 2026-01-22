@@ -9,16 +9,19 @@ function formatUTCDateToDDMMYYYY(value) {
 }
 
 function stringifyServices (servicios) {
-    debugger
+    // debugger
     let textObservaciones = 'Recibí los comprobantes de pago de ';
 
     let hayServiciosPagadosPendientes = servicioPagadoEnModalAIncorporarEnRecibo.some(
         svc => svc.pagado === true && svc.numeroContrato === contratoLevantado[0].idContrato
     )
 
-    if (!Array.isArray(servicios)
-        || servicios.length === 0
-        || !hayServiciosPagadosPendientes) return textObservaciones;
+    if ((!Array.isArray(servicios)
+        || servicios.length === 0)
+        && !hayServiciosPagadosPendientes) {
+          textObservaciones = ''
+          return textObservaciones;
+        };
 
     let serviciosPertinentesAIncorporarEnRecibo = [];
     if (hayServiciosPagadosPendientes) {
@@ -28,7 +31,7 @@ function stringifyServices (servicios) {
     }
     let serviciosYServiciosPendientes = servicios.concat(serviciosPertinentesAIncorporarEnRecibo);
     console.log('serviciosYServiciosPendientes', serviciosYServiciosPendientes);
-    debugger
+
     for (const svc of serviciosYServiciosPendientes) {
         if (!svc) continue;
         if (svc.pagado === true) {
@@ -37,7 +40,7 @@ function stringifyServices (servicios) {
             textObservaciones += `${nombre} vto. ${dateFormated}, `;
         }
     }
-    debugger
+    // debugger
     if (textObservaciones === 'Recibí los comprobantes de pago de ') {
         textObservaciones = '';
     }
@@ -77,15 +80,16 @@ async function cargarServicios () {
             const observacionesText = stringifyServices(data);
 
             console.log('observaciones: ', observacionesText);
-            if (textareaObservaciones.value === '' ||
-                //textareaObservaciones.textContent === '' ||
-                textareaObservaciones.textContent === 'Recibí los comprobantes de pago de ') {
-                textareaObservaciones.textContent = observacionesText;
+            if (
+                textareaObservaciones.value === ''
+                || textareaObservaciones.value === 'Recibí los comprobantes de pago de '
+                //|| textareaObservaciones.textContent === 'Recibí los comprobantes de pago de '
+            ) {
+                //textareaObservaciones.textContent = observacionesText;
                 textareaObservaciones.value = observacionesText;
                 spanObservaciones.textContent = observacionesText;
                 spanObsProp.textContent = observacionesText;
             }
-
 
             return data;
         } catch (err) {
@@ -104,7 +108,9 @@ async function desatascarServicesUltimoRecibo () {
 }
 ///////////////////////////////////////////////////////
 async function guardarServiciosNuevos() {
-    if (document.getElementById('vence').value === '') return;
+  
+  const venceDate = document.getElementById('vence').value;
+    if (venceDate === '') return;
     if (reciboLevantado.length > 0 && reciboLevantado[0].numeroRecibo < 6192) return; // filtro retro compatibilidad
     if (reciboLevantado.length === 0 ||
          reciboLevantado[0].numeroRecibo === NUMERACION) {
@@ -119,7 +125,7 @@ async function guardarServiciosNuevos() {
     }
 
 
-    if (reciboLevantado.length === 0 && contratoLevantado.length !== 0) {
+    if (reciboLevantado.length === 0 && contratoLevantado.length !== 0 && venceDate !== '') {
         const serviciosInDB = await getServices(NUMERACION);
         let services = [];
         if (serviciosInDB.length > 0) {
@@ -130,9 +136,10 @@ async function guardarServiciosNuevos() {
                     numeroRecibo: NUMERACION,
                     nombreServicio: serviciosInDB[service].nombreServicio
                 },{
-                    numeroContrato: contratoLevantado[0].idContrato,
-                    numeroRecibo: NUMERACION,
-                    nombreServicio: serviciosInDB[service].nombreServicio,
+                    // numeroContrato: contratoLevantado[0].idContrato,
+                    // numeroRecibo: NUMERACION,
+                    // nombreServicio: serviciosInDB[service].nombreServicio,
+                    mesAlquiler: new Date(venceDate + 'T00:00:00-03:00'),
                     vencimiento: document.getElementById(`vto-${serviciosInDB[service].nombreServicio}`).value,
                     pagado: document.getElementById(`pagado-${serviciosInDB[service].nombreServicio}`).checked
                 });
@@ -151,6 +158,7 @@ async function guardarServiciosNuevos() {
                     numeroContrato: contratoLevantado[0].idContrato,
                     numeroRecibo: NUMERACION,
                     nombreServicio: service,
+                    mesAlquiler: new Date(venceDate + 'T00:00:00-03:00'),
                     vencimiento: null,
                     pagado: false
                 });
@@ -174,6 +182,7 @@ async function guardarServiciosNuevos() {
                     numeroContrato: contratoLevantado[0].idContrato,
                     numeroRecibo: numeroRecibo,
                     nombreServicio: service,
+                    mesAlquiler: new Date(venceDate + 'T00:00:00-03:00'),
                     vencimiento: null, //document.getElementById(`vto-${service}`).value,
                     pagado: false //document.getElementById(`pagado-${service}`).checked
                 });
@@ -192,9 +201,10 @@ async function guardarServiciosNuevos() {
                         numeroRecibo: reciboLevantado[0].numeroRecibo,
                         nombreServicio: serviciosExistentes[service].nombreServicio
                     },{
-                        numeroContrato: contratoLevantado[0].idContrato,
-                        numeroRecibo: reciboLevantado[0].numeroRecibo,
-                        nombreServicio: serviciosExistentes[service].nombreServicio,
+                        // numeroContrato: contratoLevantado[0].idContrato,
+                        // numeroRecibo: reciboLevantado[0].numeroRecibo,
+                        // nombreServicio: serviciosExistentes[service].nombreServicio,
+                        mesAlquiler: new Date(venceDate + 'T00:00:00-03:00'),
                         vencimiento: document.getElementById(`vto-${serviciosExistentes[service].nombreServicio}`).value,
                         pagado: document.getElementById(`pagado-${serviciosExistentes[service].nombreServicio}`).checked
                     });
@@ -294,6 +304,7 @@ async function ejecutarProtocoloDeuda (serviciosConDeuda, idContrato) {
         data.numeroRecibo = serviciosConDeuda[servicio].numeroRecibo;
         data.numeroContrato = serviciosConDeuda[servicio].numeroContrato;
         data.vencimiento = serviciosConDeuda[servicio].vencimiento;
+        data.mesAlquiler = serviciosConDeuda[servicio].mesAlquiler;
         data.pagado = serviciosConDeuda[servicio].pagado;
         data.nombreServicio = serviciosConDeuda[servicio].nombreServicio;
         data.modificado = false;
@@ -320,11 +331,11 @@ function crearInputsServicioInModal(service, idContenedor) {
 
     // 2. Crear la etiqueta (Label)
     const opDate2 = {year:'numeric',month:'short'};
-    var sv = Date.parse(service.vencimiento)+86400000
-    dateShort = new Date(sv).toLocaleDateString("sp-IN", opDate2)
+    let sv =  new Date(service.mesAlquiler) //Date.parse(service.vencimiento)+86400000
+    let dateShortServ = new Date(sv).toLocaleDateString("sp-IN", opDate2)
     const label = document.createElement('label');
     label.htmlFor = `${service.nombreServicio}-${service.numeroRecibo}`;
-    label.textContent = `${service.nombreServicio}-${service.numeroRecibo}`;
+    label.textContent = `${service.nombreServicio}-${service.numeroRecibo} (${dateShortServ})`;
 
     // 3. Crear el Input de Fecha (Vencimiento)
     const inputDate = document.createElement('input');
