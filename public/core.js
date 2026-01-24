@@ -479,32 +479,33 @@ async function cargarRecibo(){
 }
 
 const inputDateVence = document.getElementById("vence");
-const btnCrearRecibo = document.getElementById("crearRecibo");
+//const btnCrearRecibo = document.getElementById("crearRecibo");
 inputDateVence.addEventListener('change', () => crearReciboFocus());
 
 function crearReciboFocus () {
-    btnCrearRecibo.focus();
+   impInq();
+   //  btnCrearRecibo.focus();
 
-    // Guardar estilo original
-    const originalBg = btnCrearRecibo.style.backgroundColor;
-    const originalBorder = btnCrearRecibo.style.border;
+   //  // Guardar estilo original
+   //  const originalBg = btnCrearRecibo.style.backgroundColor;
+   //  const originalBorder = btnCrearRecibo.style.border;
 
-    guinio ()
-    guinio ()
-    guinio ()
-    guinio ()
+   //  guinio ()
+   //  guinio ()
+   //  guinio ()
+   //  guinio ()
 
 }
 
-function guinio() {
-    // Añadir clase de animación
-    btnCrearRecibo.classList.add('parpadeando');
+// function guinio() {
+//     // Añadir clase de animación
+//     btnCrearRecibo.classList.add('parpadeando');
 
-    // Quitar clase después de la animación
-    setTimeout(() => {
-        btnCrearRecibo.classList.remove('parpadeando');
-    }, 3000); // Duración total de la animación
-}
+//     // Quitar clase después de la animación
+//     setTimeout(() => {
+//         btnCrearRecibo.classList.remove('parpadeando');
+//     }, 3000); // Duración total de la animación
+// }
 
 
 async function guardarRecibo(){

@@ -108,7 +108,7 @@ async function desatascarServicesUltimoRecibo () {
 }
 ///////////////////////////////////////////////////////
 async function guardarServiciosNuevos() {
-  
+
   const venceDate = document.getElementById('vence').value;
     if (venceDate === '') return;
     if (reciboLevantado.length > 0 && reciboLevantado[0].numeroRecibo < 6192) return; // filtro retro compatibilidad
@@ -224,6 +224,7 @@ async function guardarServiciosNuevos() {
 }
 
 function buscarServiciosDeudaConId () {
+    
     let idContrato = contratoLevantado.length > 0
         ? contratoLevantado[0].idContrato
         : ''
@@ -240,19 +241,22 @@ let llamadaBtnServiciosImpagos = false;
 let btnBuscarDeuda = document.getElementById('buscar-deuda-btn');
 btnBuscarDeuda.addEventListener('click', () => {
     llamadaBtnServiciosImpagos = true;
+    buscarServiciosDeudaConId();
 });
 
 async function buscarDeudaServicios (idContrato)  {
     let data = [];
     data = await getContratoServices(idContrato);
-    //
+    let hayDeuda = data.some( service => service.pagado === false );
+    //debugger
     if (!data || !Array.isArray(data) || data.length === 0) {
-        console.log('No hay servicios impagos para este contrato', idContrato);
-        if (llamadaBtnServiciosImpagos === true) {
-            alert('No hay servicios impagos para este contrato');
-            llamadaBtnServiciosImpagos = false;
-        }
-        return data;
+        console.log('No hay servicios cargados para este contrato', idContrato);
+        return;
+    }
+    if (llamadaBtnServiciosImpagos === true && !hayDeuda) {
+        alert('No hay servicios impagos para este contrato');
+        llamadaBtnServiciosImpagos = false;
+        return;
     }
     const serviciosConDeuda = data.filter( service => {
         let hoy = new Date();
