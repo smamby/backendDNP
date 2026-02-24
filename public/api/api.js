@@ -335,7 +335,6 @@ async function imprimirReciboPDFBack(inbody,filename){
   try {
     const response = await fetch(u+p, {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -344,19 +343,26 @@ async function imprimirReciboPDFBack(inbody,filename){
 
     if (!response.ok) {
       throw new Error(`Error generating PDF: ${await response.text()}`);
-    } else {
-      if (window.opener) {
-        const result = await response.json();
-        console.log('PDF generated successfully: '+ result.filePathProduccion);
-        window.opener.alert('PDF generated successfully in: '+ result.filePathProduccion);
-      }
     }
+
+    const result = await response.json();
+    console.log('PDF generated successfully: '+ result.filePathProduccion);
+
+    if (window.opener) {
+      window.opener.alert(
+        'PDF generated successfully in: '+ result.filePathProduccion
+      );
+    }
+    
+    setTimeout(() => {
+      window.close();
+    }, 500);
+    
   } catch (error) {
     console.error('Error during PDF generation:', error);
     throw error;
   } finally {
     window.isFetching = false;
-    window.close();
   }
 }
 
