@@ -224,25 +224,38 @@ function check(){
    valor3Input = document.getElementById("valor3").value;
    idInput = document.getElementById("idContrato").value;
    direccionInput = document.getElementById("direccion").value;
-   if(inicioContratoInput==''){
+   
+   if (!idInput.trim() || !direccionInput.trim()) {
+   alert('No colocaste la direccion del departamento ni el ID')
+   return false
+   }
+
+   if (/['"]/.test(direccionInput)) {
+      alert('No uses comillas simples ni dobles en la direccion');
+      return false
+   }
+
+   if (!inicioContratoInput.trim()) {
       alert('Colocá la fecha de inicio de contrato')
       return false
-   } else if (valor1Input == '' && valor2Input == '' && valor3Input == '') {
+   }
+
+   if (!valor1Input.trim() && !valor2Input.trim() && !valor3Input.trim()) {
       alert('No colocaste ningun valor de alquiler')
       return false
-   } else if (nombreIInput == '' || apellidoIInput == '') {
+   }
+
+   if (!nombreIInput.trim() || !apellidoIInput.trim()) {
       alert('No colocaste nombre o apellido del inquilino, es un dato necesario para el recibo, completalo')
       return false
-   } else if (idInput == '' || direccionInput == '') {
-      alert('No colocaste la direccion del departamento ni el ID')
-      return false
-   } else {
-      ejecutar();
-      console.log(bodyContrato["idContrato"],' - ', bodyContrato["direccion"]);
-      crearIndices();
-      addContrato(bodyContrato);
-      return true
-}}
+   }   
+   
+   ejecutar();
+   console.log(bodyContrato["idContrato"],' - ', bodyContrato["direccion"]);
+   crearIndices();
+   addContrato(bodyContrato);
+   return true
+}
 
 function crearIndices(){
    var empujar = [bodyContrato["idContrato"], bodyContrato["direccion"]]
