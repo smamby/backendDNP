@@ -26,7 +26,8 @@ router.post('/', async (req,res)=> {
   //const filePath = path.join(__dirname, pathPDFs, filename)
   //const filePathProduccion = path.join('../../pruebaPDF/',filename)
   //const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename)
-  const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
+  //const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
+  const filePathProduccion = path.join(process.env.PDFSTORAGEPATH, filename);
   const cssPath = path.join(__dirname, '../../public/styles', 'impPDF.css'); //'impPDFincrustado.css');
   console.log(`[[filepath]] ${filePathProduccion}`)
 

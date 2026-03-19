@@ -17,10 +17,7 @@ router.post('/', (req,res) => {
             pass: process.env.PASSAUTH
         }
     });
-    console.log(filenamePDF);
-    console.log(process.env.PDFSTORAGEPATH);
-    console.log(process.env.MAILAUTH);
-    console.log(process.env.PASSAUTH);
+    
 
     if (fs.existsSync(process.env.PDFSTORAGEPATH + filenamePDF)) {
         const mailOption = {
@@ -35,7 +32,7 @@ router.post('/', (req,res) => {
         };
         transporter.sendMail(mailOption, (error, info) => {
             if (error) {
-                const errorMessage = error.message.split('\n')[0]; 
+                const errorMessage = error.message.split('\n')[0];
                 console.error(errorMessage);
                 return res.status(500).send({ message: `Error al enviar el correo: ${errorMessage}` })
             }
