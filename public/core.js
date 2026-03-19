@@ -16,6 +16,10 @@
 // import { fromByteArray } from 'ipaddr.js';
 //const { jsPDF } = window.jspdf;
 
+window.addEventListener('beforeunload', () => {
+    navigator.sendBeacon('http://localhost:5500/close');
+});
+
 // THEME
 function styleDark(){
    document.body.classList.toggle('dark')
@@ -224,7 +228,7 @@ function check(){
    valor3Input = document.getElementById("valor3").value;
    idInput = document.getElementById("idContrato").value;
    direccionInput = document.getElementById("direccion").value;
-   
+
    if (!idInput.trim() || !direccionInput.trim()) {
    alert('No colocaste la direccion del departamento ni el ID')
    return false
@@ -248,8 +252,8 @@ function check(){
    if (!nombreIInput.trim() || !apellidoIInput.trim()) {
       alert('No colocaste nombre o apellido del inquilino, es un dato necesario para el recibo, completalo')
       return false
-   }   
-   
+   }
+
    ejecutar();
    console.log(bodyContrato["idContrato"],' - ', bodyContrato["direccion"]);
    crearIndices();
