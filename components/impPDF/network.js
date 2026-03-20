@@ -4,63 +4,30 @@ const fs = require('fs')
 const path = require('path');
 const puppeteer = require('puppeteer')
 
+let browser = null; // Instancia única de browser reutilizada
 
 const pathPDFs = 'pdfs' //path donde se guarda los PDF
 
-
-router.post('/', async (req,res)=> {
-  //console.log(`[[router.post]] ${JSON.stringify(req.body)}`);
+router.post('/', async (req, res) => {
   const { html, filename } = req.body;
 
   if (!html || !filename) {
     return res.status(400).send('HTML content and filename are required.');
   }
 
-  const options = {
-    format: 'A4',
-    orientation: 'portrait'
-  }
-  //const filePath = path.join(__dirname, pathPDFs, filename)
-  //const filePathProduccion = path.join('../../pruebaPDF/',filename)
-  //const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename)
-  //const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
   const filePathProduccion = path.join(process.env.PDFSTORAGEPATH, filename);
-  const cssPath = path.join(__dirname, '../../public/styles', 'impPDF.css'); //'impPDFincrustado.css');
-  console.log(`[[filepath]] ${filePathProduccion}`)
+  const cssPath = path.join(__dirname, '../../public/styles', 'impPDF.css');
+  console.log(`[[filepath]] ${filePathProduccion}`);
 
   let cssContent;
   try {
-    //console.log(`[[router.post]] ${JSON.stringify(req.body)}`);
-    const { html, filename } = req.body;
+    cssContent = fs.readFileSync(cssPath, 'utf8');
+  } catch (err) {
+    console.error('Error reading CSS file:', err);
+    return res.status(500).send('Error reading CSS file');
+  }
 
-    if (!html || !filename) {
-      return res.status(400).send('HTML content and filename are required.');
-    }
-
-    const options = {
-      format: 'A4',
-      orientation: 'portrait'
-    }
-    //const filePath = path.join(__dirname, pathPDFs, filename)
-    //const filePathProduccion = path.join('../../pruebaPDF/',filename)
-    //const filePathProduccion = path.join('file:///C:/Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename)
-    const filePathProduccion = path.join('../../Users/User/Documents/INMOBILIARIA/RECIBOS_Y_LIQUIDACIONES/mes_actual/',filename);
-    const cssPath = path.join(__dirname, '../../public/styles', 'impPDF.css'); //'impPDFincrustado.css');
-    console.log(`[[filepath]] ${filePathProduccion}`)
-
-    let cssContent;
-    try {
-      cssContent = fs.readFileSync(cssPath, 'utf8');
-
-    } catch (err) {
-      console.error('Error reading CSS file:', err);
-      return res.status(500).send('Error reading CSS file');
-    }
-
-    var fichaInn = html.outerHTML; //.replace(/(?:\r\n|\r|\n)/g, '').outerHTML;
-    //console.log(`[[router.post]] ${html}`)
-
-     var fichaPDFBACK = `
+  const fichaPDFBACK = `
     <!doctype html>
     <html>
     <head>
@@ -74,20 +41,26 @@ router.post('/', async (req,res)=> {
     </head>
     <body style="width: 628px">
       ${html}
-
     </body>
     </html>`;
 
-    //console.log(`[[[network fichaPDFback]]]   ${fichaPDFBACK}`)
+  try {
+    // Inicializar browser si no existe
+    if (!browser) {
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      });
+    }
 
-
-      const SERVER_BASE_URL = 'http://127.0.0.1:5500';
-      const browser = await puppeteer.launch();
-      const page = await browser.newPage();
-      await page.setContent(fichaPDFBACK, {
-        waitUntil: 'networkidle0', //'load',
-        baseURL: SERVER_BASE_URL
-    })
+    const page = await browser.newPage();
+    const SERVER_BASE_URL = 'http://127.0.0.1:5500';
+    
+    // Esperar a que se carguen todos los recursos (fuentes, imágenes, etc.)
+    await page.setContent(fichaPDFBACK, {
+      waitUntil: 'networkidle0',
+      baseURL: SERVER_BASE_URL
+    });
 
     await page.pdf({
       format: 'A4',
@@ -100,15 +73,22 @@ router.post('/', async (req,res)=> {
         right: '0',
       },
       scale: 0.9,
-    })
-    await browser.close();
-    res.status(200).send({ message: 'PDF generado y guardado correctamente', filePathProduccion });
+    });
 
-  }
-  catch (err) {
+    await page.close();
+    res.status(200).send({ message: 'PDF generado y guardado correctamente', filePathProduccion });
+  } catch (err) {
     console.error('PDF ERROR:', err);
     return res.status(500).json({ error: err.message });
   }
+});
+
+// Cerrar browser al cerrar la aplicación
+process.on('SIGINT', async () => {
+  if (browser) {
+    await browser.close();
+  }
+  process.exit(0);
 });
 
 module.exports = router;

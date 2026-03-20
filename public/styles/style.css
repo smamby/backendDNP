@@ -28,6 +28,21 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+#btnClose {
+    width: 30px;
+    height: 30px;
+    background-color: var(--btnAlert);
+    color: var(--btnAlertFont);
+    border: 0px;
+    border-radius: 4px;
+        position: fixed;
+    left: calc(50vw + 330px);
+    top: 130px;
+}
+#btnClose:hover {
+    background-color: #035385;
+}
 #impInq{
     display: flex;
 }

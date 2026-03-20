@@ -16,9 +16,12 @@
 // import { fromByteArray } from 'ipaddr.js';
 //const { jsPDF } = window.jspdf;
 
-window.addEventListener('beforeunload', () => {
-    navigator.sendBeacon('http://localhost:5500/close');
-});
+document.getElementById('btnClose').addEventListener('click', cerrarApp);
+
+function cerrarApp() {
+   fetch('http://localhost:5500/close', { method: 'POST' });
+   window.close();
+}
 
 // THEME
 function styleDark(){
@@ -662,7 +665,7 @@ function crearInputsServicio(service, idContenedor) {
 }
 
 async function actualizarServicios () {
-   debugger;
+   //debugger;
    let num = reciboLevantado.length > 0
       ? reciboLevantado[0].numeroRecibo
       : NUMERACION;
