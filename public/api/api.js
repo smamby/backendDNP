@@ -328,6 +328,16 @@ async function imprimirReciboPDFBack(inbody,filename){
     throw new Error('inbody must be a string');
   }
 
+  // Función para validar nombres de archivo seguros
+  function isSafeFilename(filename) {
+    return /^[a-zA-Z0-9_. -]+$/.test(filename) && !filename.includes('..');
+  }
+
+  // Uso:
+  if (!isSafeFilename(filename)) {
+    return res.status(400).send('Nombre de archivo no válido');
+  }
+
   //console.log(`[[[API INBODY.outerHTML]]]   ${inbody}`)
 
   if (window.isFetching) return;
@@ -353,11 +363,11 @@ async function imprimirReciboPDFBack(inbody,filename){
         'PDF generated successfully in: '+ result.filePathProduccion
       );
     }
-    
+
     setTimeout(() => {
       window.close();
     }, 500);
-    
+
   } catch (error) {
     console.error('Error during PDF generation:', error);
     throw error;
