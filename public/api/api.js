@@ -335,6 +335,7 @@ async function imprimirReciboPDFBack(inbody,filename){
 
   // Uso:
   if (!isSafeFilename(filename)) {
+    alert('La direccion del depto. contiene un caracter no permitido, revisalo')
     return res.status(400).send('Nombre de archivo no válido');
   }
 
