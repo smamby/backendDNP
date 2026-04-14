@@ -330,7 +330,7 @@ async function imprimirReciboPDFBack(inbody,filename){
 
   // Función para validar nombres de archivo seguros
   function isSafeFilename(filename) {
-    return /^[a-zA-Z0-9_. -]+$/.test(filename) && !filename.includes('..');
+    return /^[a-zA-Z0-9_. -°ñÑáéíóú]+$/.test(filename) && !filename.includes('..');
   }
 
   // Uso:
