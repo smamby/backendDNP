@@ -35,36 +35,42 @@ function chkReciboVacio(){
 };
 
 function tocaActualizarAlquiler(contratoLevantado) {
-    if (contratoLevantado.length === 0) {
-        return
+    if (!Array.isArray(contratoLevantado) || contratoLevantado.length === 0) {
+        return false;
     }
     let lastDateActualizacion;
     let inicioContrato = new Date(contratoLevantado[0].inicioContrato);
     let act = contratoLevantado[0].periodoActualizacion;
     if (contratoLevantado[0].lastDateActualizacion !== null && contratoLevantado[0].lastDateActualizacion !== undefined) {
-        let lastDateActualizacion = new Date(contratoLevantado[0].lastDateActualizacion);
+        lastDateActualizacion = new Date(contratoLevantado[0].lastDateActualizacion);
         let lastActMonth =lastDateActualizacion.getMonth();
         let actMonth = inicioContrato.getMonth();
         if (lastActMonth === actMonth) {
-            return
+            return false;
         }
     }
-    let month = inicioContrato.getMonth();
+    let startMonth = inicioContrato.getMonth();
     let multip = 12 / act;
     let monthAct = [];
+    // for (let i = 0; i < multip; i++) {
+    //     let m = i * act
+    //     let mes = startMonth + m
+    //     if (mes <= 11) {
+    //         monthAct.push(startMonth + m)
+    //         console.log(m, '-==')
+    //     } else {
+    //         monthAct.push(startMonth + m - 12 )
+    //         console.log(m,'+')
+    //     }
+    // };
     for (let i = 0; i < multip; i++) {
-        let m = i * act
-        let mes = month + m
-        if (mes <= 11) {
-            monthAct.push(month + m)
-            console.log(m, '-==')
-        } else {
-            monthAct.push(month + m - 12 )
-            console.log(m,'+')
-        }
-    };
+        let m = i * act;
+        // El operador % 12 asegura que si da 12 sea 0 (Enero), 13 sea 1 (Febrero), etc.
+        let mesActualizacion = (startMonth + m) % 12;
+        monthAct.push(mesActualizacion);
+    }
     console.log(monthAct);
-    console.log(multip, month);
+    //console.log(multip, startMonth);
     let today = new Date();
     return monthAct.includes(today.getMonth());
 };
