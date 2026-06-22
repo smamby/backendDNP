@@ -344,7 +344,11 @@ async function buscar(id){
    //console.log('contrato inexistente');
    vaciarRecibo();
    impInq() //YA ES DENTRO DE VACIARRECIBO.DELETEDETALLE
-   await buscarDeudaServicios(itemEncontrado.idContrato)
+   if (tocaActualizarAlquiler(contratoLevantado)) {
+      alert('Este mes se debe actualizar el alquiler de este contrato');
+      return
+   };
+   await buscarDeudaServicios(itemEncontrado.idContrato);
 }
 
 

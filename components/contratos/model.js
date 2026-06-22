@@ -22,6 +22,8 @@ const contratoSchema = new Schema({
     inquilino:String,
     inicioContrato:String,
     inicioContratoHISP: String,
+    lastDateActualizacion: String,
+    periodoActualizacion: Number,
     valor1:Number,
     valor2:Number,
     valor3:Number,
