@@ -25,6 +25,7 @@ router.post('/', (req,res)=>{
 })
 
 router.patch('/:num', (req,res)=>{
+  console.log("reqbody network", req.body);
   controller.edit(req.params.num,req.body)
     .then((contrato)=>{
       res.send(contrato)

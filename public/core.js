@@ -114,9 +114,9 @@ function calculoFecha(date,y) {
    return stringFecha;
 };
 
-function calculoRenovacion(date){
-   return calculoFecha(date,3)
-}
+// function calculoRenovacion(date){
+//    return calculoFecha(date,3)
+// }
 function calculoValor2(date){
    return calculoFecha(date,1)
 }
@@ -147,19 +147,21 @@ function ejecutar(){
    var direccion = document.getElementById("direccion").value;
    var propietario =  `${nombrePropietario} ${apellidoPropietario}`;
    var inquilino =  `${nombreInquilino} ${apellidoInquilino}`;
+   //contrato
    var inicioContrato = document.getElementById("inicioContrato").value;
+   var duracionContrato = document.getElementById("duracionContrato").value;
+   var periodoActualizacion = document.getElementById("periodoActualizacion").value;
 
    var fechaEspaniolInput = calculoFecha(inicioContrato,0);
    var inicioP2input = calculoValor2(inicioContrato);
    var inicioP3input = calculoValor3(inicioContrato);
-   var renovacioninput = calculoRenovacion(inicioContrato);
+
    var inicioContratoHISP =  fechaEspaniolInput;
    var valor1 = parseInt(document.getElementById("valor1").value);
-   var valor2 = parseInt(document.getElementById("valor2").value);
-   var valor3 = parseInt(document.getElementById("valor3").value);
+   // var valor2 = parseInt(document.getElementById("valor2").value);
+   // var valor3 = parseInt(document.getElementById("valor3").value);
    var inicioP2 =  inicioP2input;
    var inicioP3 =  inicioP3input;
-   var renovacion =  renovacioninput;
    var obligacionesInq = document.getElementById("obligacionesInq").value;
    var observaciones = document.getElementById("observaciones").value;
    var descripcion = document.getElementById("descripcion").value;
@@ -198,11 +200,12 @@ function ejecutar(){
       "inicioContrato":inicioContrato,
       "inicioContratoHISP":inicioContratoHISP,
       "valor1":valor1,
-      "valor2":valor2,
-      "valor3":valor3,
+      // "valor2":valor2,
+      // "valor3":valor3,
       "inicioP2":inicioP2,
       "inicioP3":inicioP3,
-      "renovacion":renovacion,
+      "duracionContrato":duracionContrato,
+      "periodoActualizacion":periodoActualizacion,
       "obligacionesInq":obligacionesInq,
       "observaciones":observaciones,
       "descripcion":descripcion,
@@ -227,8 +230,8 @@ function check(){
    nombreIInput = document.getElementById("nombreI").value;
    apellidoIInput = document.getElementById("apellidoI").value;
    valor1Input = document.getElementById("valor1").value;
-   valor2Input = document.getElementById("valor2").value;
-   valor3Input = document.getElementById("valor3").value;
+   // valor2Input = document.getElementById("valor2").value;
+   // valor3Input = document.getElementById("valor3").value;
    idInput = document.getElementById("idContrato").value;
    direccionInput = document.getElementById("direccion").value;
 
@@ -247,7 +250,7 @@ function check(){
       return false
    }
 
-   if (!valor1Input.trim() && !valor2Input.trim() && !valor3Input.trim()) {
+   if (!valor1Input.trim()) { //&& !valor2Input.trim() && !valor3Input.trim()) {
       alert('No colocaste ningun valor de alquiler')
       return false
    }
@@ -344,11 +347,17 @@ async function buscar(id){
    //console.log('contrato inexistente');
    vaciarRecibo();
    impInq() //YA ES DENTRO DE VACIARRECIBO.DELETEDETALLE
+   finalizaContrato(contratoLevantado);
    if (tocaActualizarAlquiler(contratoLevantado)) {
-      alert('Este mes se debe actualizar el alquiler de este contrato');
+      let newValorAlquiler = prompt(`Este mes se debe actualizar el valor del alquiler del contrato ${contratoLevantado[0].idContrato}`);
+      console.log('newValorAlquiler', newValorAlquiler);
+      if (newValorAlquiler === null) {
+         return
+      };
+      actualizarAlquiler(newValorAlquiler);
       return
    };
-   await buscarDeudaServicios(itemEncontrado.idContrato);
+   return await buscarDeudaServicios(itemEncontrado.idContrato);
 }
 
 
@@ -718,9 +727,11 @@ function levantarContrato(itemEncontrado){
    document.getElementById("idContrato").value = itemEncontrado.idContrato;
    document.getElementById("direccion").value = itemEncontrado.direccion;
    document.getElementById("inicioContrato").value = itemEncontrado.inicioContrato;
+   document.getElementById("periodoActualizacion").value = itemEncontrado.periodoActualizacion;
+   document.getElementById("duracionContrato").value = itemEncontrado.duracionContrato;
    document.getElementById("valor1").value = itemEncontrado.valor1;
-   document.getElementById("valor2").value = itemEncontrado.valor2;
-   document.getElementById("valor3").value = itemEncontrado.valor3;
+   // document.getElementById("valor2").value = itemEncontrado.valor2;
+   // document.getElementById("valor3").value = itemEncontrado.valor3;
    document.getElementById("obligacionesInq").value = itemEncontrado.obligacionesInq;
    document.getElementById("observaciones").value = itemEncontrado.observaciones;
    document.getElementById("descripcion").value = itemEncontrado.descripcion;
@@ -750,9 +761,9 @@ function editCont(contratoLevantado){
       console.log("contratoLevantado (editCont): ", contratoLevantado[0])
       let inicio = contratoLevantado[0].inicioContrato;
       console.log("inicio", inicio)
-      function calculoRenovacion(date){
-         return calculoFecha(date,3)
-      }
+      // function calculoRenovacion(date){
+      //    return calculoFecha(date,3)
+      // }
       function calculoValor2(date){
          return calculoFecha(date,1)
       }
@@ -776,19 +787,20 @@ function editCont(contratoLevantado){
       var garantiaInquilino = document.getElementById("garantiaI").value;
       var idContrato = document.getElementById("idContrato").value;
       var direccion = document.getElementById("direccion").value
-      var inicioContrato = document.getElementById("inicioContrato").value;
       var valor1 = document.getElementById("valor1").value;
       var propietario = `${nombrePropietario} ${apellidoPropietario}`;
       var inquilino = `${nombreInquilino} ${apellidoInquilino}`;
       var observaciones = document.getElementById('observaciones').value;
       var descripcion = document.getElementById('descripcion').value;
       var obligacionesInq = document.getElementById('obligacionesInq').value;
-      var valor2 = document.getElementById('valor2').value;
-      var valor3 = document.getElementById('valor3').value;
+      // var valor2 = document.getElementById('valor2').value;
+      // var valor3 = document.getElementById('valor3').value;
+      var inicioContrato = document.getElementById("inicioContrato").value;
       var inicioContratoHISP = calculoFecha(inicioContrato,0);
+      var periodoActualizacion = document.getElementById("periodoActualizacion").value;
+      var duracionContrato = document.getElementById("duracionContrato").value;
       var inicioP2 = calculoValor2(inicioContrato);
       var inicioP3 = calculoValor3(inicioContrato);
-      var renovacion = calculoRenovacion(inicioContrato);
       // contrato.departamento.imagenes = document.getElementById('imagenesFile').value;
       // contrato.departamento.contrato = document.getElementById('contratoFile').value;
       var edesur = document.getElementById('edesur').checked;
@@ -823,12 +835,13 @@ function editCont(contratoLevantado){
          "inquilino":inquilino,
          "inicioContrato":inicioContrato,
          "inicioContratoHISP":inicioContratoHISP,
+         "periodoActualizacion":periodoActualizacion,
+         "duracionContrato":duracionContrato,
          "valor1":valor1,
-         "valor2":valor2,
-         "valor3":valor3,
+         // "valor2":valor2,
+         // "valor3":valor3,
          "inicioP2":inicioP2,
          "inicioP3":inicioP3,
-         "renovacion":renovacion,
          "obligacionesInq":obligacionesInq,
          "observaciones":observaciones,
          "descripcion":descripcion,
@@ -845,17 +858,30 @@ function editCont(contratoLevantado){
       console.log(idContrato)
       if(AJUSTARINDICE) {ajustarIndices()}
 
-      new Promise((resolve,reject)=>{
-         resolve( editContrato(bodyContrato) )
-      })
-      .then(()=>{
-         let chkId = document.getElementById("idContrato").value
-         buscar( chkId || itemEncontrado.idContrato )
-      })
-      .then(()=>{
-         levantarContrato(contratoLevantado[0])
-         impInq()
-      })
+      if (contratoLevantado[0].valor1 != bodyContrato.valor1
+         && contratoLevantado[0].idContrato == bodyContrato.idContrato) {
+         let today = new Date();
+         let year = today.getFullYear();
+         let month = String(today.getMonth() + 1).padStart(2, '0');
+         let day = String(today.getDate()).padStart(2, '0');
+         let fechaFormateada = `${year}-${month}-${day}`;
+
+         bodyContrato.lastDateActualizacion = fechaFormateada
+      }
+
+      editContrato(bodyContrato)
+         .then(()=>{
+            let chkId = document.getElementById("idContrato").value
+            return buscar( chkId || itemEncontrado.idContrato )
+            console.log('Se modifico el contrato', contratoLevantado[0])
+         })
+         // .then(()=>{
+         //    levantarContrato(contratoLevantado[0])
+         //    impInq()
+         // })
+         .catch(error => {
+            console.error("Algo falló al editar o levantar el contrato:", error);
+         });
    };
 };
 

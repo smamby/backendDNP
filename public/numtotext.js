@@ -23,6 +23,7 @@ var terCenYdes = [];
 //var primTercio = [arr[arr.length-3],arr[arr.length-2],arr[arr.length-1]];
 
 const unidad = {  //if length es 1
+    0: "cero",
     1: "uno",
     2: "dos",
     3: "tres",
