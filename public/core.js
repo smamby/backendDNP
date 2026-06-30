@@ -506,7 +506,6 @@ async function cargarRecibo(){
          }
          servicesArrayFotElements.push(serviceObjectForElements);
          console.log('servicesArrayFotElements', servicesArrayFotElements);
-         debugger
          desplegarServiciosYImpuestos(servicesArrayFotElements)
       })
 
@@ -615,7 +614,6 @@ let servicesAndTaxes = (contratoOReciboLevantado) => Object.fromEntries(
 );
 
 function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
-   debugger
    let contServTaxex =document.getElementById("cont-input-serv");
    let serviciosImpuestos = servicesAndTaxes(contratoOReciboLevantado);
    console.log('desplegado de serviciosImpuestos', serviciosImpuestos);
