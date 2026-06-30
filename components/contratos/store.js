@@ -139,8 +139,8 @@ async function editContrato(searchParam,change){
     // if(change.hasOwnProperty('seguro')){
     //     contrato.seguro = change.seguro;
     // }
-    // if(change.hasOwnProperty('aux1')){
-    //     contrato.aux1 = change.aux1;
+    // if(change.hasOwnProperty('edenor')){
+    //     contrato.edenor = change.edenor;
     // }
     // if(change.hasOwnProperty('aux2')){
     //     contrato.aux2 = change.aux2

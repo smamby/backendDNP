@@ -105,6 +105,7 @@ h2{
     border-radius: 4px;
     padding-left: 8px;
     padding-right: 8px;
+    cursor: default;
     box-sizing: border-box;
     transition: border .3s .2s ease, background-color .3s ease;
 }
@@ -262,6 +263,7 @@ span {
 }
 .serv_tax input[type='checkbox'], .content-services input[type='checkbox'] {
     accent-color: #058adc;
+    cursor: cell;
 }
 .cont_check_serv_tax {
     display: flex;
@@ -271,11 +273,16 @@ span {
     padding: 0px;
     justify-content: flex-end;
 }
-.cont_check_serv_tax label {
+.cont_check_serv_tax label, a:-webkit-any-link {
     font-weight: 100;
     font-size: small;
     margin: 0px;
     padding: 0px;
+}
+a:-webkit-any-link {
+    text-decoration: none;
+
+    color: inherit;
 }
 
 input :not(input[type="button"]) {

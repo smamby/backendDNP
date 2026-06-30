@@ -186,7 +186,9 @@ async function impInq(){
             : document.getElementById("observacionesInput").value;
         observacionesInput = definedObservationsInput
         document.getElementById("observacionesInput").value = definedObservationsInput;
-        desplegarServiciosYImpuestos(contratoLevantado);
+        if(reciboLevantado.length === 0){
+            desplegarServiciosYImpuestos(contratoLevantado);
+        }
         //var observacionesInput = document.getElementById("observacionesInput").value;
         //var observacionesInputProp = document.getElementById("observacionesInputProp").value;
         var locadorPrint = document.getElementById("locadorPrint")

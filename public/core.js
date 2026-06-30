@@ -94,7 +94,7 @@ var metrogas = false;
 var abl = false;
 var expensas = false;
 var seguro = false;
-var aux1 = false;
+var edenor = false;
 var aux2 = false;
 
 var bodyContrato = {};
@@ -172,7 +172,7 @@ function ejecutar(){
    var abl = document.getElementById("abl").checked;
    var expensas = document.getElementById("expensas").checked;
    var seguro = document.getElementById("seguro").checked;
-   var aux1 = document.getElementById("aux1").checked;
+   var edenor = document.getElementById("edenor").checked;
    var aux2 = document.getElementById("aux2").checked;
    //"imagenes":document.getElementById("imagenesFile").value,
    // contrato:document.getElementById("contratoFile").value,
@@ -216,7 +216,7 @@ function ejecutar(){
       "abl":abl,
       "expensas":expensas,
       "seguro":seguro,
-      "aux1":aux1,
+      "edenor":edenor,
       "aux2":aux2
    };
 }
@@ -505,6 +505,8 @@ async function cargarRecibo(){
             serviceObjectForElements[d.nombreServicio] = true;
          }
          servicesArrayFotElements.push(serviceObjectForElements);
+         console.log('servicesArrayFotElements', servicesArrayFotElements);
+         debugger
          desplegarServiciosYImpuestos(servicesArrayFotElements)
       })
 
@@ -596,7 +598,7 @@ async function guardarRecibo(){
 //       "abl": contratoLevantado[0].abl,
 //       "expensas": contratoLevantado[0].expensas,
 //       "seguro": contratoLevantado[0].seguro,
-//       "aux1": contratoLevantado[0].aux1,
+//       "edenor": contratoLevantado[0].edenor,
 //       "aux2": contratoLevantado[0].aux2
 //    }
 //    for (let service in services) {
@@ -613,7 +615,7 @@ let servicesAndTaxes = (contratoOReciboLevantado) => Object.fromEntries(
 );
 
 function desplegarServiciosYImpuestos(contratoOReciboLevantado) {
-   //
+   debugger
    let contServTaxex =document.getElementById("cont-input-serv");
    let serviciosImpuestos = servicesAndTaxes(contratoOReciboLevantado);
    console.log('desplegado de serviciosImpuestos', serviciosImpuestos);
@@ -743,7 +745,7 @@ function levantarContrato(itemEncontrado){
    document.getElementById("abl").checked = itemEncontrado.abl;
    document.getElementById("expensas").checked = itemEncontrado.expensas;
    document.getElementById("seguro").checked = itemEncontrado.seguro;
-   document.getElementById("aux1").checked = itemEncontrado.aux1;
+   document.getElementById("edenor").checked = itemEncontrado.edenor;
    document.getElementById("aux2").checked = itemEncontrado.aux2;
    desplegarServiciosYImpuestos(contratoLevantado);
 }
@@ -809,7 +811,7 @@ function editCont(contratoLevantado){
       var abl = document.getElementById('abl').checked;
       var expensas = document.getElementById('expensas').checked;
       var seguro = document.getElementById('seguro').checked;
-      var aux1 = document.getElementById('aux1').checked;
+      var edenor = document.getElementById('edenor').checked;
       var aux2 = document.getElementById('aux2').checked;
 
       bodyContrato = {
@@ -852,7 +854,7 @@ function editCont(contratoLevantado){
          "abl":abl,
          "expensas":expensas,
          "seguro":seguro,
-         "aux1":aux1,
+         "edenor":edenor,
          "aux2":aux2
       };
       console.log(idContrato)
@@ -967,7 +969,7 @@ function borrarContrato(){
    document.getElementById("abl").checked = false;
    document.getElementById("expensas").checked = false;
    document.getElementById("seguro").checked = false;
-   document.getElementById("aux1").checked = false;
+   document.getElementById("edenor").checked = false;
    document.getElementById("aux2").checked = false;
    indiceContratos();
 }

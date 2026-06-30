@@ -39,7 +39,7 @@ const contratoSchema = new Schema({
     abl: Boolean,
     expensas: Boolean,
     seguro: Boolean,
-    aux1: Boolean,
+    edenor: Boolean,
     aux2: Boolean
 })
 
