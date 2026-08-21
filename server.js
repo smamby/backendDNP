@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const routes = require('./routes/routes');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 const db = require('./db');
 const URI = 'mongodb://127.0.0.1:27017/delNorteProp';
 
@@ -30,7 +30,16 @@ const server = app.listen(port, ()=>{
     console.log(`Version 6.02 - 2026-01`)
     console.log('http://localhost:'+port)
 
-    exec(`start "" brave --app=http://localhost:${port}/index.html`);
+    // exec(`start "" brave --app=http://localhost:${port}/index.html`);
+    const brave = 'C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe';
+    const url = `http://localhost:${port}/index.html`;
+
+    const braveProcess = spawn(brave, [`--app=${url}`], {
+        detached: true,
+        stdio: 'ignore'
+    });
+
+    braveProcess.unref();
 
 })
 

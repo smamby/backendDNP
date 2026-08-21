@@ -4,4 +4,5 @@
 #start brave http://localhost:5500/index.html
 #start "" brave --app=http://localhost:5500/index.html
 
+@echo off
 node c:/DNP_local/backendDNP/server.js
