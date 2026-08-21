@@ -51,7 +51,7 @@ function tocaActualizarAlquiler(contratoLevantado) {
             return false;
         }
     }
-    let startMonth = inicioContrato.getMonth();
+    let startMonth = inicioContrato.getMonth() + 1;
     let multip = 12 / act;
     let monthAct = [];
     for (let i = 0; i < multip; i++) {
@@ -83,9 +83,9 @@ function actualizarAlquiler(newValorAlquiler) {
             let chkId = document.getElementById("idContrato").value
             return buscar( chkId || itemEncontrado.idContrato )
         })
-        .then(()=>{
+        .then( async ()=>{
             levantarContrato(contratoLevantado[0])
-            impInq()
+            await impInq()
         })
         .catch(error => {
             console.error("Algo falló al editar o levantar el contrato:", error);
@@ -104,6 +104,7 @@ function finalizaContrato(contratoLevantado) {
     // 1. Calcular fecha de finalización (Forma nativa de JavaScript)
     let fechaFinalizacion = new Date(inicioContrato);
     fechaFinalizacion.setMonth(fechaFinalizacion.getMonth() + duracionContrato);
+    fechaFinalizacion.setDate(fechaFinalizacion.getDate() - 1);
 
     // 2. Obtener la fecha actual (hoy)
     let hoy = new Date();
@@ -115,18 +116,18 @@ function finalizaContrato(contratoLevantado) {
 
     // 4. Evaluar la condición (Faltan 30 días o menos, pero el contrato NO venció todavía)
     if (diasFaltantes <= 30 && diasFaltantes > 0) {
-        alert(`¡Atención! El contrato de ${contratoLevantado[0].idContrato} finaliza en ${diasFaltantes} días (Fecha: ${fechaFinalizacion.toLocaleDateString()}).`);
+        alert(`¡Atención! El contrato ${contratoLevantado[0].idContrato} finaliza en ${diasFaltantes} días (Fecha: ${fechaFinalizacion.toLocaleDateString()}).`);
     } else if (diasFaltantes === 0) {
         alert(`¡Atención! El contrato finaliza HOY.`);
     } else if (diasFaltantes < 0) {
-        alert(`¡Atención! El contrato de ${contratoLevantado[0].idContrato} ya finalizó (Fecha: ${fechaFinalizacion.toLocaleDateString()}).`);
+        alert(`¡Atención! El contrato ${contratoLevantado[0].idContrato} ya finalizó (Fecha: ${fechaFinalizacion.toLocaleDateString()}).`);
     }
     console.log('diasFaltantes', diasFaltantes);
 };
 
 //RECIBO inputs and prints
 var dateShort;
-async function impInq(){
+async function impInq() {
 
     if (itemEncontrado === ''){
         alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
@@ -265,6 +266,8 @@ async function impInq(){
         await guardarRecibo();
     }
 }
+
+
 var detalleTotal = 0;
 var detalleTotalProp = 0;
 var detalleTotalOnlyProp = 0;
@@ -288,7 +291,7 @@ function sumarDetalleOnlyProp(nuevoMonto){
 }
 
 var items = [];
-function insertarDetalles(){
+async function insertarDetalles(){
     //debugger
     // inputs
     var nuevoGastoInput = document.getElementById("nuevoGasto").value;
@@ -384,11 +387,11 @@ function insertarDetalles(){
     document.getElementById("nuevoGasto").focus();
 
     // Imprimir datos
-    impInq();
+    await impInq();
 }
 
 var itemsOnlyProp= [];
-function insertDetOnlyProp(){
+async function insertDetOnlyProp(){
     var inputDetOP= document.getElementById("nuevoGastoOnlyProp").value;
     var inputMontOP=document.getElementById("nuevoMontoOnlyProp").value;
     var contDetOnlyProp=document.getElementById("cont-new-det-only-prop");
@@ -444,10 +447,10 @@ function insertDetOnlyProp(){
     document.getElementById("nuevoGastoOnlyProp").value = '';
     document.getElementById("nuevoMontoOnlyProp").value = '';
     document.getElementById("nuevoGastoOnlyProp").focus();
-    impInq();
+    await impInq();
 }
 
-function deleteDetalle(){
+async function deleteDetalle(){
     // document.getElementById("cont-detalle").innerHTML = '';
     // document.getElementById("cont-montos").innerHTML = '';
     // document.getElementById("cont-detalleProp").innerHTML = '';
@@ -459,14 +462,14 @@ function deleteDetalle(){
     detalleTotalProp = 0;
     //document.getElementById("pesos").value = '';
     document.getElementById("pesosLetra").innerHTML = '';
-    impInq();
+    await impInq();
 }
 
-function deleteDetalleOnlyProp(){
+async function deleteDetalleOnlyProp(){
     document.getElementById("cont-new-det-only-prop").innerHTML = '';
     itemsOnlyProp = [];
     detalleTotalOnlyProp = 0;
-    impInq();
+    await impInq();
 }
 
 function valorAlquiler(){

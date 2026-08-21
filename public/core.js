@@ -346,7 +346,7 @@ async function buscar(id){
    indiceItemEncontrado = indices.findIndex(el=> el[0] == idBuscar);
    //console.log('contrato inexistente');
    vaciarRecibo();
-   impInq() //YA ES DENTRO DE VACIARRECIBO.DELETEDETALLE
+   await impInq() //YA ES DENTRO DE VACIARRECIBO.DELETEDETALLE
    finalizaContrato(contratoLevantado);
    if (tocaActualizarAlquiler(contratoLevantado)) {
       let newValorAlquiler = prompt(`Este mes se debe actualizar el valor del alquiler del contrato ${contratoLevantado[0].idContrato}`);
@@ -360,7 +360,13 @@ async function buscar(id){
    return await buscarDeudaServicios(itemEncontrado.idContrato);
 }
 
-
+function verRecivoSeleccionadoEnModal(numRecibo) {
+   document.getElementById('buscarRecibo').value = numRecibo;
+   if (document.getElementById('buscarRecibo').value != '') {
+      buscarRecibo();
+      cerrarModal();
+   }
+}
 async function buscarRecibo(){
    // document.getElementById("cont-detalle").innerHTML = '';
    // document.getElementById("cont-montos").innerHTML = '';
@@ -399,7 +405,9 @@ async function buscarRecibo(){
       document.getElementById('buscarRecibo').value = '';
       itemEncontrado = contratoLevantado[0];
       cargarRecibo()
-      impInq();
+      await impInq();
+      let viewPosition = document.getElementById('inbody-inq');
+      viewPosition.scrollIntoView({ behavior: 'smooth', block: 'start' });
    }
 }
 async function buscarTodosRecibosContrato() {
@@ -448,7 +456,7 @@ function desplegarDataRecibosContrato(direccion) {
 function imprimirDataRecibo(recibo) {
    let fechaFormateada = formatUTCDateToDDMMYYYY(recibo.fechaVencimiento)
    document.getElementById('content-services').innerHTML += `
-      <div class="card-data-recibo">
+      <div class="card-data-recibo" data-num-recibo="${recibo.numeroRecibo}" onclick="verRecivoSeleccionadoEnModal(${recibo.numeroRecibo})">
          <div class="card-content-data-recibo" style="display: flex;">
             <p class="card-title">Recibo N° <span>${recibo.numeroRecibo}</span></p>
             <p class="card-title">Vto. <span>${fechaFormateada}</span></p>
@@ -516,8 +524,8 @@ const inputDateVence = document.getElementById("vence");
 //const btnCrearRecibo = document.getElementById("crearRecibo");
 inputDateVence.addEventListener('change', () => crearReciboFocus());
 
-function crearReciboFocus () {
-   impInq();
+async function crearReciboFocus () {
+   await impInq();
    //  btnCrearRecibo.focus();
 
    //  // Guardar estilo original
@@ -702,7 +710,7 @@ async function actualizarServicios () {
    observacionesPrintProp.innerHTML = observacionesInput;
    document.getElementById("observacionesInput").value = observacionesInput;
    await guardarRecibo();
-   impInq();
+   await impInq();
 }
 
 
@@ -877,7 +885,7 @@ function editCont(contratoLevantado){
          })
          // .then(()=>{
          //    levantarContrato(contratoLevantado[0])
-         //    impInq()
+         //    await impInq()
          // })
          .catch(error => {
             console.error("Algo falló al editar o levantar el contrato:", error);
@@ -1027,9 +1035,9 @@ function imprimir(){
    window.print()
 }
 
-function imprimirBoleta(div){
+async function imprimirBoleta(div){
    if (itemEncontrado!=''){
-      impInq();
+      await impInq();
 
       var ficha = document.getElementById(div);
       var wImp = window.open('','popimp');
@@ -1050,9 +1058,9 @@ function imprimirBoleta(div){
    }
 }
 
-function imprimirBoletaPDF(){
+async function imprimirBoletaPDF(){
    if (itemEncontrado!=''){
-      impInq();
+      await impInq();
       var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`;
       var fichaI = document.getElementById('inbody-inq');
       var fichaOuterI = fichaI.outerHTML;
@@ -1133,9 +1141,9 @@ function imprimirBoletaPDF(){
       document.getElementById("buscarInput").focus();
    }
 }
-function imprimirBoletaPDFBACK(){
+async function imprimirBoletaPDFBACK(){
    if (itemEncontrado!=''){
-      impInq();
+      await impInq();
       // var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`;
       var fichaI = document.getElementById('inbody-inq');
       var fichaOuterI = fichaI.outerHTML;

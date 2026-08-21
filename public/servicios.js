@@ -104,7 +104,7 @@ async function desatascarServicesUltimoRecibo () {
     alert('recibo ultimo atascado')
     const serviciosBorradosPorConflicto = await deleteServicesByNumRecibo(NUMERACION);
     console.log('Servicios borrados por conflicto:', serviciosBorradosPorConflicto);
-    impInq();
+    await impInq();
 }
 ///////////////////////////////////////////////////////
 async function guardarServiciosNuevos() {
@@ -224,7 +224,7 @@ async function guardarServiciosNuevos() {
 }
 
 function buscarServiciosDeudaConId () {
-    
+
     let idContrato = contratoLevantado.length > 0
         ? contratoLevantado[0].idContrato
         : ''
@@ -332,6 +332,7 @@ function crearInputsServicioInModal(service, idContenedor) {
     // 1. Crear el contenedor principal
     const divItem = document.createElement('div');
     divItem.className = 'service-tax-item';
+    divItem.dataset.numRecibo = service.numeroRecibo;
 
     // 2. Crear la etiqueta (Label)
     const opDate2 = {year:'numeric',month:'short'};
@@ -340,6 +341,13 @@ function crearInputsServicioInModal(service, idContenedor) {
     const label = document.createElement('label');
     label.htmlFor = `${service.nombreServicio}-${service.numeroRecibo}`;
     label.textContent = `${service.nombreServicio}-${service.numeroRecibo} (${dateShortServ})`;
+
+    //Evento click en el label
+    label.addEventListener('click', function(e) {
+        e.preventDefault();
+        verRecivoSeleccionadoEnModal(service.numeroRecibo);
+    });
+
 
     // 3. Crear el Input de Fecha (Vencimiento)
     const inputDate = document.createElement('input');

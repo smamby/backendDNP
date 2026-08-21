@@ -433,6 +433,7 @@ input :not(input[type="button"]) {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 .card-content-data-recibo {
     display: flex;

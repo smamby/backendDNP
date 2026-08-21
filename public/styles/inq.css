@@ -312,6 +312,7 @@ body {
 }
 .service-tax-item label {
     width: 210px;
+    cursor: pointer;
 }
 .cont-firma-total{
     display: flex;
