@@ -18,9 +18,29 @@
 
 document.getElementById('btnClose').addEventListener('click', cerrarApp);
 
-function cerrarApp() {
-   fetch('http://localhost:5500/close', { method: 'POST' });
-   window.close();
+async function cerrarApp() {
+   try {
+        const response = await fetch('/close', {
+            method: 'POST'
+        });
+
+        if (response.ok) {
+            document.body.innerHTML = `
+                <div style="padding: 30px; text-align: center;">
+                     <div class="logo" style="display: flex; align-items: center; justify-content: center; margin-bottom: 4rem;">
+                        <img style="width: 40px; height: 62px;" id="logo1" src="./assets/logo.png" alt="">
+                        <img style="width: 150px; margin-left: 24px;" id="isotipo1" src="./assets/isotipo.png" alt="">
+                     </div>
+                    <h2>Aplicación cerrada</h2>
+                    <p>El servidor local fue detenido correctamente.</p>
+                    <p>Ya podés cerrar esta pestaña.</p>
+                </div>
+            `;
+            window.close();
+        }
+    } catch (error) {
+        console.error('Error al cerrar la aplicación:', error);
+    }
 }
 
 // THEME

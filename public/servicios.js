@@ -326,58 +326,110 @@ function marcarModificacionServicios (idInput) {
     datosServiciosDeuda.find(s => s.numeroRecibo == numeroReciboT && s.nombreServicio == nombreServicioT).modificado = true;
 }
 
+// function crearInputsServicioInModal(service, idContenedor) {
+//     const contServTaxex = document.getElementById(idContenedor); // ID de tu contenedor
+
+//     // 1. Crear el contenedor principal
+//     const divItem = document.createElement('div');
+//     divItem.className = 'service-tax-item';
+//     divItem.dataset.numRecibo = service.numeroRecibo;
+
+//     // 2. Crear la etiqueta (Label)
+//     const opDate2 = {year:'numeric',month:'short'};
+//     let sv =  new Date(service.mesAlquiler) //Date.parse(service.vencimiento)+86400000
+//     let dateShortServ = new Date(sv).toLocaleDateString("sp-IN", opDate2)
+//     const label = document.createElement('label');
+//     label.htmlFor = `${service.nombreServicio}-${service.numeroRecibo}`;
+//     label.textContent = `${service.nombreServicio}-${service.numeroRecibo} (${dateShortServ})`;
+
+//     //Evento click en el label
+//     label.addEventListener('click', function(e) {
+//         e.preventDefault();
+//         verRecivoSeleccionadoEnModal(service.numeroRecibo);
+//     });
+
+
+//     // 3. Crear el Input de Fecha (Vencimiento)
+//     const inputDate = document.createElement('input');
+//     inputDate.type = 'date';
+//     inputDate.name = `vencimiento-${service.nombreServicio}-${service.numeroRecibo}`;
+//     inputDate.id = `vto-${service.nombreServicio}-${service.numeroRecibo}`;
+//     if (service.vencimiento) {
+//         inputDate.value = (service.vencimiento).slice(0, 10);
+//     }
+
+//     // 4. VINCULAR el evento correctamente usando addEventListener
+//     inputDate.addEventListener('change', marcarModificacionServicios(inputDate.id));
+
+//     // 5. Crear el Input Checkbox (Pagado)
+//     const inputCheckbox = document.createElement('input');
+//     inputCheckbox.type = 'checkbox';
+//     inputCheckbox.name = `pagado-${service.nombreServicio}-${service.numeroRecibo}`;
+//     inputCheckbox.id = `pagado-${service.nombreServicio}-${service.numeroRecibo}`;
+
+//     // 6. VINCULAR el evento correctamente
+//     inputCheckbox.addEventListener('change', marcarModificacionServicios(inputCheckbox.id));
+
+//     // 7. Ensamblar la estructura
+//     divItem.appendChild(label);
+//     divItem.appendChild(inputDate);
+//     divItem.appendChild(inputCheckbox);
+
+//     // 8. Añadir al contenedor padre
+//     contServTaxex.appendChild(divItem);
+// }
+
 function crearInputsServicioInModal(service, idContenedor) {
-    const contServTaxex = document.getElementById(idContenedor); // ID de tu contenedor
+    const contenedor = document.getElementById(idContenedor);
 
-    // 1. Crear el contenedor principal
-    const divItem = document.createElement('div');
-    divItem.className = 'service-tax-item';
-    divItem.dataset.numRecibo = service.numeroRecibo;
+    const dateShortServ = new Date(service.mesAlquiler)
+        .toLocaleDateString('es-AR', {
+            year: 'numeric',
+            month: 'short'
+        });
 
-    // 2. Crear la etiqueta (Label)
-    const opDate2 = {year:'numeric',month:'short'};
-    let sv =  new Date(service.mesAlquiler) //Date.parse(service.vencimiento)+86400000
-    let dateShortServ = new Date(sv).toLocaleDateString("sp-IN", opDate2)
-    const label = document.createElement('label');
-    label.htmlFor = `${service.nombreServicio}-${service.numeroRecibo}`;
-    label.textContent = `${service.nombreServicio}-${service.numeroRecibo} (${dateShortServ})`;
+    const idServicio = `${service.nombreServicio}-${service.numeroRecibo}`;
 
-    //Evento click en el label
-    label.addEventListener('click', function(e) {
+    const html = `
+        <div class="service-tax-item" data-num-recibo="${service.numeroRecibo}">
+            <label
+                class="service-label"
+                for="vto-${idServicio}"
+                data-num-recibo="${service.numeroRecibo}">
+                ${service.nombreServicio}-${service.numeroRecibo} (${dateShortServ})
+            </label>
+
+            <input
+                type="date"
+                name="vencimiento-${idServicio}"
+                id="vto-${idServicio}"
+                value="${service.vencimiento?.slice(0, 10) ?? ''}">
+
+            <input
+                type="checkbox"
+                name="pagado-${idServicio}"
+                id="pagado-${idServicio}">
+        </div>
+    `;
+
+    contenedor.insertAdjacentHTML('beforeend', html);
+
+    const item = contenedor.lastElementChild;
+
+    item.querySelector('.service-label').addEventListener('click', e => {
         e.preventDefault();
         verRecivoSeleccionadoEnModal(service.numeroRecibo);
     });
 
+    item.querySelector('input[type="date"]').addEventListener('change', e => {
+        marcarModificacionServicios(e.target.id);
+    });
 
-    // 3. Crear el Input de Fecha (Vencimiento)
-    const inputDate = document.createElement('input');
-    inputDate.type = 'date';
-    inputDate.name = `vencimiento-${service.nombreServicio}-${service.numeroRecibo}`;
-    inputDate.id = `vto-${service.nombreServicio}-${service.numeroRecibo}`;
-    if (service.vencimiento) {
-        inputDate.value = (service.vencimiento).slice(0, 10);
-    }
-
-    // 4. VINCULAR el evento correctamente usando addEventListener
-    inputDate.addEventListener('change', marcarModificacionServicios(inputDate.id));
-
-    // 5. Crear el Input Checkbox (Pagado)
-    const inputCheckbox = document.createElement('input');
-    inputCheckbox.type = 'checkbox';
-    inputCheckbox.name = `pagado-${service.nombreServicio}-${service.numeroRecibo}`;
-    inputCheckbox.id = `pagado-${service.nombreServicio}-${service.numeroRecibo}`;
-
-    // 6. VINCULAR el evento correctamente
-    inputCheckbox.addEventListener('change', marcarModificacionServicios(inputCheckbox.id));
-
-    // 7. Ensamblar la estructura
-    divItem.appendChild(label);
-    divItem.appendChild(inputDate);
-    divItem.appendChild(inputCheckbox);
-
-    // 8. Añadir al contenedor padre
-    contServTaxex.appendChild(divItem);
+    item.querySelector('input[type="checkbox"]').addEventListener('change', e => {
+        marcarModificacionServicios(e.target.id);
+    });
 }
+
 
 let servicioPagadoEnModalAIncorporarEnRecibo = [];
 

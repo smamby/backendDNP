@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const routes = require('./routes/routes');
-
+const { exec } = require('child_process');
 const db = require('./db');
 const URI = 'mongodb://127.0.0.1:27017/delNorteProp';
 
@@ -29,12 +29,19 @@ routes(app); //router tiene que estar despues de cors!!
 const server = app.listen(port, ()=>{
     console.log(`Version 6.02 - 2026-01`)
     console.log('http://localhost:'+port)
+
+    exec(`start "" brave --app=http://localhost:${port}/index.html`);
+
 })
 
-app.post('/close', (req,res)=>{
+app.post('/close', (req, res) => {
+
+    console.log('Cerrando aplicación...');
+
+    res.sendStatus(200);
+
     server.close(() => {
         console.log('El servidor se cerró de forma segura.');
-        res.sendStatus(200);
         process.exit(0);
     });
-})
+});

@@ -314,6 +314,18 @@ body {
     width: 210px;
     cursor: pointer;
 }
+/* .service-label:hover {
+    background-color: rgba(165, 208, 244, 0.23);
+    padding: 0 4px;
+    border-radius: 8px;
+} */
+.service-tax-item input[type="date"] {
+    width: 100px;
+}
+.service-tax-item input[type="checkbox"] {
+    text-align: end;
+
+}
 .cont-firma-total{
     display: flex;
     border-top: solid 1px black;
