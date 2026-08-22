@@ -69,7 +69,20 @@ function styleDark(){
    }
 };
 function randomColor(){
-   document.body.style.background = `#${Math.floor(Math.random() * 0xffffff).toString(16)}`
+
+   // 1. Generar un color aleatorio (número entero de 0 a 0xFFFFFF)
+   const randomColor = Math.floor(Math.random() * 0xffffff);
+   document.body.style.background = randomColor;
+
+   // 2. Formatear a hexadecimal con 6 dígitos y asignar al fondo
+   const bgHex = `#${randomColor.toString(16).padStart(6, '0')}`;
+   document.body.style.background = bgHex;
+
+   // 3. Calcular el color complementario (255 - cada componente)
+   const complement = (0xffffff - randomColor).toString(16).padStart(6, '0');
+
+   // 4. Asignar a la variable CSS --btnAlert
+   document.documentElement.style.setProperty('--btnAlert', `#${complement}`);
 }
 
 var divImp = document.getElementById("imprimir");

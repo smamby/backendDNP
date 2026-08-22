@@ -7,7 +7,7 @@
     --span: darkred;
 }
 .dark {
-    --html: black;
+    --html: rgb(9, 9, 9);
     --primary: rgb(32, 32, 32);
     --secondary: whitesmoke;
     --btnAlert: gold;
@@ -39,10 +39,13 @@ body {
         position: fixed;
     left: calc(50vw + 330px);
     top: 130px;
+    transition: background-color 0.5s ease, border 0.3s ease;
+
 }
 #btnClose:hover {
     background-color: #9dc8e2;
     border: 1px solid rgb(177, 186, 194);
+    transition: background-color 0.7s ease, border 0.9s ease;
 }
 #btnClose2 {
     width: 30px;
@@ -54,10 +57,12 @@ body {
         position: fixed;
     left: calc(50vw + 330px);
     top: 165px;
+    transition: background-color 0.5s ease, border 0.3s ease;
 }
 #btnClose2:hover {
     background-color: #d6dce0;
     border: 1px solid rgb(177, 186, 194);
+    transition: background-color 0.7s ease, border 0.9s ease;
 }
 #btnClose3 {
     width: 30px;
@@ -69,10 +74,12 @@ body {
         position: fixed;
     left: calc(50vw + 330px);
     top: 200px;
+    transition: background-color 0.5s ease, border 0.3s ease;
 }
 #btnClose3:hover {
     background-color: #d6dce0;
     border: 1px solid rgb(177, 186, 194);
+    transition: background-color 0.7s ease, border 0.9s ease;
 }
 #impInq{
     display: flex;

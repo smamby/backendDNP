@@ -7,10 +7,13 @@ const bodyParser = require('body-parser')
 const cors = require('cors');
 const routes = require('./routes/routes');
 const { spawn } = require('child_process');
+
 const db = require('./db');
 const URI = 'mongodb://127.0.0.1:27017/delNorteProp';
 
+
 db(URI);
+
 
 const port = process.env.PORT || 5500
 
