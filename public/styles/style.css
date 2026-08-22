@@ -42,6 +42,7 @@ body {
 }
 #btnClose:hover {
     background-color: #9dc8e2;
+    border: 1px solid rgb(177, 186, 194);
 }
 #btnClose2 {
     width: 30px;
@@ -56,6 +57,7 @@ body {
 }
 #btnClose2:hover {
     background-color: #d6dce0;
+    border: 1px solid rgb(177, 186, 194);
 }
 #btnClose3 {
     width: 30px;
@@ -70,6 +72,7 @@ body {
 }
 #btnClose3:hover {
     background-color: #d6dce0;
+    border: 1px solid rgb(177, 186, 194);
 }
 #impInq{
     display: flex;
