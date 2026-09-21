@@ -343,6 +343,9 @@ async function imprimirReciboPDFBack(inbody,filename){
 
   if (window.isFetching) return;
   window.isFetching = true;
+
+  mostrarSpinner();
+
   try {
     const response = await fetch(u+p, {
       method: 'POST',
@@ -374,7 +377,9 @@ async function imprimirReciboPDFBack(inbody,filename){
     throw error;
   } finally {
     window.isFetching = false;
+    ocultarSpinner();
   }
+
 }
 
 //window.imprimirReciboPDFBack = imprimirReciboPDFBack;
@@ -383,32 +388,54 @@ async function imprimirReciboPDFBack(inbody,filename){
 
 
 async function sendMailToBackend(filename, destiny, subjectmail, bodymail) {
-  const response = await fetch(u+sm, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      filenamePDF: filename,
-      mailDestiny: destiny,
-      subjectMail: subjectmail,
-      bodyMail: bodymail,
-    })
-  })
-  if (!response.ok){
-    alert(await response.text());
-    throw new Error('Error al intentar mandar el mail '+ await response.text());
+  // Mostramos el spinner
+  mostrarSpinner();
+
+  try {
+    const response = await fetch(u + sm, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        filenamePDF: filename,
+        mailDestiny: destiny,
+        subjectMail: subjectmail,
+        bodyMail: bodymail,
+      })
+    });
+
+    if (!response.ok) {
+      const errorMsg = await response.text();
+      alert(errorMsg);
+      throw new Error('Error al intentar mandar el mail: ' + errorMsg);
+    }
+
+    const result = await response.text();
+    console.log(result);
+    alert(result);
+  } catch (error) {
+    console.error('Error al enviar mail:', error);
+  } finally {
+    // Se ejecuta sin importar si el mail se envió con éxito o si falló
+    ocultarSpinner();
   }
-  const result = await response.text();
-  console.log(result);
-  alert(result);
 }
 
 window.onbeforeunload = ()=>{
   return 'ACEPTAR para cerrar la aplicacion. CANCELAR para refrescar la pagina'
 }
 
+function mostrarSpinner() {
+  const container = document.getElementById('cont-spiner');
+  if (container) container.style.display = 'flex';
+}
+
+function ocultarSpinner() {
+  const container = document.getElementById('cont-spiner');
+  if (container) container.style.display = 'none';
+}
 
 // window.addEventListener('unload', ()=>{
 //   fetch(u+'/close',{

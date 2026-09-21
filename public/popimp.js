@@ -37,9 +37,5 @@ function impPDF() {
         console.error('Error in PDF generation process:', error);
     }
 }
-impPDF();
 
-// var res = impPDF();
-// if (res.ok) {
-//     windows.close()
-// }
+impPDF();
