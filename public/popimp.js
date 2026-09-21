@@ -9,13 +9,13 @@ divHTML.id = 'divHTML';
 divHTML.innerHTML = fichaImpI;
 div.appendChild(divHTML)
 
-function impPdfInq(){
+async function impPdfInq(){
     var fichaInq = div.outerHTML;
     var fileNameInq =  `${re.numeroRecibo} ${co.direccion} inq.pdf`;
     window.isFetching = false;
-    imprimirReciboPDFBack(fichaInq,fileNameInq)
+    await imprimirReciboPDFBack(fichaInq,fileNameInq)
 };
-function impPdfProp(){
+async function impPdfProp(){
     divHTML.innerHTML = '';
     divHTML.innerHTML = fichaImpP;
     div.appendChild(divHTML);
@@ -24,17 +24,25 @@ function impPdfProp(){
     //console.log("[[[POPIMP 2]]]   "+fichaProp)
     var fileNameProp =  `${re.numeroRecibo} ${co.direccion} prop.pdf`;
     window.isFetching = false;
-    imprimirReciboPDFBack(fichaProp,fileNameProp)
+    await imprimirReciboPDFBack(fichaProp,fileNameProp)
 
 };
 
-function impPDF() {
+async function impPDF() {
+    mostrarSpinner(); // Activa el spinner al inicio de todo el proceso
     try {
-        impPdfInq();
-        impPdfProp();
-        //setTimeout(() => {window.close()}, 1000);
+        await impPdfInq();
+        await impPdfProp();
+
+        // Un pequeño retraso opcional para asegurar que el servidor respondió todo
+        setTimeout(() => {
+            window.close();
+        }, 500);
     } catch (error) {
         console.error('Error in PDF generation process:', error);
+        alert('Ocurrió un error al generar los archivos PDF.');
+    } finally {
+        ocultarSpinner(); // Se oculta en caso de error o finalización
     }
 }
 

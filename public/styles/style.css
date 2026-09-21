@@ -559,6 +559,7 @@ input :not(input[type="button"]) {
 
 #cont-spiner {
     display: none;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -576,6 +577,11 @@ input :not(input[type="button"]) {
     border-top: 8px solid var(--btnAlert);
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+.spiner-text {
+    color: var(--btnAlertFont);
+    font-size: 18px;
+    margin-top: 16px;
 }
 @keyframes spin {
     0% { transform: rotate(0deg); }
