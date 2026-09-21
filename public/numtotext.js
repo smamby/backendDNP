@@ -299,6 +299,9 @@ function select(numLength){
 }
 
 function init(into){
+    if(into.toString()[0]=='-'){
+        return 'menos '+init(into.toString().slice(1))
+    }
     input = into
     numString = input.toString();
     numLength = numString.length;
