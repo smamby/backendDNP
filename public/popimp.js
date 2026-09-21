@@ -39,8 +39,8 @@ async function impPDF() {
             window.close();
         }, 500);
     } catch (error) {
-        console.error('Error in PDF generation process:', error);
-        alert('Ocurrió un error al generar los archivos PDF.');
+        //console.error('Error in PDF generation process:', error);
+        //alert('Ocurrió un error al generar los archivos PDF.');
     } finally {
         ocultarSpinner(); // Se oculta en caso de error o finalización
     }
