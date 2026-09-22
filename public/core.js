@@ -447,7 +447,8 @@ async function buscarRecibo(){
    }
 }
 async function buscarTodosRecibosContrato() {
-   let idContrato = document.getElementById('buscarInput').value || contratoLevantado[0].idContrato;
+   const buscarValue = document.getElementById('buscarInput').value.trim();
+   let idContrato = buscarValue || contratoLevantado[0]?.idContrato || '';
    if (idContrato === '' || idContrato === null) {
         idContrato = prompt('Falta un id de contrato, puedes ingresar uno aca')
         if (idContrato === null) return
