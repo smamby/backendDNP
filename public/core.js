@@ -407,6 +407,7 @@ async function buscarRecibo(){
    // document.getElementById("cont-montosProp").innerHTML = '';
    // document.getElementById("cont-detalleOnlyProp").innerHTML = '';
    // document.getElementById("cont-montosOnlyProp").innerHTML = '';
+   //debugger
    items = [];
    itemsOnlyProp = [];
    detalleTotal = 0;
@@ -434,9 +435,11 @@ async function buscarRecibo(){
       return false;
    } else {
       await getContrato(reciboLevantado[0].idContrato)
+      itemEncontrado = contratoLevantado[0];
       levantarContrato(contratoLevantado[0]);
       document.getElementById('buscarRecibo').value = '';
-      itemEncontrado = contratoLevantado[0];
+      deleteDetalle();
+      deleteDetalleOnlyProp();
       cargarRecibo()
       await impInq();
       let viewPosition = document.getElementById('inbody-inq');
@@ -444,7 +447,7 @@ async function buscarRecibo(){
    }
 }
 async function buscarTodosRecibosContrato() {
-   let idContrato = document.getElementById('buscarInput').value;
+   let idContrato = document.getElementById('buscarInput').value || contratoLevantado[0].idContrato;
    if (idContrato === '' || idContrato === null) {
         idContrato = prompt('Falta un id de contrato, puedes ingresar uno aca')
         if (idContrato === null) return
@@ -481,7 +484,9 @@ function desplegarDataRecibosContrato(direccion) {
    addressTitle.innerHTML = `${direccion}`
    document.getElementById('content-services').innerHTML = '';
 
-   for (recibo of reciboLevantado) {
+   let recibosOrdenados = reciboLevantado.sort((a,b) => b.numeroRecibo - a.numeroRecibo)
+
+   for (recibo of recibosOrdenados) {
       imprimirDataRecibo(recibo);
    }
 }
