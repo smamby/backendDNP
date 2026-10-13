@@ -643,6 +643,36 @@ async function updateDatosBancarios(e) {
     }
 }
 
+async function sumatoriaLiquidacionMensual (liquidaciones) {
+    let liq
+    if (!liquidaciones || liquidaciones.length === 0) {
+        alert('No hay recibos para liquidar este mes aun.');
+        console.log('No hay recibos para liquidar este mes aun.');
+        return
+    }
+    liq = liquidaciones
+    let propietarios = new Set(propietarios = liq.map(liq => liq.propietario))
+    let contId = liq.map(l => l.idContrato)
+    for (let prop of propietarios) {
+        for (let cId of contId) {
+            liq.forEach(l => {
+                if (l.propietario === prop && l.idContrato === cId) {
+                    let sumaDetalles = l.detalles.reduce((acc, curr) => acc + Number(curr[1]), 0);
+                    //console.log( `sumaDetalles contrato ${cId} propietario ${prop}`, sumaDetalles);
+                    let sumaDetallesOnlyProp = l.detallesOnlyProp.reduce((acc, curr) => acc + Number(curr[1]), 0);
+                    //console.log( `sumaDetallesOnlyProp contrato ${cId} propietario ${prop}`, sumaDetallesOnlyProp);
+                    let comision = Math.floor(Number(l.montoAlquiler) * -0.05);
+                    let total = Number(l.montoAlquiler) + comision + sumaDetalles + sumaDetallesOnlyProp;
+                    //console.log(`comision contrato ${cId} propietario ${prop}`, comision);
+                    //console.log(`montoAlquiler contrato ${cId} propietario ${prop}`, l.montoAlquiler);
+                    console.log(`Total liquidacion propietario ${prop} contrato ${cId} num recibo ${l.numeroRecibo}`, total);
+                }
+            })
+        }
+
+    }
+}
+
 
 function setNum(num){
     NUMERACION=num;

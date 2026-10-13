@@ -26,6 +26,7 @@ async function getRecibosForLiquidaciones(fechaVencimiento) {
     .select({
         propietario: 1,
         idContrato: 1,
+        numeroRecibo: 1,
         detalles: 1,
         detallesOnlyProp: 1,
         montoAlquiler: 1,
