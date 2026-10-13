@@ -42,25 +42,38 @@ async function getRecibos(searchParam){
     return data
 }
 
+let recibosReducidos;
 async function getRecibosForLiquidaciones () {
   let today = new Date(Date.now());
   let todayMonth = today.getMonth() + 1;
   let lastDayOfMonth = new Date(today.getFullYear(), todayMonth, 0).getDate();
   let lastDayOfMonthDate = new Date(today.getFullYear(), todayMonth - 1, lastDayOfMonth);
-  let fechaVencimiento =prompt('Ingrese la fecha de vencimiento en formato YYYY-MM-DD', lastDayOfMonthDate.toISOString().split('T')[0]);
+  let fechaVencimiento = prompt('Ingrese la fecha de vencimiento en formato YYYY-MM-DD', lastDayOfMonthDate.toISOString().split('T')[0]);
+
   if (!fechaVencimiento) {
     alert('La fecha de vencimiento no es válida');
     throw new Error('La fecha de vencimiento es obligatoria');
   }
-  const recibosReducidos = await fetch(`${u}${r}liquidaciones/${fechaVencimiento}`, {
+
+  const response = await fetch(`${u}${r}liquidaciones/${fechaVencimiento}`, {
     method: 'GET',
     mode: 'cors'
   });
-  let data = await recibosReducidos.json();
-  console.log('url: ', `${u}${r}liquidaciones/${fechaVencimiento}`);
-  console.log('recibos reducidos', data);
-  return data;
+
+  console.log('Status HTTP:', response.status);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Error devuelto por el servidor:', errorText);
+    throw new Error(`Error del servidor: ${response.status}`);
+  }
+
+  let recibosReduc = await response.json();
+  console.log('recibos reduc', recibosReduc);
+  recibosReducidos = recibosReduc;
+  return recibosReduc;
 }
+
 async function getRecibosContrato(searchParam){
     const res = await fetch(u+r+'contrato/'+searchParam, {
       method: 'GET',

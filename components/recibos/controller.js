@@ -109,6 +109,7 @@ function editRecibo(searchParam,change){
 module.exports = {
     getRecibo,
     getRecibosContrato,
+    getRecibosForLiquidaciones,
     addRecibo,
     editRecibo
     //imprimirPDF,

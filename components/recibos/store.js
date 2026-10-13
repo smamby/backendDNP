@@ -22,20 +22,20 @@ function getRecibosContrato(searchParam) {
 
 async function getRecibosForLiquidaciones(fechaVencimiento) {
     try {
-        const recibosReducidos = await Model.find({fechaVencimiento: fechaVencimiento})
-            .project({
-                propietario: 1,
-                idContrato: 1,
-                detalles: 1,
-                detallesOnlyProp: 1,
-                montoAlquiler: 1,
-                tipoHonorarios: 1,
-                _id: 0
-            })
-            .toArray();
-        console.log('[store] recibos reducidos: ', recibosReducidos);
+        const recibosReducidos = await Model.find({ fechaVencimiento: fechaVencimiento })
+    .select({
+        propietario: 1,
+        idContrato: 1,
+        detalles: 1,
+        detallesOnlyProp: 1,
+        montoAlquiler: 1,
+        tipoHonorarios: 1,
+        _id: 0
+    })
+    .lean();
         return recibosReducidos;
     } catch (error) {
+        console.log('[store] Error al obtener los recibos para liquidaciones: ', error);
         throw new Error('Error al obtener los recibos para liquidaciones: ' + error.message);
     }
 }
@@ -67,5 +67,6 @@ module.exports = {
     add: addRecibo,
     get: getRecibo,
     getRecibosContrato: getRecibosContrato,
+    getRecibosForLiquidaciones: getRecibosForLiquidaciones,
     update: editRecibo
 }
