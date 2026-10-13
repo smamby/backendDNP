@@ -25,12 +25,15 @@ async function getRecibosForLiquidaciones(fechaVencimiento) {
         const recibosReducidos = await Model.find({fechaVencimiento: fechaVencimiento})
             .project({
                 propietario: 1,
+                idContrato: 1,
                 detalles: 1,
                 detallesOnlyProp: 1,
                 montoAlquiler: 1,
+                tipoHonorarios: 1,
                 _id: 0
             })
             .toArray();
+        console.log('[store] recibos reducidos: ', recibosReducidos);
         return recibosReducidos;
     } catch (error) {
         throw new Error('Error al obtener los recibos para liquidaciones: ' + error.message);

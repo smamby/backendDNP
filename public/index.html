@@ -18,6 +18,7 @@
     <button id="btnClose">X</button>
     <button id="btnClose2" onclick="buscarTodosRecibosContrato()">R</button>
     <button id="btnClose3" onclick="buscarServiciosDeudaConId()">S</button>
+    <button id="btnClose4" onclick="getRecibosForLiquidaciones()">L</button>
 
     <div class="logo" style="display: flex; align-items: center;margin-right: auto; margin-left: auto;">
         <img style="width: 40px; height: 62px;" id="logo1" src="./assets/logo.png" alt="">
@@ -101,7 +102,8 @@
                     <input type="number" id="valor3" class="valor3" name="valor3" placeholder="valor 3er año"> -->
                     <input type="number" id="duracionContrato" class="duracionContrato" name="duracionContrato" placeholder="Duracion contrato (meses)">
                     <input type="number" id="periodoActualizacion" class="periodoActualizacion" name="periodoActualizacion" placeholder="Periodo de actualización (meses)">
-                    <a id="calc" href="https://cabaprop.com.ar/calculadora.php" target="_blank" rel="noreferrer nopener">Calculadora</a>
+                    <!-- <a id="calc" href="https://cabaprop.com.ar/calculadora.php" target="_blank" rel="noreferrer nopener">Calculadora</a> -->
+                    <p id="init-contrato">Inicio del contrato</p>
                     <input type="date" id="inicioContrato" class="inicioContrato" name="inicioContrato" placeholder="inicioContrato">
                 </div>
             </div>

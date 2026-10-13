@@ -47,7 +47,7 @@ body {
     border: 1px solid rgb(177, 186, 194);
     transition: background-color 0.7s ease, border 0.9s ease;
 }
-#btnClose2 {
+#btnClose2, #btnClose3, #btnClose4 {
     width: 30px;
     height: 30px;
     background-color: rgb(177, 186, 194);
@@ -59,12 +59,18 @@ body {
     top: 165px;
     transition: background-color 0.5s ease, border 0.3s ease;
 }
-#btnClose2:hover {
+#btnClose3 {
+    top: 200px;
+}
+#btnClose4 {
+    top: 235px;
+}
+#btnClose2:hover, #btnClose3:hover, #btnClose4:hover {
     background-color: #d6dce0;
     border: 1px solid rgb(177, 186, 194);
     transition: background-color 0.7s ease, border 0.9s ease;
 }
-#btnClose3 {
+/* #btnClose3 {
     width: 30px;
     height: 30px;
     background-color: rgb(177, 186, 194);
@@ -80,7 +86,7 @@ body {
     background-color: #d6dce0;
     border: 1px solid rgb(177, 186, 194);
     transition: background-color 0.7s ease, border 0.9s ease;
-}
+} */
 #impInq{
     display: flex;
 }
@@ -168,6 +174,10 @@ p{
     margin-top: 24px;
     margin-bottom: 4px;
 }
+#init-contrato {
+    margin-top: 6px;
+    font-size: 12px;
+}
 span {
     color: var(--span);
     font-family: Roboto Mono;
@@ -247,7 +257,7 @@ span {
     padding: 4px 0;
 }
 #desplegar_datos_bancarios {
-    width: 177px;
+    width: 170px;
 }
 .subirArchivos{
     margin-top: 12px;
