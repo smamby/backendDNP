@@ -29,6 +29,14 @@ function getRecibosContrato (searchParam) {
         resolve(store.getRecibosContrato(searchParam));
     })
 }
+async function getRecibosForLiquidaciones(fechaVencimiento) {
+    try {
+        const recibosReducidos = await store.getRecibosForLiquidaciones(fechaVencimiento);
+        return recibosReducidos;
+    } catch (error) {
+        throw new Error('Error al obtener los recibos para liquidaciones: ' + error.message);
+    }
+}
 
 function addRecibo(dataRecibo){
     return new Promise((resolve,reject)=>{

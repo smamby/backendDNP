@@ -41,6 +41,14 @@ async function getRecibos(searchParam){
     reciboLevantado = data;
     return data
 }
+
+async function getRecibosForLiquidaciones () {
+  const recibosReducidos = await fetch(`${u}${r}liquidaciones`, {
+    method: 'GET',
+    mode: 'cors'
+  });
+  return await recibosReducidos.json();
+}
 async function getRecibosContrato(searchParam){
     const res = await fetch(u+r+'contrato/'+searchParam, {
       method: 'GET',

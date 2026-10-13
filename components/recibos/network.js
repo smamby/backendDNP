@@ -23,6 +23,18 @@ router.get('/contrato/:num', (req,res)=>{
         })
 })
 
+router.get('/liquidaciones', (req, res) => {
+    const fechaVencimiento = req.params.fechaVencimiento;
+    controller.getRecibosForLiquidaciones(fechaVencimiento)
+        .then((recibosReducidos)=>{
+            console.log('[controller] recibos reducidos: ', recibosReducidos)
+           res.send(recibosReducidos)
+        })
+        .catch(error => {
+            res.send(error)
+        })
+})
+
 // const body = {
 //     "numeroRecibo": 14,
 //     "fechaRecibo": "2023/10/04",

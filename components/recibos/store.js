@@ -20,6 +20,24 @@ function getRecibosContrato(searchParam) {
     })
 }
 
+async function getRecibosForLiquidaciones(fechaVencimiento) {
+    try {
+        const recibosReducidos = await Model.find({fechaVencimiento: fechaVencimiento})
+            .project({
+                propietario: 1,
+                detalles: 1,
+                detallesOnlyProp: 1,
+                montoAlquiler: 1,
+                _id: 0
+            })
+            .toArray();
+        return recibosReducidos;
+    } catch (error) {
+        throw new Error('Error al obtener los recibos para liquidaciones: ' + error.message);
+    }
+}
+
+
 function addRecibo(nuevoRecibo){
     const recibo = new Model(nuevoRecibo);
     recibo.save();
@@ -27,7 +45,7 @@ function addRecibo(nuevoRecibo){
 
 async function editRecibo(searchParam, change){
     let filter = {numeroRecibo:searchParam}
-    
+
     const reciboActualizado = await Model.findOneAndUpdate(
         filter,
         { $set: change },
