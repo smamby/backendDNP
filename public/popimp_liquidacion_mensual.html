@@ -4,18 +4,17 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="./styles/impPDF.css">
+        <link rel="stylesheet" type="text/css" href="./styles/impLiquidacion.css">
     </head>
 
-    <body style="width: 628px">
+    <body>
+
         <div class="cont-liquidacion" id="cont-liquidacion">
             <div class="cont-header">
                 <div class="cont-logo">
-                    <img src="./images/logo.png" alt="Logo" class="logo">
+                    <img src="./assets/logo.png" alt="Logo" id="logo">
                 </div>
-                <div class="cont-titulo">
-                    <h1>LIQUIDACIÓN MENSUAL</h1>
-                </div>
+                
             </div>
             <div id="body-liquidacion">
 
@@ -23,18 +22,17 @@
 
 
         </div>
+        <script src="./auto.js"></script>
         <script>
-            var fichaImpLiquidacion = localStorage.getItem('fichaImpLiquidacion');
-            var div = document.getElementById('body-liquidacion');
+            let fichaImpLiquidacion = localStorage.getItem('fichaLiquidaciones');
+            let div = document.getElementById('body-liquidacion');
             // var fichaImpP = localStorage.getItem('fichaP');
             // var re = JSON.parse(localStorage.getItem('recibo'));
             // var co = JSON.parse(localStorage.getItem('contrato'));
             // var divHTML = document.createElement('div');
-            divHTML.id = 'divHTML';
-            divHTML.innerHTML = fichaImpLiquidacion;
-            div.appendChild(divHTML)
+
+            div.innerHTML = fichaImpLiquidacion;
         </script>
-        <script src="./auto.js"></script>
 
     </body>
 </html>

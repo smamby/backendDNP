@@ -721,7 +721,8 @@ async function plantillaImprimirLiquidacionMensual(objetoLiquidacion) {
     let reconstruccion = '';
     for (let propietario of objetoLiquidacion.propietarios) {
         let total = propietario.liquidaciones.reduce((acc, curr) => acc + Number(curr.total), 0);
-        reconstruccion += `<br><h3>${propietario.nombrePropietario}: $ ${total.toFixed(2)}</h3>`;
+        reconstruccion += `<div class="grupo-liquidacion">`
+        reconstruccion += `<h3>${propietario.nombrePropietario}: $ ${new Intl.NumberFormat('es-Ar', {}).format(total.toFixed(2))}</h3>`;
         for (let liquidacion of propietario.liquidaciones) {
             let direccion = indices.filter(i => i[0] === liquidacion.numeroContrato)[0][1];
 
@@ -729,21 +730,22 @@ async function plantillaImprimirLiquidacionMensual(objetoLiquidacion) {
                 <div class="modulo-liquidacion">
                     <p>Direccion: ${direccion || 'N/A'}</p>
                     <p>Recibo número: ${liquidacion.numeroRecibo || 'N/A'}</p>
-                    <p>Liquidacion Departamento: ${liquidacion.total}</p>
-                    <br>
+                    <p>Liquidacion Departamento: $ ${new Intl.NumberFormat('es-Ar', {}).format(liquidacion.total)}</p>
+                    
                 </div>
             `
             reconstruccion += moduloTemplate;
         }
+        reconstruccion += `</div>`;
     }
     let template = `
-        <h2>Liquidación Mensual de: ${fechaTemplate}</h2>
+        <h1>Liquidacion de ${fechaTemplate}</h1>
         <div class="cont-liquidaciones">
             ${reconstruccion}
         </div>
     `
     console.log('template', template);
-    //newPopupImprimirLiquidacion(template)
+    newPopupImprimirLiquidacion(template)
 }
 
 
