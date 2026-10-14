@@ -1181,7 +1181,7 @@ async function imprimirBoletaPDF(){
    }
 }
 async function imprimirBoletaPDFBACK(){
-   if (itemEncontrado!=''){
+   if (itemEncontrado != ''){
       await impInq();
       // var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`;
       var fichaI = document.getElementById('inbody-inq');
@@ -1273,6 +1273,20 @@ function sendEmailBACK(div){
    } else {
       alert('Cargá algun contrato, no cargaste ninguno.');
       document.getElementById("buscarInput").focus();
+   }
+}
+
+async function newPopupImprimirLiquidacion(template){
+   if (template != ''){
+
+      var fichaLiquidaciones = template;
+
+      localStorage.setItem('fichaLiquidaciones', fichaLiquidaciones)
+
+      var wImp = window.open('http://localhost:5500/popimp_liquidacion_mensual.html','_blank');
+
+   } else {
+      alert('No se tgenero la liquidacion correctamente.');
    }
 }
 

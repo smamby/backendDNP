@@ -42,18 +42,8 @@ async function getRecibos(searchParam){
     return data
 }
 
-let recibosReducidos;
-async function getRecibosForLiquidaciones () {
-  let today = new Date(Date.now());
-  let todayMonth = today.getMonth() + 1;
-  let lastDayOfMonth = new Date(today.getFullYear(), todayMonth, 0).getDate();
-  let lastDayOfMonthDate = new Date(today.getFullYear(), todayMonth - 1, lastDayOfMonth);
-  let fechaVencimiento = prompt('Ingrese la fecha de vencimiento en formato YYYY-MM-DD', lastDayOfMonthDate.toISOString().split('T')[0]);
-
-  if (!fechaVencimiento) {
-    alert('La fecha de vencimiento no es válida');
-    throw new Error('La fecha de vencimiento es obligatoria');
-  }
+//let recibosReducidos;
+async function getRecibosForLiquidaciones (fechaVencimiento) {
 
   const response = await fetch(`${u}${r}liquidaciones/${fechaVencimiento}`, {
     method: 'GET',
@@ -70,7 +60,8 @@ async function getRecibosForLiquidaciones () {
 
   let recibosReduc = await response.json();
   console.log('recibos reduc', recibosReduc);
-  recibosReducidos = recibosReduc;
+  //recibosReducidos = recibosReduc;
+  //sumatoriaLiquidacionMensual(recibosReduc);
   return recibosReduc;
 }
 
@@ -182,28 +173,28 @@ async function getOneDataBancaria (idContrato) {
   }
 }
 
-const r17 = {
-  "numeroRecibo": 17,
-  "fechaRecibo": "2021-10-04T03:00:00.000Z",
-  "propietario": "Fernanda Ramirez",
-  "inquilino": "Juana Colleman",
-  "montoAlquiler": 57000,
-  "fechaVencimiento": "2023-10-30T03:00:00.000Z",
-  "textoTotal": "Cincuenta y siete mil",
-  "detalles": [
-    [
-      "gas",
-      -3000
-    ],
-    [
-      "abl",
-      -500
-    ]
-  ],
-  "observaciones": "Adjunto recibo expensas mar 2023, luz mar 2023",
-  "tipoHonorarios": "administracion",
-  "idContrato": 435
-}
+// const r17 = {
+//   "numeroRecibo": 17,
+//   "fechaRecibo": "2021-10-04T03:00:00.000Z",
+//   "propietario": "Fernanda Ramirez",
+//   "inquilino": "Juana Colleman",
+//   "montoAlquiler": 57000,
+//   "fechaVencimiento": "2023-10-30T03:00:00.000Z",
+//   "textoTotal": "Cincuenta y siete mil",
+//   "detalles": [
+//     [
+//       "gas",
+//       -3000
+//     ],
+//     [
+//       "abl",
+//       -500
+//     ]
+//   ],
+//   "observaciones": "Adjunto recibo expensas mar 2023, luz mar 2023",
+//   "tipoHonorarios": "administracion",
+//   "idContrato": 435
+// }
 
 async function addRecibo(recibo){
   var numRecibo = recibo["numeroRecibo"]

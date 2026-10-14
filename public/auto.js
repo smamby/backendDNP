@@ -642,18 +642,44 @@ async function updateDatosBancarios(e) {
         alert(`Fallo en la operación. Motivo: ${error.message || 'Error desconocido'}`);
     }
 }
+async function solicitudLiquidacionMensual() {
+let today = new Date(Date.now());
+  let todayMonth = today.getMonth() + 1;
+  let lastDayOfMonth = new Date(today.getFullYear(), todayMonth, 0).getDate();
+  let lastDayOfMonthDate = new Date(today.getFullYear(), todayMonth - 1, lastDayOfMonth);
+  let fechaVencimiento = prompt('Ingrese la fecha de vencimiento en formato YYYY-MM-DD', lastDayOfMonthDate.toISOString().split('T')[0]);
 
-async function sumatoriaLiquidacionMensual (liquidaciones) {
-    let liq
+  if (!fechaVencimiento) {
+    alert('La fecha de vencimiento no es válida');
+    throw new Error('La fecha de vencimiento es obligatoria');
+  }
+
+    const liquidaciones = await getRecibosForLiquidaciones(fechaVencimiento);
+    console.log('liquidaciones', liquidaciones);
+    const objetoLiquidacion = await sumatoriaLiquidacionMensual(liquidaciones, fechaVencimiento);
+
+    plantillaImprimirLiquidacionMensual(objetoLiquidacion);
+}
+async function sumatoriaLiquidacionMensual (liquidaciones, fechaVencimiento) {
+    let liq;
+    let propietarios;
+    let liqObjeto = {
+        "fechaVencimiento": fechaVencimiento,
+        "propietarios": []
+    };
+
     if (!liquidaciones || liquidaciones.length === 0) {
         alert('No hay recibos para liquidar este mes aun.');
         console.log('No hay recibos para liquidar este mes aun.');
         return
     }
+
     liq = liquidaciones
-    let propietarios = new Set(propietarios = liq.map(liq => liq.propietario))
+    propietarios = new Set(propietarios = liq.map(liq => liq.propietario))
     let contId = liq.map(l => l.idContrato)
+
     for (let prop of propietarios) {
+        liqObjeto.propietarios.push({nombrePropietario: prop, liquidaciones: []});
         for (let cId of contId) {
             liq.forEach(l => {
                 if (l.propietario === prop && l.idContrato === cId) {
@@ -666,11 +692,58 @@ async function sumatoriaLiquidacionMensual (liquidaciones) {
                     //console.log(`comision contrato ${cId} propietario ${prop}`, comision);
                     //console.log(`montoAlquiler contrato ${cId} propietario ${prop}`, l.montoAlquiler);
                     console.log(`Total liquidacion propietario ${prop} contrato ${cId} num recibo ${l.numeroRecibo}`, total);
+
+                    liqObjeto.propietarios.find(p => p.nombrePropietario === prop).liquidaciones.push({
+                        numeroContrato: cId,
+                        numeroRecibo: l.numeroRecibo,
+                        total: total
+                    });
                 }
             })
         }
-
     }
+
+    console.log('liqObjeto', liqObjeto);
+    return liqObjeto;
+}
+
+async function plantillaImprimirLiquidacionMensual(objetoLiquidacion) {
+    let fechaVencimiento = objetoLiquidacion.fechaVencimiento;
+
+    const [año, mes] = fechaVencimiento.split('-');
+    const meses = [
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ];
+
+    const fechaTemplate = `${meses[parseInt(mes, 10) - 1]} ${año}`;
+
+    let reconstruccion = '';
+    for (let propietario of objetoLiquidacion.propietarios) {
+        let total = propietario.liquidaciones.reduce((acc, curr) => acc + Number(curr.total), 0);
+        reconstruccion += `<br><h3>${propietario.nombrePropietario}: $ ${total.toFixed(2)}</h3>`;
+        for (let liquidacion of propietario.liquidaciones) {
+            let direccion = indices.filter(i => i[0] === liquidacion.numeroContrato)[0][1];
+
+            let moduloTemplate = `
+                <div class="modulo-liquidacion">
+                    <p>Direccion: ${direccion || 'N/A'}</p>
+                    <p>Recibo número: ${liquidacion.numeroRecibo || 'N/A'}</p>
+                    <p>Liquidacion Departamento: ${liquidacion.total}</p>
+                    <br>
+                </div>
+            `
+            reconstruccion += moduloTemplate;
+        }
+    }
+    let template = `
+        <h2>Liquidación Mensual de: ${fechaTemplate}</h2>
+        <div class="cont-liquidaciones">
+            ${reconstruccion}
+        </div>
+    `
+    console.log('template', template);
+    //newPopupImprimirLiquidacion(template)
 }
 
 
