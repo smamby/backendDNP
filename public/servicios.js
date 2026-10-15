@@ -474,3 +474,15 @@ async function actualizarDeudaInModal() {
         buscar(contratoLevantado[0].idContrato);
     }
 }
+
+
+// buscar todos los servicios paa armar historial en tabla
+async function buscarAllServicesByContrato (idContrato) {
+    if (!idContrato || idContrato == null || idContrato === '') {
+        console.log('No se pudo cargar los servicios historicos');
+        return;
+    }
+
+    const servicios = await getAllServicesById(idContrato);
+    console.log('Servicios historicos encontrados:', servicios);
+}

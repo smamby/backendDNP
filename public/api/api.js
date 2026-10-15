@@ -125,6 +125,45 @@ async function getContratoServices (searchParam) {
   }
 }
 
+async function getAllServicesById(idContrato) {
+  if (!idContrato || isNaN(Number(idContrato)) || idContrato < 1 || idContrato === '') {
+    const error = new Error('El ID de Contrato es inválido o falta.');
+    console.log('[api] El ID de Contrato es inválido o falta.');
+    error.statusCode = 400;
+    throw error;
+  }
+  
+  const response = await fetch(`${u}${serv}/allservices?numeroContrato=${idContrato}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  try {
+    const allServices = await fecth(`${u}${serv}/allservices?numeroContrato=${idContrato}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const services = await allServices.json();
+    return services
+  }
+  catch (error) {
+    console.error('Error fetching services:', error);
+    throw error;
+  }
+}
+
+
 async function getAllDataBancaria () {
   try {
     const response = await fetch(`${u}${daBa}`, {
