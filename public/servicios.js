@@ -223,9 +223,9 @@ async function guardarServiciosNuevos() {
     }
 }
 
-function buscarServiciosDeudaConId () {
-
-    let idContrato = contratoLevantado.length > 0
+function buscarServiciosDeudaConId() {
+    //debugger
+    var idContrato = contratoLevantado.length > 0
         ? contratoLevantado[0].idContrato
         : ''
 

@@ -406,6 +406,18 @@ input :not(input[type="button"]) {
     top: 0px;
     transition: top 0.4s ease;
 }
+#modal svg {
+    position: absolute;
+    top: 40px;
+    right: 70px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: var(--btnAlert);
+}
+#modal svg:hover {
+    color: #47c8f0;
+}
 .logo-serv {
     display: flex;
     align-items: center;
