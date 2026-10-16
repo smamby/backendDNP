@@ -290,7 +290,6 @@ async function ejecutarProtocoloDeuda (serviciosConDeuda, idContrato) {
     btnClose.focus();
     let contrato = {};
     if (contratoLevantado.length === 0) {
-        console.log(idContrato)
         await getContrato(idContrato);
         contrato = contratoLevantado[0];
     } else {
@@ -475,14 +474,37 @@ async function actualizarDeudaInModal() {
     }
 }
 
-
+document.getElementById('grid-services').addEventListener('click', buscarAllServicesByContrato);
+document.getElementById('grid-services2').addEventListener('click', buscarAllServicesByContrato);
 // buscar todos los servicios paa armar historial en tabla
-async function buscarAllServicesByContrato (idContrato) {
+async function buscarAllServicesByContrato () {
+    let idContrato = contratoLevantado.length > 0 ?
+        contratoLevantado[0].idContrato :
+        prompt('ingrese un id de contrato');
+
     if (!idContrato || idContrato == null || idContrato === '') {
         console.log('No se pudo cargar los servicios historicos');
         return;
     }
 
     const servicios = await getAllServicesById(idContrato);
-    console.log('Servicios historicos encontrados:', servicios);
+
+    if (!servicios || !Array.isArray(servicios) || servicios.length === 0) {
+        console.log('No hay servicios cargados para este contrato', idContrato);
+        return;
+    }
+
+
+    let html = '';
+    for (let servicio of servicios) {
+        html += `
+        <tr>
+        <td>${servicio.numeroRecibo}</td>
+        <td>${servicio.nombreServicio}</td>
+        <td>${servicio.vencimiento}</td>
+        <td>${servicio.pagado}</td>
+        </tr>
+        `;
+    }
+    console.log(html);
 }

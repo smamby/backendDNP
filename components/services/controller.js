@@ -13,17 +13,33 @@ async function getContratoServices(searchParam) {
     console.error('[controller] invalid search Parameter');
     return false;
   }
-  console.log('[controller] nmumeroContrato', searchParam);
   const servicios = await store.getContratoServices(searchParam);
+  return servicios;
+}
+
+async function getAllServices(idContrato) {
+  if (!idContrato) {
+    console.error('[controller] invalid search Parameter');
+    return false;
+  }
+  const servicios = await store.getAllServices(idContrato);
+
+  if (!servicios) {
+    console.error('[controller] buscando servicios de contrato', idContrato);
+    return false;
+  }
+
   return servicios;
 }
 
 async function addService(dataService) {
   console.log('[controller] dataService', dataService);
+
   if (!dataService) {
     console.error('[controller] faltan datos de servicio');
     return false;
   }
+
   try {
     const res = await store.addService(dataService);
     console.log('[controller] store.addService returned:', res);
@@ -58,6 +74,7 @@ async function deleteServicesByNumRecibo(searchParam) {
 module.exports = {
   getServices,
   getContratoServices,
+  getAllServices,
   addService,
   editService,
   deleteServicesByNumRecibo

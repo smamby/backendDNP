@@ -348,7 +348,7 @@ input :not(input[type="button"]) {
 .cont-search-serv {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
     margin: 12px 0 0 0;
     padding: 0px;
@@ -416,6 +416,15 @@ input :not(input[type="button"]) {
     color: var(--btnAlert);
 }
 #modal svg:hover {
+    color: #47c8f0;
+}
+#grid-services2 {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: var(--btnAlert);
+}
+#grid-services2:hover {
     color: #47c8f0;
 }
 .logo-serv {

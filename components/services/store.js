@@ -11,6 +11,24 @@ async function getContratoServices(searchParam) {
   return servicios;
 }
 
+async function getAllServices(idContrato) {
+  try {
+    const filter = { numeroContrato: idContrato };
+    const servicios = await Model.find(filter);
+    if (!servicios) {
+      console.error('[store] Error buscando servicios de contrato', idContrato);
+      return false;
+    }
+    return servicios;
+
+  }
+  catch (err) {
+    console.error('[store] Error buscando servicios de contrato', err);
+    throw err;
+  }
+
+}
+
 async function addService(service) {
   try {
     const serviceModel = new Model(service);
@@ -79,6 +97,7 @@ async function deleteServicesByNumRecibo(searchParam) {
 module.exports = {
   getServices,
   getContratoServices,
+  getAllServices,
   addService,
   editService,
   deleteServicesByNumRecibo

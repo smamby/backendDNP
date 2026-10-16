@@ -11,26 +11,37 @@ router.get('/', (req, res) => {
       if (!servicios) return res.json([]);
       return res.json(servicios)
     })
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).json({error: err.message}) )
 })
 
 router.get('/contrato', (req, res) => {
   const numeroContrato = req.query.numeroContrato;
-  console.log('[network] numeroContrato', numeroContrato);
 
   controller.getContratoServices(numeroContrato)
     .then(servicios => {
       if (!servicios) return res.json([]);
       return res.json(servicios)
     })
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).json({error: err.message}) )
+})
+
+router.get('/allservices', (req, res) => {
+  const idContrato = req.query.numeroContrato;
+  controller.getAllServices(idContrato)
+  .then(allServices => {
+    return res.status(200).json(allServices);
+  })
+  .catch(err => {
+    console.error('Error', err);
+    res.status(500).json({error: err.message});
+  })
 })
 
 router.post('/', (req,res) => {
   console.log('[network] req.body', req.body);
   controller.addService(req.body)
     .then(() => { return res.status(201).json('Servicio agregado') })
-    .catch(err => { return res.status(500).json(err) })
+    .catch(err => { return res.status(500).json({error: err.message}) })
 })
 
 router.patch('/', (req, res) => {

@@ -132,17 +132,9 @@ async function getAllServicesById(idContrato) {
     error.statusCode = 400;
     throw error;
   }
-  
-  const response = await fetch(`${u}${serv}/allservices?numeroContrato=${idContrato}`, {
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Accept': 'application/json'
-    }
-  });
 
   try {
-    const allServices = await fecth(`${u}${serv}/allservices?numeroContrato=${idContrato}`, {
+    const response = await fetch(`${u}${serv}/allservices?numeroContrato=${idContrato}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -154,8 +146,8 @@ async function getAllServicesById(idContrato) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const services = await allServices.json();
-    return services
+    const allServices = await response.json();
+    return allServices
   }
   catch (error) {
     console.error('Error fetching services:', error);
