@@ -4,7 +4,6 @@ const controller =  require('./controller');
 
 router.get('/', (req, res) => {
   const numeroRecibo = req.query.numeroRecibo;
-  console.log('query.numeroRecibo', numeroRecibo);
 
   controller.getServices(numeroRecibo)
     .then(servicios => {

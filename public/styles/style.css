@@ -588,6 +588,49 @@ input :not(input[type="button"]) {
     visibility: hidden;
 }
 
+.tabla-servicios {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+
+    /* Recuadro exterior y sombras */
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    overflow: hidden; /* Mantiene los bordes redondeados limpios */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin: 20px auto;
+}
+
+/* Espaciado interno (padding) y líneas divisorias de celdas */
+.tabla-servicios th,
+.tabla-servicios td {
+    padding: 12px 16px; /* Espaciado arriba/abajo e izquierda/derecha */
+    text-align: center;
+    border-bottom: 1px solid #eeeeee;
+}
+
+/* Estilo para los encabezados */
+.tabla-servicios th {
+    background-color: #f4f6f8;
+    color: #333333;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* Efecto visual al pasar el mouse por las filas */
+.tabla-servicios tbody tr:hover {
+    background-color: #f9fbfc;
+}
+
+/* Eliminar la línea de la última fila para que no choque con el borde */
+.tabla-servicios tbody tr:last-child td {
+    border-bottom: none;
+}
+
 #cont-spiner {
     display: none;
     flex-direction: column;

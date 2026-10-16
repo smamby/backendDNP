@@ -476,35 +476,58 @@ async function actualizarDeudaInModal() {
 
 document.getElementById('grid-services').addEventListener('click', buscarAllServicesByContrato);
 document.getElementById('grid-services2').addEventListener('click', buscarAllServicesByContrato);
+
+
+let sGlobal;
 // buscar todos los servicios paa armar historial en tabla
 async function buscarAllServicesByContrato () {
     let idContrato = contratoLevantado.length > 0 ?
         contratoLevantado[0].idContrato :
         prompt('ingrese un id de contrato');
 
+    await buscar(idContrato);
+
     if (!idContrato || idContrato == null || idContrato === '') {
         console.log('No se pudo cargar los servicios historicos');
         return;
     }
 
-    const servicios = await getAllServicesById(idContrato);
+    const allServicios = await getAllServicesById(idContrato);
+    allServicios.forEach( servicio => servicio.mesAlquiler = servicio.mesAlquiler.split('T')[0] );
+    allServicios.sort((a,b) => b.mesAlquiler.localeCompare(a.mesAlquiler));
+    sGlobal = allServicios;
 
-    if (!servicios || !Array.isArray(servicios) || servicios.length === 0) {
+    if (!allServicios || !Array.isArray(allServicios) || allServicios.length === 0) {
         console.log('No hay servicios cargados para este contrato', idContrato);
         return;
     }
 
 
-    let html = '';
-    for (let servicio of servicios) {
-        html += `
-        <tr>
-        <td>${servicio.numeroRecibo}</td>
-        <td>${servicio.nombreServicio}</td>
-        <td>${servicio.vencimiento}</td>
-        <td>${servicio.pagado}</td>
-        </tr>
-        `;
+    let nombresServicios = Object.keys(contratoLevantado[0]).filter( key =>  contratoLevantado[0][key]=== true);
+
+    var tHead = '<th>Mes</th>';
+
+    for (let nombre of nombresServicios) {
+        tHead += `<th>${nombre}</th>`;
     }
+
+    let html = `<table class="tabla-servicios"><thead>${tHead}</thead><tbody>`;
+    let mesesSet = new Set (allServicios.map( servicio => servicio.mesAlquiler.split('T')[0] ));
+    let meses = (Array.from(mesesSet)).sort((a,b) => b.localeCompare(a));
+
+    for (let mes of meses) {
+        html += `<tr><td>${mes.slice(0,7)}</td>`;
+        for (let servicio of allServicios) {
+            if (servicio.mesAlquiler === mes) {
+                html += `
+                <td>${servicio.vencimiento.split('T')[0]}</td>
+                `;
+            }
+        }
+        html += '</tr>';
+    }
+    html += '</tbody></table>';
+    console.log(allServicios);
+    console.log(meses);
     console.log(html);
 }
