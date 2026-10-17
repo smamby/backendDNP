@@ -362,7 +362,7 @@ input :not(input[type="button"]) {
     height: 18px;
 }
 
-.modal-background, .modal2-background {
+.modal-background, .modal2-background, .modal3-background {
     background: #020a14d1;
     visibility: hidden;
     opacity: 0;
@@ -376,18 +376,16 @@ input :not(input[type="button"]) {
     transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 .modal-background.is-visible,
-.modal2-background.is-visible {
+.modal2-background.is-visible,
+.modal3-background.is-visible {
     opacity: 1;
     visibility: visible;
     display: block;
     transition: opacity 0.4s ease;
 }
-.modal, .modal2 {
+.modal, .modal2, .modal3 {
     background: #fff;
     opacity: 1;
-    width: 480px;
-    height: auto;
-    max-height: 400px;
     border-radius: 8px;
     box-shadow: 2px 2px 20px 1px;
     margin: 50px auto auto;
@@ -401,10 +399,24 @@ input :not(input[type="button"]) {
     top: -800px;
     transition: top 0.4s ease;
 }
+.modal, .modal2 {
+    width: 480px;
+    height: auto;
+    max-height: 400px;
+}
 .modal-background.is-visible .modal,
-.modal2-background.is-visible .modal2 {
+.modal2-background.is-visible .modal2,
+.modal3-background.is-visible .modal3 {
     top: 0px;
     transition: top 0.4s ease;
+}
+.modal2 {
+    top: 0px;
+}
+.modal3 {
+    width: 600px;
+    height: auto;
+    justify-content: left;
 }
 #modal svg {
     position: absolute;
@@ -466,19 +478,33 @@ input :not(input[type="button"]) {
     align-items: center;
     width: 400px;
 }
+.content-services3 {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    padding: 20px;
+    margin: 16px 0;
+    justify-content: start;
+    align-items: center;
+    width: 560px;
+}
 .content-services::-webkit-scrollbar,
+.content-services3::-webkit-scrollbar,
 .cont-data-form::-webkit-scrollbar {
     width: 4px;
 }
 .content-services::-webkit-scrollbar-track,
+.content-services3::-webkit-scrollbar-track,
 .cont-data-form::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 .content-services::-webkit-scrollbar-thumb,
+.content-services3::-webkit-scrollbar-thumb,
 .cont-data-form::-webkit-scrollbar-thumb {
     background: #aaa;
 }
 .content-services::-webkit-scrollbar-thumb:hover,
+.content-services3::-webkit-scrollbar-thumb:hover,
 .cont-data-form::-webkit-scrollbar-thumb:hover {
     background: rgb(114, 189, 224);
 }
@@ -594,6 +620,7 @@ input :not(input[type="button"]) {
     border-collapse: collapse;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #ffffff;
+    table-layout: fixed;
 
     /* Recuadro exterior y sombras */
     border: 1px solid #dcdcdc;
@@ -603,12 +630,14 @@ input :not(input[type="button"]) {
     margin: 20px auto;
 }
 
-/* Espaciado interno (padding) y líneas divisorias de celdas */
+
 .tabla-servicios th,
 .tabla-servicios td {
-    padding: 12px 16px; /* Espaciado arriba/abajo e izquierda/derecha */
+    padding: 10px 10px;
     text-align: center;
     border-bottom: 1px solid #eeeeee;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
 }
 
 /* Estilo para los encabezados */

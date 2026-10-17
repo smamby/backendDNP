@@ -477,6 +477,7 @@ async function actualizarDeudaInModal() {
 document.getElementById('grid-services').addEventListener('click', buscarAllServicesByContrato);
 document.getElementById('grid-services2').addEventListener('click', buscarAllServicesByContrato);
 
+let h;
 
 let sGlobal;
 // buscar todos los servicios paa armar historial en tabla
@@ -491,6 +492,9 @@ async function buscarAllServicesByContrato () {
         console.log('No se pudo cargar los servicios historicos');
         return;
     }
+
+    cerrarModal();
+    cerrarModal2();
 
     const allServicios = await getAllServicesById(idContrato);
     allServicios.forEach( servicio => servicio.mesAlquiler = servicio.mesAlquiler.split('T')[0] );
@@ -514,20 +518,84 @@ async function buscarAllServicesByContrato () {
     let html = `<table class="tabla-servicios"><thead>${tHead}</thead><tbody>`;
     let mesesSet = new Set (allServicios.map( servicio => servicio.mesAlquiler.split('T')[0] ));
     let meses = (Array.from(mesesSet)).sort((a,b) => b.localeCompare(a));
-
+    //debugger
     for (let mes of meses) {
         html += `<tr><td>${mes.slice(0,7)}</td>`;
         for (let servicio of allServicios) {
-            if (servicio.mesAlquiler === mes) {
+            if (!servicio.vencimiento && servicio.mesAlquiler === mes) {
+                html += `
+                <td style="color:red"><b>&#10007</b></td>
+                `;
+            }
+            if (servicio.vencimiento && servicio.mesAlquiler === mes) {
                 html += `
                 <td>${servicio.vencimiento.split('T')[0]}</td>
                 `;
             }
+
         }
+
         html += '</tr>';
+
     }
     html += '</tbody></table>';
-    console.log(allServicios);
-    console.log(meses);
-    console.log(html);
+    // console.log(allServicios);
+    // console.log(meses);
+    // console.log(html);
+    h = html;
+    desplegarHistorialServicios(html);
+}
+
+function desplegarHistorialServicios(allServices) {
+    const modalSection3 = document.getElementById('modal3-background');
+    const modal3 = document.getElementById('modal3');
+    const btnClose = document.getElementById('cerrar-modal3')
+    modalSection3.classList.add('is-visible');
+    btnClose.focus();
+    const btnRefresh = document.getElementById('refresh-modal3');
+    btnRefresh.style.display = 'none';
+
+    document.getElementById('title-modal-h3').innerHTML = '';
+    document.getElementById('title-modal-h3').innerHTML = 'Datos de recibos';
+    const addressTitle = document.getElementById('serv-impagos-direccion3');
+    addressTitle.innerHTML = '';
+    addressTitle.innerHTML = `${contratoLevantado[0].direccion}`
+    document.getElementById('content-services3').innerHTML = '';
+
+    document.getElementById('content-services3').innerHTML = allServices;
+
+    ajustarTamanoCeldas();
+}
+
+function cerrarModal3 () {
+    const modal3 = document.getElementById('modal3-background');
+    const btnRefresh = document.getElementById('refresh-modal3');
+    btnRefresh.style.display = 'block';
+    modal3.classList.remove('is-visible');
+
+}
+
+function ajustarTamanoCeldas() {
+  // 1. Contamos cuántas columnas (th) tiene la tabla en este momento
+  const cantidadColumnas = document.querySelectorAll('.tabla-servicios thead th').length;
+
+  // 2. Seleccionamos todas las celdas de datos
+  const celdas = document.querySelectorAll('.tabla-servicios td');
+
+  // 3. Definimos un tamaño base que se achique a medida que aumentan las columnas
+  // Si hay 3 columnas -> 24px. Si hay 7 columnas -> 16px.
+  let nuevoFontSize = 16;
+
+  if (cantidadColumnas > 4) {
+    // Restamos 2 píxeles por cada columna extra por encima de 3
+    nuevoFontSize = nuevoFontSize - ((cantidadColumnas - 4) * 2);
+  }
+
+  // Aseguramos un límite mínimo para que nunca sea ilegible
+  if (nuevoFontSize < 10) nuevoFontSize = 10;
+
+  // 4. Aplicamos el tamaño calculado a cada celda
+  celdas.forEach(celda => {
+    celda.style.fontSize = nuevoFontSize + 'px';
+  });
 }

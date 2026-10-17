@@ -706,9 +706,7 @@ async function sumatoriaLiquidacionMensual (liquidaciones, fechaVencimiento) {
     console.log('liqObjeto', liqObjeto);
     return liqObjeto;
 }
-let d;
-let dd;
-let ddd;
+
 async function plantillaImprimirLiquidacionMensual(objetoLiquidacion) {
     let fechaVencimiento = objetoLiquidacion.fechaVencimiento;
 
@@ -734,7 +732,7 @@ async function plantillaImprimirLiquidacionMensual(objetoLiquidacion) {
                     <p>Direccion: ${direccion[0][1] || 'N/A'}</p>
                     <p>Recibo número: ${liquidacion.numeroRecibo || 'N/A'}</p>
                     <p>Liquidacion Departamento: $ ${new Intl.NumberFormat('es-Ar', {}).format(liquidacion.total)}</p>
-                    
+
                 </div>
             `
             reconstruccion += moduloTemplate;
@@ -750,6 +748,9 @@ async function plantillaImprimirLiquidacionMensual(objetoLiquidacion) {
     console.log('template', template);
     newPopupImprimirLiquidacion(template)
 }
+
+
+
 
 
 function setNum(num){
