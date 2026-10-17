@@ -415,7 +415,7 @@ input :not(input[type="button"]) {
 }
 .modal3 {
     width: 600px;
-    height: auto;
+    height: 85vh;
     justify-content: left;
 }
 #modal svg {
