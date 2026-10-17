@@ -482,6 +482,7 @@ let h;
 let sGlobal;
 // buscar todos los servicios paa armar historial en tabla
 async function buscarAllServicesByContrato () {
+    
     let idContrato = contratoLevantado.length > 0 ?
         contratoLevantado[0].idContrato :
         prompt('ingrese un id de contrato');
@@ -495,11 +496,25 @@ async function buscarAllServicesByContrato () {
 
     cerrarModal();
     cerrarModal2();
+    //debugger
+    let allServicios = await getAllServicesById(idContrato);
 
-    const allServicios = await getAllServicesById(idContrato);
-    allServicios.forEach( servicio => servicio.mesAlquiler = servicio.mesAlquiler.split('T')[0] );
-    allServicios.sort((a,b) => b.mesAlquiler.localeCompare(a.mesAlquiler));
+    if (!allServicios) {
+        console.log('No se consiguieron los servicios', allServicios)
+        return
+    }
+    console.log('allServicios', allServicios)
     sGlobal = allServicios;
+    allServicios = allServicios.filter(servicio => servicio.mesAlquiler !== null)
+    allServicios.forEach( servicio => {
+        if(!servicio.mesAlquiler) {
+            return
+        } else {
+            servicio.mesAlquiler = servicio.mesAlquiler.split('T')[0] ;
+        }
+    })
+    
+    allServicios.sort((a,b) => b.mesAlquiler.localeCompare(a.mesAlquiler));
 
     if (!allServicios || !Array.isArray(allServicios) || allServicios.length === 0) {
         console.log('No hay servicios cargados para este contrato', idContrato);
