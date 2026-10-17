@@ -2,12 +2,12 @@
 
 const u = 'http://localhost:5500';
 
-const c = '/contratos/';
-const r = '/recibos/';
-const p = '/printPDF/';
-const sm = '/sendMail/';
-const serv = '/services';
-const daBa = '/databancaria';
+const c = 'contratos/';
+const r = 'recibos/';
+const p = 'printPDF/';
+const sm = 'sendMail/';
+const serv = 'services';
+const daBa = 'databancaria';
 
 
 const headers = {
@@ -19,8 +19,19 @@ const headers = {
 var reciboLevantado = [];
 var contratoLevantado = [];
 
+// async function getContrato(searchParam){
+//     const res = await fetch(u+c+searchParam, {
+//       method: 'GET',
+//       mode: 'cors'
+//     })
+//     const data = await res.json()
+//     console.log('url: ',u+c+searchParam)
+//     console.log('contrato[api]',data)
+//     contratoLevantado = data;
+//     return data
+// }
 async function getContrato(searchParam){
-    const res = await fetch(u+c+searchParam, {
+    const res = await fetch(`/${c}${searchParam}`, {
       method: 'GET',
       mode: 'cors'
     })
@@ -31,7 +42,7 @@ async function getContrato(searchParam){
     return data
 }
 async function getRecibos(searchParam){
-    const res = await fetch(u+r+searchParam, {
+    const res = await fetch(`/${r}${searchParam}`, {
       method: 'GET',
       mode: 'cors'
     })
@@ -45,7 +56,7 @@ async function getRecibos(searchParam){
 //let recibosReducidos;
 async function getRecibosForLiquidaciones (fechaVencimiento) {
 
-  const response = await fetch(`${u}${r}liquidaciones/${fechaVencimiento}`, {
+  const response = await fetch(`/${r}liquidaciones/${fechaVencimiento}`, {
     method: 'GET',
     mode: 'cors'
   });
@@ -66,7 +77,7 @@ async function getRecibosForLiquidaciones (fechaVencimiento) {
 }
 
 async function getRecibosContrato(searchParam){
-    const res = await fetch(u+r+'contrato/'+searchParam, {
+    const res = await fetch(`/${r}contrato/${searchParam}`, {
       method: 'GET',
       mode: 'cors'
     })
@@ -79,9 +90,9 @@ async function getRecibosContrato(searchParam){
 //getContrato(435)
 //getRecibos(13)
 async function getServices(searchParam) {
-  console.log('Requesting services URL:', `${u}${serv}?numeroRecibo=${searchParam}`);
+  console.log('Requesting services URL:', `/${serv}?numeroRecibo=${searchParam}`);
    try {
-    const response = await fetch(`${u}${serv}?numeroRecibo=${searchParam}`, {
+    const response = await fetch(`/${serv}?numeroRecibo=${searchParam}`, {
       method: 'GET',
       mode: 'cors',
       headers
@@ -102,9 +113,9 @@ async function getServices(searchParam) {
 }
 
 async function getContratoServices (searchParam) {
-  console.log('Requesting services URL:', `${u}${serv}/contrato?numeroContrato=${searchParam}`);
+  console.log('Requesting services URL:', `/${serv}/contrato?numeroContrato=${searchParam}`);
   try {
-    const response = await fetch(`${u}${serv}/contrato?numeroContrato=${searchParam}`, {
+    const response = await fetch(`/${serv}/contrato?numeroContrato=${searchParam}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -134,7 +145,7 @@ async function getAllServicesById(idContrato) {
   }
 
   try {
-    const response = await fetch(`${u}${serv}/allservices?numeroContrato=${idContrato}`, {
+    const response = await fetch(`/${serv}/allservices?numeroContrato=${idContrato}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -158,7 +169,7 @@ async function getAllServicesById(idContrato) {
 
 async function getAllDataBancaria () {
   try {
-    const response = await fetch(`${u}${daBa}`, {
+    const response = await fetch(`/${daBa}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -185,7 +196,7 @@ async function getOneDataBancaria (idContrato) {
       error.statusCode = 400;
       throw error;
     }
-    const response = await fetch(`${u}${daBa}/${idContrato}`, {
+    const response = await fetch(`/${daBa}/${idContrato}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -234,7 +245,7 @@ async function addRecibo(recibo){
   console.log(reciboLevantado)
   console.log(reciboLevantado.length)
   if (reciboLevantado.length == 0) {
-    const nuevoRecibo = await fetch(u+r, {
+    const nuevoRecibo = await fetch('/'+r, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -257,7 +268,7 @@ async function addContrato(contrato){
   // console.log(contratoLevantado)
   // //console.log(chkContrato.length)
   if (contratoLevantado.length == 0) {
-    const nuevoContrato = await fetch(u+c, {
+    const nuevoContrato = await fetch('/'+c, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -272,7 +283,7 @@ async function addContrato(contrato){
   }
 }
 async function addService(service) {
-  const newService = await fetch(u+serv, {
+  const newService = await fetch('/'+serv, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -286,7 +297,7 @@ async function addService(service) {
 }
 
 async function addDataBancaria(dataBancaria) {
-  const newDataBancaria = await fetch(u+daBa, {
+  const newDataBancaria = await fetch('/'+daBa, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -301,7 +312,7 @@ async function addDataBancaria(dataBancaria) {
 
 async function editDataBancaria(idContrato, dataBancaria) {
   const filter = {idContrato: idContrato};
-  const edited = await fetch(`${u}${daBa}/${idContrato}`, {
+  const edited = await fetch(`/${daBa}/${idContrato}`, {
     method: 'PATCH',
     mode: 'cors',
     headers: {
@@ -315,7 +326,7 @@ async function editDataBancaria(idContrato, dataBancaria) {
 
 async function editRecibo(dataNueva){
   searchParam = reciboLevantado[0]["numeroRecibo"];
-  const recibo = await fetch(u+r+searchParam, {
+  const recibo = await fetch('/'+r+searchParam, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -328,7 +339,7 @@ async function editRecibo(dataNueva){
 
 async function editContrato(dataNueva){
   searchParam = contratoLevantado[0]["idContrato"];
-  const contrato = await fetch(u+c+searchParam, {
+  const contrato = await fetch('/'+c+searchParam, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -346,8 +357,8 @@ async function editContrato(dataNueva){
 async function editService(searchParams, changes) {
   const numeroRecibo = searchParams.numeroRecibo;
   const nombreServicio = searchParams.nombreServicio;
-  console.log(`${u}${serv}?numeroRecibo=${numeroRecibo}&nombreServicio=${nombreServicio}`)
-  const serviceEdited = await fetch(`${u}${serv}?numeroRecibo=${numeroRecibo}&nombreServicio=${nombreServicio}`, {
+  console.log(`/${serv}?numeroRecibo=${numeroRecibo}&nombreServicio=${nombreServicio}`)
+  const serviceEdited = await fetch(`/${serv}?numeroRecibo=${numeroRecibo}&nombreServicio=${nombreServicio}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -360,7 +371,7 @@ async function editService(searchParams, changes) {
 
 async function deleteContrato(searchParam){
   if(confirm('Vas a eliminar definitivamente el contrato N° '+contratoLevantado[0]["idContrato"])){
-    const deleted = await fetch(u+c+searchParam, {
+    const deleted = await fetch('/'+c+searchParam, {
       method: 'DELETE'
     })
     console.log('Contrato n°'+contratoLevantado["idContrato"]+' eliminado')
@@ -369,7 +380,7 @@ async function deleteContrato(searchParam){
 
 async function deleteServicesByNumRecibo(searchParam) {
   console.log('Deleting services for numeroRecibo:', searchParam);
-  const deleted = await fetch(`${u}${serv}?numeroRecibo=${searchParam}`, {
+  const deleted = await fetch(`/${serv}?numeroRecibo=${searchParam}`, {
     method: 'DELETE'
   });
   return deleted;
@@ -402,7 +413,7 @@ async function imprimirReciboPDFBack(inbody,filename){
   mostrarSpinner();
 
   try {
-    const response = await fetch(u+p, {
+    const response = await fetch('/'+p, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -447,7 +458,7 @@ async function sendMailToBackend(filename, destiny, subjectmail, bodymail) {
   mostrarSpinner();
 
   try {
-    const response = await fetch(u + sm, {
+    const response = await fetch('/' + sm, {
       method: 'POST',
       mode: 'cors',
       headers: {
