@@ -1,0 +1,1 @@
+const FRONTEND_ENV = 'dev';

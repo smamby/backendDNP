@@ -54,8 +54,13 @@ router.post('/', async (req, res) => {
     }
 
     const page = await browser.newPage();
-    const SERVER_BASE_URL = 'http://127.0.0.1:5500';
-    
+    //const SERVER_BASE_URL = 'http://127.0.0.1:5500';
+    const protocol = req.protocol; // 'http' o 'https'
+    const host = req.get('host');   // Ej: '192.168.1.50:5500' o 'localhost:5500'
+    const SERVER_BASE_URL = `${protocol}://${host}`;
+  
+    console.error(`[[Puppeteer baseURL]] ${SERVER_BASE_URL}`);
+
     // Esperar a que se carguen todos los recursos (fuentes, imágenes, etc.)
     await page.setContent(fichaPDFBACK, {
       waitUntil: 'networkidle0',

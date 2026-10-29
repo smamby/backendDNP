@@ -28,23 +28,32 @@ app.use(express.json());
 
 app.use(express.static('./public'))
 
+
+if (process.env.NODE_ENV === 'development') {
+    app.get('/api/ping', (req, res) => res.sendStatus(200)); // para refrezcar automaticamente el cliente
+}
+
 routes(app); //router tiene que estar despues de cors!!
 
 const server = app.listen(port, '0.0.0.0', ()=>{
-    console.log(`Version 6.02 - 2026-01`)
+    console.log(`Version 6.2 - 2026-11`)
     console.log('http://localhost:'+port)
+    // const protocol = req.protocol; // 'http' o 'https'
+    // const host = req.get('host');   // Ej: '192.168.1.50:5500' o 'localhost:5500'
+    // const SERVER_BASE_URL = `${protocol}://${host}`;
+    // console.log('origin', SERVER_BASE_URL);
 
     // exec(`start "" brave --app=http://localhost:${port}/index.html`);
-    const brave = 'C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe';
-    const url = `http://localhost:${port}/index.html`;
+    if (process.env.NODE_ENV === 'wproduction') {
+        const brave = 'C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe';
+        const url = `http://localhost:${port}/index.html`;
 
-    const braveProcess = spawn(brave, [`--app=${url}`], {
-        detached: true,
-        stdio: 'ignore'
-    });
-
-    braveProcess.unref();
-
+        const braveProcess = spawn(brave, [`--app=${url}`], {
+            detached: true,
+            stdio: 'ignore'
+        });
+        braveProcess.unref();
+    }
 })
 
 app.post('/close', (req, res) => {

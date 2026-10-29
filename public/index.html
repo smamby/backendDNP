@@ -120,35 +120,43 @@
             <h4>Servicios e impuestos acordados</h4>
             <div class="serv_tax">
                 <div class="cont_check_serv_tax">
-                    <a href="https://ov.edesur.com.ar/login" target="_blank" rel="noreferrer noopener">Edesur</a>
+                    <!-- <a href="https://ov.edesur.com.ar/login" target="_blank" rel="noreferrer noopener">Edesur</a> -->
+                     <button class="serv-modal-btn" id="edesur-modal-btn" data-name="edesur">Edesur</button>
                     <input type="checkbox" id="edesur">
                 </div>
                 <div class="cont_check_serv_tax">
-                    <a href="https://www.edenordigital.com/ingreso/bienvenida" target="_blank" rel="noreferrer noopener">Edenor</a>
+                    <!-- <a href="https://www.edenordigital.com/ingreso" target="_blank" rel="noreferrer noopener">Edenor</a> -->
+                    <button class="serv-modal-btn" id="edenor-modal-btn" data-name="edenor">Edenor</button>
                     <input type="checkbox" id="edenor">
                 </div>
                 <div class="cont_check_serv_tax">
-                    <a href="https://oficinavirtual.web.aysa.com.ar/index.html" target="_blank" rel="noreferrer noopener">AySa</a>
+                    <!-- <a href="https://oficinavirtual.web.aysa.com.ar/index.html" target="_blank" rel="noreferrer noopener">AySa</a> -->
+                     <button class="serv-modal-btn" id="aysa-modal-btn" data-name="aysa">AySA</button>
                     <input type="checkbox" id="aysa">
                 </div>
                 <div class="cont_check_serv_tax">
-                    <a href="https://registro.micuenta.metrogas.com.ar/" target="_blank" rel="noreferrer noopener">Metrogas</a>
+                    <!-- <a href="https://registro.micuenta.metrogas.com.ar/" target="_blank" rel="noreferrer noopener">Metrogas</a> -->
+                    <button class="serv-modal-btn" id="metrogas-modal-btn" data-name="metrogas">Metrogas</button>
                     <input type="checkbox" id="metrogas">
                 </div>
                 <div class="cont_check_serv_tax">
-                    <a href="https://lb.agip.gob.ar/ConsultaABL/" target="_blank" rel="noreferrer noopener">Abl</a>
+                    <!-- <a href="https://lb.agip.gob.ar/ConsultaABL/" target="_blank" rel="noreferrer noopener">Abl</a> -->
+                    <button class="serv-modal-btn" id="abl-modal-btn" data-name="abl">Abl</button>
                     <input type="checkbox" id="abl">
                 </div>
                 <div class="cont_check_serv_tax">
-                    <a href="https://www.misexpensasweb.com/app/login.html" target="_blank" rel="noreferrer noopener">Expensas</a>
+                    <!-- <a href="  " target="_blank" rel="noreferrer noopener">Expensas</a> -->
+                    <button class="serv-modal-btn" id="expensas-modal-btn" data-name="expensas">Expensas</button>
                     <input type="checkbox" id="expensas">
                 </div>
                 <div class="cont_check_serv_tax">
-                    <label for="seguro">Seguro</label>
+                    <!-- <label for="seguro">Seguro</label> -->
+                    <button class="serv-modal-btn" id="seguro-modal-btn" data-name="seguro">Seguro</button>
                     <input type="checkbox" id="seguro">
                 </div>
                 <div class="cont_check_serv_tax">
-                    <label for="aux2">aux2</label>
+                    <!-- <label for="aux2">aux2</label> -->
+                    <button class="serv-modal-btn" id="aux2-modal-btn" data-name="aux2">Aux2</button>
                     <input type="checkbox" id="aux2">
                 </div>
             </div>
@@ -157,9 +165,12 @@
                         type="button">
                     Buscar servicios impagos
                 </button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="grid-services2" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
-                <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
-            </svg>
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="grid-services2" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
+                    <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
+                </svg> -->
+                <svg id="grid-services2" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
+                    <use href="#svg-grid-services"></use>
+                </svg>
             </div>
         </div>
         <!-- <input type="submit" value="Sumit" id="sumitbtn"> -->
@@ -420,8 +431,11 @@
     <section class="modal-background" id="modal-background">
         <div class="modal" id="modal">
             <!-- <img class="all-services-grid" id="all-services-grid" src="./assets/grilla-solid.svg" alt="boton para ver el historial de servicios"> -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="grid-services" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="grid-services" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
                 <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
+            </svg> -->
+            <svg id="grid-services" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
+                <use href="#svg-grid-services" ></use>
             </svg>
 
             <div class="logo-serv">
@@ -582,6 +596,96 @@
         </div>
     </section>
 
+    <!-- Modal4 -->
+    <section class="modal4-background" id="modal4-background">
+        <div class="modal4" id="modal4">
+
+            <div class="logo-serv">
+                <img style="width: 20px; height: 31px;" id="logo1" src="./assets/logo.png" alt="">
+                <img style="width: 75px; margin-left: 12px;" id="isotipo1" src="./assets/isotipo.png" alt="">
+            </div>
+            <h3 id="title-modal-h3"></h3>
+            <div id="cont-direction-serv-impagos">
+                <p id="serv-data-direccion-title">Direccion: </p><p id="serv-data-direccion"></p>
+            </div>
+
+            <div class="content-services4" id="content-services4">
+
+            </div>
+            <div class="cont-btn" id="cont-btn-modal4">
+                <button id="cerrar-modal4" onclick="cerrarModal4()">Cerrar</button>
+                <a href="#" id="link-ir-pagina-servicio">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        id="ir-pagina-servicio" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg> -->
+                    <svg id="ir-pagina-servicio">
+                        <use href="#svg-ir-pagina-servicio"></use>
+                    </svg>
+                </a>
+                <svg id="edit-servicedata">
+                    <use href="#svg-edit-servicedata" id="edit-servicedata-btn"></use>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+
+<!-- SYMBOLS -->
+    <!-- grid all services historial -->
+    <svg xmlns="http://www.w3.org/2000/svg" >
+        <symbol id="svg-grid-services" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1
+            1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1
+            1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1
+            0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0
+            1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1
+            1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
+        </symbol>
+    </svg>
+
+    <!-- go to page -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <symbol id="svg-ir-pagina-servicio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+        </symbol>
+    </svg>
+
+    <!-- copy data -->
+    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="copy-data" viewBox="0 0 24 24">
+            <path d="M8 8V5.2C8 4.0799 8 3.51984 8.21799 3.09202C8.40973 2.71569 8.71569 2.40973 9.09202 2.21799C9.51984
+            2 10.0799 2 11.2 2H18.8C19.9201 2 20.4802 2 20.908 2.21799C21.2843 2.40973 21.5903 2.71569 21.782 3.09202C22
+            3.51984 22 4.0799 22 5.2V12.8C22 13.9201 22 14.4802 21.782 14.908C21.5903 15.2843 21.2843 15.5903 20.908
+            15.782C20.4802 16 19.9201 16 18.8 16H16M5.2 22H12.8C13.9201 22 14.4802 22 14.908 21.782C15.2843 21.5903 15.5903
+            21.2843 15.782 20.908C16 20.4802 16 19.9201 16 18.8V11.2C16 10.0799 16 9.51984 15.782 9.09202C15.5903 8.71569
+            15.2843 8.40973 14.908 8.21799C14.4802 8 13.9201 8 12.8 8H5.2C4.0799 8 3.51984 8 3.09202 8.21799C2.71569 8.40973
+            2.40973 8.71569 2.21799 9.09202C2 9.51984 2 10.0799 2 11.2V18.8C2 19.9201 2 20.4802 2.21799 20.908C2.40973 21.2843
+            2.71569 21.5903 3.09202 21.782C3.51984 22 4.07989 22 5.2 22Z"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+    </svg>
+
+    <!-- edit data -->
+    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="svg-edit-servicedata">
+            <path d="M11 3.99998H6.8C5.11984 3.99998 4.27976 3.99998 3.63803 4.32696C3.07354 4.61458 2.6146 5.07353 2.32698
+            5.63801C2 6.27975 2 7.11983 2 8.79998V17.2C2 18.8801 2 19.7202 2.32698 20.362C2.6146 20.9264 3.07354 21.3854 3.63803
+            21.673C4.27976 22 5.11984 22 6.8 22H15.2C16.8802 22 17.7202 22 18.362 21.673C18.9265 21.3854 19.3854 20.9264 19.673
+            20.362C20 19.7202 20 18.8801 20 17.2V13M7.99997 16H9.67452C10.1637 16 10.4083 16 10.6385 15.9447C10.8425 15.8957 11.0376
+            15.8149 11.2166 15.7053C11.4184 15.5816 11.5914 15.4086 11.9373 15.0627L21.5 5.49998C22.3284 4.67156 22.3284 3.32841
+            21.5 2.49998C20.6716 1.67156 19.3284 1.67155 18.5 2.49998L8.93723 12.0627C8.59133 12.4086 8.41838 12.5816 8.29469
+            12.7834C8.18504 12.9624 8.10423 13.1574 8.05523 13.3615C7.99997 13.5917 7.99997 13.8363 7.99997 14.3255V16Z"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+    </svg>
+
+
+<!-- SPINER -->
     <div id="cont-spiner">
         <div id="spiner">
 
@@ -589,12 +693,14 @@
         <p class="spiner-text">Espere ...</p>
     </div>
 
+    <script src="./config/frontend_env.config.js"></script>
     <script src="./auto.js"></script>
     <script src="./proto.js"></script>
     <script src="./core.js"></script>
     <script src="./api/api.js"></script>
     <script src="./numtotext.js"></script>
     <script src="./servicios.js"></script>
+    <script src="./config/services.config.js"></script>
 
 </body>
 </html>

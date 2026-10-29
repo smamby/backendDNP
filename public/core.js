@@ -401,13 +401,6 @@ function verRecivoSeleccionadoEnModal(numRecibo) {
    }
 }
 async function buscarRecibo(){
-   // document.getElementById("cont-detalle").innerHTML = '';
-   // document.getElementById("cont-montos").innerHTML = '';
-   // document.getElementById("cont-detalleProp").innerHTML = '';
-   // document.getElementById("cont-montosProp").innerHTML = '';
-   // document.getElementById("cont-detalleOnlyProp").innerHTML = '';
-   // document.getElementById("cont-montosOnlyProp").innerHTML = '';
-   //debugger
    items = [];
    itemsOnlyProp = [];
    detalleTotal = 0;
@@ -1097,89 +1090,7 @@ async function imprimirBoleta(div){
    }
 }
 
-async function imprimirBoletaPDF(){
-   if (itemEncontrado!=''){
-      await impInq();
-      var carpeta = `c:/users/seba/documents/prueba/${dateShort}/`;
-      var fichaI = document.getElementById('inbody-inq');
-      var fichaOuterI = fichaI.outerHTML;
-      localStorage.setItem('fichaI',(fichaOuterI))
-      var fichaP = document.getElementById('inbody-prop');
-      var fichaOuterP = fichaP.outerHTML;
-      localStorage.setItem('fichaP',(fichaOuterP))
-      var re = reciboLevantado[0];
-      var co = contratoLevantado[0];
-      console.log("re",re);
-      console.log("co",co);
-      localStorage.setItem('recibo', JSON.stringify(re));
-      localStorage.setItem('contrato', JSON.stringify(co));
 
-      //var wImp = window.open('http://127.0.0.1:5500/popimp.html','popimp');
-      var wImp = window.open('http://localhost:5500/popimp.html','popimp');
-      //var wImp = window.open('https://smamby.github.io/frontendDNP/popimp.html','popimp');
-   //    wImp.document.write(`<html><head><title>Print it!</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   //    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" type="text/css" href="./styles/imp.css"></head><body><div class="bodyInt">${ficha.innerHTML}</div></body></html><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   //  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script>
-   //    var docInq = new jsPDF();
-   //    var fileNameInq = 'inq.pdf';
-   //    docInq.html(wImp,{
-   //       callback: function(docInq) {
-   //          docInq.save(fileNameInq);
-   //      },
-   //      margin: [10, 10, 10, 10],
-   //      autoPaging: 'text',
-   //      x: 0,
-   //      y: 0,
-   //      width: 190,
-   //      windowWidth: 675
-   //    });
-
-   //  </script>
-   //  `)
-
-
-      // var docInq = new jsPDF();
-      // var fichaInq = document.getElementById('inbody-inq');
-      // var fileNameInq =  `${re.numeroRecibo} ${co.direccion} inq.pdf`;
-      // docInq.html(fichaInq,{
-      //    callback: function(docInq) {
-      //       docInq.save(fileNameInq);
-      //   },
-      //   margin: [10, 10, 10, 10],
-      //   autoPaging: 'text',
-      //   x: 0,
-      //   y: 0,
-      //   width: 190,
-      //   windowWidth: 675
-      // });
-
-
-      // var docProp = new jsPDF();
-      // var fichaProp = document.getElementById('inbody-prop');
-      // var fileNameProp =  `${re.numeroRecibo} ${co.direccion} prop.pdf`;
-      // docProp.html(fichaProp,{
-      //    callback: function(docProp) {
-      //       docProp.save(fileNameProp);
-      //   },
-      //   margin: [10, 10, 10, 10],
-      //   autoPaging: 'text',
-      //   x: 0,
-      //   y: 0,
-      //   width: 190,
-      //   windowWidth: 675
-      // });
-
-   //   setTimeout(async() => {
-   //       wImp.print()
-   //    }, 500);
-      //wImp.document.close();
-      //wImp.close();
-
-   } else {
-      alert('Cargá algun contrato, no cargaste ninguno.');
-      document.getElementById("buscarInput").focus();
-   }
-}
 async function imprimirBoletaPDFBACK(){
    if (itemEncontrado != ''){
       await impInq();
@@ -1198,10 +1109,11 @@ async function imprimirBoletaPDFBACK(){
       localStorage.setItem('recibo', JSON.stringify(re));
       localStorage.setItem('contrato', JSON.stringify(co));
 
-
+      const baseUrl = window.location.origin;
+      window.open(`${baseUrl}/popimp.html`, 'popimp');
       //var wImp = window.open('http://localhost:5500/popimp.html','popimp');
       //var wImp = window.open('http://127.0.0.1:5500/public/popimp.html','_blank');
-      var wImp = window.open('http://localhost:5500/popimp.html','_blank');
+      //var wImp = window.open('http://localhost:5500/popimp.html','_blank');
       //var wImp = window.open('http://localhost:5500/popimpBACK.html','popimpBACK');
 
    } else {
@@ -1223,24 +1135,24 @@ async function imprimirBoletaPDFBACK(){
    //var a = document.getElementById("mail")
    //a.addEventListener('click', sendEmail())
 
-function sendEmail(div){
-   const opDate2 = {year:'numeric',month:'short'};
-   var dateVence = document.getElementById("vence").value;
-   // var yearDateVence = new Date(dateVence).getFullYear();
-   // var monthDateVence = parseInt(new Date(dateVence).getMonth())+1;
-   var dateVenceShort = new Date(dateVence).toLocaleString("sp-IN", opDate2)
-   var mTo = ''
-   var a = document.getElementById("mail")
-   if(div === 'inbody-prop'){
-      mTo =  itemEncontrado.emailPropietario
-      a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20liquidacion%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
-   } else if(div === 'inbody-inq') {
-      mTo = itemEncontrado.emailInquilino
-      a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
-   }
-   console.log(mTo);
-   window.location.href = a.href
-}
+// function sendEmail(div){
+//    const opDate2 = {year:'numeric',month:'short'};
+//    var dateVence = document.getElementById("vence").value;
+//    // var yearDateVence = new Date(dateVence).getFullYear();
+//    // var monthDateVence = parseInt(new Date(dateVence).getMonth())+1;
+//    var dateVenceShort = new Date(dateVence).toLocaleString("sp-IN", opDate2)
+//    var mTo = ''
+//    var a = document.getElementById("mail")
+//    if(div === 'inbody-prop'){
+//       mTo =  itemEncontrado.emailPropietario
+//       a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20liquidacion%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
+//    } else if(div === 'inbody-inq') {
+//       mTo = itemEncontrado.emailInquilino
+//       a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
+//    }
+//    console.log(mTo);
+//    window.location.href = a.href
+// }
 
 function sendEmailBACK(div){
    if (itemEncontrado!=''){
@@ -1283,7 +1195,8 @@ async function newPopupImprimirLiquidacion(template){
 
       localStorage.setItem('fichaLiquidaciones', fichaLiquidaciones)
 
-      var wImp = window.open('http://localhost:5500/popimp_liquidacion_mensual.html','_blank');
+      const baseUrl = window.location.origin;
+      window.open(`${baseUrl}/popimp_liquidacion_mensual.html`,'_blank');
 
    } else {
       alert('No se tgenero la liquidacion correctamente.');

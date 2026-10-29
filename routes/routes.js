@@ -6,6 +6,7 @@ const printPDF = require ( '../components/impPDF/network');
 const sendMail = require('../components/sendMail/sendMail.js');
 const services = require('../components/services/network');
 const dataBancaria = require('../components/datosbancarios/network.js');
+const serviceData = require('../components/datos-servicios/network.js');
 
 const routes = function(server) {
     server.use('/recibos', recibos);
@@ -14,6 +15,7 @@ const routes = function(server) {
     server.use('/sendMail', sendMail);
     server.use('/services', services);
     server.use('/databancaria', dataBancaria);
+    server.use('/servicedata', serviceData);
 }
 
 module.exports = routes;

@@ -477,12 +477,11 @@ async function actualizarDeudaInModal() {
 document.getElementById('grid-services').addEventListener('click', buscarAllServicesByContrato);
 document.getElementById('grid-services2').addEventListener('click', buscarAllServicesByContrato);
 
-let h;
 
-let sGlobal;
+
 // buscar todos los servicios paa armar historial en tabla
 async function buscarAllServicesByContrato () {
-    
+
     let idContrato = contratoLevantado.length > 0 ?
         contratoLevantado[0].idContrato :
         prompt('ingrese un id de contrato');
@@ -513,7 +512,7 @@ async function buscarAllServicesByContrato () {
             servicio.mesAlquiler = servicio.mesAlquiler.split('T')[0] ;
         }
     })
-    
+
     allServicios.sort((a,b) => b.mesAlquiler.localeCompare(a.mesAlquiler));
 
     if (!allServicios || !Array.isArray(allServicios) || allServicios.length === 0) {
@@ -563,7 +562,7 @@ async function buscarAllServicesByContrato () {
 
 function desplegarHistorialServicios(allServices) {
     const modalSection3 = document.getElementById('modal3-background');
-    const modal3 = document.getElementById('modal3');
+    // const modal3 = document.getElementById('modal3');
     const btnClose = document.getElementById('cerrar-modal3')
     modalSection3.classList.add('is-visible');
     btnClose.focus();
@@ -587,8 +586,7 @@ function cerrarModal3 () {
     const btnRefresh = document.getElementById('refresh-modal3');
     btnRefresh.style.display = 'block';
     modal3.classList.remove('is-visible');
-
-}
+};
 
 function ajustarTamanoCeldas() {
   // 1. Contamos cuántas columnas (th) tiene la tabla en este momento
@@ -613,4 +611,240 @@ function ajustarTamanoCeldas() {
   celdas.forEach(celda => {
     celda.style.fontSize = nuevoFontSize + 'px';
   });
+}
+
+
+// Datos de clientes servicios
+const btnsServicios = document.querySelectorAll('.serv-modal-btn');
+btnsServicios.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        let nameService = e.currentTarget.dataset.name;
+        openDataService(nameService);
+    })
+})
+
+async function openDataService(nameService) {
+
+    if (contratoLevantado.length === 0) {
+        alert('No hay un contrato seleccionado,  busca uno');
+        return
+    }
+    let serviciosActivos = Object.keys(contratoLevantado[0]).filter(key => contratoLevantado[0][key] === true);
+    if (serviciosActivos.length === 0) {
+        alert('No hay servicios activos en este contrato');
+        return
+    }
+    if (!serviciosActivos.includes(nameService)) {
+        alert('Este servicio no esta activo para este contrato');
+        return
+    }
+    const modalSection4 = document.getElementById('modal4-background');
+    const modal4 = document.getElementById('modal4');
+    const btnClose = document.getElementById('cerrar-modal4')
+    const goToPageService = document.getElementById('link-ir-pagina-servicio');
+    modalSection4.classList.add('is-visible');
+    btnClose.focus();
+
+    desplegarServiceData(nameService);
+}
+
+async function desplegarServiceData(nameService) {
+    if (document.getElementById('aceptar-data-modal4')) {
+        document.getElementById('aceptar-data-modal4').remove();
+    }
+    const direccion = document.getElementById('serv-data-direccion');
+    const containerData = document.getElementById('content-services4');
+    const accessPage = document.getElementById('link-ir-pagina-servicio');
+    document.getElementById('ir-pagina-servicio').style.display = 'block';
+    document.getElementById('edit-servicedata').style.display = 'block';
+    direccion.textContent = '';
+    let idContrato = Number(contratoLevantado[0].idContrato);
+    let nombreServicio = nameService;
+    const dataServicio = await getServiceData(idContrato, nombreServicio);
+    console.log(dataServicio);
+    const vacio = !dataServicio ? true : false;
+    console.log('esta vacio el data service?',vacio);
+
+
+
+    direccion.textContent = contratoLevantado[0].direccion;
+    accessPage.href = SERVICE_LINKS[nameService].url;
+    accessPage.target = '_blank';
+    accessPage.rel = 'noopener noreferrer';
+    console.log('accessPage.href', accessPage.href);
+
+    let html = '';
+    //debugger
+    if (vacio) {
+        let nombreServicioText = nombreServicio[0].toUpperCase() + nombreServicio.slice(1);
+        html += `
+        <p>Aun no hay datos de ${nombreServicioText}</p>
+        <div class="cont-data-serv">
+            <p class="title-data">Titular: </p><input type="text" id="input-serv-titular" />
+        </div>
+        <div class="cont-data-serv">
+            <p class="title-data">Numero de cliente: </p><input type="text" id="input-serv-num-cliente" />
+        </div>
+        <div class="cont-data-serv">
+            <p class="title-data">Numero de medidor: </p><input type="text" id="input-serv-num-medidor" />
+        </div>
+        <div class="cont-data-serv">
+            <p class="title-data">Numero de partida: </p><input type="text" id="input-serv-num-partida" />
+        </div>
+        `
+        document.getElementById('link-ir-pagina-servicio').style.display = 'none';
+        document.getElementById('edit-servicedata').style.display = 'none';
+        let btnAceptar = document.createElement('button');
+        btnAceptar.id = 'aceptar-data-modal4';
+        btnAceptar.textContent = 'Aceptar';
+        let btnCerrar = document.getElementById('cerrar-modal4');
+        document.getElementById('cerrar-modal4').remove();
+
+        document.getElementById('cont-btn-modal4').appendChild(btnAceptar);
+        document.getElementById('cont-btn-modal4').appendChild(btnCerrar);
+        btnAceptar.style.marginLeft = 0;
+        btnCerrar.style.marginLeft = 0;
+
+
+
+        btnAceptar.addEventListener('click', async () => {
+            const nombreTitular = document.getElementById('input-serv-titular').value;
+            const numeroCliente = document.getElementById('input-serv-num-cliente').value;
+            const numeroMedidor = document.getElementById('input-serv-num-medidor').value;
+            const numeroPartida = document.getElementById('input-serv-num-partida').value;
+            const data = {idContrato, servicioName:nombreServicio, nombreTitular, numeroCliente, numeroMedidor, numeroPartida}
+            await addServiceData(data);
+            document.getElementById('aceptar-data-modal4').remove();
+            desplegarServiceData(String(nombreServicio));
+        })
+    }
+
+    if (!vacio && dataServicio.numeroCliente !== '') {
+        html += `
+        <p>${dataServicio.servicioName}</p>
+        <div class="cont-data-serv">
+            <p class="title-data">Titular: </p><p class="data-serv-titular" id="data-serv-titular">${dataServicio.nombreTitular}</p>
+        </div>
+        <div class="cont-data-serv">
+            <p class="title-data">Número de cliente: </p><p id="num-cliente">${dataServicio.numeroCliente}</p>
+            <svg class="btn-copy-data-serv" data-num=${dataServicio.numeroCliente} id="copy-num-cliente">
+                <use href="#copy-data" />
+            </svg>
+        </div>
+        `;
+    }
+    if (!vacio && dataServicio.numeroMedidor !== '') {
+        html += `
+        <div class="cont-data-serv">
+            <p class="title-data">Número de medidior: </p><p id="num-medidor">${dataServicio.numeroMedidor}</p>
+            <svg class="btn-copy-data-serv" data-num=${dataServicio.numeroMedidor} id="copy-num-medidor">
+                <use href="#copy-data" />
+            </svg>
+        </div>
+        `;
+    }
+    if (!vacio && dataServicio.numeroPartida !== '') {
+        html += `
+        <div class="cont-data-serv">
+            <p class="title-data">Número de partida: </p><p id="partida">${dataServicio.numeroPartida}</p>
+            <svg class="btn-copy-data-serv" data-num=${dataServicio.numeroPartida} id="copy-num-partida">
+                <use href="#copy-data" />
+            </svg>
+        </div>
+        `;
+    }
+
+    containerData.innerHTML = html;
+
+    let btnsCopy = document.querySelectorAll('.btn-copy-data-serv');
+    btnsCopy.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navigator.clipboard.writeText(btn.dataset.num);
+            console.log(btn.dataset.num);
+        })
+    })
+
+    document.getElementById('edit-servicedata').addEventListener('click', (e) => {
+        e.preventDefault();
+        editarServiceData(dataServicio.servicioName);
+    })
+}
+
+async function editarServiceData (nameService) {
+    //debugger
+    const nombreServicio = nameService;
+    console.log('editando servicio', nameService.idContrato, nameService.servicioName);
+    const idContrato = contratoLevantado[0].idContrato;
+    console.log(`parametros de busqueda:  idContrato = ${idContrato}, nombreServicio = ${nombreServicio.servicioName}`);
+    const dataServicio = await getServiceData(idContrato, servicioName = nombreServicio);
+    console.log('dataServicio edit servicio', dataServicio);
+
+    if (!dataServicio) {
+        alert(`Error al querer editar datos de servicio ${nombreServicio}`);
+        return;
+    }
+
+    const contDataServices = document.getElementById('content-services4');
+
+    let html = `
+    <p>Edicion de datos de servicio ${nombreServicio}</p>
+    <div class="cont-data-serv">
+    <p class="title-data">Titular: </p><input type="text" id="input-serv-titular" />
+        </div>
+        <div class="cont-data-serv">
+        <p class="title-data">Numero de cliente: </p><input type="text" id="input-serv-num-cliente" />
+        </div>
+        <div class="cont-data-serv">
+        <p class="title-data">Numero de medidor: </p><input type="text" id="input-serv-num-medidor" />
+        </div>
+        <div class="cont-data-serv">
+        <p class="title-data">Numero de partida: </p><input type="text" id="input-serv-num-partida" />
+        </div>
+        `
+    contDataServices.innerHTML = html;
+
+    document.getElementById('input-serv-titular').value = dataServicio.nombreTitular;
+    document.getElementById('input-serv-num-cliente').value = dataServicio.numeroCliente;
+    document.getElementById('input-serv-num-medidor').value = dataServicio.numeroMedidor;
+    document.getElementById('input-serv-num-partida').value = dataServicio.numeroPartida;
+
+    if (document.getElementById('aceptar-data-modal4')) {
+        document.getElementById('aceptar-data-modal4').remove();
+    }
+
+    document.getElementById('link-ir-pagina-servicio').style.display = 'none';
+    document.getElementById('edit-servicedata').style.display = 'none';
+    let btnAceptar = document.createElement('button');
+    btnAceptar.id = 'aceptar-data-modal4';
+    btnAceptar.textContent = 'Aceptar';
+    let btnCerrar = document.getElementById('cerrar-modal4');
+    document.getElementById('cerrar-modal4').remove();
+
+    document.getElementById('cont-btn-modal4').appendChild(btnAceptar);
+    document.getElementById('cont-btn-modal4').appendChild(btnCerrar);
+    btnAceptar.style.marginLeft = 0;
+    btnCerrar.style.marginLeft = 0;
+
+    btnAceptar.addEventListener('click', async () => {
+        const nombreTitular = document.getElementById('input-serv-titular').value;
+        const numeroCliente = document.getElementById('input-serv-num-cliente').value;
+        const numeroMedidor = document.getElementById('input-serv-num-medidor').value;
+        const numeroPartida = document.getElementById('input-serv-num-partida').value;
+        const data = {idContrato, servicioName:nombreServicio, nombreTitular, numeroCliente, numeroMedidor, numeroPartida}
+        const searchParams = {idContrato, servicioName:nombreServicio};
+        await editServiceData(searchParams, data);
+        document.getElementById('aceptar-data-modal4').remove();
+        desplegarServiceData(String(nombreServicio));
+    })
+
+}
+
+
+
+function cerrarModal4 () {
+    const modal4 = document.getElementById('modal4-background');
+    //const goToPageService = document.getElementById('link-ir-pagina-servicio');
+    modal4.classList.remove('is-visible');
+    //goToPageService.classList.remove('is-visible');
 }

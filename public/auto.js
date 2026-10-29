@@ -745,7 +745,7 @@ async function plantillaImprimirLiquidacionMensual(objetoLiquidacion) {
             ${reconstruccion}
         </div>
     `
-    console.log('template', template);
+    //console.log('template', template);
     newPopupImprimirLiquidacion(template)
 }
 
@@ -798,3 +798,18 @@ function listFunc(){
     })
 }
 console.log("funciones basicas: listFunc()");
+
+// Para que el navegador se refrezque automaticamente, solo para dev
+// la constante FRONTEND_ENV esta en ./public/frontend_env.config.js y el archivo en .gitignore
+(function() {
+    if (FRONTEND_ENV !== 'dev') { return; }
+    let wasUp = true;
+    setInterval(async () => {
+        try {
+            const r = await fetch('/api/ping', { method: 'HEAD' });
+            if (!wasUp && r.ok) { wasUp = true; location.reload(); }
+        } catch {
+            wasUp = false;
+        }
+    }, 1500);
+})();

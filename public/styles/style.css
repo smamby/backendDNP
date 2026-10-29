@@ -140,7 +140,7 @@ h2{
 #cabecera h4 {
     margin: 0px;
 }
-#btnEditar, #btnBorrar, #btnSave, #calc, .cont-btn button, #buscar-deuda-btn {
+#btnEditar, #btnBorrar, #btnSave, #calc, .cont-btn button, #buscar-deuda-btn, #aceptar-data-modal4 {
     margin-left: 8px;
     height: 24px;
     background-color: var(--btnAlert);
@@ -339,6 +339,16 @@ a:-webkit-any-link {
 
     color: inherit;
 }
+.serv-modal-btn {
+    font-family: 'Kanit', sans-serif;
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 100;
+    font-size: small;
+    margin: 0 0 2px;
+    padding: 0px;
+}
 
 input :not(input[type="button"]) {
     width: 140px;
@@ -362,7 +372,7 @@ input :not(input[type="button"]) {
     height: 18px;
 }
 
-.modal-background, .modal2-background, .modal3-background {
+.modal-background, .modal2-background, .modal3-background, .modal4-background{
     background: #020a14d1;
     visibility: hidden;
     opacity: 0;
@@ -377,13 +387,14 @@ input :not(input[type="button"]) {
 }
 .modal-background.is-visible,
 .modal2-background.is-visible,
-.modal3-background.is-visible {
+.modal3-background.is-visible,
+.modal4-background.is-visible {
     opacity: 1;
     visibility: visible;
     display: block;
     transition: opacity 0.4s ease;
 }
-.modal, .modal2, .modal3 {
+.modal, .modal2, .modal3, .modal4 {
     background: #fff;
     opacity: 1;
     border-radius: 8px;
@@ -399,7 +410,7 @@ input :not(input[type="button"]) {
     top: -800px;
     transition: top 0.4s ease;
 }
-.modal, .modal2 {
+.modal, .modal2, .modal4 {
     width: 480px;
     height: auto;
     max-height: 400px;
@@ -410,7 +421,7 @@ input :not(input[type="button"]) {
     top: 0px;
     transition: top 0.4s ease;
 }
-.modal2 {
+.modal2, .modal4 {
     top: 0px;
 }
 .modal3 {
@@ -419,7 +430,13 @@ input :not(input[type="button"]) {
     max-height: 85vh;
     justify-content: left;
 }
-#modal svg {
+.modal4 {
+    height: auto;
+    max-height: 85vh;
+    justify-content: left;
+    width: 360px;
+}
+#grid-services {
     position: absolute;
     top: 40px;
     right: 70px;
@@ -428,7 +445,7 @@ input :not(input[type="button"]) {
     cursor: pointer;
     color: var(--btnAlert);
 }
-#modal svg:hover {
+#grid-services:hover {
     color: #47c8f0;
 }
 #grid-services2 {
@@ -440,6 +457,29 @@ input :not(input[type="button"]) {
 #grid-services2:hover {
     color: #47c8f0;
 }
+.btn-copy-data-serv {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: var(--btnAlert);
+    fill: none;
+}
+.btn-copy-data-serv:hover {
+    color: #47c8f0;
+}
+#ir-pagina-servicio, #edit-servicedata{
+    color: var(--btnAlert);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    fill: none;
+}
+#ir-pagina-servicio:hover, #edit-servicedata:hover {
+    color: #47c8f0;
+}
+#ir-pagina-servicio {
+    translate: 0 1px;
+}
 .logo-serv {
     display: flex;
     align-items: center;
@@ -448,7 +488,8 @@ input :not(input[type="button"]) {
     height: auto;
     margin: 20px 0;
 }
-#title-modal-h3, #title-modal2-h3 {
+#title-modal-h3,
+#title-modal2-h3 {
     margin: 12px 0;
 }
 #cont-direction-serv-impagos {
@@ -459,17 +500,32 @@ input :not(input[type="button"]) {
     gap: 12px;
     height: 20px;
 }
-#cont-direction-serv-impagos p {
+#cont-direction-serv-impagos p,
+.cont-data-serv p {
     margin-top: 12px;
 }
-#serv-impagos-direccion-title, #data-bancaria-direccion-title {
+.cont-data-serv input[type="text"] {
+    border-radius: 6px;
+    border-color: var(--btnAlert);
+    border-style: double;
+}
+
+#serv-impagos-direccion-title,
+#data-bancaria-direccion-title,
+#serv-data-direccion-title,
+.title-data {
     font-family: sans-serif;
     font-weight: 100;
+    font-size: small;
 }
-#serv-impagos-direccion, #data-bancaria-direccion {
+#serv-impagos-direccion,
+#data-bancaria-direccion,
+#serv-data-direccion {
     font-weight: normal;
 }
-.content-services {
+.content-services,
+.content-services3,
+.content-services4 {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
@@ -477,20 +533,25 @@ input :not(input[type="button"]) {
     margin: 16px 0;
     justify-content: start;
     align-items: center;
+}
+.containerData {
+    align-items: start;
+}
+.content-services {
     width: 400px;
 }
 .content-services3 {
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    padding: 20px;
-    margin: 16px 0;
-    justify-content: start;
-    align-items: center;
     width: 560px;
+}
+.content-services4 {
+    width: 280px;
+}
+.content-services4 > p {
+    margin-bottom: 36px;
 }
 .content-services::-webkit-scrollbar,
 .content-services3::-webkit-scrollbar,
+.content-services4::-webkit-scrollbar,
 .cont-data-form::-webkit-scrollbar {
     width: 4px;
 }
@@ -509,13 +570,21 @@ input :not(input[type="button"]) {
 .cont-data-form::-webkit-scrollbar-thumb:hover {
     background: rgb(114, 189, 224);
 }
+.cont-data-serv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+}
 
 .cont-btn {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
     height: 64px;
 }
 

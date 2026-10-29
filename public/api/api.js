@@ -7,6 +7,7 @@ const r = 'recibos/';
 const p = 'printPDF/';
 const sm = 'sendMail/';
 const serv = 'services';
+const servData = 'servicedata';
 const daBa = 'databancaria';
 
 
@@ -166,6 +167,22 @@ async function getAllServicesById(idContrato) {
   }
 }
 
+async function getServiceData (idContrato, servicioName) {
+  if (!idContrato || !servicioName) {
+    console.error('[API] invalid search parameter');
+    return false;
+  }
+
+  try {
+    const data = await fetch(`/${servData}/${idContrato}/${servicioName}`);
+    const serviceData = await data.json();
+    return serviceData;
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    throw error;
+  }
+}
+
 
 async function getAllDataBancaria () {
   try {
@@ -215,28 +232,6 @@ async function getOneDataBancaria (idContrato) {
   }
 }
 
-// const r17 = {
-//   "numeroRecibo": 17,
-//   "fechaRecibo": "2021-10-04T03:00:00.000Z",
-//   "propietario": "Fernanda Ramirez",
-//   "inquilino": "Juana Colleman",
-//   "montoAlquiler": 57000,
-//   "fechaVencimiento": "2023-10-30T03:00:00.000Z",
-//   "textoTotal": "Cincuenta y siete mil",
-//   "detalles": [
-//     [
-//       "gas",
-//       -3000
-//     ],
-//     [
-//       "abl",
-//       -500
-//     ]
-//   ],
-//   "observaciones": "Adjunto recibo expensas mar 2023, luz mar 2023",
-//   "tipoHonorarios": "administracion",
-//   "idContrato": 435
-// }
 
 async function addRecibo(recibo){
   var numRecibo = recibo["numeroRecibo"]
@@ -296,6 +291,20 @@ async function addService(service) {
   return newService;
 }
 
+async function addServiceData(data) {
+  const newServiceData = await fetch('/'+servData, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  const text = await newServiceData.text();
+  console.log('res status: ', newServiceData.status, newServiceData.ok, text);
+  return newServiceData;
+}
+
 async function addDataBancaria(dataBancaria) {
   const newDataBancaria = await fetch('/'+daBa, {
     method: 'POST',
@@ -309,6 +318,8 @@ async function addDataBancaria(dataBancaria) {
   console.log('res status: ', newDataBancaria.status, newDataBancaria.ok, text);
   return newDataBancaria;
 }
+
+
 
 async function editDataBancaria(idContrato, dataBancaria) {
   const filter = {idContrato: idContrato};
@@ -369,6 +380,21 @@ async function editService(searchParams, changes) {
   return serviceEdited;
 }
 
+async function editServiceData(searchParams, changes) {
+  const idContrato = searchParams.idContrato;
+  const servicioName = searchParams.servicioName;
+  console.log(`/${servData}?idContrato=${idContrato}&servicioName=${servicioName}`)
+  const serviceDataEdited = await fetch(`/${servData}/${idContrato}/${servicioName}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(changes)
+  })
+  console.log('Service data edited: ', await serviceDataEdited.json());
+  return serviceDataEdited;
+}
+
 async function deleteContrato(searchParam){
   if(confirm('Vas a eliminar definitivamente el contrato N° '+contratoLevantado[0]["idContrato"])){
     const deleted = await fetch('/'+c+searchParam, {
@@ -412,6 +438,7 @@ async function imprimirReciboPDFBack(inbody,filename){
 
   mostrarSpinner();
 
+  console.error('[[[API entrando al fetch]]]');
   try {
     const response = await fetch('/'+p, {
       method: 'POST',
