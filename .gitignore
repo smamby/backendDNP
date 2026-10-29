@@ -3,6 +3,6 @@ node_modules
 /public/assets/*.psd
 /public/assets/*.jpeg
 /public/styles/impPDFincrustado-normal-size.css
-/public/frontend_env.config.js
+/public/config/frontend_env.config.js
 /components/impPDF/pdfs
 .env

@@ -36,6 +36,3 @@ const SERVICE_LINKS = {
         icono: 'home'
     }
 };
-
-
-module.exports = SERVICE_LINKS;

@@ -656,7 +656,7 @@ async function desplegarServiceData(nameService) {
     const direccion = document.getElementById('serv-data-direccion');
     const containerData = document.getElementById('content-services4');
     const accessPage = document.getElementById('link-ir-pagina-servicio');
-    document.getElementById('ir-pagina-servicio').style.display = 'block';
+    document.getElementById('link-ir-pagina-servicio').style.display = 'block';
     document.getElementById('edit-servicedata').style.display = 'block';
     direccion.textContent = '';
     let idContrato = Number(contratoLevantado[0].idContrato);
@@ -693,7 +693,7 @@ async function desplegarServiceData(nameService) {
             <p class="title-data">Numero de partida: </p><input type="text" id="input-serv-num-partida" />
         </div>
         `
-        document.getElementById('link-ir-pagina-servicio').style.display = 'none';
+        document.getElementById('link-ir-pagina-servicio').style.display = 'block';
         document.getElementById('edit-servicedata').style.display = 'none';
         let btnAceptar = document.createElement('button');
         btnAceptar.id = 'aceptar-data-modal4';

@@ -44,7 +44,7 @@ const server = app.listen(port, '0.0.0.0', ()=>{
     // console.log('origin', SERVER_BASE_URL);
 
     // exec(`start "" brave --app=http://localhost:${port}/index.html`);
-    if (process.env.NODE_ENV === 'wproduction') {
+    if (process.env.NODE_ENV === 'production') {
         const brave = 'C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe';
         const url = `http://localhost:${port}/index.html`;
 

@@ -1,1 +1,1 @@
-const FRONTEND_ENV = 'dev';
+const FRONTEND_ENV = 'prod';
