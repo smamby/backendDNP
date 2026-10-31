@@ -502,7 +502,10 @@ function valorAlquiler(){
 function valorComision(valor){
     var comSel = document.getElementById("comisionSelect").value;
     let comAdmin = Math.round(parseInt(valor)*0.05);
-    let comRenov = Math.round(parseInt(itemEncontrado.valor1)*36*0.0415);
+    let mesesContrato = contratoLevantado[0].duracionContrato 
+        || document.getElementById('periodoActualizacion').value
+    console.log('[[auto meses contrat]]', mesesContrato)
+    let comRenov = Math.round(parseInt(itemEncontrado.valor1)*mesesContrato*0.0415);
     if(comSel === 'administracion'){
         return comAdmin;
     } else if (comSel === 'firma') {
