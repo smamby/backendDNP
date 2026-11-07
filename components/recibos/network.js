@@ -71,16 +71,31 @@ router.post('/', (req,res)=>{
 //     "montoAlquiler": 46500
 // }
 
-router.patch('/:num', (req,res)=>{
-    console.log('[network]',req.body);
-    controller.editRecibo(req.params.num, req.body)
-        .then((change)=>{
-            res.json(change)
-        })
-        .catch(error => {
-            res.send(error)
-        })
-})
+// router.patch('/:num', (req,res)=>{
+//     console.log('[network]',req.body);
+//     controller.editRecibo(req.params.num, req.body)
+//         .then((change)=>{
+//             res.json(change)
+//         })
+//         .catch(error => {
+//             res.send(error)
+//         })
+// })
+router.patch('/:idContrato/:numeroRecibo', async (req, res) => {
+  try {
+    const idContrato = Number(req.params.idContrato);
+    const numeroRecibo = Number(req.params.numeroRecibo);
+    const data = req.body;
+
+    // Pasamos un objeto con ambos criterios al controlador
+    const searchParams = { idContrato, numeroRecibo };
+    const recibo = await controller.editRecibo(searchParams, data);
+
+    res.status(200).json(recibo);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 
 
 // router.delete('/:id', (res,req)=>{

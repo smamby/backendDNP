@@ -227,13 +227,14 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    height: 24px;
 }
 .cont-detalle, .cont-detalle-prop, .cont-detalleOP {
     display: flex;
     justify-content: start;
     width: 70%;
 }
-#cont-det, #cont-det-prop{
+#cont-det, #cont-det-prop, #cont-det-only-inq {
     display: flex;
     flex-direction: column;
     max-width: 548px;

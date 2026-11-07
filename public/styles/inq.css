@@ -173,7 +173,67 @@ body {
 }
 .inputs{
     margin-bottom: 12px;
+    display: inline-flex;
+    height: 26px;
 }
+#nuevoGasto{
+    width: 190px;
+}
+#nuevoMonto {
+    width: 120px;
+    margin-right: 8px;
+}
+#cont-only-inq {
+    margin-left: 16px;
+    width: auto;
+    border-radius: 4px;
+    padding: 0 4px;
+    cursor: pointer;
+}
+#cont-only-inq svg {
+    color: #eed4d4;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+#ckb-only-inq:checked + svg,
+#ckb-only-inq:checked + svg use,
+#ckb-only-inq:checked + svg path {
+    color: #db2f2f !important;
+    fill: #db2f2f !important;
+    stroke: #db2f2f !important;
+}
+#cont-only-inq input[type='checkbox'] {
+    accent-color: #db2f2f;
+}
+
+#ckb-only-inq {
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 14px;
+    height: 14px;
+
+    accent-color: #db2f2f;
+
+    border: 2px solid #db2f2f; /* Aquí pintas el borde del color que quieras */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    background-color: transparent;
+
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+#ckb-only-inq:hover {
+    color: var(--btnAlertFont); /* El fondo se llena con el color del borde */
+}
+#ckb-only-inq:checked {
+    background-color: #db2f2f;
+    border: 2px solid #db2f2f;
+}
+
 .inquilino{
     border-top: 1px solid black;
     border-bottom: 1px solid black;
@@ -194,8 +254,33 @@ body {
     display: flex;
     justify-content: start;
     width: 70%;
+    gap: 8px;
 }
-#cont-det, #cont-det-prop{
+#onlyinq-svg {
+    color: var(--btnAlert);
+    display: inline-block;
+    vertical-align: middle;
+}
+#onlyinq-svg-detalles {
+    width: 100%;
+    height: 100%;
+    color: #db2f2f;
+    display: inline-block;
+    vertical-align: middle;
+}
+.svg-flag-only-inq {
+    display: inline-block;
+    width: 16px;    /* Ancho explícito para que el 100% del SVG tenga referencia */
+    height: 16px;   /* Alto explícito */
+    vertical-align: middle;
+}
+.svg-flag-only-inq svg {
+    display: inline-block;
+    width: 16px;    /* Ancho explícito para que el 100% del SVG tenga referencia */
+    height: 16px;   /* Alto explícito */
+    vertical-align: middle;
+}
+#cont-det, #cont-det-only-inq, #cont-det-prop{
     display: flex;
     flex-direction: column;
     max-width: 545px;

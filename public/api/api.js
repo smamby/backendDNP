@@ -336,8 +336,11 @@ async function editDataBancaria(idContrato, dataBancaria) {
 }
 
 async function editRecibo(dataNueva){
-  searchParam = reciboLevantado[0]["numeroRecibo"];
-  const recibo = await fetch('/'+r+searchParam, {
+  const numeroRecibo = reciboLevantado[0]["numeroRecibo"];
+  const idContrato = reciboLevantado[0]["idContrato"];
+  const url = `/${r}/${idContrato}/${numeroRecibo}`;
+
+  const recibo = await fetch(url, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -345,7 +348,7 @@ async function editRecibo(dataNueva){
     body: JSON.stringify(dataNueva)
   })
   console.log(recibo)
-  console.log('Recibo n°'+searchParam+' editado')
+  console.log('Recibo n°'+numeroRecibo+' editado')
 }
 
 async function editContrato(dataNueva){

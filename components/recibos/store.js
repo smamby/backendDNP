@@ -28,6 +28,7 @@ async function getRecibosForLiquidaciones(fechaVencimiento) {
         idContrato: 1,
         numeroRecibo: 1,
         detalles: 1,
+        detallesOnlyInq: 1,
         detallesOnlyProp: 1,
         montoAlquiler: 1,
         tipoHonorarios: 1,
@@ -47,8 +48,11 @@ function addRecibo(nuevoRecibo){
     recibo.save();
 }
 
-async function editRecibo(searchParam, change){
-    let filter = {numeroRecibo:searchParam}
+async function editRecibo(searchParams, change){
+    let filter = {
+        numeroRecibo: searchParams.numeroRecibo,
+        idContrato: searchParams.idContrato
+    };
 
     const reciboActualizado = await Model.findOneAndUpdate(
         filter,

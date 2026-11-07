@@ -165,6 +165,8 @@ async function impInq() {
         var observacionesPrint = document.getElementById("observacionesPrint");
         var observacionesPrintProp = document.getElementById("obsProp");
 
+
+
         // await guardarServiciosNuevos();
         //
         let num = reciboLevantado.length > 0
@@ -281,6 +283,11 @@ function sumarDetalleInq(nuevoMonto){
     detalleTotal -= nuevoMonto;
     console.log('detalleTotal',detalleTotal)
 }
+function sumarDetalleOnlyInq(nuevoMonto){
+    //nuevoMonto = new Intl.NumberFormat('de-DE').format(nuevoMonto)
+    detalleTotal -= nuevoMonto;
+    console.log('detalleSoloinqTotal',detalleTotal)
+}
 function sumarDetalleProp(nuevoMonto){
     //nuevoMonto = new Intl.NumberFormat('de-DE').format(nuevoMonto)
     detalleTotalProp -= nuevoMonto;
@@ -288,10 +295,18 @@ function sumarDetalleProp(nuevoMonto){
 function sumarDetalleOnlyProp(nuevoMonto){
     //nuevoMonto = new Intl.NumberFormat('de-DE').format(nuevoMonto)
     detalleTotalOnlyProp -= nuevoMonto;
-}
-
-var items = [];
+};
 async function insertarDetalles(){
+
+    let chkOnlyInq = document.getElementById("ckb-only-inq").checked;
+    if(chkOnlyInq){
+        await insertarDetallesOnlyInq();
+    }else{
+        await insertarDetallesNormal();
+    }
+}
+var items = [];
+async function insertarDetallesNormal(){
     //debugger
     // inputs
     var nuevoGastoInput = document.getElementById("nuevoGasto").value;
@@ -333,12 +348,13 @@ async function insertarDetalles(){
     sumarDetalleInq (newItem[1]);
     sumarDetalleProp (newItem[1]);
     items.push(newItem);
+    reciboLevantado[0].detalles = items;
 
     // Formato de detalle nuevo
     let delBtn = document.createElement("button");
     delBtn.type = "button";
     delBtn.classList.add("del-det");
-    delBtn.dataset.index = items.length-1;
+    delBtn.dataset.index = items.length - 1;
     delBtn.innerHTML = "🗑";
     delBtn.onclick = async function() {
         const indiceABorrar = parseInt(delBtn.dataset.index);
@@ -377,6 +393,7 @@ async function insertarDetalles(){
     contNewLineProp.appendChild(contNewMontoProp);
     contDetProp.appendChild(contNewLineProp);
 
+    reciboLevantado[0].detalles = items
 
     // contNewDetProp.innerHTML += "- "+newItem[0]+"<br>";
     // contNewMontoProp.innerHTML += "$ "+newItemImp1+'.-'+"<br>";
@@ -387,6 +404,128 @@ async function insertarDetalles(){
     document.getElementById("nuevoGasto").focus();
 
     // Imprimir datos
+    await impInq();
+}
+let chkOnliInq = false;
+let soloInqCkb = document.getElementById("ckb-only-inq");
+soloInqCkb.addEventListener("change", function(e) {
+    e.preventDefault();
+    if (soloInqCkb.checked) {
+        chkOnliInq = true;
+    } else {
+        chkOnliInq = false;
+    }
+});
+
+let itemsOnlyInq= [];
+async function insertarDetallesOnlyInq(){
+    // inputs
+    var nuevoGastoInput = document.getElementById("nuevoGasto").value;
+    var nuevoMontoInput = document.getElementById("nuevoMonto").value;
+
+    // Estructura de datos
+    var newItem = [nuevoGastoInput, nuevoMontoInput];
+    sumarDetalleOnlyInq(newItem[1]);
+    itemsOnlyInq.push(newItem);
+    console.log('itemsOnlyInq', itemsOnlyInq);
+
+
+    reciboLevantado[0].detallesOnlyInq = itemsOnlyInq;
+    console.log('reciboLevantado[0].detallesOnlyInq', reciboLevantado[0].detallesOnlyInq);
+
+    // CONTENEDORES CON ALCANCE CORRECTO (Declarados aquí para usarse abajo)
+    var contDet = document.getElementById("cont-det-only-inq");
+    contDet.style.display = "flex";
+
+    let contNewLine = document.createElement("div");
+    contNewLine.classList.add("line-detalle");
+    contNewLine.id = `${itemsOnlyInq.length - 1}`;
+
+    let contNewDet = document.createElement("div");
+    contNewDet.classList.add("cont-detalle");
+    let contNewMonto = document.createElement("div");
+    contNewMonto.classList.add("cont-montos");
+
+
+    // Formato de detalle nuevo (Botón de eliminar)
+    let delBtn = document.createElement("button");
+    delBtn.type = "button";
+    delBtn.classList.add("del-det");
+    delBtn.dataset.index = itemsOnlyInq.length - 1;
+    delBtn.innerHTML = "🗑";
+
+    delBtn.onclick = async function() {
+        const indiceABorrar = parseInt(delBtn.dataset.index);
+        itemsOnlyInq.splice(indiceABorrar, 1);
+        contDet.textContent = '';
+
+
+        reciboLevantado[0].detallesOnlyInq = itemsOnlyInq;
+        detalleTotal = 0;
+        await impInq();
+        await cargarRecibo();
+        document.getElementById("nuevoGasto").focus();
+    }
+
+    // Contenedor para el SVG
+    let svgFlagOnlyInq = document.createElement("span");
+    svgFlagOnlyInq.classList.add("svg-flag-only-inq");
+    svgFlagOnlyInq.dataset.index = items.length - 1;
+
+    // 1. URL DE NAMESPACE CORREGIDA (Estricta para navegadores)
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    // 2. Crear la etiqueta <svg> en el espacio de nombres de vectores
+    let svgElement = document.createElementNS(svgNS, "svg");
+    svgElement.setAttribute("width", "100%");
+    svgElement.setAttribute("height", "100%");
+    svgElement.setAttribute("viewBox", "0 0 600 600");
+    svgElement.setAttribute("id", "onlyinq-svg-detalles");
+
+    // 3. Crear la etiqueta <use> vinculada al símbolo original de tu HTML
+    let useElement = document.createElementNS(svgNS, "use");
+    useElement.setAttribute("href", "#svg-onlyinq");
+
+    // 4. Armar la estructura del SVG
+    svgElement.appendChild(useElement);
+    svgFlagOnlyInq.appendChild(svgElement);
+
+    // SOLUCIÓN AL TEXTO: Limpiamos y agregamos el texto como un nodo independiente
+    contNewDet.innerHTML = '';
+    contNewMonto.innerHTML = '';
+
+    // Agregamos primero el texto base sin romper los appendChild siguientes
+    let textoDetalle = document.createTextNode("- " + newItem[0] + " ");
+    contNewDet.appendChild(textoDetalle);
+
+    // Ahora sí insertamos de forma segura el SVG y el Botón de basura
+    contNewDet.appendChild(svgFlagOnlyInq);
+    contNewDet.appendChild(delBtn);
+
+    // Formato del monto monetario
+    let newItemImp1 = new Intl.NumberFormat('de-DE').format(newItem[1]);
+    contNewMonto.textContent = "$ " + newItemImp1 + '.-';
+
+    console.log('[[auto itemsOnlyInq]]', itemsOnlyInq);
+    reciboLevantado[0].detallesOnlyInq = itemsOnlyInq
+    console.log('reciboLevantado[0].detallesOnlyInq', reciboLevantado[0].detallesOnlyInq);
+    //await guardarRecibo();
+
+    // Construcción de la fila final en el DOM
+    contNewLine.appendChild(contNewDet);
+    contNewLine.appendChild(contNewMonto);
+    contDet.appendChild(contNewLine);
+
+    // Resetear Checkbox
+    soloInqCkb.checked = false;
+    chkOnliInq = false;
+
+    // Limpieza y focus en inputs
+    document.getElementById("nuevoGasto").value = '';
+    document.getElementById("nuevoMonto").value = '';
+    document.getElementById("nuevoGasto").focus();
+
+    // Imprimir datos externos
     await impInq();
 }
 
@@ -444,6 +583,8 @@ async function insertDetOnlyProp(){
     contNewLineProp.appendChild(contMontOP);
     contDetOnlyProp.appendChild(contNewLineProp);
 
+    reciboLevantado[0].detallesOnlyProp = itemsOnlyProp
+
     document.getElementById("nuevoGastoOnlyProp").value = '';
     document.getElementById("nuevoMontoOnlyProp").value = '';
     document.getElementById("nuevoGastoOnlyProp").focus();
@@ -456,8 +597,10 @@ async function deleteDetalle(){
     // document.getElementById("cont-detalleProp").innerHTML = '';
     // document.getElementById("cont-montosProp").innerHTML = '';
     document.getElementById("cont-det").innerHTML = '';
+    document.getElementById('cont-det-only-inq').innerHTML = '';
     document.getElementById("cont-det-prop").innerHTML = '';
     items = [];
+    itemsOnlyInq = [];
     detalleTotal = 0;
     detalleTotalProp = 0;
     //document.getElementById("pesos").value = '';
@@ -465,6 +608,12 @@ async function deleteDetalle(){
     await impInq();
 }
 
+async function deleteDetalleOnlyInq(){
+    document.getElementById("cont-new-det-only-inq").innerHTML = '';
+    itemsOnlyInq = [];
+    //detalleTotal = 0;
+    await impInq();
+}
 async function deleteDetalleOnlyProp(){
     document.getElementById("cont-new-det-only-prop").innerHTML = '';
     itemsOnlyProp = [];
@@ -502,9 +651,8 @@ function valorAlquiler(){
 function valorComision(valor){
     var comSel = document.getElementById("comisionSelect").value;
     let comAdmin = Math.round(parseInt(valor)*0.05);
-    let mesesContrato = contratoLevantado[0].duracionContrato 
+    let mesesContrato = contratoLevantado[0].duracionContrato
         || document.getElementById('periodoActualizacion').value
-    console.log('[[auto meses contrat]]', mesesContrato)
     let comRenov = Math.round(parseInt(itemEncontrado.valor1)*mesesContrato*0.0415);
     if(comSel === 'administracion'){
         return comAdmin;

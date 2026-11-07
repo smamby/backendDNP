@@ -501,10 +501,16 @@ var numRecibo;
 var fechaRecibo;
 async function cargarRecibo(){
    items = [];
+   itemsOnlyInq = [];
    itemsOnlyProp = [];
+
    var recibo = reciboLevantado[0];
    numRecibo = recibo["numeroRecibo"];
    fechaRecibo = recibo["fechaRecibo"];
+   items = recibo["detalles"];
+   itemsOnlyInq = recibo["detallesOnlyInq"];
+   itemsOnlyProp = recibo["detallesOnlyProp"];
+
    //document.getElementById('date').innerHTML = recibo["fechaRecibo"];
    //document.getElementById('dateProp').innerHTML = recibo["fechaRecibo"];
    document.getElementById("num").innerHTML = '';
@@ -517,39 +523,217 @@ async function cargarRecibo(){
    //document.getElementById("pesos").value = recibo["textoTotal"];
    document.getElementById("observacionesInput").value = recibo["observaciones"];
    document.getElementById("comisionSelect").value = recibo["tipoHonorarios"]
-   var detallesRecibo = recibo.detalles;
+
    var contDet = document.getElementById("cont-det")
+   let contDetOnlyInq = document.getElementById("cont-det-only-inq")
    var contDetProp = document.getElementById("cont-det-prop")
    var contNewDetOnlyProp = document.getElementById("cont-new-det-only-prop")
-   contDet.textContent = '';
-   contDetProp.textContent = '';
-   //contNewDetOnlyProp.textContent = '';
-   for (var detalle of detallesRecibo){
-      document.getElementById("nuevoGasto").value = detalle[0];
-      document.getElementById("nuevoMonto").value = detalle[1];
-      insertarDetalles()
-   }
-   var detallesReciboOnlyProp = recibo.detallesOnlyProp;
-   for (var detalle of detallesReciboOnlyProp){
-      document.getElementById("nuevoGastoOnlyProp").value = detalle[0];
-      document.getElementById("nuevoMontoOnlyProp").value = detalle[1];
-      insertDetOnlyProp();
-   }
-   await getServices(numRecibo)
-      //.then( res => res.json())
-      .then( data => {
-         console.log('data', data)
-         let serviceObjectForElements = {};
-         let servicesArrayFotElements = []
-         for (let d of data) {
-            serviceObjectForElements[d.nombreServicio] = true;
-         }
-         servicesArrayFotElements.push(serviceObjectForElements);
-         console.log('servicesArrayFotElements', servicesArrayFotElements);
-         desplegarServiciosYImpuestos(servicesArrayFotElements)
-      })
 
-   cargarServicios();
+   contDet.textContent = '';
+   contDetOnlyInq.textContent = '';
+   contDetProp.textContent = '';
+   contNewDetOnlyProp.textContent = '';
+
+   // let detallesRecibo = recibo.detalles || items;
+   // for (var detalle of detallesRecibo){
+   //    document.getElementById("nuevoGasto").value = detalle[0];
+   //    document.getElementById("nuevoMonto").value = detalle[1];
+   //    insertarDetalles()
+   // }
+   // let detallesReciboOnlyInq = recibo.detallesOnlyInq || itemsOnlyInq;
+   // for (var detalle of detallesReciboOnlyInq){
+   //    document.getElementById("nuevoGastoOnlyInq").value = detalle[0];
+   //    document.getElementById("nuevoMontoOnlyInq").value = detalle[1];
+   //    insertarDetallesOnlyInq();
+   // }
+   // let detallesReciboOnlyProp = recibo.detallesOnlyProp || itemsOnlyProp;
+   // for (var detalle of detallesReciboOnlyProp){
+   //    document.getElementById("nuevoGastoOnlyProp").value = detalle[0];
+   //    document.getElementById("nuevoMontoOnlyProp").value = detalle[1];
+   //    insertDetOnlyProp();
+   // }
+
+   // await getServices(numRecibo)
+   //    //.then( res => res.json())
+   //    .then( data => {
+   //       console.log('data', data)
+   //       let serviceObjectForElements = {};
+   //       let servicesArrayFotElements = []
+   //       for (let d of data) {
+   //          serviceObjectForElements[d.nombreServicio] = true;
+   //       }
+   //       servicesArrayFotElements.push(serviceObjectForElements);
+   //       console.log('servicesArrayFotElements', servicesArrayFotElements);
+   //       desplegarServiciosYImpuestos(servicesArrayFotElements)
+   //    })
+
+   // await cargarServicios();
+
+   contDet.textContent = '';
+    contDetProp.textContent = '';
+    if (contDetOnlyInq) contDetOnlyInq.textContent = '';
+    if (contNewDetOnlyProp) contNewDetOnlyProp.textContent = '';
+
+   // 3. Renderizar los normales de forma rápida
+// 3. Renderizar los normales en pantalla
+    items.forEach((detalle, i) => {
+        sumarDetalleInq(detalle[1]);
+        sumarDetalleProp(detalle[1]);
+
+        var contDet = document.getElementById("cont-det");
+        var contDetProp = document.getElementById("cont-det-prop");
+        contDet.style.display = "flex";
+        contDetProp.style.display = "flex";
+
+        let contNewLine = document.createElement("div");
+        contNewLine.classList.add("line-detalle");
+        let contNewLineProp = document.createElement("div");
+        contNewLineProp.classList.add("line-detalle-prop");
+
+        let contNewDet = document.createElement("div");
+        contNewDet.classList.add("cont-detalle");
+        let contNewMonto = document.createElement("div");
+        contNewMonto.classList.add("cont-montos");
+
+        let contNewDetProp = document.createElement("div");
+        contNewDetProp.classList.add("cont-detalle-prop");
+        let contNewMontoProp = document.createElement("div");
+        contNewMontoProp.classList.add("cont-montos-prop");
+
+        let delBtn = document.createElement("button");
+        delBtn.type = "button";
+        delBtn.classList.add("del-det");
+        delBtn.dataset.index = i;
+        delBtn.innerHTML = "🗑";
+        delBtn.onclick = async function() {
+            items.splice(parseInt(delBtn.dataset.index), 1);
+            reciboLevantado[0].detalles = items;
+            detalleTotal = 0; detalleTotalProp = 0; detalleTotalOnlyProp = 0;
+            await impInq();
+            await cargarRecibo();
+        }
+
+        let newItemImp1 = new Intl.NumberFormat('de-DE').format(detalle[1]);
+
+        contNewDet.textContent = "- " + detalle[0] + " ";
+        contNewDet.appendChild(delBtn);
+        contNewMonto.textContent = "$ " + newItemImp1 + '.-';
+        contNewLine.appendChild(contNewDet);
+        contNewLine.appendChild(contNewMonto);
+        contDet.appendChild(contNewLine);
+
+        contNewDetProp.textContent = "- " + detalle[0] + " ";
+        contNewMontoProp.textContent = "$ " + newItemImp1 + '.-';
+        contNewLineProp.appendChild(contNewDetProp);
+        contNewLineProp.appendChild(contNewMontoProp);
+        contDetProp.appendChild(contNewLineProp);
+    });
+
+    // 4. Renderizar los OnlyInq en pantalla
+    itemsOnlyInq.forEach((detalle, i) => {
+        sumarDetalleOnlyInq(detalle[1]);
+
+        var contDet = document.getElementById("cont-det-only-inq");
+        contDet.style.display = "flex";
+
+        let contNewLine = document.createElement("div");
+        contNewLine.classList.add("line-detalle");
+
+        let contNewDet = document.createElement("div");
+        contNewDet.classList.add("cont-detalle");
+        let contNewMonto = document.createElement("div");
+        contNewMonto.classList.add("cont-montos");
+
+        let delBtn = document.createElement("button");
+        delBtn.type = "button";
+        delBtn.classList.add("del-det");
+        delBtn.dataset.index = i;
+        delBtn.innerHTML = "🗑";
+        delBtn.onclick = async function() {
+            itemsOnlyInq.splice(parseInt(delBtn.dataset.index), 1);
+            reciboLevantado[0].detallesOnlyInq = itemsOnlyInq;
+            detalleTotal = 0;
+            await impInq();
+            await cargarRecibo();
+        }
+
+        // SVG para inquilino exclusivo
+        let svgFlagOnlyInq = document.createElement("span");
+        svgFlagOnlyInq.classList.add("svg-flag-only-inq");
+        const svgNS = "http://www.w3.org/2000/svg";
+        let svgElement = document.createElementNS(svgNS, "svg");
+        svgElement.setAttribute("width", "100%");
+        svgElement.setAttribute("height", "100%");
+        svgElement.setAttribute("viewBox", "0 0 600 600");
+        svgElement.setAttribute("id", "onlyinq-svg-detalles");
+        let useElement = document.createElementNS(svgNS, "use");
+        useElement.setAttribute("href", "#svg-onlyinq");
+        svgElement.appendChild(useElement);
+        svgFlagOnlyInq.appendChild(svgElement);
+
+        let textoDetalle = document.createTextNode("- " + detalle[0] + " ");
+        contNewDet.appendChild(textoDetalle);
+        contNewDet.appendChild(svgFlagOnlyInq);
+        contNewDet.appendChild(delBtn);
+
+        let newItemImp1 = new Intl.NumberFormat('de-DE').format(detalle[1]);
+        contNewMonto.textContent = "$ " + newItemImp1 + '.-';
+
+        contNewLine.appendChild(contNewDet);
+        contNewLine.appendChild(contNewMonto);
+        contDet.appendChild(contNewLine);
+    });
+
+    // 5. Renderizar los OnlyProp en pantalla
+    itemsOnlyProp.forEach((detalle, i) => {
+        sumarDetalleOnlyProp(detalle[1]);
+
+        var contDetOnlyProp = document.getElementById("cont-new-det-only-prop");
+        contDetOnlyProp.style.display = "flex";
+
+        let contNewLineProp = document.createElement("div");
+        contNewLineProp.classList.add("line-detalle-prop-only");
+
+        let contDetOP = document.createElement("div");
+        contDetOP.classList.add("cont-detalleOP");
+        let contMontOP = document.createElement("div");
+        contMontOP.classList.add("cont-montosOP");
+
+        let delBtnOP = document.createElement("button");
+        delBtnOP.type = "button";
+        delBtnOP.classList.add("del-detOP");
+        delBtnOP.dataset.index = i;
+        delBtnOP.innerHTML = "🗑";
+        delBtnOP.onclick = async function() {
+            itemsOnlyProp.splice(parseInt(delBtnOP.dataset.index), 1);
+            reciboLevantado[0].detallesOnlyProp = itemsOnlyProp;
+            detalleTotal = 0; detalleTotalProp = 0; detalleTotalOnlyProp = 0;
+            await impInq();
+            await cargarRecibo();
+        }
+
+        contDetOP.textContent = "- " + detalle[0] + " ";
+        contDetOP.appendChild(delBtnOP);
+        var newItemImp1OP = new Intl.NumberFormat('de-DE').format(detalle[1]);
+        contMontOP.textContent = "$ " + newItemImp1OP + '.-';
+        contNewLineProp.appendChild(contDetOP);
+        contNewLineProp.appendChild(contMontOP);
+        contDetOnlyProp.appendChild(contNewLineProp);
+    });
+
+// 6. Servicios y cierre único (sin bucles de guardado)
+await getServices(numRecibo).then(data => {
+    let serviceObjectForElements = {};
+    let servicesArrayFotElements = [];
+    for (let d of data) {
+        serviceObjectForElements[d.nombreServicio] = true;
+    }
+    servicesArrayFotElements.push(serviceObjectForElements);
+    desplegarServiciosYImpuestos(servicesArrayFotElements);
+});
+
+await cargarServicios();
+await impInq();
 }
 
 const inputDateVence = document.getElementById("vence");
@@ -597,9 +781,11 @@ async function guardarRecibo(){
    var montoAlquiler = valAlq;
    var tipoHonorario = document.getElementById("comisionSelect").value;
    var detallesRecibo = reciboLevantado.length != 0 ? items : [];
-   var detallesReciboOnlyProp = reciboLevantado.length!=0? itemsOnlyProp: [];
+   let detallesReciboOnlyInq = reciboLevantado.length != 0 ? itemsOnlyInq : [];
+   var detallesReciboOnlyProp = reciboLevantado.length != 0 ? itemsOnlyProp : [];
 
    console.log('detalles: ', detallesRecibo);
+   console.log('detallesOnlyInq: ', detallesReciboOnlyInq);
    console.log('detallesOnlyProp: ', detallesReciboOnlyProp);
 
    var bodyRecibo = {
@@ -610,6 +796,7 @@ async function guardarRecibo(){
       "montoAlquiler": montoAlquiler,
       "fechaVencimiento": dateVence,
       "detalles": detallesRecibo,
+      "detallesOnlyInq": detallesReciboOnlyInq,
       "detallesOnlyProp": detallesReciboOnlyProp,
       "observaciones": observaciones,
       "tipoHonorarios": tipoHonorario,

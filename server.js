@@ -38,6 +38,7 @@ routes(app); //router tiene que estar despues de cors!!
 const server = app.listen(port, '0.0.0.0', ()=>{
     console.log(`Version 6.2 - 2026-11`)
     console.log('http://localhost:'+port)
+    console.log('[ENV]', process.env.NODE_ENV)
     // const protocol = req.protocol; // 'http' o 'https'
     // const host = req.get('host');   // Ej: '192.168.1.50:5500' o 'localhost:5500'
     // const SERVER_BASE_URL = `${protocol}://${host}`;
