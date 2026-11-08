@@ -200,12 +200,12 @@ body {
 #ckb-only-inq:checked + svg,
 #ckb-only-inq:checked + svg use,
 #ckb-only-inq:checked + svg path {
-    color: #db2f2f !important;
-    fill: #db2f2f !important;
-    stroke: #db2f2f !important;
+    color: #ba3636 !important;
+    fill: #ba3636 !important;
+    stroke: #ba3636 !important;
 }
 #cont-only-inq input[type='checkbox'] {
-    accent-color: #db2f2f;
+    accent-color: #ba3636;
 }
 
 #ckb-only-inq {
@@ -215,9 +215,9 @@ body {
     width: 14px;
     height: 14px;
 
-    accent-color: #db2f2f;
+    accent-color: #ba3636;
 
-    border: 2px solid #db2f2f; /* Aquí pintas el borde del color que quieras */
+    border: 2px solid #ba3636; /* Aquí pintas el borde del color que quieras */
     border-radius: 4px; /* Bordes ligeramente redondeados */
     background-color: transparent;
 
@@ -230,8 +230,8 @@ body {
     color: var(--btnAlertFont); /* El fondo se llena con el color del borde */
 }
 #ckb-only-inq:checked {
-    background-color: #db2f2f;
-    border: 2px solid #db2f2f;
+    background-color: #ba3636;
+    border: 2px solid #ba3636;
 }
 
 .inquilino{
